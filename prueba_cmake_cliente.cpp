@@ -1,6 +1,6 @@
 #include <iostream>
 
-int main(){
+int main(int argc,char* argv[]){
 
     std::cout << "Archivo a compilar por cmake" << std::endl;
     //Una vez que compila, genera un archivo ejecutable en la carpeta

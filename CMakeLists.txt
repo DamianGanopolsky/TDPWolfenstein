@@ -4,4 +4,6 @@ project(cmake-demo)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Werror")
 
-add_executable(ejecutable prueba_cmake.cpp)
+add_executable(cliente prueba_cmake_cliente.cpp)
+
+add_executable(servidor prueba_servidor.cpp)
