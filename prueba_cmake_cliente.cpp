@@ -1,12 +1,22 @@
 #include <iostream>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_mixer.h>
+/* QT */
+#include <QApplication>
+#include <QLabel>
+
 #include "Prueba_sonido.h"
 #include "Music.h"
 
 int main(int argc,char* argv[]){
 
     std::cout << "Archivo a compilar por cmake" << std::endl;
+
+    /* QT (Comentar si no anda) */
+    QApplication app(argc,argv);
+    QLabel label("Hello qt");
+    label.show();
+
 
 
 
