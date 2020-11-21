@@ -9,8 +9,6 @@ public:
     Prueba_sonido(){
     }
 
-    void sounds_init();
-
     void load_sound(const char* path_to_sound);
 
     void play();
