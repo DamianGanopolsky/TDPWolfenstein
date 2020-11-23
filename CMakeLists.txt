@@ -10,5 +10,9 @@ add_executable(cliente prueba_cmake_cliente.cpp Prueba_sonido.cpp Music.cpp)
 
 add_executable(servidor prueba_servidor.cpp)
 
+add_executable(client-model client-model/main.cpp client-model/Main_window.cpp)
+
 target_link_libraries(cliente SDL2 SDL2_mixer Qt5::Widgets)
+
+target_link_libraries(client-model Qt5::Widgets)
 
