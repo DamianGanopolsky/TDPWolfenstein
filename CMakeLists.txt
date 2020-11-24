@@ -14,6 +14,6 @@ add_executable(client-model client-model/main.cpp client-model/Main_window.cpp)
 
 add_executable(ray-test ray_casting/ray_test.cpp ray_casting/Ray_shotter.cpp ray_casting/Ray.cpp)
 
-target_link_libraries(cliente SDL2 SDL2_mixer Qt5::Widgets)
+target_link_libraries(cliente SDL2 SDL2_mixer SDL2_ttf Qt5::Widgets)
 
 target_link_libraries(client-model Qt5::Widgets)
