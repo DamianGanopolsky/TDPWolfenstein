@@ -5,6 +5,7 @@
 #include <iostream>
 #include "TextureManager.h"
 #include "GameObject.h"
+#include "MovableObject.h"
 #include "Map.h"
 
 class Game {
@@ -23,7 +24,6 @@ class Game {
 
 	private:
 		bool isRunning = false;
-		int cnt = 0;
 		SDL_Window *window;
 };
 #endif

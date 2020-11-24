@@ -1,9 +1,10 @@
 #include "Game.h"
 
-GameObject* player;
+MovableObject* player;
 Map* map;
 
-Game::Game() {}
+Game::Game() {
+}
 
 Game::~Game() {}
 
@@ -22,15 +23,14 @@ void Game::init(const char* title, int width, int height, bool fullscreen) {
 		}
 		isRunning = true;
 	}
-	player = new GameObject("assets/imagen1.png", 0, 0);
+	Position pos(0, 0, width, height);
+	player = new MovableObject("assets/imagen1.png", pos);
 	map = new Map();
 }
 
 void Game::handleEvents() {
 	SDL_Event event;
-
 	SDL_PollEvent(&event);
-
 	switch (event.type) {
 	case SDL_QUIT :
 		isRunning = false;
@@ -41,7 +41,9 @@ void Game::handleEvents() {
 }
 
 void Game::update() {
-	player->update();
+	SDL_Event event;
+	SDL_PollEvent(&event);
+	isRunning = player->update(event);
 }
 
 void Game::render() {
