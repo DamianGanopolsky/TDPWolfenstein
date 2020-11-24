@@ -6,10 +6,7 @@ private:
     Mix_Music* bgm;
 
 public:
-    SdlMusic(){
-    }
-
-    void load_music(const char* path_to_music);
+    SdlMusic(const char* path_to_music);
 
     void play();
 

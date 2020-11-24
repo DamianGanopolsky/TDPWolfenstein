@@ -11,6 +11,7 @@
 //#include "SdlTexture.h"
 #include "SdlMusic.h"
 #include "SdlWindow.h"
+#define VOLUMEN_MAXIMO 128
 
 
 int main(int argc,char* argv[]){
@@ -61,12 +62,10 @@ int main(int argc,char* argv[]){
     if(Mix_OpenAudio(44100,MIX_DEFAULT_FORMAT,2,1024)<0){
         std::cout << "eRROR:" << Mix_GetError() << std::endl;
     }
-    SdlSound sonido;
-    sonido.load_sound("../Sounds/SS_Agent_death.wav");
-    sonido.play();
+    SdlSound sonido("../Sounds/SS_Agent_death.wav");
+    sonido.play(VOLUMEN_MAXIMO);
 
-    SdlMusic music;
-    music.load_music("../Music/menu.mp3");
+    SdlMusic music("../Music/menu.mp3");
     music.play();
 
     Mix_Quit();

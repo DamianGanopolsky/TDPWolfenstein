@@ -6,12 +6,9 @@ private:
     Mix_Chunk *soundEffect;
 
 public:
-    SdlSound(){
-    }
+    SdlSound(const char* path_to_sound);
 
-    void load_sound(const char* path_to_sound);
-
-    void play();
+    void play(int volumen);
 
 	~SdlSound();
 };
