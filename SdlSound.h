@@ -1,17 +1,17 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_mixer.h>
 
-class Prueba_sonido{
+class SdlSound{
 private:
     Mix_Chunk *soundEffect;
 
 public:
-    Prueba_sonido(){
+    SdlSound(){
     }
 
     void load_sound(const char* path_to_sound);
 
     void play();
 
-	~Prueba_sonido();
+	~SdlSound();
 };

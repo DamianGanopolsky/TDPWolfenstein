@@ -6,10 +6,10 @@
 //#include <QApplication>
 //#include <QLabel>
 
-#include "Prueba_sonido.h"
+#include "SdlSound.h"
 #include "SdlText.h"
 //#include "SdlTexture.h"
-#include "Music.h"
+#include "SdlMusic.h"
 #include "SdlWindow.h"
 
 
@@ -61,11 +61,11 @@ int main(int argc,char* argv[]){
     if(Mix_OpenAudio(44100,MIX_DEFAULT_FORMAT,2,1024)<0){
         std::cout << "eRROR:" << Mix_GetError() << std::endl;
     }
-    Prueba_sonido sonido;
+    SdlSound sonido;
     sonido.load_sound("../Sounds/SS_Agent_death.wav");
     sonido.play();
 
-    Music music;
+    SdlMusic music;
     music.load_music("../Music/menu.mp3");
     music.play();
 

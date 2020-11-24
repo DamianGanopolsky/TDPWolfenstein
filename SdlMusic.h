@@ -1,17 +1,17 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_mixer.h>
 
-class Music{
+class SdlMusic{
 private:
-Mix_Music* bgm;
+    Mix_Music* bgm;
 
 public:
-    Music(){
+    SdlMusic(){
     }
 
     void load_music(const char* path_to_music);
 
     void play();
 
-	~Music();
+	~SdlMusic();
 };
