@@ -3,13 +3,12 @@
 #include <math.h>
 #include <iostream>
 
-
 #define PI 3.14159265
 #define SIZE_BOX 64 //Este valor debe ser una potencia de base 2
 #define BIT_OFFSET 6 //Este valor debe ser el Log de base 2 de SIZE_BOX
 #define WIDTH_GAME_MAP 8
 
-Ray_shotter::Ray_shotter(std::map<int, bool>& game_map, const int angle) :
+Ray_shotter::Ray_shotter(std::map<int, bool>& game_map, const float angle) :
 						game_map(game_map), angle(angle) {
 }
 
@@ -33,14 +32,14 @@ Ray Ray_shotter::shoot(const int pos_x, const int pos_y) {
 }
 
 Ray Ray_shotter::shoot_by_y(const int pos_x, const int pos_y) {
-	bool reverse = this->angle < 180 && this->angle > 0;
+	bool reverse = this->angle < 180.0 && this->angle > 0.0;
 	float point_factor = 1.0 / (tan((this->angle) * PI / 180.0));
 	float dist_factor = sin(this->angle * PI / 180.0);
 	return std::move(this->shoot_by(pos_y, pos_x, true, reverse, point_factor, dist_factor));
 }
 
 Ray Ray_shotter::shoot_by_x(const int pos_x, const int pos_y) {
-	bool reverse = this->angle > 90 && this->angle < 270;
+	bool reverse = this->angle > 90.0 && this->angle < 270.0;
 	float point_factor = tan((this->angle) * PI / 180.0);
 	float dist_factor = - cos(this->angle * PI / 180.0);
 	return std::move(this->shoot_by(pos_x, pos_y, false, reverse, point_factor, dist_factor));
@@ -67,11 +66,11 @@ Ray Ray_shotter::shoot_by(const int pos_x, const int pos_y, bool pos_exchange,
 }
 
 bool Ray_shotter::is_horizontal_shooter() {
-	return this->angle == 0 || this->angle == 180;
+	return this->angle == 0.0 || this->angle == 180.0;
 }
 
 bool Ray_shotter::is_vertical_shooter() {
-	return this->angle == 90 || this->angle == 270;
+	return this->angle == 90.0 || this->angle == 270.0;
 }
 
 int Ray_shotter::get_point(const int point_x, const int point_y) {
