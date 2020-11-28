@@ -1,7 +1,8 @@
 #ifndef NON_BLOCKING_OBJECT_H_
 #define NON_BLOCKING_OBJECT_H_
 
-class NonBlockingObject {
+#include "./../object.h"
+class NonBlockingObject: public Object {
  public:
     NonBlockingObject();
 };

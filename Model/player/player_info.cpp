@@ -1,12 +1,13 @@
 #include "./player_info.h"
-#include "./../objects/items/weapons/knife.h"
+#include "../constants/config.h"
+#include <algorithm>
 
 PlayerInfo::PlayerInfo() {
-    this->bullets = MAX_BULLETS;
+    
+    this->bullets = 0;
     this->life = MAX_LIFE;
     this->keys = 0;
-    Knife knife;
-    this->inventory.insert(knife);
+    this->treasure = 0;
 }
 
 int PlayerInfo::getLife() {
@@ -18,19 +19,32 @@ int PlayerInfo::getNumBullets() {
 }
 
 int PlayerInfo::getKey() {
-    int num = 0;
-    if(this->keys > 0){
-        --this->keys;
-        num = 1;   
-    }
-    return num;
+    return this->keys;
 }
 
-/*
-int PlayerInfo::getInventory() {
-    return this->inventory;
+int PlayerInfo::getTreasure() {
+    return this->treasure;
 }
-*/
+
+void PlayerInfo::reduceLife(int life) {
+    this->life -= life;
+    this->life = (this->life < 0) ? 0 : this->life;
+}
+
+void PlayerInfo::reduceBullets(int bullets) {
+    this->bullets -= bullets;
+    this->bullets = (this->bullets < 0) ? 0 : this->bullets;
+}
+
+void PlayerInfo::reduceNumKeys(int key) {
+    this->keys -= key;
+    this->keys = (this->keys < 0) ? 0 : this->keys;
+}
+
+void PlayerInfo::reduceTreasure(int treasure) {
+    this->treasure -= treasure;
+    this->treasure = (this->treasure < 0) ? 0 : this->treasure;
+}
 
 void PlayerInfo::addLife(int life) {
     this->life += life;
@@ -39,7 +53,7 @@ void PlayerInfo::addLife(int life) {
 
 void PlayerInfo::addBullets(int bullets) {
     this->bullets += bullets;
-    this->life = (this->life > MAX_BULLETS) ? MAX_BULLETS : this->life;
+    this->bullets = (this->bullets > MAX_BULLETS) ? MAX_BULLETS : this->bullets;
 }
 
 void PlayerInfo::addNumKeys(int key) {
@@ -50,12 +64,16 @@ void PlayerInfo::addTreasure(int treasure) {
     this->treasure += treasure;
 }
 
+std::list <Weapon> PlayerInfo::getInventory() {
+    return this->inventory;
+}
+
 void PlayerInfo::addInventory(Weapon &weapon) {
-    this->inventory.insert(weapon);
+    this->inventory.push_back(weapon);
 }
-
+/*
 bool PlayerInfo::hasWeapon(Weapon &weapon) {
-    return this->inventory.find(weapon) == this->inventory.end();
+    return (std::find(this->inventory.begin(), this->inventory.end(), weapon) != this->inventory.end());
 }
-
+*/
 PlayerInfo::~PlayerInfo(){}

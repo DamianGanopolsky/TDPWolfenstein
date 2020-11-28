@@ -2,13 +2,15 @@
 #define PLAYER_H
 
 #include "./player_info.h"
-#include "./../actions/interact.h"
+#include "./player_position.h"
 
 class Player {
  public:
-   Player(PlayerInfo &info);
-
+   Player(PlayerInfo &info, PlayerPosition &pos);
+   PlayerPosition getPos();
+   PlayerInfo getInfo();
  private:
+    PlayerPosition pos;
     PlayerInfo info;
 };
 

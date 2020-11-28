@@ -1,7 +1,11 @@
 #include "weapon.h"
 
-Weapon::Weapon(){
+Weapon::Weapon() {
 }
-float attack() {
+
+float Weapon::attack() {
     return 0.0;
+}
+
+Weapon::~Weapon() {
 }

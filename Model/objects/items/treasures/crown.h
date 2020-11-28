@@ -4,6 +4,7 @@
 #include "treasure.h"
 
 class Crown: public Treasure  {
+ public:
     Crown();
 };
 

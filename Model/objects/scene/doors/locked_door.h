@@ -1,7 +1,8 @@
 #ifndef LOCKED_DOOR_H_
 #define LOCKED_DOOR_H_
 
-class LockedDoor {
+#include "./../object.h"
+class LockedDoor: public Object {
 public:
     LockedDoor();
     bool isOpened();

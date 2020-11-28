@@ -4,6 +4,7 @@
 #include "treasure.h"
 
 class Cross: public Treasure  {
+ public:
     Cross();
 };
 

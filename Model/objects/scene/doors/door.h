@@ -1,7 +1,8 @@
 #ifndef DOOR_H_
-#define DOOR_H_
+#define DOOR_H
 
-class Door {
+#include "./../object.h"
+class Door: public Object {
 public:
     Door();
     bool isOpened();

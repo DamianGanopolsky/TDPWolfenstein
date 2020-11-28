@@ -10,7 +10,8 @@ class Weapon: public Item {
     float probabiliy_damage;
  public:
    Weapon();
-    virtual float attack();
+   virtual float attack();
+   virtual ~Weapon();
 };
 
 #endif   // WEAPON_H_

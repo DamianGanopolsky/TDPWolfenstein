@@ -4,6 +4,7 @@
 #include "./../item.h"
 
 class Key: public Item {
+ public:
     Key();
 };
 

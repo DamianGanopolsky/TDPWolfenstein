@@ -3,14 +3,16 @@
 
 #include <utility>
 
-class Position {
+class PlayerPosition {
  private:
     int x;
     int y;
     int width;
     int height;
+    void setInitialPos(int inicial_x, int inicial_y);
  public:
-    Position(int inicial_x, int inicial_y, int width, int height);
+    PlayerPosition();
+    explicit PlayerPosition(int inicial_x, int inicial_y, int width, int height);
     void moveUp();
     void moveLeft();
     void moveDown();
@@ -19,6 +21,8 @@ class Position {
     std::pair<int, int> getPosLeft();
     std::pair<int, int> getPosDown();
     std::pair<int, int> getPosRight();
+    int getX();
+    int getY();
 };
 
-#endif POSITION_H_
+#endif    // POSITION_H_
