@@ -11,6 +11,8 @@ public:
 	float get_angle() const ;
 	int get_pos_x() const ;
 	int get_pos_y() const ;
+	void left_rotation();
+	void right_rotation();
 private:
 	int pos_x;
 	int pos_y;

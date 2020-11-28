@@ -39,6 +39,12 @@ bool Panel_window::is_running() {
 }
 
 void Panel_window::update(std::set<Ray>&& rays) {
+	if (this->pixels) {
+		delete[] this->pixels;
+	}
+	this->pixels = new Uint32[PANEL_WIDTH * PANEL_HEIGHT];
+    memset(pixels, 255, PANEL_WIDTH * PANEL_HEIGHT * sizeof(Uint32));
+
 	for (std::set<Ray>::iterator ray = rays.begin(); ray != rays.end(); ++ray) {
 		int proy_slice_height = ((float) WALL_HEIGHT/ (float) ray->get_dist()) * (float) PANEL_DISTANCE;
 		/*std::cout << "--------------------" << std::endl;
@@ -59,16 +65,4 @@ void Panel_window::update(std::set<Ray>&& rays) {
     SDL_RenderClear(this->renderer);
     SDL_RenderCopy(this->renderer, this->texture, NULL, NULL);
     SDL_RenderPresent(this->renderer);
-
-    SDL_Event event;
-
-  	while (this->running) {
-  		SDL_WaitEvent(&event);
-
-    	switch (event.type) {
-        	case SDL_QUIT:
-            	this->running = false;
-            	break;
-    	}
-  	}
 }

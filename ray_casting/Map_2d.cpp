@@ -7,7 +7,7 @@
 #define TOTAL_BOX 64
 
 
-Map_2d::Map_2d(Player&& player) : player(std::move(player)) {
+Map_2d::Map_2d(Player& player) : player(player) {
 	for (int box = 0; box < TOTAL_BOX; box++) {
 		this->boxes[box] = !(box % 8 == 7 || box % 8 == 0 || box < 7 || box > 55);
 	}

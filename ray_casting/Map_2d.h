@@ -9,14 +9,14 @@
 
 class Map_2d {
 public:
-	explicit Map_2d(Player&& player);
+	explicit Map_2d(Player& player);
 	Map_2d(const Map_2d& other) = delete;
 	~Map_2d();
 
 	std::set<Ray> get_player_rays(); 
 private:
 	std::map<int, bool> boxes;
-	Player player; 
+	Player& player; 
 };
 
 #endif
