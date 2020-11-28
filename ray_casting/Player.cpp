@@ -2,13 +2,13 @@
 #include <utility>
 
 Player::Player(int pos_x, int pos_y, float angle) :
-				pos_x(pos_x), pos_y(pos_y), angle(angle) {
+				pos_x(pos_x), pos_y(pos_y), vision_angle(angle) {
 }
 
 Player::~Player() {
 }
 
-float get_angle() const {
+float Player::get_angle() const {
 	return this->vision_angle;
 }
 

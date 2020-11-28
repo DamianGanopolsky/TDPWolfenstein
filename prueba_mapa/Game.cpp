@@ -1,4 +1,5 @@
 #include "Game.h"
+#include <iostream>
 
 MovableObject* player;
 Map* map;
@@ -22,6 +23,8 @@ void Game::init(const char* title, int width, int height, bool fullscreen) {
 			SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 		}
 		isRunning = true;
+	}  else {
+		std::cout << "ERROR: " << SDL_GetError()  << std::endl;
 	}
 	Position pos(0, 0, width, height);
 	player = new MovableObject("assets/imagen1.png", pos);

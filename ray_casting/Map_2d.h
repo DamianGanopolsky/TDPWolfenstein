@@ -5,6 +5,7 @@
 #include "Ray_shotter.h"
 #include "Player.h"
 #include "Ray.h"
+#include <set>
 
 class Map_2d {
 public:
@@ -12,9 +13,9 @@ public:
 	Map_2d(const Map_2d& other) = delete;
 	~Map_2d();
 
-	std::list<Ray> get_player_rays(); 
+	std::set<Ray> get_player_rays(); 
 private:
-	std:map<int, bool>s boxes;
+	std::map<int, bool> boxes;
 	Player player; 
 };
 

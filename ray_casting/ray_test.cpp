@@ -36,7 +36,7 @@ int main() {
 	}
 	int point_unlock = (POS_Y >> 6) * 8 + (POS_X >> 6);
 	game_map[point_unlock] = true;
-	Ray_shotter shotter(game_map, ANGLE);
+	Ray_shotter shotter(game_map, ANGLE, 0);
 	while (point_unlock < 64 && point_unlock >= 0) {
 		print_map(game_map);
 		Ray ray = shotter.shoot(POS_X, POS_Y);

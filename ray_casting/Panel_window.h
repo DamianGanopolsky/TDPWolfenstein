@@ -2,6 +2,8 @@
 #define __PANEL_WINDOW_H__
 
 #include <SDL2/SDL.h>
+#include "Ray.h"
+#include <set>
 
 class Panel_window {
 public:
@@ -11,11 +13,11 @@ public:
 	~Panel_window();
 
 	bool is_running();
-	void update();
+	void update(std::set<Ray>&& rays);
 
 private:
 	SDL_Renderer* renderer;
-	SDL_Texture * texture
+	SDL_Texture * texture;
 	SDL_Window *window;
 	Uint32 *pixels;
 	bool running; 	

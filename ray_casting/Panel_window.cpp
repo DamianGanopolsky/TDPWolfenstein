@@ -4,10 +4,12 @@
 #define PANEL_WIDTH 320
 #define PANEL_HEIGHT 200
 #define PANEL_TITLE "WOLFENSTEIN"
+#define PANEL_DISTANCE 277
+#define WALL_HEIGHT 64
 
-Panel_window::Panel_window() {
-	if (SDL_Init(SDL_INIT_VIDEO) != 0) : running(true) {
-		std::cout << "ERROR init video" << std::endln;
+Panel_window::Panel_window() : running(true) {
+	if (SDL_Init(SDL_INIT_VIDEO) != 0) {
+		std::cout << "ERROR init video" << std::endl;
 	}
 	this->window = SDL_CreateWindow(PANEL_TITLE, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, PANEL_WIDTH, PANEL_HEIGHT, 0);
 	this->renderer = SDL_CreateRenderer(this->window, -1, 0);
@@ -36,25 +38,37 @@ bool Panel_window::is_running() {
 	return this->running;
 }
 
-void Panel_window::update() {
+void Panel_window::update(std::set<Ray>&& rays) {
+	for (std::set<Ray>::iterator ray = rays.begin(); ray != rays.end(); ++ray) {
+		int proy_slice_height = ((float) WALL_HEIGHT/ (float) ray->get_dist()) * (float) PANEL_DISTANCE;
+		/*std::cout << "--------------------" << std::endl;
+		std::cout << "number: " << ray->get_number() << std::endl;
+		std::cout << "dist: " << ray->get_dist() << std::endl;
+		std::cout << "point: " << ray->get_point() << std::endl;
+		std::cout << "slice height: " << proy_slice_height << std::endl;*/ 
+		proy_slice_height = proy_slice_height > PANEL_HEIGHT ? PANEL_HEIGHT : proy_slice_height;
+		int pixel_min = (PANEL_HEIGHT - proy_slice_height) / 2;
+		int pixel_max = pixel_min + proy_slice_height;
+		//std::cout << pixel_min << " and " << pixel_max << std::endl; 
+		for (; pixel_min < pixel_max; pixel_min++) {
+    		this->pixels[pixel_min * PANEL_WIDTH + ray->get_number()] = 0;
+		}
+	}
+
     SDL_UpdateTexture(this->texture, NULL, this->pixels, PANEL_WIDTH * sizeof(Uint32));
-    SDL_Event event;
-    SDL_WaitEvent(&event);
-
-    switch (event.type) {
-        case SDL_MOUSEMOTION:
-            {
-                int mouseX = event.motion.x;
-                int mouseY = event.motion.y;
-                this->pixels[mouseY * PANEL_WIDTH + mouseX] = 0;
-            }
-            break;
-        case SDL_QUIT:
-            this->running = false;
-            break;
-    }
-
     SDL_RenderClear(this->renderer);
     SDL_RenderCopy(this->renderer, this->texture, NULL, NULL);
     SDL_RenderPresent(this->renderer);
+
+    SDL_Event event;
+
+  	while (this->running) {
+  		SDL_WaitEvent(&event);
+
+    	switch (event.type) {
+        	case SDL_QUIT:
+            	this->running = false;
+            	break;
+    	}
+  	}
 }
