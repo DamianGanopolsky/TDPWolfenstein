@@ -12,7 +12,8 @@ public:
 	const int get_number() const;
 	bool operator<(const Ray& other_ray) const; 	
 	bool operator>(Ray& other_ray) const;
-	void set_number(int number); 	
+	void set_number(int number);
+	Ray get_ray_perp() const ; 	
 
 private:
 	const int point;

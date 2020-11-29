@@ -40,7 +40,7 @@ void Event_handler::handle() {
             		not_event = false;
             		break;            		            		
     		}
-    		std::cout << "Point: (" << this->player.get_pos_x() << ", " << this->player.get_pos_y() << ")" << std::endl;
+    		//std::cout << "Point: (" << this->player.get_pos_x() << ", " << this->player.get_pos_y() << ")" << std::endl;
     	}
     	else if (event.type == SDL_QUIT) {
     		this->running = false;

@@ -1,4 +1,10 @@
 #include "Ray.h"
+#include <utility>
+#include <cmath>
+
+#define PANEL_WIDTH 320
+#define FOV 60.0
+#define PI 3.14159265
 
 Ray::Ray(const int point, const int dist, const int number) :
 		 point(point), dist(dist), number(number) {
@@ -35,4 +41,10 @@ bool Ray::operator>(Ray& other_ray) const {
 		return true;
 	}	
 	return this->dist > other_ray.dist;
-}			
+}
+
+Ray Ray::get_ray_perp() const {
+	int number_ray_offset =  this->number < PANEL_WIDTH / 2 ? this->number : PANEL_WIDTH - this->number;
+	int new_dist = this->dist * cos((FOV / 2.0 - number_ray_offset * FOV / PANEL_WIDTH) * PI / 180.0);
+	return Ray(this->point, new_dist, this->number);
+}		

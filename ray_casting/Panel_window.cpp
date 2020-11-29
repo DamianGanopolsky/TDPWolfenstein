@@ -1,5 +1,6 @@
 #include "Panel_window.h"
 #include <iostream>
+#include <utility>
 
 #define PANEL_WIDTH 320
 #define PANEL_HEIGHT 200
@@ -46,7 +47,8 @@ void Panel_window::update(std::set<Ray>&& rays) {
     memset(pixels, 255, PANEL_WIDTH * PANEL_HEIGHT * sizeof(Uint32));
 
 	for (std::set<Ray>::iterator ray = rays.begin(); ray != rays.end(); ++ray) {
-		int proy_slice_height = ((float) WALL_HEIGHT/ (float) ray->get_dist()) * (float) PANEL_DISTANCE;
+		Ray ray_perp = ray->get_ray_perp();
+		int proy_slice_height = ((float) WALL_HEIGHT/ (float) ray_perp.get_dist()) * (float) PANEL_DISTANCE;
 		/*std::cout << "--------------------" << std::endl;
 		std::cout << "number: " << ray->get_number() << std::endl;
 		std::cout << "dist: " << ray->get_dist() << std::endl;
@@ -57,7 +59,7 @@ void Panel_window::update(std::set<Ray>&& rays) {
 		int pixel_max = pixel_min + proy_slice_height;
 		//std::cout << pixel_min << " and " << pixel_max << std::endl; 
 		for (; pixel_min < pixel_max; pixel_min++) {
-    		this->pixels[pixel_min * PANEL_WIDTH + ray->get_number()] = 0;
+    		this->pixels[pixel_min * PANEL_WIDTH + ray_perp.get_number()] = 0;
 		}
 	}
 

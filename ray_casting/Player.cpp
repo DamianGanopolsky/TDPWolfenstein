@@ -27,15 +27,15 @@ int Player::get_pos_y() const {
 }
 
 void Player::left_rotation() {
-	std::cout << this->vision_angle << std::endl;
+	//std::cout << this->vision_angle << std::endl;
 	float new_vision_angle = this->vision_angle + ROTATION_SIZE;
-	this->vision_angle = new_vision_angle >= 360.0 ? new_vision_angle -360.0 : new_vision_angle;
+	this->vision_angle = new_vision_angle >= 360.0 ? new_vision_angle - 360.0 : new_vision_angle;
 }
 
 void Player::right_rotation() {
-	std::cout << this->vision_angle << std::endl;
+	//std::cout << this->vision_angle << std::endl;
 	float new_vision_angle = this->vision_angle - ROTATION_SIZE;
-	this->vision_angle = new_vision_angle < 0.0 ? 360.0 - new_vision_angle : new_vision_angle;
+	this->vision_angle = new_vision_angle < 0.0 ? 360.0 + new_vision_angle : new_vision_angle;
 }
 
 void Player::move_up() {
