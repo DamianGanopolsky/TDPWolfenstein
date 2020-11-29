@@ -3,11 +3,11 @@
 
 class Ray {
 public:
-	Ray(const int point, const int dis, const int number);
+	Ray(const int point, const float dist, const int number);
 	Ray(Ray&& other);
 	~Ray();
 
-	const int get_dist() const; 	
+	const float get_dist() const; 	
 	const int get_point() const;
 	const int get_number() const;
 	bool operator<(const Ray& other_ray) const; 	
@@ -17,7 +17,7 @@ public:
 
 private:
 	const int point;
-	const int dist;
+	const float dist;
 	const int number; 
 };
 

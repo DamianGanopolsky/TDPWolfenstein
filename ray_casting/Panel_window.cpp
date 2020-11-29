@@ -6,7 +6,7 @@
 #define PANEL_HEIGHT 200
 #define PANEL_TITLE "WOLFENSTEIN"
 #define PANEL_DISTANCE 277
-#define WALL_HEIGHT 64
+#define WALL_HEIGHT 64.0
 
 Panel_window::Panel_window() : running(true) {
 	if (SDL_Init(SDL_INIT_VIDEO) != 0) {
@@ -48,7 +48,7 @@ void Panel_window::update(std::set<Ray>&& rays) {
 
 	for (std::set<Ray>::iterator ray = rays.begin(); ray != rays.end(); ++ray) {
 		Ray ray_perp = ray->get_ray_perp();
-		int proy_slice_height = ((float) WALL_HEIGHT/ (float) ray_perp.get_dist()) * (float) PANEL_DISTANCE;
+		int proy_slice_height = (WALL_HEIGHT / ray_perp.get_dist()) * PANEL_DISTANCE;
 		/*std::cout << "--------------------" << std::endl;
 		std::cout << "number: " << ray->get_number() << std::endl;
 		std::cout << "dist: " << ray->get_dist() << std::endl;
