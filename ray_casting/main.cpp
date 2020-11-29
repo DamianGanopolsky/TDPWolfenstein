@@ -8,7 +8,7 @@
 
 int main() {
 	Panel_window panel;
-	Player player(192, 192, 180);
+	Player player(256, 256, 315);
 	Map_2d map(player);
 	Event_handler handler(player);
 

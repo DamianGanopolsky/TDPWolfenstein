@@ -1,5 +1,6 @@
 #include "Event_handler.h"
 #include <SDL2/SDL.h>
+#include <iostream>
 
 Event_handler::Event_handler(Player& player) : player(player), running(true) {
 }
@@ -22,7 +23,24 @@ void Event_handler::handle() {
             		this->player.right_rotation();
             		not_event = false;
             		break;
-    		} 
+    			case SDLK_w:
+            		this->player.move_up();
+            		not_event = false;
+            		break;
+        		case SDLK_s:
+            		this->player.move_down();
+            		not_event = false;
+            		break;
+    			case SDLK_a:
+            		this->player.move_left();
+            		not_event = false;
+            		break;
+        		case SDLK_d:
+            		this->player.move_right();
+            		not_event = false;
+            		break;            		            		
+    		}
+    		std::cout << "Point: (" << this->player.get_pos_x() << ", " << this->player.get_pos_y() << ")" << std::endl;
     	}
     	else if (event.type == SDL_QUIT) {
     		this->running = false;

@@ -1,5 +1,6 @@
 #include "Map_2d.h"	
 #include <utility>
+#include <iostream>
 
 
 #define PANEL_WIDTH 320.0
@@ -21,6 +22,10 @@ std::set<Ray> Map_2d::get_player_rays() {
 	float angle = this->player.get_angle() + FOV / 2;
 	float angle_min = angle - FOV;
 	std::set<Ray> rays; 
+	std::cout << "---------------"  << std::endl; 
+	std::cout << "Angle: " << this->player.get_angle() << std::endl; 
+	std::cout << "Point: (" << this->player.get_pos_x() << ", " << this->player.get_pos_y() << ")"<< std::endl; 
+
 	for (int i = 0; angle > angle_min; angle -= ray_width) {
 		float shotter_angle = angle < 0.0 ? 360 + angle : angle;
 		Ray_shotter shotter(this->boxes, shotter_angle, i);

@@ -13,6 +13,10 @@ public:
 	int get_pos_y() const ;
 	void left_rotation();
 	void right_rotation();
+	void move_up();
+	void move_down();
+	void move_left();	
+	void move_right();
 private:
 	int pos_x;
 	int pos_y;
