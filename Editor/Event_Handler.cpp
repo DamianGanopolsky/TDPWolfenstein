@@ -1,11 +1,10 @@
 #include "Event_Handler.h"
-#include "Editor.h"
 #include <iostream>
 
 
-bool Event_Handler::handleEvents(){
+bool Event_Handler::handleEvents(Editor& editor){
     SDL_WaitEvent(&event);
-    Editor editor;
+    
     switch (event.type){    
         case SDL_QUIT:
             quit=true;
@@ -22,7 +21,7 @@ bool Event_Handler::handleEvents(){
             }
             break;
         case SDL_MOUSEBUTTONDOWN:  //Clickear(no necesariamente soltar)
-            editor.HandleLeftClickRelease(&event);
+            editor.HandleLeftClickPress(&event);
         /*    int x1=event.button.x;
             int y1=event.button.y;
             int x2,y2;
