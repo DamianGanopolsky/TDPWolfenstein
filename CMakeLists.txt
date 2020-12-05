@@ -20,7 +20,7 @@ add_executable(panel ray_casting/main.cpp ray_casting/Player.cpp ray_casting/Map
 
 target_link_libraries(cliente SDL2 SDL2_mixer SDL2_ttf)
 
-target_link_libraries(editor SDL2 SDL2_mixer SDL2_ttf)
+target_link_libraries(editor SDL2 SDL2_mixer SDL2_ttf SDL2_image)
 
 target_link_libraries(client-model Qt5::Widgets)
 

@@ -1,5 +1,6 @@
 #include "Event_Handler.h"
 
+
 bool Event_Handler::handleEvents(){
     SDL_WaitEvent(&event);
     switch (event.type){    
@@ -26,5 +27,5 @@ bool Event_Handler::handleEvents(){
 }
 
 Event_Handler::~Event_Handler(){
-    
+
 }

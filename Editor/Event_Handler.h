@@ -1,4 +1,5 @@
 #include <SDL2/SDL.h>
+#include "Editor.h"
 
 class Event_Handler{
 private:
@@ -7,7 +8,7 @@ private:
 
 public:
     Event_Handler(){
-        
+
     }
 
     bool handleEvents();
