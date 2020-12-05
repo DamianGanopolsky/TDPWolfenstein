@@ -19,10 +19,11 @@ void Editor::HandleLeftClickPress(SDL_Event* event){
 void Editor::HandleLeftClickRelease(SDL_Event* event){
     std::cout << "Inicio x:" << initial_position.x<< "Inicio y:" << initial_position.y << std::endl;
     std::cout << "Fin x:" << event->button.x << "Fin y:" << event->button.y << std::endl;
-    SDL_Rect Message_rect={250,250,145,80};
-    SDL_Surface* tmpSurface2 = IMG_Load("../Editor/Treasure.png");
-    SDL_Texture* treasureTex = SDL_CreateTextureFromSurface(window.getRenderer(),tmpSurface2);
-    SDL_RenderCopy(window.getRenderer(), treasureTex, NULL, &Message_rect); 
+    final_position={event->button.x,event->button.y};
+    std::cout << "Fin x:" << final_position.x<< "Fin y:" << final_position.y << std::endl;
+    if((initial_position.x!=int(event->button.x))||(initial_position.y!=int(event->button.y))){
+        scene.draw(initial_position,final_position);
+    }
     is_clicked=false;
 }
 
