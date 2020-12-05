@@ -20,7 +20,6 @@ void Editor::HandleLeftClickRelease(SDL_Event* event){
     std::cout << "Inicio x:" << initial_position.x<< "Inicio y:" << initial_position.y << std::endl;
     std::cout << "Fin x:" << event->button.x << "Fin y:" << event->button.y << std::endl;
     final_position={event->button.x,event->button.y};
-    std::cout << "Fin x:" << final_position.x<< "Fin y:" << final_position.y << std::endl;
     if((initial_position.x!=int(event->button.x))||(initial_position.y!=int(event->button.y))){
         scene.draw(initial_position,final_position);
     }
