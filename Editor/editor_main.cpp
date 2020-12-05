@@ -12,7 +12,7 @@ int main(int argc,char* argv[]){
 
     bool quit = false;
     Event_Handler event_handler;
-    Editor editor;
+    
     SdlWindow window(1024,760);
     SdlText texto(window.getRenderer(),255,255,255);
     texto.Load_Text("../OpenSans-Bold.ttf","Editor",12);
@@ -31,15 +31,16 @@ int main(int argc,char* argv[]){
     SDL_RenderCopy(window.getRenderer(), barTex, NULL, &Message_rect3);
     SDL_RenderCopy(window.getRenderer(), treasureTex, NULL, &Message_rect4); 
     SDL_RenderCopy(window.getRenderer(), playerTex, NULL, &Message_rect); 
+    Editor editor(window);
      
 
     while (!quit){
         quit=event_handler.handleEvents(editor);
-        SDL_RenderCopy(window.getRenderer(), Message, NULL, &Message_rect);
+        //SDL_RenderCopy(window.getRenderer(), Message, NULL, &Message_rect);
          
-        SDL_RenderCopy(window.getRenderer(), barTex, NULL, &Message_rect3); 
-        SDL_RenderCopy(window.getRenderer(), treasureTex, NULL, &Message_rect4); 
-        SDL_RenderCopy(window.getRenderer(), playerTex, NULL, &Message_rect);
+        //SDL_RenderCopy(window.getRenderer(), barTex, NULL, &Message_rect3); 
+        //SDL_RenderCopy(window.getRenderer(), treasureTex, NULL, &Message_rect4); 
+        //SDL_RenderCopy(window.getRenderer(), playerTex, NULL, &Message_rect);
         
         window.render();
     }

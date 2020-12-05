@@ -22,16 +22,6 @@ bool Event_Handler::handleEvents(Editor& editor){
             break;
         case SDL_MOUSEBUTTONDOWN:  //Clickear(no necesariamente soltar)
             editor.HandleLeftClickPress(&event);
-        /*    int x1=event.button.x;
-            int y1=event.button.y;
-            int x2,y2;
-            
-            while(!SDL_MOUSEBUTTONUP){
-
-            }
-            x2=event.button.x;
-            y2=event.button.y;
-            std::cout << "INICIO x:" << x1 << "y:" << y1 << "FINAL X:"<< x2 <<"y:" << y2 << std::endl;*/
             break;
         case SDL_MOUSEBUTTONUP: //Evento soltar despues de clickear
             editor.HandleLeftClickRelease(&event);
