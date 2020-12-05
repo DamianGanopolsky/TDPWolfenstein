@@ -5,6 +5,11 @@
 #include <iostream>
 
 
+Editor::Editor(SdlWindow& Window):is_clicked(false),window(Window),scene(Window){
+    scene.show();
+}
+
+
 void Editor::HandleLeftClickPress(SDL_Event* event){
     initial_position.x=int(event->button.x);
     initial_position.y=int(event->button.y);
@@ -22,7 +27,7 @@ void Editor::HandleLeftClickRelease(SDL_Event* event){
 }
 
 void Editor::draw(){
-
+    scene.show();
 }
 
 Editor::~Editor(){
