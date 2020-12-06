@@ -6,6 +6,7 @@
 #include "SdlText.h"
 #include "SdlWindow.h"
 #include "Event_Handler.h"
+#include "SdlMusic.h"
 
 
 int main(int argc,char* argv[]){
@@ -16,6 +17,17 @@ int main(int argc,char* argv[]){
     SdlWindow window(1024,760);
     Editor editor(window);
 
+    if(SDL_Init(SDL_INIT_AUDIO)==-1) {
+        printf("SDL_Init: %s\n", SDL_GetError());
+    }
+    if(Mix_OpenAudio(44100,MIX_DEFAULT_FORMAT,2,1024)<0){
+        std::cout << "eRROR:" << Mix_GetError() << std::endl;
+    }
+    SdlMusic music("../Music/06-Suspense E1M4.mp3");
+    music.play();
+
+
+
     while (!quit){
         quit=event_handler.handleEvents(editor);
         editor.draw();
@@ -23,5 +35,7 @@ int main(int argc,char* argv[]){
         window.render();
     }
     //SDL_DestroyTexture(Message);
+    Mix_Quit();
+    SDL_Quit();
     return 0;
 }

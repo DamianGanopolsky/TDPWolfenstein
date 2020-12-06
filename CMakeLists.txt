@@ -8,7 +8,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Werror")
 
 add_executable(cliente prueba_cmake_cliente.cpp SdlSound.cpp SdlMusic.cpp SdlWindow.cpp SdlText.cpp)
 
-add_executable(editor Editor/editor_main.cpp Editor/SdlWindow.cpp Editor/SdlText.cpp Editor/Event_Handler.cpp Editor/Editor.cpp Editor/Scene.cpp)
+add_executable(editor Editor/editor_main.cpp Editor/SdlWindow.cpp Editor/SdlText.cpp Editor/Event_Handler.cpp Editor/Editor.cpp Editor/Scene.cpp Editor/SdlMusic.cpp)
 
 add_executable(servidor prueba_servidor.cpp)
 
