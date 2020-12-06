@@ -15,6 +15,7 @@ private:
     SdlWindow& window;
     SDL_Texture* player;
     SDL_Texture* treasure;
+    SDL_Texture* bar;
     std::map<std::pair<int,int>,SDL_Texture*> textures;
 
 
