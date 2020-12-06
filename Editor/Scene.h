@@ -33,7 +33,7 @@ public:
 
     void draw(position& initial_pos,position& final_pos);
 
-    void draw_initial_map(int level[][25]);
+    void draw_initial_map(int level[][19]);
 
 	~Scene();
 };

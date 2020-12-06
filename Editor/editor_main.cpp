@@ -16,7 +16,7 @@ int main(int argc,char* argv[]){
     Event_Handler event_handler;
     std::map<std::pair<int,int>,SDL_Texture*> textures;
     std::pair <int,int> xy;
-    SdlWindow window(1024,760);
+    SdlWindow window(1024,768);
     Editor editor(window);
 
     if(SDL_Init(SDL_INIT_AUDIO)==-1) {
