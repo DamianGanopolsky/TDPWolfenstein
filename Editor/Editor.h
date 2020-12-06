@@ -5,7 +5,6 @@
 
 class Editor{
 private:
-    bool is_clicked;
     struct position initial_position;
     struct position final_position;
     SdlWindow& window;

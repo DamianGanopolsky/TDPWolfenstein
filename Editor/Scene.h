@@ -16,6 +16,7 @@ private:
     SDL_Texture* player;
     SDL_Texture* treasure;
     SDL_Texture* bar;
+    SDL_Texture* floor_tile;
     std::map<std::pair<int,int>,SDL_Texture*> textures;
 
 
@@ -30,6 +31,8 @@ public:
     void render();
 
     void draw(position& initial_pos,position& final_pos);
+
+    void draw_initial_map(int level[][25]);
 
 	~Scene();
 };

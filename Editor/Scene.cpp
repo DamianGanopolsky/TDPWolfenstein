@@ -7,6 +7,28 @@ Scene::Scene(SdlWindow& Window):window(Window){
     player=SDL_CreateTextureFromSurface(window.getRenderer(),player_surface);
     SDL_Surface* bar_surface=IMG_Load("../Editor/Barra2.png");
     bar=SDL_CreateTextureFromSurface(window.getRenderer(),bar_surface);
+    SDL_Surface* floor_tile_surf=IMG_Load("../Editor/Barra2.png");
+    floor_tile=SDL_CreateTextureFromSurface(window.getRenderer(),floor_tile_surf);
+}
+
+void Scene::draw_initial_map(int level[][25]){
+    for(int i=0;i<20;i++){
+        for(int j=0;j<25;j++){
+            switch(level[i][j]){
+                case 0:
+                    textures.insert(std::make_pair(std::make_pair(i*32,j*32), floor_tile));
+                    break;
+                case 1:
+                    textures.insert(std::make_pair(std::make_pair(i*32,j*32), treasure));
+                    break;
+                case 2:
+                    textures.insert(std::make_pair(std::make_pair(i*32,j*32), player));
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
 }
 
 void Scene::set(){
