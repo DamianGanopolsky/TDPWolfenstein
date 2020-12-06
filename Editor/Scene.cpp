@@ -25,9 +25,7 @@ void Scene::set(){
 }
 
 void Scene::draw(position& initial_pos,position& final_pos){
-    std::cout << initial_pos.x << std::endl;
     int block_frame=int(initial_pos.x)/145;
-    std::cout << block_frame << std::endl;
     switch(block_frame){
         case 0:
             textures.insert(std::make_pair(std::make_pair(final_pos.x,final_pos.y), treasure));

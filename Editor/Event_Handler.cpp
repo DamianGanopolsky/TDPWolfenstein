@@ -27,8 +27,6 @@ bool Event_Handler::handleEvents(Editor& editor){
             editor.HandleLeftClickRelease(&event);
             break;
         case SDL_MOUSEMOTION:
-            //std::cout << "Moviste el mouse" << std::endl;
-            //std::cout <<"En x: "<<  event.button.x << "En y: "<< event.button.y << std::endl;
             break;
     }
     return quit;
