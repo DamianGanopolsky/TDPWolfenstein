@@ -16,13 +16,13 @@ void Scene::draw_initial_map(int level[][25]){
         for(int j=0;j<25;j++){
             switch(level[i][j]){
                 case 0:
-                    textures.insert(std::make_pair(std::make_pair(i*32,j*32), floor_tile));
+                    tiles.insert(std::make_pair(std::make_pair(i*32,j*32), floor_tile));
                     break;
                 case 1:
-                    textures.insert(std::make_pair(std::make_pair(i*32,j*32), treasure));
+                   // textures.insert(std::make_pair(std::make_pair(i*32,j*32), treasure));
                     break;
                 case 2:
-                    textures.insert(std::make_pair(std::make_pair(i*32,j*32), player));
+                    //textures.insert(std::make_pair(std::make_pair(i*32,j*32), player));
                     break;
                 default:
                     break;
@@ -67,6 +67,14 @@ void Scene::render(){
     SDL_RenderCopy(window.getRenderer(), bar, NULL, &Message_rect3);
     SDL_RenderCopy(window.getRenderer(), treasure, NULL, &Message_rect4); 
     SDL_RenderCopy(window.getRenderer(), player, NULL, &Message_rect); 
+    for (auto& it: tiles) {
+        int x=std::get<0>(it.first);
+        int y=std::get<1>(it.first);
+        SDL_Rect Message_rect6={x,y,40,40};
+        SDL_RenderCopy(window.getRenderer(),(it.second),NULL,&Message_rect6);
+    }
+
+
     for (auto& it: textures) {
         int x=std::get<0>(it.first);
         int y=std::get<1>(it.first);

@@ -18,6 +18,7 @@ private:
     SDL_Texture* bar;
     SDL_Texture* floor_tile;
     std::map<std::pair<int,int>,SDL_Texture*> textures;
+    std::map<std::pair<int,int>,SDL_Texture*> tiles;
 
 
 public:
