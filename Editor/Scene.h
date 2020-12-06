@@ -1,7 +1,7 @@
 #include <iostream>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
-#include "SdlWindow.h"
+#include "SdlClasses/SdlWindow.h"
 #include <map>
 
 struct position{

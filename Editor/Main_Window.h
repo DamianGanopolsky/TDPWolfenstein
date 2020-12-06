@@ -1,5 +1,5 @@
 #include <SDL2/SDL.h>
-#include "SdlWindow.h"
+#include "SdlClasses/SdlWindow.h"
 #include <SDL2/SDL_image.h>
 
 class Main_Window{

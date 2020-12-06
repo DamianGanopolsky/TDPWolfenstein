@@ -3,8 +3,8 @@
 #include <SDL2/SDL_mixer.h>
 #include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL_image.h>
-#include "SdlText.h"
-#include "SdlWindow.h"
+#include "SdlClasses/SdlText.h"
+#include "SdlClasses/SdlWindow.h"
 #include "Event_Handler.h"
 #include "MusicSoundtrack.h"
 #include "Main_Window.h"

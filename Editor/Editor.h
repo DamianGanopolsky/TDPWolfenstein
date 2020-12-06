@@ -1,5 +1,5 @@
 #include <SDL2/SDL.h>
-#include "SdlWindow.h"
+#include "SdlClasses/SdlWindow.h"
 #include "Scene.h"
 
 
@@ -10,10 +10,6 @@ private:
     struct position final_position;
     SdlWindow& window;
     Scene scene;
-   // int initial_x;
-    //int initial_y;
-    //int final_x;
-    //int final_y;
 
 public:
     Editor(SdlWindow& Window);
