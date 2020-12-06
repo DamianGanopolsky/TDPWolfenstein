@@ -6,7 +6,6 @@
 #include "SdlText.h"
 #include "SdlWindow.h"
 #include "Event_Handler.h"
-//#include "SdlMusic.h"
 #include "MusicSoundtrack.h"
 #include <map>
 #include<unordered_map>
@@ -20,7 +19,7 @@ int main(int argc,char* argv[]){
     std::map<std::pair<int,int>,SDL_Texture*> textures;
     std::pair <int,int> xy;
     SdlWindow window(1024,760);
-   // Editor editor(window);
+    Editor editor(window);
 
     if(SDL_Init(SDL_INIT_AUDIO)==-1) {
         printf("SDL_Init: %s\n", SDL_GetError());
@@ -31,8 +30,8 @@ int main(int argc,char* argv[]){
     EditorSoundtrack musicsoundtrack;
     musicsoundtrack.load_editor_soundtrack();
     musicsoundtrack.play_editor();
-    SDL_Event event;
-    
+   // SDL_Event event;
+    /*
     SDL_Rect Message_rect2={165,620,100,80};
     SDL_Rect Message_rect4={30,630,70,70};
     SDL_Rect Message_rect3={0,620,1000,80};
@@ -47,10 +46,10 @@ int main(int argc,char* argv[]){
     SDL_RenderCopy(window.getRenderer(), treasureTex, NULL, &Message_rect4); 
     SDL_RenderCopy(window.getRenderer(), playerTex, NULL, &Message_rect2); 
     window.render();
-
+*/
     while (!quit){
         
-        SDL_RenderClear(window.getRenderer());
+   /*     SDL_RenderClear(window.getRenderer());
         SDL_PollEvent(&event);
         switch(event.type){
             case SDL_KEYDOWN:
@@ -71,10 +70,10 @@ int main(int argc,char* argv[]){
             SDL_Rect Message_rect6={x,y,100,80};
             SDL_RenderCopy(window.getRenderer(),(it.second),NULL,&Message_rect6);
         }
+        window.render(); */
+        quit=event_handler.handleEvents(editor);
+        editor.draw();
         window.render();
-        //quit=event_handler.handleEvents(editor);
-        //editor.draw();
-       // window.render();
     }
     //SDL_DestroyTexture(Message);
     Mix_Quit();

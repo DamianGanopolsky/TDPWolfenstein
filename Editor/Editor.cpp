@@ -28,7 +28,7 @@ void Editor::HandleLeftClickRelease(SDL_Event* event){
 }
 
 void Editor::draw(){
-    scene.show();
+    scene.render();
 }
 
 Editor::~Editor(){
