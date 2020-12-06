@@ -13,12 +13,13 @@ struct position{
 class Scene{
 private:
     SdlWindow& window;
+    SDL_Texture* player;
+    SDL_Texture* treasure;
 
 
 public:
-    Scene(SdlWindow& Window):window(Window){
+    Scene(SdlWindow& Window);
 
-    }
 
     void set();
 

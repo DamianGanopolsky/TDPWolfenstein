@@ -6,7 +6,8 @@
 
 
 Editor::Editor(SdlWindow& Window):is_clicked(false),window(Window),scene(Window){
-    scene.show();
+    scene.set();
+    //scene.show();
 }
 
 

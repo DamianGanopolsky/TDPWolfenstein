@@ -3,8 +3,8 @@
 #include <unistd.h>
 
 EditorSoundtrack::EditorSoundtrack():suspense("../Music/06-Suspense E1M4.mp3"),\
-    pow("../Music/05-P.O.W. E1M3.mp3"),EnemyAround\
-    ("..Music/08-Enemy Around the Corner E1M10.mp3"){
+    pow("../Music/05-P.O.W. E1M3.mp3"),EnemyAround("..Music/08-Enemy Around the Corner E1M10.mp3"){
+    
 }
 
 void EditorSoundtrack::load_editor_soundtrack(){
