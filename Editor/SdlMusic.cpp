@@ -9,7 +9,7 @@ SdlMusic::SdlMusic(const char* path_to_music){
 }
 
 void SdlMusic::play(){
-    Mix_PlayMusic(bgm,2);
+    Mix_PlayMusic(bgm,1);
 }
 
 SdlMusic::~SdlMusic(){

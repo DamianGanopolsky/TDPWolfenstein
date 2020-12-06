@@ -2,12 +2,6 @@
 #include "SdlWindow.h"
 #include "Scene.h"
 
-/*
-struct position{
-    int x;
-    int y;
-};*/
-
 
 class Editor{
 private:

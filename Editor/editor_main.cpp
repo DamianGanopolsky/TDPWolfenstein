@@ -6,7 +6,8 @@
 #include "SdlText.h"
 #include "SdlWindow.h"
 #include "Event_Handler.h"
-#include "SdlMusic.h"
+//#include "SdlMusic.h"
+#include "MusicSoundtrack.h"
 
 
 int main(int argc,char* argv[]){
@@ -23,10 +24,11 @@ int main(int argc,char* argv[]){
     if(Mix_OpenAudio(44100,MIX_DEFAULT_FORMAT,2,1024)<0){
         std::cout << "eRROR:" << Mix_GetError() << std::endl;
     }
-    SdlMusic music("../Music/06-Suspense E1M4.mp3");
-    music.play();
-
-
+    EditorSoundtrack musicsoundtrack;
+    musicsoundtrack.load_editor_soundtrack();
+    musicsoundtrack.play_editor();
+    //SdlMusic music("../Music/06-Suspense E1M4.mp3");
+    //music.play();
 
     while (!quit){
         quit=event_handler.handleEvents(editor);
