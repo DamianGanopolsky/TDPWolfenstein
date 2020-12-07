@@ -2,16 +2,18 @@
 #include <utility>
 #include <cmath>
 
-#define PANEL_WIDTH 320.0
+#define PANEL_WIDTH 640.0
 #define FOV 60.0
 #define PI 3.14159265
 
-Ray::Ray(const int point, const float dist, const int number) :
-		 point(point), dist(dist), number(number) {
+Ray::Ray(const int point, const int pos_x, const int pos_y, 
+		const float dist, const int number) :
+		 point(point), pos_x(pos_x), pos_y(pos_y), dist(dist), number(number) {
 }
 
 Ray::Ray(Ray&& other) : 
-		point(other.point), dist(other.dist), number(other.number) {
+		point(other.point), pos_x(other.pos_x), pos_y(other.pos_y),
+		dist(other.dist), number(other.number) {
 }
 
 Ray::~Ray() {
@@ -27,6 +29,14 @@ const int Ray::get_point() const {
 
 const int Ray::get_number() const {
 	return this->number;
+}
+
+const int Ray::get_pos_x() const {
+	return this->pos_x % 64;
+}
+
+const int Ray::get_pos_y() const {
+	return this->pos_y % 64;
 }
 
 bool Ray::operator<(const Ray& other_ray) const {
@@ -46,5 +56,5 @@ bool Ray::operator>(Ray& other_ray) const {
 Ray Ray::get_ray_perp() const {
 	int number_ray_offset =  this->number < PANEL_WIDTH / 2 ? this->number : PANEL_WIDTH - this->number;
 	float new_dist = this->dist * cos((FOV / 2.0 - number_ray_offset * FOV / PANEL_WIDTH) * PI / 180.0);
-	return Ray(this->point, new_dist, this->number);
+	return Ray(this->point, this->pos_x, this->pos_y, new_dist, this->number);
 }		

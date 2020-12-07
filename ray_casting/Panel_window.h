@@ -3,6 +3,7 @@
 
 #include <SDL2/SDL.h>
 #include "Ray.h"
+#include "Wall_texture.h"
 #include <set>
 
 class Panel_window {
@@ -20,7 +21,13 @@ private:
 	SDL_Texture * texture;
 	SDL_Window *window;
 	Uint32 *pixels;
-	bool running; 	
+	bool running;
+	Wall_texture wall_textures;
+
+	int get_number_tex(int point) const;
+	void print_floor_and_ceiling(); 
+	void to_render();
+	void print_ray(Ray& ray); 
 };
 
 #endif

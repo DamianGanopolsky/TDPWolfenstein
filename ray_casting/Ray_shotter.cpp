@@ -78,7 +78,7 @@ Ray Ray_shotter::shoot_by(const int pos_x, const int pos_y, bool pos_exchange,
 	if (!this->valid_point(point)) {
 		dist = RAY_NO_VALID;
 	}
-	return std::move(Ray(point, dist, this->number));
+	return std::move(Ray(point, point_x, point_y, dist, this->number));
 }
 
 bool Ray_shotter::is_horizontal_shooter() {
