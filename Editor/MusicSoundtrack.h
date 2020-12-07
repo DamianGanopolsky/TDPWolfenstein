@@ -1,13 +1,12 @@
 #include "SdlClasses/SdlMusic.h"
+#include <SDL2/SDL_mixer.h>
 #include <vector>
 #include <map>
 
 class EditorSoundtrack{
 private:
-    //std::vector<SdlMusic> songs;
-    SdlMusic suspense;
-    SdlMusic pow;
-    SdlMusic EnemyAround;
+    Mix_Music* Suspense;
+    Mix_Music* Pow;
 
 public:
     EditorSoundtrack();

@@ -15,12 +15,7 @@ int main(int argc,char* argv[]){
     SdlWindow window(1024,768);
     Editor editor(window);
 
-    if(SDL_Init(SDL_INIT_AUDIO)==-1) {
-        printf("SDL_Init: %s\n", SDL_GetError());
-    }
-    if(Mix_OpenAudio(44100,MIX_DEFAULT_FORMAT,2,1024)<0){
-        std::cout << "eRROR:" << Mix_GetError() << std::endl;
-    }
+
     EditorSoundtrack musicsoundtrack;
     musicsoundtrack.load_editor_soundtrack();
     musicsoundtrack.play_editor();
@@ -56,7 +51,7 @@ int main(int argc,char* argv[]){
         editor.draw();
         window.render();
     }
-    Mix_Quit();
+
     SDL_Quit();
     return 0;
 }
