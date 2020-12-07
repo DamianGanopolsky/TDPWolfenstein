@@ -3,6 +3,8 @@
 #define FLOOR_TILE 0
 #define TREASURE 1
 #define PLAYER 2
+#define X_SIZE 36
+#define Y_SIZE 21
 
 
 int level1[36][21] = {
@@ -89,10 +91,10 @@ void Map::draw(position initial_position,position draw_position){
     int block_frame=int(initial_position.x)/145;
     switch(block_frame){
         case 0:
-            level1[draw_position.x/32][draw_position.y/32]=TREASURE;
+            level1[(draw_position.x+camera.x*32)/32][(draw_position.y+camera.y*32)/32]=TREASURE;
             break;
         case 1:
-            level1[draw_position.x/32][draw_position.y/32]=PLAYER;
+            level1[(draw_position.x+camera.x*32)/32][(draw_position.y+camera.y*32)/32]=PLAYER;
             break;
         default:
             break;
@@ -106,6 +108,9 @@ void Map::render(){
         for(int j=camera.y;j<camera.y+19;j++){
             SDL_Rect rect={pos_x*32,pos_y*32,32,32};
             pos_y++;
+            if((pos_x>X_SIZE)||(pos_y>Y_SIZE)){
+                continue;
+            }
             switch(level1[i][j]){
                 case FLOOR_TILE:
                     SDL_RenderCopy(window.getRenderer(),floor_tile,NULL,&rect);
@@ -125,7 +130,6 @@ void Map::render(){
         pos_y=0;
         pos_x++;
     }
-    
 }
 
 Map::~Map(){
