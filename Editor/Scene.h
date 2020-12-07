@@ -3,11 +3,12 @@
 #include <SDL2/SDL_image.h>
 #include "SdlClasses/SdlWindow.h"
 #include <map>
-
+#include "Map.h"
+/*
 struct position{
     int x;
     int y;
-};
+};*/
 
 
 class Scene{
@@ -19,6 +20,8 @@ private:
     SDL_Texture* floor_tile;
     std::map<std::pair<int,int>,SDL_Texture*> textures;
     std::map<std::pair<int,int>,SDL_Texture*> tiles;
+    int** Level;
+    Map map;
 
 
 public:
@@ -33,7 +36,7 @@ public:
 
     void draw(position& initial_pos,position& final_pos);
 
-    void draw_initial_map(int level[][19]);
+    void draw_initial_map(int** level);
 
 	~Scene();
 };

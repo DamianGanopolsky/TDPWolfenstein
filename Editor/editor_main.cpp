@@ -23,26 +23,27 @@ int main(int argc,char* argv[]){
     SDL_Rect Message_rect={165,608,32,32};
     SDL_Surface* tmpSurface = IMG_Load("../Editor/Tile2.jpg");
     SDL_Texture* playerTex = SDL_CreateTextureFromSurface(window.getRenderer(),tmpSurface);
-    SDL_RenderCopy(window.getRenderer(), playerTex, NULL, &Message_rect); 
-    SDL_Event event;*/
+    SDL_RenderCopy(window.getRenderer(), playerTex, NULL, &Message_rect); */
+    SDL_Event event;
 
     while (!quit){
-        quit=event_handler.handleEvents(editor);
-        editor.render();
-        window.render();
+        SDL_RenderClear(window.getRenderer());
+        //quit=event_handler.handleEvents(editor);
+        //editor.render();
+       // window.render();
 
-        /* SDL_WaitEvent(&event);
+        SDL_PollEvent(&event);
     
         switch (event.type){ 
             case SDL_KEYDOWN:
                 quit=true;
                 break;
 
-        }  
+        }  /*
         SDL_RenderClear(window.getRenderer());
-        SDL_RenderCopy(window.getRenderer(), playerTex, NULL, &Message_rect); 
+        SDL_RenderCopy(window.getRenderer(), playerTex, NULL, &Message_rect); */
+        mainwindow.render_window();
         window.render();
-*/
     }
 
     SDL_Quit();
