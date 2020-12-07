@@ -58,10 +58,6 @@ Map::Map(SdlWindow& Window):window(Window){
     bar=SDL_CreateTextureFromSurface(window.getRenderer(),bar_surface);
     SDL_Surface* floor_tile_surf=IMG_Load("../Editor/Barra2.png");
     floor_tile=SDL_CreateTextureFromSurface(window.getRenderer(),floor_tile_surf);
-    if(!treasure){
-        std::cout << "asd" << std::endl;
-    }
-    
 }
 
 void Map::HandleMovementWASD(SDL_Event* event){

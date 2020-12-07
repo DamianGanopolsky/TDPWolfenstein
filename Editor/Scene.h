@@ -5,11 +5,6 @@
 #include "Main_Window.h"
 #include <map>
 #include "Map.h"
-/*
-struct position{
-    int x;
-    int y;
-};*/
 
 
 class Scene{
@@ -19,9 +14,6 @@ private:
     SDL_Texture* treasure;
     SDL_Texture* bar;
     SDL_Texture* floor_tile;
-    std::map<std::pair<int,int>,SDL_Texture*> textures;
-    std::map<std::pair<int,int>,SDL_Texture*> tiles;
-    int** Level;
     Map map;
     Main_Window main_window;
 
@@ -29,18 +21,11 @@ private:
 public:
     Scene(SdlWindow& Window);
 
-
-    void set();
-
-    void show();
-
     void render();
 
     void HandleMovementWASD(SDL_Event* event);
 
     void draw(position& initial_pos,position& final_pos);
-
-    void draw_initial_map(int** level);
 
 	~Scene();
 };
