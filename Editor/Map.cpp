@@ -85,9 +85,6 @@ void Map::draw(position initial_position,position draw_position){
     int block_frame=int(initial_position.x)/145;
     int matrix_x=(draw_position.x+camera.x*32)/32;
     int matrix_y=(draw_position.y+camera.y*32)/32;
-   /* if((matrix_x>X_SIZE)||(matrix_y>Y_SIZE)||(matrix_x<0)||(matrix_y<0)){
-        return;
-    }*/
     switch(block_frame){
         case 0:
             level1[matrix_x][matrix_y]=TREASURE;
