@@ -24,7 +24,7 @@ bool Event_Handler::handleEvents(Editor& editor){
                     break;
             }
             break;
-            /*
+            
         case SDL_MOUSEBUTTONDOWN:  //Clickear(no necesariamente soltar)
             editor.HandleLeftClickPress(&event);
             break;
@@ -33,7 +33,7 @@ bool Event_Handler::handleEvents(Editor& editor){
             break;
         case SDL_MOUSEMOTION:
            // std::cout << "En x:" << event.button.x << "En y:" << event.button.y << std::endl;
-            break;*/
+            break;
     }
     return quit;
 }
