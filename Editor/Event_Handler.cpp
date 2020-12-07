@@ -12,7 +12,11 @@ bool Event_Handler::handleEvents(Editor& editor){
         case SDL_KEYDOWN:
 
             switch(event.key.keysym.sym){
-                case SDLK_a: //Tecla A
+                case SDLK_w: //Tecla A
+                case SDLK_a:
+                case SDLK_s:
+                case SDLK_d:
+                    editor.HandleMovementWASD(&event);
                     break;
                 
                 case SDLK_ESCAPE:  //Salir de la pantalla
@@ -20,6 +24,7 @@ bool Event_Handler::handleEvents(Editor& editor){
                     break;
             }
             break;
+            /*
         case SDL_MOUSEBUTTONDOWN:  //Clickear(no necesariamente soltar)
             editor.HandleLeftClickPress(&event);
             break;
@@ -28,7 +33,7 @@ bool Event_Handler::handleEvents(Editor& editor){
             break;
         case SDL_MOUSEMOTION:
            // std::cout << "En x:" << event.button.x << "En y:" << event.button.y << std::endl;
-            break;
+            break;*/
     }
     return quit;
 }

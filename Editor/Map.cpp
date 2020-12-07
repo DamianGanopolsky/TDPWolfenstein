@@ -62,6 +62,21 @@ Map::Map(SdlWindow& Window):window(Window){
     
 }
 
+void Map::HandleMovementWASD(SDL_Event* event){
+    switch(event->key.keysym.sym){
+        case SDLK_w:
+            break;
+        case SDLK_a:
+            break;
+        case SDLK_s:
+            break;
+        case SDLK_d:
+            break;
+        default:
+            camera.x=camera.x-1;
+    }
+}
+
 void Map::update_position(position next_position){
     camera.x=next_position.x;
     camera.y=next_position.y;

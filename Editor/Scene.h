@@ -34,6 +34,8 @@ public:
 
     void render();
 
+    void HandleMovementWASD(SDL_Event* event);
+
     void draw(position& initial_pos,position& final_pos);
 
     void draw_initial_map(int** level);

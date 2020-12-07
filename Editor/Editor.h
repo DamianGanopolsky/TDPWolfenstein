@@ -15,9 +15,11 @@ public:
 
     void HandleLeftClickPress(SDL_Event* event);
 
-    void render();
+    void HandleMovementWASD(SDL_Event* event);
 
     void HandleLeftClickRelease(SDL_Event* event);
+
+    void render();
 
 	~Editor();
 };

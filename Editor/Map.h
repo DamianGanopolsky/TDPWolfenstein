@@ -21,6 +21,8 @@ public:
 
     void update_position(position next_position);
 
+    void HandleMovementWASD(SDL_Event* event);
+
     void draw(int object,position draw_position);
 
     void render();

@@ -80,6 +80,10 @@ void Scene::render(){
     SDL_RenderCopy(window.getRenderer(), player, NULL, &Player_rect); 
 }
 
+void Scene::HandleMovementWASD(SDL_Event* event){
+    map.HandleMovementWASD(event);
+}
+
 void Scene::show(){
 }
 

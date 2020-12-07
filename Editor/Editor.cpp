@@ -61,6 +61,10 @@ void Editor::HandleLeftClickRelease(SDL_Event* event){
     }
 }
 
+void Editor::HandleMovementWASD(SDL_Event* event){
+    scene.HandleMovementWASD(event);
+}
+
 void Editor::render(){
 
     scene.render();

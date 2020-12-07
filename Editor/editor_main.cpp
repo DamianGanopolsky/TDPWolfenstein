@@ -31,7 +31,7 @@ int main(int argc,char* argv[]){
     SDL_Texture* treasureTex = SDL_CreateTextureFromSurface(window.getRenderer(),tmpSurface2);
     SDL_Texture* playerTex = SDL_CreateTextureFromSurface(window.getRenderer(),tmpSurface);*/
 
-    SDL_Event event;
+    //SDL_Event event;
 
     while (!quit){
         SDL_RenderClear(window.getRenderer());
@@ -49,15 +49,19 @@ int main(int argc,char* argv[]){
         SDL_RenderCopy(window.getRenderer(), treasureTex, NULL, &Message_rect4); 
         SDL_RenderCopy(window.getRenderer(), playerTex, NULL, &Message_rect2); */
         window.render();
+        //SDL_Delay(500);
 
-        SDL_PollEvent(&event);
-    
+       // SDL_PollEvent(&event);
+    /*
         switch (event.type){ 
             case SDL_KEYDOWN:
-                quit=true;
-                break;
-
-        }  /*
+                case SDLK_ESCAPE:
+                    quit=true;
+                    break;
+                default:
+                    break;
+        }  */
+        /*
         SDL_RenderClear(window.getRenderer());
         SDL_RenderCopy(window.getRenderer(), playerTex, NULL, &Message_rect); 
         mainwindow.render_window();
