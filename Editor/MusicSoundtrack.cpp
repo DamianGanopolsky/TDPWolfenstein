@@ -18,7 +18,7 @@ void EditorSoundtrack::load_editor_soundtrack(){
 }
 
 void EditorSoundtrack::play_editor(){
-    Mix_PlayMusic(Suspense,1);
+    Mix_PlayMusic(Pow,1);
 }
 
 EditorSoundtrack::~EditorSoundtrack(){
