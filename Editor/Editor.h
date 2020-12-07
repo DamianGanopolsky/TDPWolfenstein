@@ -15,7 +15,7 @@ public:
 
     void HandleLeftClickPress(SDL_Event* event);
 
-    void draw();
+    void render();
 
     void HandleLeftClickRelease(SDL_Event* event);
 

@@ -14,25 +14,24 @@ int main(int argc,char* argv[]){
     Event_Handler event_handler;
     SdlWindow window(1024,768);
     Editor editor(window);
-
-
     EditorSoundtrack musicsoundtrack;
-    musicsoundtrack.load_editor_soundtrack();
     musicsoundtrack.play_editor();
     Main_Window mainwindow(window);
     mainwindow.render_window();
     window.render();
-
 /*
     SDL_Rect Message_rect={165,608,32,32};
     SDL_Surface* tmpSurface = IMG_Load("../Editor/Tile2.jpg");
     SDL_Texture* playerTex = SDL_CreateTextureFromSurface(window.getRenderer(),tmpSurface);
     SDL_RenderCopy(window.getRenderer(), playerTex, NULL, &Message_rect); 
-*/
-   // SDL_Event event;
+    SDL_Event event;*/
 
     while (!quit){
-       /* SDL_WaitEvent(&event);
+        quit=event_handler.handleEvents(editor);
+        editor.render();
+        window.render();
+
+        /* SDL_WaitEvent(&event);
     
         switch (event.type){ 
             case SDL_KEYDOWN:
@@ -44,12 +43,6 @@ int main(int argc,char* argv[]){
         SDL_RenderCopy(window.getRenderer(), playerTex, NULL, &Message_rect); 
         window.render();
 */
-
-
-
-        quit=event_handler.handleEvents(editor);
-        editor.draw();
-        window.render();
     }
 
     SDL_Quit();

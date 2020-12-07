@@ -51,17 +51,17 @@ void Scene::draw(position& initial_pos,position& final_pos){
 }
 
 void Scene::render(){
-    SDL_Rect Message_rect={165,608,100,80};
-    SDL_Rect Message_rect4={30,630,70,70};
-    SDL_Rect Message_rect3={0,608,1024,92};
-    SDL_RenderCopy(window.getRenderer(), bar, NULL, &Message_rect3);
-    SDL_RenderCopy(window.getRenderer(), treasure, NULL, &Message_rect4); 
-    SDL_RenderCopy(window.getRenderer(), player, NULL, &Message_rect); 
+    SDL_Rect Player_rect={165,608,100,80};
+    SDL_Rect Treasure_rect={30,630,70,70};
+    SDL_Rect Bar_rect={0,608,1024,92};
+    SDL_RenderCopy(window.getRenderer(), bar, NULL, &Bar_rect);
+    SDL_RenderCopy(window.getRenderer(), treasure, NULL, &Treasure_rect); 
+    SDL_RenderCopy(window.getRenderer(), player, NULL, &Player_rect); 
     for (auto& it: tiles) {
         int x=std::get<0>(it.first);
         int y=std::get<1>(it.first);
-        SDL_Rect Message_rect6={x,y,32,32};
-        SDL_RenderCopy(window.getRenderer(),(it.second),NULL,&Message_rect6);
+        SDL_Rect Floor_rect={x,y,32,32};
+        SDL_RenderCopy(window.getRenderer(),(it.second),NULL,&Floor_rect);
     }
 
 
