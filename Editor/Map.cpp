@@ -5,6 +5,10 @@
 #define PLAYER 2
 #define X_SIZE 36
 #define Y_SIZE 21
+#define TILE_PIXELS 32
+#define SCREEN_HEIGTH 19
+#define SCREEN_WIDTH 32
+#define BUCKET_BAR_SPACE 145
 
 
 int level1[36][21] = {
@@ -47,7 +51,6 @@ int level1[36][21] = {
 };
 
 Map::Map(SdlWindow& Window):window(Window){
-    
     camera.x=0;
     camera.y=0;
     SDL_Surface* tre_surface=IMG_Load("../Assets/Trophy.png");
@@ -78,9 +81,9 @@ void Map::HandleMovementWASD(SDL_Event* event){
 }
 
 void Map::draw(position initial_position,position draw_position){
-    int block_frame=int(initial_position.x)/145;
-    int matrix_x=(draw_position.x+camera.x*32)/32;
-    int matrix_y=(draw_position.y+camera.y*32)/32;
+    int block_frame=int(initial_position.x)/BUCKET_BAR_SPACE;
+    int matrix_x=(draw_position.x+camera.x*TILE_PIXELS)/TILE_PIXELS;
+    int matrix_y=(draw_position.y+camera.y*TILE_PIXELS)/TILE_PIXELS;
     switch(block_frame){
         case 0:
             level1[matrix_x][matrix_y]=TREASURE;
@@ -96,25 +99,22 @@ void Map::draw(position initial_position,position draw_position){
 void Map::render(){
     int pos_x=0;
     int pos_y=0;
-    for(int i=camera.x;i<camera.x+32;i++){
-        for(int j=camera.y;j<camera.y+19;j++){
+    for(int i=camera.x;i<camera.x+SCREEN_WIDTH;i++){
+        for(int j=camera.y;j<camera.y+SCREEN_HEIGTH;j++){
             if((i>X_SIZE)||(j>Y_SIZE)||(i<0)||(j<0)){
                 pos_y++;
                 continue;
             }
-            SDL_Rect rect={pos_x*32,pos_y*32,32,32};
+            SDL_Rect rect={pos_x*TILE_PIXELS,pos_y*TILE_PIXELS,TILE_PIXELS,TILE_PIXELS};
             pos_y++;
-
+            SDL_RenderCopy(window.getRenderer(),floor_tile,NULL,&rect);
             switch(level1[i][j]){
                 case FLOOR_TILE:
-                    SDL_RenderCopy(window.getRenderer(),floor_tile,NULL,&rect);
                     break;
                 case TREASURE:
-                    SDL_RenderCopy(window.getRenderer(),floor_tile,NULL,&rect);
                     SDL_RenderCopy(window.getRenderer(),treasure,NULL,&rect);
                     break;
                 case PLAYER:
-                    SDL_RenderCopy(window.getRenderer(),floor_tile,NULL,&rect);
                     SDL_RenderCopy(window.getRenderer(),player,NULL,&rect);
                     break;
                 default:

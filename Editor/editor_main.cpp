@@ -6,13 +6,15 @@
 #include "Event_Handler.h"
 #include "MusicSoundtrack.h"
 #include <unistd.h>
+#define WIDTH 1024
+#define HEIGTH 768
 
 
 int main(int argc,char* argv[]){
 
     bool quit = false;
     Event_Handler event_handler;
-    SdlWindow window(1024,768);
+    SdlWindow window(WIDTH,HEIGTH);
     Editor editor(window);
     EditorSoundtrack musicsoundtrack;
     musicsoundtrack.play_editor();
