@@ -1,9 +1,7 @@
 #include <iostream>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_mixer.h>
-#include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL_image.h>
-#include "SdlClasses/SdlText.h"
 #include "SdlClasses/SdlWindow.h"
 #include "Event_Handler.h"
 #include "MusicSoundtrack.h"
@@ -14,8 +12,6 @@ int main(int argc,char* argv[]){
 
     bool quit = false;
     Event_Handler event_handler;
-    std::map<std::pair<int,int>,SDL_Texture*> textures;
-    std::pair <int,int> xy;
     SdlWindow window(1024,768);
     Editor editor(window);
 
@@ -32,12 +28,34 @@ int main(int argc,char* argv[]){
     mainwindow.render_window();
     window.render();
 
+/*
+    SDL_Rect Message_rect={165,608,32,32};
+    SDL_Surface* tmpSurface = IMG_Load("../Editor/Tile2.jpg");
+    SDL_Texture* playerTex = SDL_CreateTextureFromSurface(window.getRenderer(),tmpSurface);
+    SDL_RenderCopy(window.getRenderer(), playerTex, NULL, &Message_rect); 
+*/
+   // SDL_Event event;
+
     while (!quit){
+       /* SDL_WaitEvent(&event);
+    
+        switch (event.type){ 
+            case SDL_KEYDOWN:
+                quit=true;
+                break;
+
+        }  
+        SDL_RenderClear(window.getRenderer());
+        SDL_RenderCopy(window.getRenderer(), playerTex, NULL, &Message_rect); 
+        window.render();
+*/
+
+
+
         quit=event_handler.handleEvents(editor);
         editor.draw();
         window.render();
     }
-    //SDL_DestroyTexture(Message);
     Mix_Quit();
     SDL_Quit();
     return 0;
