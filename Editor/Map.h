@@ -19,8 +19,6 @@ private:
 public:
     Map(SdlWindow& Window);
 
-    void update_position(position next_position);
-
     void HandleMovementWASD(SDL_Event* event);
 
     void draw(position initial_position,position draw_position);

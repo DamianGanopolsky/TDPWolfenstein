@@ -67,33 +67,33 @@ Map::Map(SdlWindow& Window):window(Window){
 void Map::HandleMovementWASD(SDL_Event* event){
     switch(event->key.keysym.sym){
         case SDLK_w:
-            camera.y=camera.y+1;
-            break;
-        case SDLK_a:
-            camera.x=camera.x+1;
-            break;
-        case SDLK_s:
             camera.y=camera.y-1;
             break;
-        case SDLK_d:
+        case SDLK_a:
             camera.x=camera.x-1;
+            break;
+        case SDLK_s:
+            camera.y=camera.y+1;
+            break;
+        case SDLK_d:
+            camera.x=camera.x+1;
             break;
     }
 }
 
-void Map::update_position(position next_position){
-    camera.x=next_position.x;
-    camera.y=next_position.y;
-}
-
 void Map::draw(position initial_position,position draw_position){
     int block_frame=int(initial_position.x)/145;
+    int matrix_x=(draw_position.x+camera.x*32)/32;
+    int matrix_y=(draw_position.y+camera.y*32)/32;
+   /* if((matrix_x>X_SIZE)||(matrix_y>Y_SIZE)||(matrix_x<0)||(matrix_y<0)){
+        return;
+    }*/
     switch(block_frame){
         case 0:
-            level1[(draw_position.x+camera.x*32)/32][(draw_position.y+camera.y*32)/32]=TREASURE;
+            level1[matrix_x][matrix_y]=TREASURE;
             break;
         case 1:
-            level1[(draw_position.x+camera.x*32)/32][(draw_position.y+camera.y*32)/32]=PLAYER;
+            level1[matrix_x][matrix_y]=PLAYER;
             break;
         default:
             break;
@@ -106,6 +106,10 @@ void Map::render(){
     for(int i=camera.x;i<camera.x+32;i++){
         for(int j=camera.y;j<camera.y+19;j++){
             if((i>X_SIZE)||(j>Y_SIZE)||(i<0)||(j<0)){
+                if(j<0){
+                    std::cout << pos_x << pos_y;
+                }
+                pos_y++;
                 continue;
             }
             SDL_Rect rect={pos_x*32,pos_y*32,32,32};
