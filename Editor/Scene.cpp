@@ -40,6 +40,8 @@ void Scene::set(){
 }
 
 void Scene::draw(position& initial_pos,position& final_pos){
+    //int block_frame=int(initial_pos.x)/145;
+    map.draw(initial_pos,final_pos);
     /*
     int block_frame=int(initial_pos.x)/145;
     switch(block_frame){

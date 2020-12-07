@@ -23,7 +23,7 @@ public:
 
     void HandleMovementWASD(SDL_Event* event);
 
-    void draw(int object,position draw_position);
+    void draw(position initial_position,position draw_position);
 
     void render();
 

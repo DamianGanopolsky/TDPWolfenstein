@@ -84,16 +84,28 @@ void Map::update_position(position next_position){
     camera.y=next_position.y;
 }
 
-void Map::draw(int object,position draw_position){
-    level1[draw_position.x][draw_position.y]=object;
+void Map::draw(position initial_position,position draw_position){
+    //level1[draw_position.x][draw_position.y]=object;
+    int block_frame=int(initial_position.x)/145;
+    switch(block_frame){
+        case 0:
+            level1[draw_position.x/32][draw_position.y/32]=TREASURE;
+            break;
+        case 1:
+            level1[draw_position.x/32][draw_position.y/32]=PLAYER;
+            break;
+        default:
+            break;
+    }
 }
 
 void Map::render(){
-    
+    int pos_x=0;
+    int pos_y=0;
     for(int i=camera.x;i<camera.x+32;i++){
         for(int j=camera.y;j<camera.y+19;j++){
-            SDL_Rect rect={i*32,j*32,32,32};
-            
+            SDL_Rect rect={pos_x*32,pos_y*32,32,32};
+            pos_y++;
             switch(level1[i][j]){
                 case FLOOR_TILE:
                     SDL_RenderCopy(window.getRenderer(),floor_tile,NULL,&rect);
@@ -106,8 +118,12 @@ void Map::render(){
                     SDL_RenderCopy(window.getRenderer(),floor_tile,NULL,&rect);
                     SDL_RenderCopy(window.getRenderer(),player,NULL,&rect);
                     break;
+                default:
+                    break;
             }
         }
+        pos_y=0;
+        pos_x++;
     }
     
 }

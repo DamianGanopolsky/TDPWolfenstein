@@ -17,14 +17,12 @@ bool Event_Handler::handleEvents(Editor& editor){
                 case SDLK_s:
                 case SDLK_d:
                     editor.HandleMovementWASD(&event);
-                    break;
-                
+                    break; 
                 case SDLK_ESCAPE:  //Salir de la pantalla
                     quit=true;
                     break;
             }
             break;
-            
         case SDL_MOUSEBUTTONDOWN:  //Clickear(no necesariamente soltar)
             editor.HandleLeftClickPress(&event);
             break;
