@@ -5,11 +5,11 @@
 class Main_Window{
 private:
     SdlWindow& window;
+    SDL_Texture* trophy;
+    SDL_Texture* player;
+    SDL_Texture* bar;
 public:
-    Main_Window(SdlWindow& Window):window(Window){
-
-    }
-
+    Main_Window(SdlWindow& Window);
     void render_window();
 
 };

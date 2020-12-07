@@ -2,6 +2,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include "SdlClasses/SdlWindow.h"
+#include "Main_Window.h"
 #include <map>
 #include "Map.h"
 /*
@@ -22,6 +23,7 @@ private:
     std::map<std::pair<int,int>,SDL_Texture*> tiles;
     int** Level;
     Map map;
+    Main_Window main_window;
 
 
 public:

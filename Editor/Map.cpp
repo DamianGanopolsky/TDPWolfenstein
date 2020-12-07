@@ -50,7 +50,7 @@ Map::Map(SdlWindow& Window):window(Window){
     
     camera.x=0;
     camera.y=0;
-    SDL_Surface* tre_surface=IMG_Load("../Editor/Treasure.png");
+    SDL_Surface* tre_surface=IMG_Load("../Assets/Trophy.png");
     treasure=SDL_CreateTextureFromSurface(window.getRenderer(),tre_surface);
     SDL_Surface* player_surface = IMG_Load("../prueba_mapa/assets/imagen1.png");
     player=SDL_CreateTextureFromSurface(window.getRenderer(),player_surface);
@@ -106,9 +106,6 @@ void Map::render(){
     for(int i=camera.x;i<camera.x+32;i++){
         for(int j=camera.y;j<camera.y+19;j++){
             if((i>X_SIZE)||(j>Y_SIZE)||(i<0)||(j<0)){
-                if(j<0){
-                    std::cout << pos_x << pos_y;
-                }
                 pos_y++;
                 continue;
             }
