@@ -62,6 +62,7 @@ void Editor::HandleLeftClickRelease(SDL_Event* event){
 }
 
 void Editor::render(){
+
     scene.render();
 }
 

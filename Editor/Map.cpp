@@ -44,7 +44,8 @@ int level1[36][21] = {
     { 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
 };
 
-Map::Map(SdlWindow Window):window(Window){
+Map::Map(SdlWindow& Window):window(Window){
+    
     camera.x=0;
     camera.y=0;
     SDL_Surface* tre_surface=IMG_Load("../Editor/Treasure.png");
@@ -58,6 +59,7 @@ Map::Map(SdlWindow Window):window(Window){
     if(!treasure){
         std::cout << "asd" << std::endl;
     }
+    
 }
 
 void Map::update_position(position next_position){
@@ -70,6 +72,7 @@ void Map::draw(int object,position draw_position){
 }
 
 void Map::render(){
+    
     for(int i=camera.x;i<camera.x+32;i++){
         for(int j=camera.y;j<camera.y+19;j++){
             SDL_Rect rect={i*32,j*32,32,32};
@@ -89,6 +92,7 @@ void Map::render(){
             }
         }
     }
+    
 }
 
 Map::~Map(){

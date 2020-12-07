@@ -1,16 +1,14 @@
 #include "Scene.h"
 
 Scene::Scene(SdlWindow& Window):window(Window),map(Window){
-    /*SDL_Surface* tre_surface=IMG_Load("../Editor/Treasure.png");
+    SDL_Surface* tre_surface=IMG_Load("../Editor/Treasure.png");
     treasure=SDL_CreateTextureFromSurface(window.getRenderer(),tre_surface);
     SDL_Surface* player_surface = IMG_Load("../prueba_mapa/assets/imagen1.png");
     player=SDL_CreateTextureFromSurface(window.getRenderer(),player_surface);
     SDL_Surface* bar_surface=IMG_Load("../Editor/Barra2.png");
     bar=SDL_CreateTextureFromSurface(window.getRenderer(),bar_surface);
     SDL_Surface* floor_tile_surf=IMG_Load("../Editor/Barra2.png");
-    floor_tile=SDL_CreateTextureFromSurface(window.getRenderer(),floor_tile_surf);*/
-
-
+    floor_tile=SDL_CreateTextureFromSurface(window.getRenderer(),floor_tile_surf);
 }
 
 void Scene::draw_initial_map(int **level){
@@ -73,7 +71,7 @@ void Scene::render(){
         SDL_RenderCopy(window.getRenderer(),(it.second),NULL,&Message_rect6);
     } */
     
-    //map.render();
+    map.render();
     SDL_Rect Player_rect={165,608,100,80};
     SDL_Rect Treasure_rect={30,630,70,70};
     SDL_Rect Bar_rect={0,608,1024,92};

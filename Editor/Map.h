@@ -14,10 +14,10 @@ private:
     SDL_Texture* treasure;
     SDL_Texture* bar;
     SDL_Texture* floor_tile;
-    SdlWindow window;
+    SdlWindow& window;
 
 public:
-    Map(SdlWindow Window);
+    Map(SdlWindow& Window);
 
     void update_position(position next_position);
 
