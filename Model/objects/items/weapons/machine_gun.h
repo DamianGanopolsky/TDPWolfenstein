@@ -6,6 +6,8 @@
 class MachineGun: public RangedWeapon {
  public:
     MachineGun();
+    float attack(int& damage) override;
+    int getType() override;
 };
 
 #endif   // MACHINE_GUN_H_

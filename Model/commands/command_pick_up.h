@@ -26,7 +26,7 @@ class CommandPickUp {
     // treasures:
     bool pickUp(PlayerInfo &info, Treasure &item);
     // weapons:
-    // bool pickUp(PlayerInfo &info, Weapon &item);
+    bool pickUp(PlayerInfo &info, Weapon &item);
 
 };
 

@@ -1,15 +1,12 @@
-#include "gun.h"
+#include "knife.h"
 
-Gun::Gun() {
+Knife::Knife() {
     this->precision = GUN_PRECISION;
     this->probability_accuracy = GUN_ACCURACY;
     this->probabiliy_damage = GUN_DAMAGE;
-
-    this->bullets_blast = GUN_BULLETS_BLAST;
-    this->period_blast = GUN_PERIOD_BLAST;
 }
 
-float Gun::attack(int& damage) {
+float Knife::attack(int& damage) {
     //segun la distancia y el angulo establezco una proba de precision
     float rd_num = getRandomNumber();
     if (rd_num < precision) {
@@ -18,6 +15,6 @@ float Gun::attack(int& damage) {
     damage = 0;
 }
 
-int Gun::getType() {
-    return GUN_TYPE;
+int Knife::getType() {
+    return KNIFE_TYPE;
 }
