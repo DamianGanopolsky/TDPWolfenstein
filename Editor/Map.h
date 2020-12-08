@@ -14,6 +14,10 @@ private:
     SDL_Texture* treasure;
     SDL_Texture* bar;
     SDL_Texture* floor_tile;
+    SDL_Texture* wall;
+    SDL_Texture* door;
+    SDL_Texture* bullets;
+    SDL_Texture* medical_kit;
     SdlWindow& window;
 
 public:

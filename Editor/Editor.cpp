@@ -26,7 +26,6 @@ void Editor::HandleMovementWASD(SDL_Event* event){
 }
 
 void Editor::render(){
-
     scene.render();
 }
 

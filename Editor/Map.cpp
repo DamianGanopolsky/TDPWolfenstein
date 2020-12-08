@@ -3,6 +3,10 @@
 #define FLOOR_TILE 0
 #define TREASURE 1
 #define PLAYER 2
+#define MEDICAL_KIT 3
+#define BULLETS 4
+#define DOOR 5
+#define WALL 6
 #define X_SIZE 36
 #define Y_SIZE 21
 #define TILE_PIXELS 32
@@ -57,10 +61,18 @@ Map::Map(SdlWindow& Window):window(Window){
     treasure=SDL_CreateTextureFromSurface(window.getRenderer(),tre_surface);
     SDL_Surface* player_surface = IMG_Load("../prueba_mapa/assets/imagen1.png");
     player=SDL_CreateTextureFromSurface(window.getRenderer(),player_surface);
-    SDL_Surface* bar_surface=IMG_Load("../Editor/Barra2.png");
+    SDL_Surface* bar_surface=IMG_Load("../Editor/Editor_Assets/Barra2.png");
     bar=SDL_CreateTextureFromSurface(window.getRenderer(),bar_surface);
-    SDL_Surface* floor_tile_surf=IMG_Load("../Editor/Barra2.png");
+    SDL_Surface* floor_tile_surf=IMG_Load("../Editor/Editor_Assets/GreyTile.png");
     floor_tile=SDL_CreateTextureFromSurface(window.getRenderer(),floor_tile_surf);
+    SDL_Surface* kit_surface=IMG_Load("../Assets/MedicalKit.png");
+    medical_kit=SDL_CreateTextureFromSurface(window.getRenderer(),kit_surface);
+    SDL_Surface* bullets_surface=IMG_Load("../Assets/Bullets.png");
+    bullets=SDL_CreateTextureFromSurface(window.getRenderer(),bullets_surface);
+    SDL_Surface* door_surface=IMG_Load("../Assets/Door.png");
+    door=SDL_CreateTextureFromSurface(window.getRenderer(),door_surface);
+    SDL_Surface* wall_surface=IMG_Load("../Assets/Wall.png");
+    wall=SDL_CreateTextureFromSurface(window.getRenderer(),wall_surface);
 }
 
 void Map::HandleMovementWASD(SDL_Event* event){
@@ -91,6 +103,18 @@ void Map::draw(position initial_position,position draw_position){
         case 1:
             level1[matrix_x][matrix_y]=PLAYER;
             break;
+        case 2:
+            level1[matrix_x][matrix_y]=MEDICAL_KIT;
+            break;
+        case 3:
+            level1[matrix_x][matrix_y]=BULLETS;
+            break;
+        case 4:
+            level1[matrix_x][matrix_y]=DOOR;
+            break;
+        case 5:
+            level1[matrix_x][matrix_y]=WALL;
+            break;
         default:
             break;
     }
@@ -117,6 +141,19 @@ void Map::render(){
                 case PLAYER:
                     SDL_RenderCopy(window.getRenderer(),player,NULL,&rect);
                     break;
+                case MEDICAL_KIT:
+                    SDL_RenderCopy(window.getRenderer(),medical_kit,NULL,&rect);
+                    break;
+                case BULLETS:
+                    SDL_RenderCopy(window.getRenderer(),bullets,NULL,&rect);
+                    break;
+                case DOOR:
+                    SDL_RenderCopy(window.getRenderer(),door,NULL,&rect);
+                    break;
+                case WALL:
+                    SDL_RenderCopy(window.getRenderer(),wall,NULL,&rect);
+                    break;
+
                 default:
                     break;
             }
