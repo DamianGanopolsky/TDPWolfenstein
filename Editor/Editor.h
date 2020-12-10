@@ -9,6 +9,8 @@ private:
     struct position final_position;
     SdlWindow& window;
     Scene scene;
+    bool is_clicked_correctly;
+    bool is_dragging;
 
 public:
     Editor(SdlWindow& Window);
@@ -16,6 +18,8 @@ public:
     void HandleLeftClickPress(SDL_Event* event);
 
     void HandleMovementWASD(SDL_Event* event);
+
+    void HandleMotion(SDL_Event* event);
 
     void HandleLeftClickRelease(SDL_Event* event);
 
