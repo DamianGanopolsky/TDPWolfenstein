@@ -6,6 +6,8 @@
 class ChainCannon: public RangedWeapon {
  public:
     ChainCannon();
+    float attack(int& damage) override;
+    int getType() override;
 };
 
 #endif   // CHAIN_CANNON_H_

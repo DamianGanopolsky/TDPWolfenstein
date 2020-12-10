@@ -46,13 +46,11 @@ bool CommandPickUp::pickUp(PlayerInfo &info, Treasure &item) {
     info.addTreasure(item.getPoints());
     return true;
 }
-/*
 
-bool CommandPickUp::pickUp(Weapon &item) {
+bool CommandPickUp::pickUp(PlayerInfo &info, Weapon &item) {
     if(info.hasWeapon(item)){
         return false;
     }
     info.addInventory(item);
     return true;
 }
-*/

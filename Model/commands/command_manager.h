@@ -9,7 +9,7 @@
 class CommandManager {
  public:
     CommandManager();
-    void applyCommand(int command, int** map, Player player);
+    void applyCommand(int command, int** map, Player player, Player target);
  private:
     int identifyCommandType(int command);
 };

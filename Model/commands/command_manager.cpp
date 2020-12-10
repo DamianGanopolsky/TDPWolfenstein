@@ -1,10 +1,11 @@
 #include "command_manager.h"
 
 #include "./command_move.h"
+#include "./command_attack.h"
 
 CommandManager::CommandManager() {};
 
-void CommandManager::applyCommand(int command, int** map, Player player) {
+void CommandManager::applyCommand(int command, int** map, Player player, Player target) {
     int command_type = this->identifyCommandType(command);
 
     if (command_type == COMMAND_TYPE_MOVE) {
@@ -12,7 +13,8 @@ void CommandManager::applyCommand(int command, int** map, Player player) {
         cmd.run(player, map, command);
         return;
     } else if (command_type == COMMAND_TYPE_ATACK) {
-        // incomplete
+        CommandAttack cmd;
+        cmd.run(&player, &target, command);
     }
 }
 

@@ -6,7 +6,8 @@
 class Knife: public ContactWeapon {
  public:
     Knife();
-    float attack() override;
+    float attack(int& damage) override;
+    int getType() override;
 };
 
 #endif   // KNIFE_H_
