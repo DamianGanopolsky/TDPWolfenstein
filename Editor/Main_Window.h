@@ -12,6 +12,8 @@ private:
     SDL_Texture* bullets;
     SDL_Texture* wall;
     SDL_Texture* door;
+    SDL_Texture* arrowleft;
+    SDL_Texture* arrowright;
 public:
     Main_Window(SdlWindow& Window);
     void render_window();
