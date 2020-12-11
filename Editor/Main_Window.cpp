@@ -15,12 +15,16 @@ Main_Window::Main_Window(SdlWindow& Window):window(Window){
     door=SDL_CreateTextureFromSurface(window.getRenderer(),door_surface);
     SDL_Surface* wall_surface=IMG_Load("../Assets/Wall.png");
     wall=SDL_CreateTextureFromSurface(window.getRenderer(),wall_surface);
-    SDL_Surface* players_surface=IMG_Load("../Editor/Editor_Assets/Jugadores.png");
+    SDL_Surface* players_surface=IMG_Load("../Editor/Editor_Assets/Jugadoress.png");
     players=SDL_CreateTextureFromSurface(window.getRenderer(),players_surface);
-    SDL_Surface* objects_surface=IMG_Load("../Editor/Editor_Assets/Objetos.png");
+    SDL_Surface* objects_surface=IMG_Load("../Editor/Editor_Assets/ObjetosLlenados.png");
     objects=SDL_CreateTextureFromSurface(window.getRenderer(),objects_surface);
-    SDL_Surface* structures_surf=IMG_Load("../Editor/Editor_Assets/Estructuras.png");
+    SDL_Surface* structures_surf=IMG_Load("../Editor/Editor_Assets/EstructurasLlenadas.png");
     structures=SDL_CreateTextureFromSurface(window.getRenderer(),structures_surf);
+    SDL_Surface* soldier_1_surf=IMG_Load("../Editor/Editor_Assets/Soldier1.png");
+    soldier_1=SDL_CreateTextureFromSurface(window.getRenderer(),soldier_1_surf);
+    SDL_Surface* soldier_2_surf=IMG_Load("../Editor/Editor_Assets/complete.jpeg");
+    soldier_2=SDL_CreateTextureFromSurface(window.getRenderer(),soldier_2_surf);
 }
 
 
@@ -32,9 +36,11 @@ void Main_Window::render_window(){
     SDL_Rect bullets_rect={460,608,100,80};
     SDL_Rect door_rect={600,608,100,80};
     SDL_Rect wall_rect={740,608,100,80};*/
-    SDL_Rect players_rect={-22,600,340,110};
-    SDL_Rect objects_rect={270,592,440,110};
-    SDL_Rect structure_rect={720,596,220,110};
+    SDL_Rect bar_rect={0,608,1024,92};
+    //SDL_Rect players_rect={-22,600,340,110};
+    //SDL_Rect objects_rect={270,592,440,110};
+    //SDL_Rect structure_rect={720,596,220,110};
+    //SDL_Rect soldier_1_rect={0,596,74,70};
     /*SDL_RenderCopy(window.getRenderer(), bar, NULL, &bar_rect);
     SDL_RenderCopy(window.getRenderer(), trophy, NULL, &trophy_rect); 
     SDL_RenderCopy(window.getRenderer(), player, NULL, &player_rect); 
@@ -42,7 +48,9 @@ void Main_Window::render_window(){
     SDL_RenderCopy(window.getRenderer(), bullets, NULL, &bullets_rect); 
     SDL_RenderCopy(window.getRenderer(), door, NULL, &door_rect); 
     SDL_RenderCopy(window.getRenderer(), wall, NULL, &wall_rect); */
-    SDL_RenderCopy(window.getRenderer(), players, NULL, &players_rect);
-    SDL_RenderCopy(window.getRenderer(), objects, NULL, &objects_rect);
-    SDL_RenderCopy(window.getRenderer(),structures,NULL,&structure_rect);
+   // SDL_RenderCopy(window.getRenderer(), players, NULL, &players_rect);
+    //SDL_RenderCopy(window.getRenderer(), objects, NULL, &objects_rect);
+    //SDL_RenderCopy(window.getRenderer(),structures,NULL,&structure_rect);
+    SDL_RenderCopy(window.getRenderer(),soldier_2,NULL,&bar_rect);
+    //SDL_RenderCopy(window.getRenderer(),soldier_1,NULL,&soldier_1_rect);
 }

@@ -15,6 +15,8 @@ private:
     SDL_Texture* objects;
     SDL_Texture* players;
     SDL_Texture* structures;
+    SDL_Texture* soldier_1;
+    SDL_Texture* soldier_2;
 public:
     Main_Window(SdlWindow& Window);
     void render_window();
