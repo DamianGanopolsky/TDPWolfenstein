@@ -24,20 +24,28 @@ bool Event_Handler::handleEvents(Editor& editor){
             break;
         case SDL_MOUSEBUTTONDOWN:  //Clickear(no necesariamente soltar)
             std::cout << "Estoy down" << std::endl;
-            editor.HandleLeftClickPress(&event);
-            //is_clicking=false;
+           // editor.HandleLeftClickPress(&event);
+            if(event.button.button==SDL_BUTTON_LEFT){
+                editor.HandleLeftClickPress(&event);
+            }
+            if(event.button.button==SDL_BUTTON_RIGHT){
+                editor.HandleRightClickPress(&event);
+            }
             break;
         case SDL_MOUSEBUTTONUP: //Evento soltar despues de clickear
-            editor.HandleLeftClickRelease(&event);
+           // editor.HandleLeftClickRelease(&event);
             std::cout << "Estoy up" << std::endl;
-           /* if(click==true){
-                is_clicking=true;
-            } */
+            if(event.button.button==SDL_BUTTON_LEFT){
+                editor.HandleLeftClickRelease(&event);
+            }
+            if(event.button.button==SDL_BUTTON_RIGHT){
+                editor.HandleRightClickRelease(&event);
+            }
             break;
         case SDL_MOUSEMOTION:
             //std::cout << "Estoy en motion" << std::endl;
             editor.HandleMotion(&event);
-           // std::cout << "En x:" << event.button.x << "En y:" << event.button.y << std::endl;
+            std::cout << "En x:" << event.button.x << "En y:" << event.button.y << std::endl;
             break;
     }
     return quit;

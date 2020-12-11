@@ -10,7 +10,6 @@ Editor::Editor(SdlWindow& Window):window(Window),scene(Window),is_clicked_correc
 
 void Editor::HandleMotion(SDL_Event* event){
     if(is_dragging==true){
-        
         final_position={event->button.x,event->button.y};
         scene.draw(initial_position,final_position);
     }
@@ -21,29 +20,42 @@ void Editor::HandleLeftClickPress(SDL_Event* event){
     initial_position.x=int(event->button.x);
     initial_position.y=int(event->button.y);
     if(is_clicked_correctly==true){
-        is_dragging=true;
         final_position={event->button.x,event->button.y};
         scene.draw(initial_position,final_position);
     }
-    else{
-        is_dragging=false;
+}
+
+void Editor::HandleRightClickPress(SDL_Event* event){
+    if(is_clicked_correctly==true){
+        is_dragging=true;
+    }
+    is_clicked_correctly=false;
+}
+
+void Editor::HandleRightClickRelease(SDL_Event* event){
+    is_dragging=false;
+    if(event->button.y>610){ //Falta validar en x
+        initial_position.x=int(event->button.x);
+        initial_position.y=int(event->button.y);
+        is_clicked_correctly=true;
     }
 }
 
 void Editor::HandleLeftClickRelease(SDL_Event* event){
     final_position={event->button.x,event->button.y};
-    is_dragging=false;
+    //is_dragging=false;
     if((initial_position.x!=int(event->button.x))||(initial_position.y!=int(event->button.y))){
         scene.draw(initial_position,final_position);
         is_clicked_correctly=false;
     }
+    /*
     else{
         initial_position.x=int(event->button.x);
         initial_position.y=int(event->button.y);
         
         is_clicked_correctly=true;
         //std::cout << "asd" << std::endl;
-    }
+    }*/
 }
 
 void Editor::HandleMovementWASD(SDL_Event* event){

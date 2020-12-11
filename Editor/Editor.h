@@ -21,6 +21,10 @@ public:
 
     void HandleMotion(SDL_Event* event);
 
+    void HandleRightClickPress(SDL_Event* event);
+
+    void HandleRightClickRelease(SDL_Event* event);
+
     void HandleLeftClickRelease(SDL_Event* event);
 
     void render();
