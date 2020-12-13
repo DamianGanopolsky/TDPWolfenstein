@@ -8,6 +8,7 @@ PlayerInfo::PlayerInfo() {
     this->life = MAX_LIFE;
     this->keys = 0;
     this->treasure = 0;
+    this->resurrected = 0;
 }
 
 int PlayerInfo::getLife() {
@@ -24,6 +25,14 @@ int PlayerInfo::getKey() {
 
 int PlayerInfo::getTreasure() {
     return this->treasure;
+}
+
+int PlayerInfo::getNumResurrection() {
+    return this->resurrected;
+}
+
+Weapon PlayerInfo::getWeaponEquiped() {
+    return this->equiped;
 }
 
 void PlayerInfo::reduceLife(int life) {
@@ -46,6 +55,10 @@ void PlayerInfo::reduceTreasure(int treasure) {
     this->treasure = (this->treasure < 0) ? 0 : this->treasure;
 }
 
+void PlayerInfo::changeWeaponEquiped(Weapon &weapon) {
+    this->equiped = weapon;
+}
+
 void PlayerInfo::addLife(int life) {
     this->life += life;
     this->life = (this->life > MAX_LIFE) ? MAX_LIFE : this->life;
@@ -64,6 +77,10 @@ void PlayerInfo::addTreasure(int treasure) {
     this->treasure += treasure;
 }
 
+void PlayerInfo::addNumResurrection() {
+    this->resurrected += 1;
+}
+
 std::list <Weapon> PlayerInfo::getInventory() {
     return this->inventory;
 }
@@ -71,9 +88,9 @@ std::list <Weapon> PlayerInfo::getInventory() {
 void PlayerInfo::addInventory(Weapon &weapon) {
     this->inventory.push_back(weapon);
 }
-/*
+
 bool PlayerInfo::hasWeapon(Weapon &weapon) {
     return (std::find(this->inventory.begin(), this->inventory.end(), weapon) != this->inventory.end());
 }
-*/
+
 PlayerInfo::~PlayerInfo(){}

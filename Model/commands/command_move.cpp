@@ -13,8 +13,8 @@ void CommandMove::run(Player &player, int **map, int command) {
     int object_code = map[next_pos.first][next_pos.second];
     Object obj = objMap.getObject(object_code);
     
-    bool is_blocking = interactor.interactWith(player, map, obj);
-    if (!is_blocking) {
+    bool not_blocking = interactor.interactWith(player, map, obj);
+    if (not_blocking) {
         this->move(pos, command);
     }
 }

@@ -6,6 +6,8 @@
 class Gun: public RangedWeapon {
  public:
     Gun();
+    float attack(int& damage) override;
+    int getType() override;
 };
 
 #endif // GUN_H_

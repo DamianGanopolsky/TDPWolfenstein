@@ -1,6 +1,8 @@
 #ifndef WEAPON_H_
 #define WEAPON_H_
 
+#include <random>
+
 #include "./../item.h"
 
 class Weapon: public Item {
@@ -10,8 +12,10 @@ class Weapon: public Item {
     float probabiliy_damage;
  public:
    Weapon();
-   virtual float attack();
+   virtual float attack(int& damage);
+   virtual int getType();
    virtual ~Weapon();
+   static float getRandomNumber();
 };
 
 #endif   // WEAPON_H_
