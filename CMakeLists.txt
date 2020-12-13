@@ -14,7 +14,7 @@ add_executable(client-model client-model/main.cpp client-model/Main_window.cpp)
 
 add_executable(ray-test ray_casting/ray_test.cpp ray_casting/Ray_shotter.cpp ray_casting/Ray.cpp)
 
-add_executable(panel ray_casting/main.cpp ray_casting/Player.cpp ray_casting/Map_2d.cpp ray_casting/Panel_window.cpp ray_casting/Ray_shotter.cpp ray_casting/Ray.cpp ray_casting/Event_handler.cpp ray_casting/Wall_texture.cpp)
+add_executable(panel ray_casting/main.cpp ray_casting/Player.cpp ray_casting/Map_2d.cpp ray_casting/Panel_window.cpp ray_casting/Ray_shotter.cpp ray_casting/Ray.cpp ray_casting/Event_handler.cpp ray_casting/Wall_texture.cpp ray_casting/Ray_panel.cpp ray_casting/Game_element.cpp ray_casting/Element_panel.h ray_casting/Elements_panel_queue.cpp ray_casting/Element_panel.cpp)
 
 target_link_libraries(cliente SDL2 SDL2_mixer SDL2_ttf)
 

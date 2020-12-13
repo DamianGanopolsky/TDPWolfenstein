@@ -4,7 +4,12 @@
 #include <SDL2/SDL.h>
 #include "Ray.h"
 #include "Wall_texture.h"
+#include "Ray_panel.h"
+#include "Game_element.h"
 #include <set>
+#include <list>
+#include "const.h"
+
 
 class Panel_window {
 public:
@@ -14,20 +19,13 @@ public:
 	~Panel_window();
 
 	bool is_running();
-	void update(std::set<Ray>&& rays);
+	void update(std::set<Ray>&& rays, std::list<Game_element>&& elements);
 
 private:
 	SDL_Renderer* renderer;
-	SDL_Texture * texture;
 	SDL_Window *window;
-	Uint32 *pixels;
 	bool running;
 	Wall_texture wall_textures;
-
-	int get_number_tex(int point) const;
-	void print_floor_and_ceiling(); 
-	void to_render();
-	void print_ray(Ray& ray); 
 };
 
 #endif

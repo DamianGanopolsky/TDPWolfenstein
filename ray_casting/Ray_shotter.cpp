@@ -4,10 +4,6 @@
 #include <iostream>
 
 #define PI 3.14159265
-#define SIZE_BOX 64 //Este valor debe ser una potencia de base 2
-#define BIT_OFFSET 6 //Este valor debe ser el Log de base 2 de SIZE_BOX
-#define WIDTH_GAME_MAP 8
-#define HEIGTH_GAME_MAP 8
 #define RAY_NO_VALID -1
 
 
@@ -33,10 +29,10 @@ Ray Ray_shotter::shoot(const int pos_x, const int pos_y) {
 	//std::cout << "shoot_by_y: " << std::endl; 
 	Ray ray_by_y = std::move(this->shoot_by_y(pos_x, pos_y));
 	if (ray_by_x > ray_by_y) {
-		//std::cout << "win y" << std::endl; 
+		//std::cout << "Point: (" << ray_by_y.get_pos_x() << ", " << ray_by_y.get_pos_y() << ")"<< std::endl;  
 		return ray_by_y;
 	}
-	//std::cout << "win x" << std::endl; 
+	//std::cout << "Point: (" << ray_by_x.get_pos_x() << ", " << ray_by_x.get_pos_y() << ")"<< std::endl; 
 	return ray_by_x;
 }
 
@@ -58,27 +54,31 @@ Ray Ray_shotter::shoot_by_x(const int pos_x, const int pos_y) {
 
 Ray Ray_shotter::shoot_by(const int pos_x, const int pos_y, bool pos_exchange,
 						 bool reverse, float point_factor, float dist_factor) {
-	int point_x = (pos_x >> BIT_OFFSET) * SIZE_BOX;
+	float point_x = (pos_x >> BIT_OFFSET) * SIZE_BOX;
 	if (reverse) {
 		point_x -= 1;
 	} else {
 		point_x += SIZE_BOX;
 	}
-	int point_y = pos_y + (abs(pos_x - point_x)) * point_factor;
-	int point = pos_exchange ? this->get_point(point_y, point_x) : this->get_point(point_x, point_y);
+	float point_y = pos_y + (abs(pos_x - point_x)) * point_factor;
+	int point = pos_exchange ? this->get_point(int(point_y), int(point_x)) : this->get_point(int(point_x), int(point_y));
 
 	while (this->valid_point(point) && this->game_map[point]) {
 		int revert_factor = reverse ? -1 : 1;
 		point_x += revert_factor * SIZE_BOX;
 		point_y += SIZE_BOX * point_factor;
-		point = pos_exchange ? this->get_point(point_y, point_x) : this->get_point(point_x, point_y);
+		point = pos_exchange ? this->get_point(int(point_y), int(point_x)) : this->get_point(int(point_x), int(point_y));
 	}
 
 	int dist = (pos_x - point_x) / dist_factor;
 	if (!this->valid_point(point)) {
 		dist = RAY_NO_VALID;
 	}
-	return std::move(Ray(point, point_x, point_y, dist, this->number));
+
+	if (pos_exchange) {
+		return std::move(Ray(point, int(point_y), int(point_x), dist, this->number));
+	}
+	return std::move(Ray(point, int(point_x), int(point_y), dist, this->number));
 }
 
 bool Ray_shotter::is_horizontal_shooter() {

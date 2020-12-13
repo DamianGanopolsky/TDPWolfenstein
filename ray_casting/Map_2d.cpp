@@ -1,11 +1,7 @@
 #include "Map_2d.h"	
 #include <utility>
 #include <iostream>
-
-
-#define PANEL_WIDTH 640.0
-#define FOV 60.0
-#define TOTAL_BOX 64
+#include <string>
 
 
 Map_2d::Map_2d(Player& player) : player(player) {
@@ -36,4 +32,11 @@ std::set<Ray> Map_2d::get_player_rays() {
 		angle -= ray_width; 
 	}
 	return rays;
+}
+
+std::list<Game_element> Map_2d::get_game_elements() {
+	std::list<Game_element> elements;
+	Game_element element(128,128, "../ray_casting/soldado.png", this->player);
+	elements.push_back(std::move(element));
+	return elements; 
 }
