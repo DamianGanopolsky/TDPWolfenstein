@@ -6,8 +6,8 @@
 #include "Event_Handler.h"
 #include "MusicSoundtrack.h"
 #include <unistd.h>
-#define WIDTH 640
-#define HEIGTH 480
+#define WIDTH 960
+#define HEIGTH 540
 
 
 int main(int argc,char* argv[]){
