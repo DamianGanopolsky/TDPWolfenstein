@@ -6,15 +6,18 @@
 #include "Event_Handler.h"
 #include "MusicSoundtrack.h"
 #include <unistd.h>
-#define WIDTH 960
-#define HEIGTH 540
+#include "yaml-cpp/yaml.h"
+#include <fstream>  
 
 
 int main(int argc,char* argv[]){
 
+    YAML::Node config = YAML::LoadFile("../Yaml_configs/editor_config.yaml");
+    int width = config["width"].as<int>();
+    int heigth =config["heigth"].as<int>();
     bool quit = false;
     Event_Handler event_handler;
-    SdlWindow window(WIDTH,HEIGTH);
+    SdlWindow window(width,heigth);
     Editor editor(window);
     EditorSoundtrack musicsoundtrack;
     musicsoundtrack.play_editor();
@@ -30,5 +33,7 @@ int main(int argc,char* argv[]){
     }
 
     SDL_Quit();
+   // std::ofstream fout("../Yaml_configs/editor_config.yaml");
+    //fout << config;
     return 0;
 }

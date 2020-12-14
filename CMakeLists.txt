@@ -20,7 +20,7 @@ add_executable(panel ${ray_casting_dep})
 
 target_link_libraries(cliente SDL2 SDL2_mixer SDL2_ttf)
 
-target_link_libraries(editor SDL2 SDL2_mixer SDL2_ttf SDL2_image)
+target_link_libraries(editor SDL2 SDL2_mixer SDL2_ttf SDL2_image yaml-cpp)
 
 target_link_libraries(client-model Qt5::Widgets)
 
