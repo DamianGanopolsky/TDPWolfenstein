@@ -1,25 +1,17 @@
 #include "Map.h"
 #include <iostream>
-/*
-#define FLOOR_TILE 10
-#define PLAYER 11
-#define TREASURE 12
-#define MEDICAL_KIT 13
-#define KEY 14
-#define AUTOMATIC_GUN 15
-#define CHAIN_CANON 16
-#define FOOD 17
-#define BULLETS 18
-#define WALL 19
-#define DOOR 20
-*/
+
 #define FLOOR_TILE 0
-#define TREASURE 1
-#define PLAYER 2
+#define PLAYER 1
+#define TREASURE 2
 #define MEDICAL_KIT 3
-#define BULLETS 4
-#define DOOR 5
-#define WALL 6
+#define KEY 4
+#define AUTOMATIC_GUN 5
+#define CHAIN_CANON 6
+#define FOOD 7
+#define BULLETS 8
+#define WALL 9
+#define DOOR 10
 #define X_SIZE 36
 #define Y_SIZE 21
 #define TILE_PIXELS 32
@@ -77,9 +69,9 @@ Map::Map(SdlWindow& Window):window(Window){
     surfaces.push_back(IMG_Load("../Assets/MedicalKit.png"));
     surfaces.push_back(IMG_Load("../Assets/Key.png"));
     surfaces.push_back(IMG_Load("./Assets/Ametralladora.png"));
-    surfaces.push_back(IMG_Load("../Assets/CañonDeCadena.png"));
+    surfaces.push_back(IMG_Load("../Assets/CanionDeCadena.png"));
     surfaces.push_back(IMG_Load("../Assets/Food.png"));
-    surfaces.push_back(IMG_Load("../Assets/BulletsOriginal"));
+    surfaces.push_back(IMG_Load("../Assets/BulletsOriginal.png"));
     surfaces.push_back(IMG_Load("../Assets/Wall.png"));
     surfaces.push_back(IMG_Load("../Assets/Door.png"));
     for(int i=0;i<TOTAL_IMAGES;i++){
@@ -105,30 +97,40 @@ void Map::HandleMovementWASD(SDL_Event* event){
 }
 
 void Map::draw(position initial_position,position draw_position){
-    int block_frame=int(initial_position.x)/BUCKET_BAR_SPACE;
     int matrix_x=(draw_position.x+camera.x*TILE_PIXELS)/TILE_PIXELS;
     int matrix_y=(draw_position.y+camera.y*TILE_PIXELS)/TILE_PIXELS;
-    switch(block_frame){
-        case 0:
-            level1[matrix_x][matrix_y]=TREASURE;
-            break;
-        case 1:
-            level1[matrix_x][matrix_y]=PLAYER;
-            break;
-        case 2:
-            level1[matrix_x][matrix_y]=MEDICAL_KIT;
-            break;
-        case 3:
-            level1[matrix_x][matrix_y]=BULLETS;
-            break;
-        case 4:
-            level1[matrix_x][matrix_y]=DOOR;
-            break;
-        case 5:
-            level1[matrix_x][matrix_y]=WALL;
-            break;
-        default:
-            break;
+    if((initial_position.x>=(0.052*window.getWidth()))&&(initial_position.x<=0.1885*window.getWidth())){
+        level1[matrix_x][matrix_y]=PLAYER;
+    }
+    else if((initial_position.x>=(0.2312*window.getWidth()))&&(initial_position.x<=0.2885*window.getWidth())){
+        level1[matrix_x][matrix_y]=TREASURE;
+    }
+    else if((initial_position.x>=(0.2958*window.getWidth()))&&(initial_position.x<=0.3489*window.getWidth())){
+        level1[matrix_x][matrix_y]=MEDICAL_KIT;
+    }
+    else if((initial_position.x>=(0.3552*window.getWidth()))&&(initial_position.x<=0.4125*window.getWidth())){
+        level1[matrix_x][matrix_y]=KEY;
+    }
+    else if((initial_position.x>=(0.4187*window.getWidth()))&&(initial_position.x<=0.4770*window.getWidth())){
+        level1[matrix_x][matrix_y]=AUTOMATIC_GUN;
+    }
+    else if((initial_position.x>=(0.4833*window.getWidth()))&&(initial_position.x<=0.5364*window.getWidth())){
+        level1[matrix_x][matrix_y]=CHAIN_CANON;
+    }
+    else if((initial_position.x>=(0.5416*window.getWidth()))&&(initial_position.x<=0.5979*window.getWidth())){
+        level1[matrix_x][matrix_y]=FOOD;
+    }
+    else if((initial_position.x>=(0.6041*window.getWidth()))&&(initial_position.x<=0.6666*window.getWidth())){
+        level1[matrix_x][matrix_y]=BULLETS;
+    }
+    else if((initial_position.x>=(0.7218*window.getWidth()))&&(initial_position.x<=0.8041*window.getWidth())){
+        level1[matrix_x][matrix_y]=FLOOR_TILE;
+    }
+    else if((initial_position.x>=(0.8093*window.getWidth()))&&(initial_position.x<=0.8854*window.getWidth())){
+        level1[matrix_x][matrix_y]=WALL;
+    }
+    else if((initial_position.x>=(0.8916*window.getWidth()))&&(initial_position.x<=0.9687*window.getWidth())){
+        level1[matrix_x][matrix_y]=DOOR;
     }
 }
 
@@ -148,23 +150,36 @@ void Map::render(){
             switch(level1[i][j]){
                 case FLOOR_TILE:
                     break;
-                case TREASURE:
-                    SDL_RenderCopy(window.getRenderer(),textures.at(2),NULL,&rect);
-                    break;
                 case PLAYER:
                     SDL_RenderCopy(window.getRenderer(),textures.at(1),NULL,&rect);
                     break;
+                case TREASURE:
+                    SDL_RenderCopy(window.getRenderer(),textures.at(2),NULL,&rect);
+                    break;
+
                 case MEDICAL_KIT:
                     SDL_RenderCopy(window.getRenderer(),textures.at(3),NULL,&rect);
+                    break;
+                case KEY:
+                    SDL_RenderCopy(window.getRenderer(),textures.at(4),NULL,&rect);
+                    break;
+                case AUTOMATIC_GUN:
+                    SDL_RenderCopy(window.getRenderer(),textures.at(5),NULL,&rect);
+                    break;
+                case CHAIN_CANON:
+                    SDL_RenderCopy(window.getRenderer(),textures.at(6),NULL,&rect);
+                    break;
+                case FOOD:
+                    SDL_RenderCopy(window.getRenderer(),textures.at(7),NULL,&rect);
                     break;
                 case BULLETS:
                     SDL_RenderCopy(window.getRenderer(),textures.at(8),NULL,&rect);
                     break;
+                case WALL:
+                    SDL_RenderCopy(window.getRenderer(),textures.at(9),NULL,&rect);
+                    break;
                 case DOOR:
                     SDL_RenderCopy(window.getRenderer(),textures.at(10),NULL,&rect);
-                    break;
-                case WALL:
-                    SDL_RenderCopy(window.getRenderer(),textures.at(0),NULL,&rect);
                     break;
 
                 default:
