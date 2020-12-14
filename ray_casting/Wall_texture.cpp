@@ -1,7 +1,7 @@
 #include "Wall_texture.h"
 #include <iostream>
 
-#define TEXTURE_PATH "../ray_casting/walls.png"
+#define TEXTURE_PATH "../ray_casting/sprites/walls.png"
 
 Wall_texture::Wall_texture() {
     this->image = IMG_Load(TEXTURE_PATH);

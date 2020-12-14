@@ -6,6 +6,8 @@ find_package(Qt5Widgets)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Werror")
 
+file(GLOB ray_casting_dep "ray_casting/*.cpp")
+
 add_executable(cliente prueba_cmake_cliente.cpp SdlSound.cpp SdlMusic.cpp SdlWindow.cpp SdlText.cpp)
 
 add_executable(editor Editor/editor_main.cpp Editor/SdlClasses/SdlWindow.cpp Editor/SdlClasses/SdlText.cpp Editor/Event_Handler.cpp Editor/Editor.cpp Editor/Scene.cpp Editor/SdlClasses/SdlMusic.cpp Editor/MusicSoundtrack.cpp Editor/Main_Window.cpp Editor/Map.cpp)
@@ -14,9 +16,7 @@ add_executable(servidor prueba_servidor.cpp)
 
 add_executable(client-model client-model/main.cpp client-model/Main_window.cpp)
 
-add_executable(ray-test ray_casting/ray_test.cpp ray_casting/Ray_shotter.cpp ray_casting/Ray.cpp)
-
-add_executable(panel ray_casting/main.cpp ray_casting/Player.cpp ray_casting/Map_2d.cpp ray_casting/Panel_window.cpp ray_casting/Ray_shotter.cpp ray_casting/Ray.cpp ray_casting/Event_handler.cpp ray_casting/Wall_texture.cpp ray_casting/Ray_panel.cpp ray_casting/Game_element.cpp ray_casting/Element_panel.h ray_casting/Elements_panel_queue.cpp ray_casting/Element_panel.cpp)
+add_executable(panel ${ray_casting_dep})
 
 target_link_libraries(cliente SDL2 SDL2_mixer SDL2_ttf)
 

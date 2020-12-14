@@ -6,6 +6,7 @@
 #include "Wall_texture.h"
 #include "Ray_panel.h"
 #include "Game_element.h"
+#include "Status_panel.h"
 #include <set>
 #include <list>
 #include "const.h"
@@ -26,6 +27,7 @@ private:
 	SDL_Window *window;
 	bool running;
 	Wall_texture wall_textures;
+	Status_panel status_panel;
 };
 
 #endif

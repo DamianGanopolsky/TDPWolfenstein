@@ -47,6 +47,6 @@ void Panel_window::update(std::set<Ray>&& rays, std::list<Game_element>&& elemen
 		element->copy_to_rederer(*this->renderer);
 		q.pop();
 	}
-
+	this->status_panel.copy_to_rederer(*this->renderer);
     SDL_RenderPresent(this->renderer);
 }
