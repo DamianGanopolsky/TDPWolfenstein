@@ -23,7 +23,7 @@ Main_Window::Main_Window(SdlWindow& Window):window(Window){
     structures=SDL_CreateTextureFromSurface(window.getRenderer(),structures_surf);
     SDL_Surface* soldier_1_surf=IMG_Load("../Editor/Editor_Assets/Soldier1.png");
     soldier_1=SDL_CreateTextureFromSurface(window.getRenderer(),soldier_1_surf);
-    SDL_Surface* soldier_2_surf=IMG_Load("../Editor/Editor_Assets/complete.jpeg");
+    SDL_Surface* soldier_2_surf=IMG_Load("../Editor/Editor_Assets/Completev2.jpeg");
     soldier_2=SDL_CreateTextureFromSurface(window.getRenderer(),soldier_2_surf);
 }
 
@@ -36,7 +36,12 @@ void Main_Window::render_window(){
     SDL_Rect bullets_rect={460,608,100,80};
     SDL_Rect door_rect={600,608,100,80};
     SDL_Rect wall_rect={740,608,100,80};*/
-    SDL_Rect bar_rect={0,608,1024,92};
+
+    float bar_coef=0.7916666;
+    //float bar_height=static_cast<float>(window.getHeight());
+    SDL_Rect bar_rect={0,int(window.getHeight()*bar_coef),int(window.getWidth()),92};   
+
+
     //SDL_Rect players_rect={-22,600,340,110};
     //SDL_Rect objects_rect={270,592,440,110};
     //SDL_Rect structure_rect={720,596,220,110};
@@ -51,6 +56,9 @@ void Main_Window::render_window(){
    // SDL_RenderCopy(window.getRenderer(), players, NULL, &players_rect);
     //SDL_RenderCopy(window.getRenderer(), objects, NULL, &objects_rect);
     //SDL_RenderCopy(window.getRenderer(),structures,NULL,&structure_rect);
-    SDL_RenderCopy(window.getRenderer(),soldier_2,NULL,&bar_rect);
+    
     //SDL_RenderCopy(window.getRenderer(),soldier_1,NULL,&soldier_1_rect);
+
+
+    SDL_RenderCopy(window.getRenderer(),soldier_2,NULL,&bar_rect);
 }

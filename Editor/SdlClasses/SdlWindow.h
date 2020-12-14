@@ -5,16 +5,20 @@
 
 class SdlWindow{
 private:
-    //int width;
-    //int height;
+    float Width;
+    float Height;
     SDL_Window* window;
     SDL_Renderer* renderer;
 
 
 public:
-    SdlWindow(int width,int height);
+    SdlWindow(float width,float height);
     
     void render();
+
+    float getHeight() const;
+
+    float getWidth() const;
 
     SDL_Renderer* getRenderer() const;
 

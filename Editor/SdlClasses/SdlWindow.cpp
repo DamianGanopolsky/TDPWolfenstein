@@ -1,7 +1,7 @@
 #include "SdlWindow.h"
 #include <iostream>
 
-SdlWindow::SdlWindow(int width,int height){
+SdlWindow::SdlWindow(float width,float height):Width(width),Height(height){
 
     int error=SDL_Init(SDL_INIT_VIDEO);
     if(error){
@@ -18,6 +18,14 @@ void SdlWindow::render(){
 }
 SDL_Renderer* SdlWindow::getRenderer() const{
     return this->renderer;
+}
+
+float SdlWindow::getHeight() const{
+    return Height;
+}
+
+float SdlWindow::getWidth() const{
+    return Width;
 }
 
 SdlWindow::~SdlWindow(){

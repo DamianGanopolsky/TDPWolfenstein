@@ -1,5 +1,18 @@
 #include "Map.h"
 #include <iostream>
+/*
+#define FLOOR_TILE 10
+#define PLAYER 11
+#define TREASURE 12
+#define MEDICAL_KIT 13
+#define KEY 14
+#define AUTOMATIC_GUN 15
+#define CHAIN_CANON 16
+#define FOOD 17
+#define BULLETS 18
+#define WALL 19
+#define DOOR 20
+*/
 #define FLOOR_TILE 0
 #define TREASURE 1
 #define PLAYER 2
@@ -13,6 +26,7 @@
 #define SCREEN_HEIGTH 19
 #define SCREEN_WIDTH 32
 #define BUCKET_BAR_SPACE 145
+#define TOTAL_IMAGES 11
 
 
 int level1[36][21] = {
@@ -57,15 +71,18 @@ int level1[36][21] = {
 Map::Map(SdlWindow& Window):window(Window){
     camera.x=0;
     camera.y=0;
-    surfaces.push_back(IMG_Load("../Assets/Trophy.png"));
-    surfaces.push_back(IMG_Load("../prueba_mapa/assets/imagen1.png"));
-    surfaces.push_back(IMG_Load("../Editor/Editor_Assets/Barra2.png"));
     surfaces.push_back(IMG_Load("../Editor/Editor_Assets/GreyTile.png"));
+    surfaces.push_back(IMG_Load("../prueba_mapa/assets/imagen1.png"));
+    surfaces.push_back(IMG_Load("../Assets/Trophy.png"));
     surfaces.push_back(IMG_Load("../Assets/MedicalKit.png"));
-    surfaces.push_back(IMG_Load("../Assets/BulletsOriginal.png"));
-    surfaces.push_back(IMG_Load("../Assets/Door.png"));
+    surfaces.push_back(IMG_Load("../Assets/Key.png"));
+    surfaces.push_back(IMG_Load("./Assets/Ametralladora.png"));
+    surfaces.push_back(IMG_Load("../Assets/CañonDeCadena.png"));
+    surfaces.push_back(IMG_Load("../Assets/Food.png"));
+    surfaces.push_back(IMG_Load("../Assets/BulletsOriginal"));
     surfaces.push_back(IMG_Load("../Assets/Wall.png"));
-    for(int i=0;i<8;i++){
+    surfaces.push_back(IMG_Load("../Assets/Door.png"));
+    for(int i=0;i<TOTAL_IMAGES;i++){
         textures.push_back(SDL_CreateTextureFromSurface(window.getRenderer(),surfaces.at(i)));
     }
 }
@@ -126,34 +143,28 @@ void Map::render(){
             }
             SDL_Rect rect={pos_x*TILE_PIXELS,pos_y*TILE_PIXELS,TILE_PIXELS,TILE_PIXELS};
             pos_y++;
-            //SDL_RenderCopy(window.getRenderer(),floor_tile,NULL,&rect);
-            SDL_RenderCopy(window.getRenderer(),textures.at(3),NULL,&rect);
+
+            SDL_RenderCopy(window.getRenderer(),textures.at(0),NULL,&rect);
             switch(level1[i][j]){
                 case FLOOR_TILE:
                     break;
                 case TREASURE:
-                    //SDL_RenderCopy(window.getRenderer(),treasure,NULL,&rect);
-                    SDL_RenderCopy(window.getRenderer(),textures.at(0),NULL,&rect);
+                    SDL_RenderCopy(window.getRenderer(),textures.at(2),NULL,&rect);
                     break;
                 case PLAYER:
                     SDL_RenderCopy(window.getRenderer(),textures.at(1),NULL,&rect);
-                    //SDL_RenderCopy(window.getRenderer(),player,NULL,&rect);
                     break;
                 case MEDICAL_KIT:
-                    SDL_RenderCopy(window.getRenderer(),textures.at(4),NULL,&rect);
-                    //SDL_RenderCopy(window.getRenderer(),medical_kit,NULL,&rect);
+                    SDL_RenderCopy(window.getRenderer(),textures.at(3),NULL,&rect);
                     break;
                 case BULLETS:
-                    SDL_RenderCopy(window.getRenderer(),textures.at(0),NULL,&rect);
-                    //SDL_RenderCopy(window.getRenderer(),bullets,NULL,&rect);
+                    SDL_RenderCopy(window.getRenderer(),textures.at(8),NULL,&rect);
                     break;
                 case DOOR:
-                    SDL_RenderCopy(window.getRenderer(),textures.at(0),NULL,&rect);
-                    //SDL_RenderCopy(window.getRenderer(),door,NULL,&rect);
+                    SDL_RenderCopy(window.getRenderer(),textures.at(10),NULL,&rect);
                     break;
                 case WALL:
                     SDL_RenderCopy(window.getRenderer(),textures.at(0),NULL,&rect);
-                    //SDL_RenderCopy(window.getRenderer(),wall,NULL,&rect);
                     break;
 
                 default:
