@@ -3,6 +3,7 @@
 
 #include <map>
 #include "Ray.h"
+#include "const.h"
 
 //Simula un disparador de rayos con un ángulo fijo;
 class Ray_shotter {

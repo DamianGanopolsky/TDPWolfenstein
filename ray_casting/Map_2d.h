@@ -3,9 +3,12 @@
 
 #include <map>
 #include "Ray_shotter.h"
+#include "Game_element.h"
 #include "Player.h"
 #include "Ray.h"
 #include <set>
+#include <list>
+#include "const.h"
 
 class Map_2d {
 public:
@@ -14,6 +17,7 @@ public:
 	~Map_2d();
 
 	std::set<Ray> get_player_rays(); 
+	std::list<Game_element> get_game_elements(); 
 private:
 	std::map<int, bool> boxes;
 	Player& player; 
