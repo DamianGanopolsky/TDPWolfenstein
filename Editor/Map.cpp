@@ -57,22 +57,17 @@ int level1[36][21] = {
 Map::Map(SdlWindow& Window):window(Window){
     camera.x=0;
     camera.y=0;
-    SDL_Surface* tre_surface=IMG_Load("../Assets/Trophy.png");
-    treasure=SDL_CreateTextureFromSurface(window.getRenderer(),tre_surface);
-    SDL_Surface* player_surface = IMG_Load("../prueba_mapa/assets/imagen1.png");
-    player=SDL_CreateTextureFromSurface(window.getRenderer(),player_surface);
-    SDL_Surface* bar_surface=IMG_Load("../Editor/Editor_Assets/Barra2.png");
-    bar=SDL_CreateTextureFromSurface(window.getRenderer(),bar_surface);
-    SDL_Surface* floor_tile_surf=IMG_Load("../Editor/Editor_Assets/GreyTile.png");
-    floor_tile=SDL_CreateTextureFromSurface(window.getRenderer(),floor_tile_surf);
-    SDL_Surface* kit_surface=IMG_Load("../Assets/MedicalKit.png");
-    medical_kit=SDL_CreateTextureFromSurface(window.getRenderer(),kit_surface);
-    SDL_Surface* bullets_surface=IMG_Load("../Assets/Bullets.png");
-    bullets=SDL_CreateTextureFromSurface(window.getRenderer(),bullets_surface);
-    SDL_Surface* door_surface=IMG_Load("../Assets/Door.png");
-    door=SDL_CreateTextureFromSurface(window.getRenderer(),door_surface);
-    SDL_Surface* wall_surface=IMG_Load("../Assets/Wall.png");
-    wall=SDL_CreateTextureFromSurface(window.getRenderer(),wall_surface);
+    surfaces.push_back(IMG_Load("../Assets/Trophy.png"));
+    surfaces.push_back(IMG_Load("../prueba_mapa/assets/imagen1.png"));
+    surfaces.push_back(IMG_Load("../Editor/Editor_Assets/Barra2.png"));
+    surfaces.push_back(IMG_Load("../Editor/Editor_Assets/GreyTile.png"));
+    surfaces.push_back(IMG_Load("../Assets/MedicalKit.png"));
+    surfaces.push_back(IMG_Load("../Assets/BulletsOriginal.png"));
+    surfaces.push_back(IMG_Load("../Assets/Door.png"));
+    surfaces.push_back(IMG_Load("../Assets/Wall.png"));
+    for(int i=0;i<8;i++){
+        textures.push_back(SDL_CreateTextureFromSurface(window.getRenderer(),surfaces.at(i)));
+    }
 }
 
 void Map::HandleMovementWASD(SDL_Event* event){
@@ -131,27 +126,34 @@ void Map::render(){
             }
             SDL_Rect rect={pos_x*TILE_PIXELS,pos_y*TILE_PIXELS,TILE_PIXELS,TILE_PIXELS};
             pos_y++;
-            SDL_RenderCopy(window.getRenderer(),floor_tile,NULL,&rect);
+            //SDL_RenderCopy(window.getRenderer(),floor_tile,NULL,&rect);
+            SDL_RenderCopy(window.getRenderer(),textures.at(3),NULL,&rect);
             switch(level1[i][j]){
                 case FLOOR_TILE:
                     break;
                 case TREASURE:
-                    SDL_RenderCopy(window.getRenderer(),treasure,NULL,&rect);
+                    //SDL_RenderCopy(window.getRenderer(),treasure,NULL,&rect);
+                    SDL_RenderCopy(window.getRenderer(),textures.at(0),NULL,&rect);
                     break;
                 case PLAYER:
-                    SDL_RenderCopy(window.getRenderer(),player,NULL,&rect);
+                    SDL_RenderCopy(window.getRenderer(),textures.at(1),NULL,&rect);
+                    //SDL_RenderCopy(window.getRenderer(),player,NULL,&rect);
                     break;
                 case MEDICAL_KIT:
-                    SDL_RenderCopy(window.getRenderer(),medical_kit,NULL,&rect);
+                    SDL_RenderCopy(window.getRenderer(),textures.at(4),NULL,&rect);
+                    //SDL_RenderCopy(window.getRenderer(),medical_kit,NULL,&rect);
                     break;
                 case BULLETS:
-                    SDL_RenderCopy(window.getRenderer(),bullets,NULL,&rect);
+                    SDL_RenderCopy(window.getRenderer(),textures.at(0),NULL,&rect);
+                    //SDL_RenderCopy(window.getRenderer(),bullets,NULL,&rect);
                     break;
                 case DOOR:
-                    SDL_RenderCopy(window.getRenderer(),door,NULL,&rect);
+                    SDL_RenderCopy(window.getRenderer(),textures.at(0),NULL,&rect);
+                    //SDL_RenderCopy(window.getRenderer(),door,NULL,&rect);
                     break;
                 case WALL:
-                    SDL_RenderCopy(window.getRenderer(),wall,NULL,&rect);
+                    SDL_RenderCopy(window.getRenderer(),textures.at(0),NULL,&rect);
+                    //SDL_RenderCopy(window.getRenderer(),wall,NULL,&rect);
                     break;
 
                 default:

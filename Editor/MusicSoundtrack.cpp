@@ -12,7 +12,7 @@ EditorSoundtrack::EditorSoundtrack(){
     }
     Suspense=Mix_LoadMUS("../Music/06-Suspense E1M4.mp3");
     Pow=Mix_LoadMUS("../Music/05-P.O.W. E1M3.mp3");
-    Mix_VolumeMusic(20);
+    Mix_VolumeMusic(5);
 }
 
 void EditorSoundtrack::load_editor_soundtrack(){

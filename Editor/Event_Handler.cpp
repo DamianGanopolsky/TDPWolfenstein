@@ -45,7 +45,7 @@ bool Event_Handler::handleEvents(Editor& editor){
         case SDL_MOUSEMOTION:
             //std::cout << "Estoy en motion" << std::endl;
             editor.HandleMotion(&event);
-            std::cout << "En x:" << event.button.x << "En y:" << event.button.y << std::endl;
+            //std::cout << "En x:" << event.button.x << "En y:" << event.button.y << std::endl;
             break;
     }
     return quit;
