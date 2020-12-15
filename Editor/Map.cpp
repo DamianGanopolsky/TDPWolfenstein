@@ -1,5 +1,4 @@
 #include "Map.h"
-
 #include <SDL2/SDL_ttf.h>
 #include <iostream>
 #include "../Editor/SdlClasses/SdlText.h"
@@ -77,10 +76,6 @@ Map::Map(SdlWindow& Window):window(Window),player_count(0){
     surfaces.push_back(IMG_Load("../Assets/BulletsOriginal.png"));
     surfaces.push_back(IMG_Load("../Assets/Wall.png"));
     surfaces.push_back(IMG_Load("../Assets/Door.png"));
-    SDL_Surface* surf=IMG_Load("../Editor/Editor_Assets/Player_Number/Uno.png");
-    if(!surf){
-        printf("DS\n");
-    }
     surfaces.push_back(IMG_Load("../Editor/Editor_Assets/Player_Number/Uno.png"));
     surfaces.push_back(IMG_Load("../Editor/Editor_Assets/Player_Number/Dos.png"));
     surfaces.push_back(IMG_Load("../Editor/Editor_Assets/Player_Number/Tres.png"));
@@ -90,14 +85,6 @@ Map::Map(SdlWindow& Window):window(Window),player_count(0){
     for(int i=0;i<TOTAL_IMAGES;i++){
         textures.push_back(SDL_CreateTextureFromSurface(window.getRenderer(),surfaces.at(i)));
     }
-    TTF_Font* Sans = TTF_OpenFont("../OpenSans-Bold.ttf", 24);
-    SDL_Color White = {255, 0, 0};
-    SDL_Surface* surfaceMessage = TTF_RenderText_Solid(Sans, "put your text here", White); // as TTF_RenderText_Solid could only be used on SDL_Surface then you have to create the surface first
-
-    //SdlText texto(window.getRenderer(),255,255,255);
-
-    //texto.Load_Text("../OpenSans-Bold.ttf","Wolfenstein",24);
-    Message_text = SDL_CreateTextureFromSurface(window.getRenderer(), surfaceMessage);
 }
 
 void Map::HandleMovementWASD(SDL_Event* event){
@@ -122,7 +109,6 @@ void Map::draw(position initial_position,position draw_position){
     int matrix_y=(draw_position.y+camera.y*TILE_PIXELS)/TILE_PIXELS;
     if((initial_position.x>=(0.052*window.getWidth()))&&(initial_position.x<=0.1885*window.getWidth())){
         if(level1[matrix_x][matrix_y]!=PLAYER){
-            //std::cout << "matrix y es"<< matrix_y << std::endl;
             player_count++;
             std::pair<int,int> pair_key;
             pair_key.first=matrix_x;
@@ -179,10 +165,8 @@ void Map::render(){
                 continue;
             }
             SDL_Rect rect={pos_x*TILE_PIXELS,pos_y*TILE_PIXELS,TILE_PIXELS,TILE_PIXELS};
-            //printf("Posy* tile pixels es %i \n",pos_y*TILE_PIXELS);
             SDL_Rect rect_text={pos_x*TILE_PIXELS+3,(pos_y*TILE_PIXELS)-10,TILE_PIXELS,TILE_PIXELS};
             pos_y++;
-            
             SDL_RenderCopy(window.getRenderer(),textures.at(0),NULL,&rect);
             switch(level1[i][j]){
                 case FLOOR_TILE:
@@ -190,10 +174,7 @@ void Map::render(){
                 case PLAYER:
                     key.first=(pos_x*TILE_PIXELS+camera.x*TILE_PIXELS)/TILE_PIXELS;
                     key.second=((pos_y*TILE_PIXELS+camera.y*TILE_PIXELS)/TILE_PIXELS)-1;
-                    //std::cout << key.second << std::endl;
-                    //std::cout << key<< std::endl;
                     player_number=player_map.at(key);
-                    std::cout << player_number<< std::endl;
                     SDL_RenderCopy(window.getRenderer(),textures.at(1),NULL,&rect);
                     switch(player_number){
                         case 1:
@@ -214,8 +195,6 @@ void Map::render(){
                         case 6:
                             SDL_RenderCopy(window.getRenderer(), textures.at(16), NULL, &rect_text); 
                             break;
-                        //default:
-                          //  break;
                     }
                     break;
                 case TREASURE:
