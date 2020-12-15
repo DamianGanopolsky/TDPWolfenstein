@@ -2,6 +2,7 @@
 #include <SDL2/SDL_image.h>
 #include "SdlClasses/SdlWindow.h"
 #include <vector>
+#include <map>
 
 struct position{
     int x;
@@ -12,22 +13,13 @@ class Map{
 private:
     std::vector <SDL_Texture*> textures;
     std::vector <SDL_Surface*> surfaces;
+    std::map <int,int> player_map;
     position camera;
-    SDL_Texture* player;
-    SDL_Texture* treasure;
-    SDL_Texture* bar;
-    SDL_Texture* floor_tile;
-    SDL_Texture* wall;
-    SDL_Texture* door;
-    SDL_Texture* bullets;
-    SDL_Texture* medical_kit;
-    SDL_Texture* automatic_gun;
-    SDL_Texture* chain_cannon;
-    SDL_Texture* food;
-    SDL_Texture* soldier1;
-    SDL_Texture* soldier2;
-    SDL_Texture* soldier3;
+    SDL_Texture* Message_text;
     SdlWindow& window;
+    int player_count;
+
+
 
 public:
     Map(SdlWindow& Window);
