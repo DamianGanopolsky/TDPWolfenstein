@@ -122,9 +122,12 @@ void Map::draw(position initial_position,position draw_position){
     int matrix_y=(draw_position.y+camera.y*TILE_PIXELS)/TILE_PIXELS;
     if((initial_position.x>=(0.052*window.getWidth()))&&(initial_position.x<=0.1885*window.getWidth())){
         if(level1[matrix_x][matrix_y]!=PLAYER){
-            std::cout << "matrix x es"<< matrix_x << std::endl;
+            //std::cout << "matrix y es"<< matrix_y << std::endl;
             player_count++;
-            player_map.insert({matrix_x,player_count});
+            std::pair<int,int> pair_key;
+            pair_key.first=matrix_x;
+            pair_key.second=matrix_y;
+            player_map.insert({pair_key,player_count});
         }
         level1[matrix_x][matrix_y]=PLAYER;
         
@@ -167,7 +170,8 @@ void Map::draw(position initial_position,position draw_position){
 void Map::render(){
     int pos_x=0;
     int pos_y=0;
-    int key,player_number;
+    std::pair<int,int> key;
+    int player_number;
     for(int i=camera.x;i<camera.x+SCREEN_WIDTH;i++){
         for(int j=camera.y;j<camera.y+SCREEN_HEIGTH;j++){
             if((i>X_SIZE)||(j>Y_SIZE)||(i<0)||(j<0)){
@@ -184,7 +188,9 @@ void Map::render(){
                 case FLOOR_TILE:
                     break;
                 case PLAYER:
-                    key=(pos_x*TILE_PIXELS+camera.x*TILE_PIXELS)/TILE_PIXELS;
+                    key.first=(pos_x*TILE_PIXELS+camera.x*TILE_PIXELS)/TILE_PIXELS;
+                    key.second=((pos_y*TILE_PIXELS+camera.y*TILE_PIXELS)/TILE_PIXELS)-1;
+                    //std::cout << key.second << std::endl;
                     //std::cout << key<< std::endl;
                     player_number=player_map.at(key);
                     std::cout << player_number<< std::endl;

@@ -13,7 +13,7 @@ class Map{
 private:
     std::vector <SDL_Texture*> textures;
     std::vector <SDL_Surface*> surfaces;
-    std::map <int,int> player_map;
+    std::map <std::pair<int,int>,int> player_map;
     position camera;
     SDL_Texture* Message_text;
     SdlWindow& window;
