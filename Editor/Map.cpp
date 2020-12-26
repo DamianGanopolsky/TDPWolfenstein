@@ -107,6 +107,9 @@ void Map::HandleMovementWASD(SDL_Event* event){
 void Map::draw(position initial_position,position draw_position){
     int matrix_x=(draw_position.x+camera.x*TILE_PIXELS)/TILE_PIXELS;
     int matrix_y=(draw_position.y+camera.y*TILE_PIXELS)/TILE_PIXELS;
+    if(initial_position.y<0.815625*window.getHeight()){
+        return;
+    }
     if((initial_position.x>=(0.052*window.getWidth()))&&(initial_position.x<=0.1885*window.getWidth())){
         if(level1[matrix_x][matrix_y]!=PLAYER){
             player_count++;
