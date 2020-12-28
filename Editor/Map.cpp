@@ -78,7 +78,6 @@ void Map::LoadMatrix(){
             matrix[i][j]=level1[i][j];
         }
     }
-    std::cout << matrix[0][0] << std::endl;
 }
 
 void Map::ExpandMap(){
@@ -97,8 +96,8 @@ void Map::ExpandMap(){
         delete matrix[i];
     }
     delete matrix;
-    rows=rows+5;
-    columns=columns+5;
+    rows=rows+1;
+    columns=columns+1;
     matrix=new int*[rows];
     for(int i=0;i<rows;i++){
         matrix[i]=new int[columns];
@@ -108,11 +107,17 @@ void Map::ExpandMap(){
             matrix[i][j]=aux[i][j];
         }
     }
+    for(int i=previous_rows;i<rows;i++){
+        for(int j=previous_cols;j<columns;j++){
+            matrix[i][j]=TREASURE;
+        }
+    }
     for(int i=0;i<previous_rows;i++){
         delete aux[i];
     }
     delete aux;
     matrix[rows-1][columns-1]=14;
+    std::cout << "Rows:" << rows << "Columns:" << columns << std::endl;
 }
 
 
@@ -177,7 +182,8 @@ void Map::draw(position initial_position,position draw_position){
         
     }
     else if((initial_position.x>=(0.2312*window.getWidth()))&&(initial_position.x<=0.2885*window.getWidth())){
-        matrix[matrix_x][matrix_y]=TREASURE;
+        ExpandMap();
+        //matrix[matrix_x][matrix_y]=TREASURE;
     }
     else if((initial_position.x>=(0.2958*window.getWidth()))&&(initial_position.x<=0.3489*window.getWidth())){
         matrix[matrix_x][matrix_y]=MEDICAL_KIT;
@@ -215,26 +221,28 @@ void Map::render(){
     int pos_x=0;
     int pos_y=0;
     std::pair<int,int> key;
-    int player_number;
+    //int player_number;
+    
     for(int i=camera.x;i<camera.x+SCREEN_WIDTH;i++){
         for(int j=camera.y;j<camera.y+SCREEN_HEIGTH;j++){
-            if((i>=X_SIZE)||(j>=Y_SIZE)||(i<0)||(j<0)){
+            if((i>=rows)||(j>=columns)||(i<0)||(j<0)){
                 pos_y++;
                 continue;
             }
             SDL_Rect rect={pos_x*TILE_PIXELS,pos_y*TILE_PIXELS,TILE_PIXELS,TILE_PIXELS};
-            SDL_Rect rect_text={pos_x*TILE_PIXELS+3,(pos_y*TILE_PIXELS)-10,TILE_PIXELS,TILE_PIXELS};
+            //SDL_Rect rect_text={pos_x*TILE_PIXELS+3,(pos_y*TILE_PIXELS)-10,TILE_PIXELS,TILE_PIXELS};
             pos_y++;
             SDL_RenderCopy(window.getRenderer(),textures.at(0),NULL,&rect);
             switch(matrix[i][j]){
                 case FLOOR_TILE:
                     break;
                 case PLAYER:
-                    key.first=(pos_x*TILE_PIXELS+camera.x*TILE_PIXELS)/TILE_PIXELS;
+                    /*key.first=(pos_x*TILE_PIXELS+camera.x*TILE_PIXELS)/TILE_PIXELS;
                     key.second=((pos_y*TILE_PIXELS+camera.y*TILE_PIXELS)/TILE_PIXELS)-1;
-                    player_number=player_map.at(key);
+                    std::cout << "key first es "<< key.first << "key second es" << key.second << std::endl;
+                    player_number=player_map.at(key);*/
                     SDL_RenderCopy(window.getRenderer(),textures.at(1),NULL,&rect);
-                    switch(player_number){
+                    /*switch(player_number){
                         case 1:
                             SDL_RenderCopy(window.getRenderer(), textures.at(11), NULL, &rect_text); 
                             break;
@@ -253,12 +261,11 @@ void Map::render(){
                         case 6:
                             SDL_RenderCopy(window.getRenderer(), textures.at(16), NULL, &rect_text); 
                             break;
-                    }
+                    }*/
                     break;
                 case TREASURE:
                     SDL_RenderCopy(window.getRenderer(),textures.at(2),NULL,&rect);
                     break;
-
                 case MEDICAL_KIT:
                     SDL_RenderCopy(window.getRenderer(),textures.at(3),NULL,&rect);
                     break;
