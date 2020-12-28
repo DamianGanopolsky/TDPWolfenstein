@@ -3,12 +3,12 @@
 #include <SDL2/SDL_mixer.h>
 #include <SDL2/SDL_image.h>
 #include "SdlClasses/SdlWindow.h"
-//#include "Event_Handler.h"
+#include "Event_Handler.h"
 #include "MusicSoundtrack.h"
 #include <unistd.h>
 #include "yaml-cpp/yaml.h"
 #include <fstream>  
-#include "Map.h"
+//#include "Map.h"
 #include <stdexcept>
 
 
@@ -24,11 +24,11 @@ int main(int argc,char* argv[]){
     }
     
     SdlWindow window(width,heigth);
-    Map map(window);
+    //Map map(window);
    // map.LoadMatrix();
-    map.ExpandMap();
-    map.printMatrix();
-    /*Editor editor(window);
+    //map.ExpandMap();
+    //map.printMatrix();
+    Editor editor(window);
     Event_Handler event_handler;
     bool quit = false;
     //EditorSoundtrack musicsoundtrack;
@@ -44,6 +44,6 @@ int main(int argc,char* argv[]){
         window.render();
     }
 
-    SDL_Quit();*/
+    SDL_Quit();
     return 0;
 }

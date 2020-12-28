@@ -166,48 +166,48 @@ void Map::draw(position initial_position,position draw_position){
         return;
     }
     if((initial_position.x>=(0.052*window.getWidth()))&&(initial_position.x<=0.1885*window.getWidth())){
-        if(level1[matrix_x][matrix_y]!=PLAYER){
+        if(matrix[matrix_x][matrix_y]!=PLAYER){
             player_count++;
             std::pair<int,int> pair_key;
             pair_key.first=matrix_x;
             pair_key.second=matrix_y;
             player_map.insert({pair_key,player_count});
         }
-        level1[matrix_x][matrix_y]=PLAYER;
+        matrix[matrix_x][matrix_y]=PLAYER;
         
     }
     else if((initial_position.x>=(0.2312*window.getWidth()))&&(initial_position.x<=0.2885*window.getWidth())){
-        level1[matrix_x][matrix_y]=TREASURE;
+        matrix[matrix_x][matrix_y]=TREASURE;
     }
     else if((initial_position.x>=(0.2958*window.getWidth()))&&(initial_position.x<=0.3489*window.getWidth())){
-        level1[matrix_x][matrix_y]=MEDICAL_KIT;
+        matrix[matrix_x][matrix_y]=MEDICAL_KIT;
     }
     else if((initial_position.x>=(0.3552*window.getWidth()))&&(initial_position.x<=0.4125*window.getWidth())){
-        level1[matrix_x][matrix_y]=KEY;
+        matrix[matrix_x][matrix_y]=KEY;
     }
     else if((initial_position.x>=(0.4187*window.getWidth()))&&(initial_position.x<=0.4770*window.getWidth())){
-        level1[matrix_x][matrix_y]=AUTOMATIC_GUN;
+        matrix[matrix_x][matrix_y]=AUTOMATIC_GUN;
     }
     else if((initial_position.x>=(0.4833*window.getWidth()))&&(initial_position.x<=0.5364*window.getWidth())){
-        level1[matrix_x][matrix_y]=CHAIN_CANON;
+        matrix[matrix_x][matrix_y]=CHAIN_CANON;
     }
     else if((initial_position.x>=(0.5416*window.getWidth()))&&(initial_position.x<=0.5979*window.getWidth())){
-        level1[matrix_x][matrix_y]=FOOD;
+        matrix[matrix_x][matrix_y]=FOOD;
     }
     else if((initial_position.x>=(0.6041*window.getWidth()))&&(initial_position.x<=0.6666*window.getWidth())){
-        level1[matrix_x][matrix_y]=BULLETS;
+        matrix[matrix_x][matrix_y]=BULLETS;
     }
     else if((initial_position.x>=(0.7218*window.getWidth()))&&(initial_position.x<=0.8041*window.getWidth())){
-        if(level1[matrix_x][matrix_y]==PLAYER){
+        if(matrix[matrix_x][matrix_y]==PLAYER){
             player_count--;
         }
-        level1[matrix_x][matrix_y]=FLOOR_TILE;
+        matrix[matrix_x][matrix_y]=FLOOR_TILE;
     }
     else if((initial_position.x>=(0.8093*window.getWidth()))&&(initial_position.x<=0.8854*window.getWidth())){
-        level1[matrix_x][matrix_y]=WALL;
+        matrix[matrix_x][matrix_y]=WALL;
     }
     else if((initial_position.x>=(0.8916*window.getWidth()))&&(initial_position.x<=0.9687*window.getWidth())){
-        level1[matrix_x][matrix_y]=DOOR;
+        matrix[matrix_x][matrix_y]=DOOR;
     }
 }
 
@@ -218,7 +218,7 @@ void Map::render(){
     int player_number;
     for(int i=camera.x;i<camera.x+SCREEN_WIDTH;i++){
         for(int j=camera.y;j<camera.y+SCREEN_HEIGTH;j++){
-            if((i>X_SIZE)||(j>Y_SIZE)||(i<0)||(j<0)){
+            if((i>=X_SIZE)||(j>=Y_SIZE)||(i<0)||(j<0)){
                 pos_y++;
                 continue;
             }
@@ -226,7 +226,7 @@ void Map::render(){
             SDL_Rect rect_text={pos_x*TILE_PIXELS+3,(pos_y*TILE_PIXELS)-10,TILE_PIXELS,TILE_PIXELS};
             pos_y++;
             SDL_RenderCopy(window.getRenderer(),textures.at(0),NULL,&rect);
-            switch(level1[i][j]){
+            switch(matrix[i][j]){
                 case FLOOR_TILE:
                     break;
                 case PLAYER:
