@@ -47,9 +47,6 @@ void Editor::HandleLeftClickRelease(SDL_Event* event){
     final_position={event->button.x,event->button.y};
 
     int distance=sqrt(pow(initial_position.x-event->button.x,2)+pow(initial_position.y-event->button.y,2));
-    std::cout << distance << std::endl;
-
-    //if((initial_position.x!=int(event->button.x))||(initial_position.y!=int(event->button.y))){
     if(distance>30){
         scene.draw(initial_position,final_position);
         is_clicked_correctly=false;

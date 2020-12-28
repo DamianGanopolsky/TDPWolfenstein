@@ -3,10 +3,7 @@
 
 SdlWindow::SdlWindow(float width,float height):Width(width),Height(height){
 
-    int error=SDL_Init(SDL_INIT_VIDEO);
-    if(error){
-        std::cerr << "Error en la inicializacion de sdl" << std::endl;
-    }
+
     window = SDL_CreateWindow("SDL_ttf in SDL2",
     SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width,
     height, 0);

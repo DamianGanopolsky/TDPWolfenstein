@@ -8,6 +8,7 @@
 #include <unistd.h>
 #include "yaml-cpp/yaml.h"
 #include <fstream>  
+#include <stdexcept>
 
 
 int main(int argc,char* argv[]){
@@ -16,11 +17,15 @@ int main(int argc,char* argv[]){
     int width = config["width"].as<int>();
     int heigth =config["heigth"].as<int>();
     bool quit = false;
+    int error=SDL_Init(SDL_INIT_VIDEO);
+    if(error==0){
+        throw std::invalid_argument("Error  en la inicializacion de sdl \n");
+    }
     Event_Handler event_handler;
     SdlWindow window(width,heigth);
     Editor editor(window);
-    EditorSoundtrack musicsoundtrack;
-    musicsoundtrack.play_editor();
+    //EditorSoundtrack musicsoundtrack;
+   // musicsoundtrack.play_editor();
     Main_Window mainwindow(window);
     mainwindow.render_window();
     window.render();
@@ -33,7 +38,5 @@ int main(int argc,char* argv[]){
     }
 
     SDL_Quit();
-   // std::ofstream fout("../Yaml_configs/editor_config.yaml");
-    //fout << config;
     return 0;
 }
