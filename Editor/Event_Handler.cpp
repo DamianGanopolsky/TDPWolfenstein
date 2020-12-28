@@ -44,7 +44,6 @@ bool Event_Handler::handleEvents(Editor& editor){
                 //std::cout << "En x:" << event.button.x << "En y:" << event.button.y << std::endl;
                 break;
         }
-        
     }
     return quit;
 
