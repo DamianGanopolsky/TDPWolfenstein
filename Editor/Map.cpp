@@ -62,6 +62,33 @@ int level1[36][21] = {
     { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 };
 
+void Map::printMatrix(){
+    std::cout << matrix[0][0] << std::endl;
+}
+
+void Map::LoadMatrix(){
+    int rowCount=5;
+    int colCount=5;
+    matrix= new int*[rowCount];
+    for(int i = 0; i < rowCount; ++i){
+        matrix[i] = new int[colCount];
+    }
+    matrix[0][0]=45;
+    std::cout << matrix[0][0] << std::endl;
+    for(int i=0;i<rowCount;i++){
+        delete matrix[i];
+    }
+    delete matrix;
+    matrix=new int*[rowCount+5];
+    for(int i=0;i<rowCount+5;i++){
+        matrix[i]=new int[colCount+5];
+    }
+    matrix[0][0]=4;
+    matrix[8][8]=23;
+    std::cout << matrix[8][8] << std::endl;
+}
+
+
 Map::Map(SdlWindow& Window):window(Window),player_count(0){
     camera.x=0;
     camera.y=0;

@@ -18,6 +18,7 @@ private:
     SDL_Texture* Message_text;
     SdlWindow& window;
     int player_count;
+    int** matrix;
 
 
 
@@ -27,6 +28,10 @@ public:
     void HandleMovementWASD(SDL_Event* event);
 
     void draw(position initial_position,position draw_position);
+
+    void LoadMatrix();
+
+    void printMatrix();
 
     void render();
 
