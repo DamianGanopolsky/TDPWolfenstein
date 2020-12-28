@@ -25,6 +25,8 @@ public:
 
     void expand();
 
+    void shrink();
+
     void HandleMovementWASD(SDL_Event* event);
 
     void draw(position& initial_pos,position& final_pos);

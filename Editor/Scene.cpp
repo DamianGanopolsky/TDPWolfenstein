@@ -12,6 +12,10 @@ void Scene::expand(){
     map.ExpandMap();
 }
 
+void Scene::shrink(){
+    map.ShrinkMap();
+}
+
 void Scene::render(){
     
     map.render();

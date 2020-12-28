@@ -62,10 +62,6 @@ int level1[36][21] = {
     { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 };
 
-void Map::printMatrix(){
-    std::cout << matrix[rows-1][columns-1] << std::endl;
-}
-
 void Map::LoadMatrix(){
     rows=36;
     columns=21;
@@ -112,8 +108,6 @@ void Map::ExpandMap(){
             matrix[i][j]=FLOOR_TILE;
         }
     }
-    std::cout << previous_rows << std::endl;
-    std::cout << rows << std::endl;
     for(int i=previous_rows;i<rows;i++){
         for(int j=0;j<columns;j++){
             matrix[i][j]=FLOOR_TILE;
@@ -124,6 +118,11 @@ void Map::ExpandMap(){
     }
     delete aux;
     matrix[rows-1][columns-1]=14;
+}
+
+void Map::ShrinkMap(){
+    rows=rows-1;
+    columns=columns-1;
 }
 
 

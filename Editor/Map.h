@@ -35,7 +35,7 @@ public:
 
     void ExpandMap();
 
-    void printMatrix();
+    void ShrinkMap();
 
     void render();
 

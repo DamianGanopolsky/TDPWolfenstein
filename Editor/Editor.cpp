@@ -48,6 +48,9 @@ void Editor::HandleLeftClickRelease(SDL_Event* event){
     if((final_position.x>600)&&(final_position.y<150)){
         scene.expand();
     }
+    if((final_position.x>600)&&(final_position.y>500)){
+        scene.shrink();
+    }
     int distance=sqrt(pow(initial_position.x-event->button.x,2)+pow(initial_position.y-event->button.y,2));
     if(distance>30){
         scene.draw(initial_position,final_position);
