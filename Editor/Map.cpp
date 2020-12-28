@@ -63,29 +63,56 @@ int level1[36][21] = {
 };
 
 void Map::printMatrix(){
-    std::cout << matrix[0][0] << std::endl;
+    std::cout << matrix[rows-1][columns-1] << std::endl;
 }
 
 void Map::LoadMatrix(){
-    int rowCount=5;
-    int colCount=5;
-    matrix= new int*[rowCount];
-    for(int i = 0; i < rowCount; ++i){
-        matrix[i] = new int[colCount];
+    rows=36;
+    columns=21;
+    matrix= new int*[rows];
+    for(int i = 0; i < rows; ++i){
+        matrix[i] = new int[columns];
     }
-    matrix[0][0]=45;
+    for(int i=0;i<rows;i++){
+        for(int j=0;j<columns;j++){
+            matrix[i][j]=level1[i][j];
+        }
+    }
     std::cout << matrix[0][0] << std::endl;
-    for(int i=0;i<rowCount;i++){
+}
+
+void Map::ExpandMap(){
+    int** aux = new int*[rows];
+    for(int i = 0; i < rows; ++i){
+        aux[i] = new int[columns];
+    }
+    int previous_rows=rows;
+    int previous_cols=columns;
+    for(int i=0;i<rows;i++){
+        for(int j=0;j<columns;j++){
+            aux[i][j]=matrix[i][j];
+        }
+    }
+    for(int i=0;i<rows;i++){
         delete matrix[i];
     }
     delete matrix;
-    matrix=new int*[rowCount+5];
-    for(int i=0;i<rowCount+5;i++){
-        matrix[i]=new int[colCount+5];
+    rows=rows+5;
+    columns=columns+5;
+    matrix=new int*[rows];
+    for(int i=0;i<rows;i++){
+        matrix[i]=new int[columns];
     }
-    matrix[0][0]=4;
-    matrix[8][8]=23;
-    std::cout << matrix[8][8] << std::endl;
+    for(int i=0;i<previous_rows;i++){
+        for(int j=0;j<previous_cols;j++){
+            matrix[i][j]=aux[i][j];
+        }
+    }
+    for(int i=0;i<previous_rows;i++){
+        delete aux[i];
+    }
+    delete aux;
+    matrix[rows-1][columns-1]=14;
 }
 
 
@@ -112,6 +139,7 @@ Map::Map(SdlWindow& Window):window(Window),player_count(0){
     for(int i=0;i<TOTAL_IMAGES;i++){
         textures.push_back(SDL_CreateTextureFromSurface(window.getRenderer(),surfaces.at(i)));
     }
+    LoadMatrix();
 }
 
 void Map::HandleMovementWASD(SDL_Event* event){
@@ -265,5 +293,8 @@ void Map::render(){
 }
 
 Map::~Map(){
-
+    for(int i=0;i<rows;i++){
+        delete matrix[i];
+    }
+    delete matrix;
 }

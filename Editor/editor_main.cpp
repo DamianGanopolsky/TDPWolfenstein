@@ -25,7 +25,8 @@ int main(int argc,char* argv[]){
     
     SdlWindow window(width,heigth);
     Map map(window);
-    map.LoadMatrix();
+   // map.LoadMatrix();
+    map.ExpandMap();
     map.printMatrix();
     /*Editor editor(window);
     Event_Handler event_handler;

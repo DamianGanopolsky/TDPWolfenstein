@@ -19,6 +19,8 @@ private:
     SdlWindow& window;
     int player_count;
     int** matrix;
+    int rows;
+    int columns;
 
 
 
@@ -30,6 +32,8 @@ public:
     void draw(position initial_position,position draw_position);
 
     void LoadMatrix();
+
+    void ExpandMap();
 
     void printMatrix();
 
