@@ -45,16 +45,14 @@ void Editor::HandleRightClickRelease(SDL_Event* event){
 
 void Editor::HandleLeftClickRelease(SDL_Event* event){
     final_position={event->button.x,event->button.y};
-    if((final_position.x>600)&&(final_position.y<150)){
-        scene.expand();
-    }
-    if((final_position.x>600)&&(final_position.y>500)){
-        scene.shrink();
-    }
     int distance=sqrt(pow(initial_position.x-event->button.x,2)+pow(initial_position.y-event->button.y,2));
+    
     if(distance>30){
         scene.draw(initial_position,final_position);
         is_clicked_correctly=false;
+    }
+    else{
+        scene.click(final_position);
     }
 }
 

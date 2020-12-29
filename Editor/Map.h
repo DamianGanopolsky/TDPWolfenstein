@@ -33,6 +33,8 @@ public:
 
     void LoadMatrix();
 
+    void click(position final_pos);
+
     void ExpandMap();
 
     void ShrinkMap();

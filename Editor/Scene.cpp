@@ -8,12 +8,8 @@ void Scene::draw(position& initial_pos,position& final_pos){
     map.draw(initial_pos,final_pos);
 }
 
-void Scene::expand(){
-    map.ExpandMap();
-}
-
-void Scene::shrink(){
-    map.ShrinkMap();
+void Scene::click(position final_pos){
+    map.click(final_pos);
 }
 
 void Scene::render(){

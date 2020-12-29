@@ -169,13 +169,22 @@ void Map::HandleMovementWASD(SDL_Event* event){
     }
 }
 
+void Map::click(position final_pos){
+    if((final_pos.x>=(0.7719*window.getWidth()))&&(final_pos.x<=0.8760*window.getWidth())){
+        ExpandMap();
+    }
+    else if((final_pos.x>=(0.8833*window.getWidth()))&&(final_pos.x<=0.9896*window.getWidth())){
+        ShrinkMap();
+    }
+}
+
 void Map::draw(position initial_position,position draw_position){
     int matrix_x=(draw_position.x+camera.x*TILE_PIXELS)/TILE_PIXELS;
     int matrix_y=(draw_position.y+camera.y*TILE_PIXELS)/TILE_PIXELS;
     if(initial_position.y<0.815625*window.getHeight()){
         return;
     }
-    if((initial_position.x>=(0.052*window.getWidth()))&&(initial_position.x<=0.1885*window.getWidth())){
+    if((initial_position.x>=(0.0073*window.getWidth()))&&(initial_position.x<=0.1292*window.getWidth())){
         if(matrix[matrix_x][matrix_y]!=PLAYER){
             player_count++;
             std::pair<int,int> pair_key;
@@ -186,39 +195,40 @@ void Map::draw(position initial_position,position draw_position){
         matrix[matrix_x][matrix_y]=PLAYER;
         
     }
-    else if((initial_position.x>=(0.2312*window.getWidth()))&&(initial_position.x<=0.2885*window.getWidth())){
+    else if((initial_position.x>=(0.1396*window.getWidth()))&&(initial_position.x<=0.1906*window.getWidth())){
         matrix[matrix_x][matrix_y]=TREASURE;
     }
-    else if((initial_position.x>=(0.2958*window.getWidth()))&&(initial_position.x<=0.3489*window.getWidth())){
+    else if((initial_position.x>=(0.1979*window.getWidth()))&&(initial_position.x<=0.2469*window.getWidth())){
         matrix[matrix_x][matrix_y]=MEDICAL_KIT;
     }
-    else if((initial_position.x>=(0.3552*window.getWidth()))&&(initial_position.x<=0.4125*window.getWidth())){
+    else if((initial_position.x>=(0.2531*window.getWidth()))&&(initial_position.x<=0.3042*window.getWidth())){
         matrix[matrix_x][matrix_y]=KEY;
     }
-    else if((initial_position.x>=(0.4187*window.getWidth()))&&(initial_position.x<=0.4770*window.getWidth())){
+    else if((initial_position.x>=(0.3094*window.getWidth()))&&(initial_position.x<=0.3604*window.getWidth())){
         matrix[matrix_x][matrix_y]=AUTOMATIC_GUN;
     }
-    else if((initial_position.x>=(0.4833*window.getWidth()))&&(initial_position.x<=0.5364*window.getWidth())){
+    else if((initial_position.x>=(0.3656*window.getWidth()))&&(initial_position.x<=0.4135*window.getWidth())){
         matrix[matrix_x][matrix_y]=CHAIN_CANON;
     }
-    else if((initial_position.x>=(0.5416*window.getWidth()))&&(initial_position.x<=0.5979*window.getWidth())){
+    else if((initial_position.x>=(0.4198*window.getWidth()))&&(initial_position.x<=0.4677*window.getWidth())){
         matrix[matrix_x][matrix_y]=FOOD;
     }
-    else if((initial_position.x>=(0.6041*window.getWidth()))&&(initial_position.x<=0.6666*window.getWidth())){
+    else if((initial_position.x>=(0.474*window.getWidth()))&&(initial_position.x<=0.5271*window.getWidth())){
         matrix[matrix_x][matrix_y]=BULLETS;
     }
-    else if((initial_position.x>=(0.7218*window.getWidth()))&&(initial_position.x<=0.8041*window.getWidth())){
+    else if((initial_position.x>=(0.5385*window.getWidth()))&&(initial_position.x<=0.6093*window.getWidth())){
         if(matrix[matrix_x][matrix_y]==PLAYER){
             player_count--;
         }
         matrix[matrix_x][matrix_y]=FLOOR_TILE;
     }
-    else if((initial_position.x>=(0.8093*window.getWidth()))&&(initial_position.x<=0.8854*window.getWidth())){
+    else if((initial_position.x>=(0.6177*window.getWidth()))&&(initial_position.x<=0.6833*window.getWidth())){
         matrix[matrix_x][matrix_y]=WALL;
     }
-    else if((initial_position.x>=(0.8916*window.getWidth()))&&(initial_position.x<=0.9687*window.getWidth())){
+    else if((initial_position.x>=(0.6906*window.getWidth()))&&(initial_position.x<=0.7583*window.getWidth())){
         matrix[matrix_x][matrix_y]=DOOR;
     }
+
 }
 
 void Map::render(){
