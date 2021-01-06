@@ -2,18 +2,20 @@
 #define __EVENT_HANDLER_H__
 
 #include "Player.h"
+#include <thread>
 
 class Event_handler {
 public:
-	explicit Event_handler(Player& player);
+	Event_handler();
 	~Event_handler();
 
-	void handle();
+	void handle(Player& player);
 	bool is_running();
 
 private:
-	Player& player;
-	bool running;	
+	// Es necesario protegerlos de race condition?
+	bool running;
+	std::thread handler_thread; 	
 };
 
 #endif
