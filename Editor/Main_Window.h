@@ -7,6 +7,7 @@ private:
     SdlWindow& window;
     SDL_Texture* main_window;
     SDL_Texture* save_button;
+    SDL_Texture* tools;
 public:
     Main_Window(SdlWindow& Window);
     void render_window();

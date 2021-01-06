@@ -23,9 +23,7 @@ public:
 
     void render();
 
-    void expand();
-
-    void shrink();
+    void click(position final_pos);
 
     void HandleMovementWASD(SDL_Event* event);
 
