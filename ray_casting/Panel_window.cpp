@@ -11,6 +11,7 @@ Panel_window::Panel_window() : running(true) {
 	}
 	this->window = SDL_CreateWindow(PANEL_TITLE, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, PANEL_WIDTH, PANEL_HEIGHT, 0);
 	this->renderer = SDL_CreateRenderer(this->window, -1, 0);
+	this->player_panel_status = Player_panel_status(this->renderer);
 }
 
 Panel_window::~Panel_window() {
@@ -27,7 +28,7 @@ bool Panel_window::is_running() {
 	return this->running;
 }
 
-void Panel_window::update(std::set<Ray>&& rays, std::list<Game_element>&& elements) {
+void Panel_window::update(std::set<Ray>&& rays, std::list<Game_element>&& elements, Player_info& player_info) {
 	Elements_panel_queue q;
 	for (std::set<Ray>::iterator ray = rays.begin(); ray != rays.end(); ++ray) {
 		Ray ray_perp = ray->get_ray_perp();
@@ -47,6 +48,6 @@ void Panel_window::update(std::set<Ray>&& rays, std::list<Game_element>&& elemen
 		element->copy_to_rederer(*this->renderer);
 		q.pop();
 	}
-	this->status_panel.copy_to_rederer(*this->renderer);
+	this->player_panel_status.copy_to_rederer(player_info);
     SDL_RenderPresent(this->renderer);
 }

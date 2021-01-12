@@ -48,11 +48,3 @@ void Ray_panel::copy_to_rederer(SDL_Renderer& renderer) {
 	SDL_UpdateTexture(this->tex, NULL, this->pixels, sizeof(Uint32));
     SDL_RenderCopy(&renderer, this->tex, NULL, &SrcR);
 }
-
-	/*std::cout << "--------------------" << std::endl;
-	std::cout << "number: " << this->ray.get_number() << std::endl;
-	std::cout << "dist: " << this->ray.get_dist() << std::endl;
-	std::cout << "point: " << this->ray.get_point() << std::endl;
-		std::cout << "slice height: " << proy_slice_height << std::endl;*/
-			//std::cout << "pos  x : " << this->ray.get_pos_x() << std::endl;
-	//std::cout << "pos y : " << this->ray.get_pos_y() << std::endl;

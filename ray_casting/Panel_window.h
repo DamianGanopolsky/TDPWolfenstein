@@ -6,7 +6,8 @@
 #include "Wall_texture.h"
 #include "Ray_panel.h"
 #include "Game_element.h"
-#include "Status_panel.h"
+#include "panel_status/Player_panel_status.h"
+#include "Player_info.h"
 #include <set>
 #include <list>
 #include "const.h"
@@ -20,14 +21,14 @@ public:
 	~Panel_window();
 
 	bool is_running();
-	void update(std::set<Ray>&& rays, std::list<Game_element>&& elements);
+	void update(std::set<Ray>&& rays, std::list<Game_element>&& elements, Player_info& player_info);
 
 private:
 	SDL_Renderer* renderer;
 	SDL_Window *window;
 	bool running;
 	Wall_texture wall_textures;
-	Status_panel status_panel;
+	Player_panel_status player_panel_status;
 };
 
 #endif

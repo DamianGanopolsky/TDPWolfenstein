@@ -26,6 +26,11 @@ int Player::get_pos_y() const {
 	return this->pos_y;	
 }
 
+ 
+Player_info& Player::get_info() {
+	return this->info;
+}
+
 void Player::left_rotation() {
 	//std::cout << this->vision_angle << std::endl;
 	float new_vision_angle = this->vision_angle + ROTATION_SIZE;

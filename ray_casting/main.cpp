@@ -1,14 +1,15 @@
 #include "Panel_window.h"
 #include "Player.h"
+#include "Player_info.h"
 #include "Event_handler.h"
 #include "Map_2d.h"
 #include "Game_element.h"
+#include "Ray.h"
+#include "Constant_rate_loop.h"
+
 #include <utility>
 #include <set>
 #include <list>
-#include "Ray.h"
-#include <chrono>
-#include "Constant_rate_loop.h"
 
 int main() {
 	Panel_window panel;
@@ -16,17 +17,16 @@ int main() {
 	Map_2d map(player);
 	Event_handler handler;
 	handler.handle(player);
-	Constant_rate_loop crl(60);
+	Constant_rate_loop crl(100);
 
 	while (handler.is_running()) {
-		//auto init = std::chrono::steady_clock::now();
 		std::set<Ray> rays = std::move(map.get_player_rays());
 		std::list<Game_element> elements = std::move(map.get_game_elements());
-		panel.update(std::move(rays), std::move(elements));
-		//auto end = std::chrono::steady_clock::now();
-		//std::chrono::duration<double> diff = end - init;
-		//std::cout << diff.count() << std::endl; 
+		Player_info info = player.get_info();
+		panel.update(std::move(rays), std::move(elements), info);
 		crl.task_finished();  
 	}
 	return 0;
 }
+
+
