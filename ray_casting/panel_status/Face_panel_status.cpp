@@ -1,17 +1,28 @@
 #include "Face_panel_status.h"
 #include "../const.h"
-#include <iostream>
+#include <string>
 
+#define TOTAL_FACES 8
+#define MAX_HEALTH 100.0
 Face_panel_status::Face_panel_status(SDL_Renderer*& renderer) :
 									renderer(renderer) {
-	SDL_Surface *status_img = IMG_Load("../ray_casting/panel_status/images/face1.png");
-	this->faces[1] = SDL_CreateTextureFromSurface(this->renderer, status_img);
-	SDL_FreeSurface(status_img);
+	for (int i = 0; i <= TOTAL_FACES; i++) {
+		std::string root("../ray_casting/panel_status/images/face");
+		std::string number = std::to_string(i);
+		std::string ext(".png");
+		root.append(number);
+		root.append(ext);
+		SDL_Surface *status_img = IMG_Load(root.c_str());
+		this->faces[i] = SDL_CreateTextureFromSurface(this->renderer, status_img);
+		SDL_FreeSurface(status_img);
+	}
 }
 
 Face_panel_status::Face_panel_status(Face_panel_status&& other) {
-	this->faces[1] = other.faces[1];
-	other.faces[1] = nullptr;	
+	for (int i = 1; i <= TOTAL_FACES; i++) {
+		this->faces[i] = other.faces[i];
+		other.faces[i] = nullptr;
+	}
 }
 
 Face_panel_status& Face_panel_status::operator=(Face_panel_status&& other) {
@@ -19,13 +30,18 @@ Face_panel_status& Face_panel_status::operator=(Face_panel_status&& other) {
 		return *this;
 	}
 
-	if (this->faces[1]) {
-		SDL_DestroyTexture(this->faces[1]);
+	for (int i = 1; i <= TOTAL_FACES; i++) {
+		if (this->faces[i]) {
+			SDL_DestroyTexture(this->faces[i]);
+		}
 	}
 
 	this->renderer = other.renderer;
-	this->faces[1] = other.faces[1];
-	other.faces[1] = nullptr;
+
+	for (int i = 1; i <= TOTAL_FACES; i++) {
+		this->faces[i] = other.faces[i];
+		other.faces[i] = nullptr;
+	}
 
 	return *this;	
 }
@@ -34,8 +50,10 @@ Face_panel_status::Face_panel_status() {
 }
 
 Face_panel_status::~Face_panel_status() {
-	if (this->faces[1]) {
-		SDL_DestroyTexture(this->faces[1]);
+	for (int i = 1; i <= TOTAL_FACES; i++) {
+		if (this->faces[i]) {
+			SDL_DestroyTexture(this->faces[i]);
+		}
 	}
 }
 
@@ -45,6 +63,9 @@ void Face_panel_status::copy_to_rederer(int health) {
 	SrcR.h = PANEL_HEIGHT * 0.19;
 	SrcR.x = PANEL_WIDTH * 0.415;
 	SrcR.y = PANEL_HEIGHT - SrcR.h;
-    SDL_RenderCopy(this->renderer, this->faces[1], NULL, &SrcR);
+
+	int face_number = ((MAX_HEALTH - health) / (MAX_HEALTH / (TOTAL_FACES - 1))) + 1;
+
+    SDL_RenderCopy(this->renderer, this->faces[face_number], NULL, &SrcR);
 }
 

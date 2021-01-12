@@ -17,7 +17,7 @@ public:
 private:
 	int lives = 0;
 	int scores = 0;
-	int health = 100;
+	int health = 15;
 	int ammo = 50;
 	int weapon = 1;  
 	
