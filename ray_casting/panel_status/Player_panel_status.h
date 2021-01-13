@@ -16,7 +16,7 @@ public:
 
 	void copy_to_rederer(Player_info& player_info);
 
-private:
+protected:
 	SDL_Renderer* renderer;
 	SDL_Texture* status_tex;
 	Face_panel_status face_status;
