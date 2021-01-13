@@ -12,7 +12,7 @@ public:
 	Face_panel_status& operator=(Face_panel_status&& other);
 	~Face_panel_status();
 	
-	virtual void copy_to_rederer(int id) override;
+	virtual void copy_to_rederer(int health) override;
 };
 
 #endif

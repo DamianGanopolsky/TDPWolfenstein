@@ -15,7 +15,7 @@ public:
 	Element_panel_status& operator=(Element_panel_status&& other);
 	~Element_panel_status();
 
-	virtual void copy_to_rederer(int id);
+	virtual void copy_to_rederer(int id) = 0;
 	
 protected:
 	SDL_Renderer* renderer;

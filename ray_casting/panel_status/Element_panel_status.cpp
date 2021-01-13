@@ -27,17 +27,18 @@ Element_panel_status& Element_panel_status::operator=(Element_panel_status&& oth
 		return *this;
 	}
 
-	for (int i = 1; i <= this->total_elem; i++) {
-		if (this->elements[i]) {
-			SDL_DestroyTexture(this->elements[i]);
+	for (auto it = this->elements.begin(); it != this->elements.end(); ++it) {
+		if (it->second) {
+			SDL_DestroyTexture(it->second);
 		}
-	}
+	}	
 
 	this->renderer = other.renderer;
+	this->total_elem = other.total_elem;
 
-	for (int i = 1; i <= this->total_elem; i++) {
-		this->elements[i] = other.elements[i];
-		other.elements[i] = nullptr;
+	for (auto it = other.elements.begin(); it != other.elements.end(); ++it) {
+		this->elements[it->first] = other.elements[it->first];
+		other.elements[it->first] = nullptr;
 	}
 
 	return *this;	

@@ -5,6 +5,7 @@
 #include "../Player_info.h"
 #include <SDL2/SDL.h>
 #include "Face_panel_status.h"
+#include "Weapon_panel_status.h"
 
 class Player_panel_status {
 public:
@@ -20,6 +21,7 @@ protected:
 	SDL_Renderer* renderer;
 	SDL_Texture* status_tex;
 	Face_panel_status face_status;
+	Weapon_panel_status weapon_status;
 };
 
 #endif

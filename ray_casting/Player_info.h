@@ -18,8 +18,8 @@ private:
 	int lives = 0;
 	int scores = 0;
 	int health = 15;
-	int ammo = 50;
-	int weapon = 1;  
+	int ammo = 70;
+	int weapon = 2;  
 	
 };
 #endif

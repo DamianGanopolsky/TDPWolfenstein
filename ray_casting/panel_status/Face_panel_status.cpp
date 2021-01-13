@@ -22,30 +22,29 @@ Face_panel_status& Face_panel_status::operator=(Face_panel_status&& other) {
 		return *this;
 	}
 
-	for (int i = 1; i <= this->total_elem; i++) {
-		if (this->elements[i]) {
-			SDL_DestroyTexture(this->elements[i]);
+	for (auto it = this->elements.begin(); it != this->elements.end(); ++it) {
+		if (it->second) {
+			SDL_DestroyTexture(it->second);
 		}
-	}
+	}	
 
 	this->renderer = other.renderer;
 	this->total_elem = other.total_elem;
-	for (int i = 1; i <= this->total_elem; i++) {
-		this->elements[i] = other.elements[i];
-		other.elements[i] = nullptr;
+	for (auto it = other.elements.begin(); it != other.elements.end(); ++it) {
+		this->elements[it->first] = other.elements[it->first];
+		other.elements[it->first] = nullptr;
 	}
 
 	return *this;
 }
 
-void Face_panel_status::copy_to_rederer(int value) {
+void Face_panel_status::copy_to_rederer(int health) {
 	SDL_Rect SrcR;
 	SrcR.w = PANEL_WIDTH * 0.1;
 	SrcR.h = PANEL_HEIGHT * 0.19;
 	SrcR.x = PANEL_WIDTH * 0.415;
 	SrcR.y = PANEL_HEIGHT - SrcR.h;
 
-	int face_number = ((MAX_HEALTH - value) / (MAX_HEALTH / (this->total_elem - 1))) + 1;
+	int face_number = ((MAX_HEALTH - health) / (MAX_HEALTH / (this->total_elem - 1))) + 1;
     SDL_RenderCopy(this->renderer, this->elements[face_number], NULL, &SrcR);
-
 }

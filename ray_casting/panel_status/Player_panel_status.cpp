@@ -6,14 +6,18 @@
 
 
 Player_panel_status::Player_panel_status(SDL_Renderer*& renderer) :
-										renderer(renderer), face_status(renderer) {	
+										renderer(renderer), 
+										face_status(renderer),
+										weapon_status(renderer) {
 	SDL_Surface *status_img = IMG_Load("../ray_casting/sprites/hud.png");
 	this->status_tex = SDL_CreateTextureFromSurface(this->renderer, status_img);
 	SDL_FreeSurface(status_img);
 }
 
 Player_panel_status::Player_panel_status(Player_panel_status&& other) :
-										renderer(other.renderer), face_status(other.renderer) {	
+										renderer(other.renderer), 
+										face_status(other.renderer),
+										weapon_status(other.renderer) {	
 	this->status_tex = other.status_tex;
 	other.status_tex = nullptr;
 }
@@ -29,12 +33,11 @@ Player_panel_status& Player_panel_status::operator=(Player_panel_status&& other)
 	if (this->status_tex) {
 		SDL_DestroyTexture(this->status_tex);
 	}
-
 	this->renderer = other.renderer;
 	this->status_tex = other.status_tex;
 	this->face_status = std::move(other.face_status);
+	this->weapon_status = std::move(other.weapon_status);
 	other.status_tex = nullptr;
-
 	return *this;	
 }
 
@@ -67,4 +70,5 @@ void Player_panel_status::copy_to_rederer(Player_info& player_info) {
 	}
 
 	this->face_status.copy_to_rederer(player_info.get_health());
+	this->weapon_status.copy_to_rederer(player_info.get_weapon());
 }
