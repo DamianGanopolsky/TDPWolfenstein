@@ -15,7 +15,8 @@ class Player {
    PlayerInfo getInfo();
    State* getState();
    Race getRace();
-   //Response useWeapon(Player* target, int& damage);
+   bool isAlive();
+   Response useWeapon(Player* target, int& damage);
    void receiveAttack(int& damage);
    void die();
    Response resurrect();
@@ -26,7 +27,7 @@ class Player {
     PlayerInfo info;
     State* state;
     Race race;
-    //Response _useWeapon(Player* target, int& damage);
+    bool alive;
 };
 
 #endif   // PLAYER_H

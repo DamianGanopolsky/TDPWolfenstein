@@ -13,10 +13,10 @@ class Map {
     // update()
     // send
     // recieve
-    void update_player(int command, int player_id);
+    void update_player(int command, Id player_id, Id target_id);
 
  private:
-    std::unordered_map<int, Player> players;
+    std::unordered_map<Id, Player> players;
     int** map;
     CommandManager cmd;
     

@@ -1,15 +1,10 @@
 #include "knife.h"
 
-Knife::Knife() {
-    this->precision = GUN_PRECISION;
-    this->probability_accuracy = GUN_ACCURACY;
-    this->probabiliy_damage = GUN_DAMAGE;
-}
+Knife::Knife() {}
 
 float Knife::attack(int& damage) {
-    //segun la distancia y el angulo establezco una proba de precision
-    float rd_num = getRandomNumber();
-    if (rd_num < precision) {
+    //segun si esta en el rango de ataque establezco un danio
+    if (inRange()) {
         damage = (int) getRandomNumber();
     }
     damage = 0;

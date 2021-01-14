@@ -19,6 +19,7 @@ class CommandMove {
   CommandInteract interactor;
   void move(PlayerPosition &pos, int command);
   std::pair<int, int> getNextPos(PlayerPosition &pos, int command);
+  bool changeCell(PlayerPosition &pos, std::pair<int, int> &next_pos);
 };
 
 # endif    // MOVE_H_

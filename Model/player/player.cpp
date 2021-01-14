@@ -3,6 +3,7 @@
 Player::Player(PlayerInfo &info, PlayerPosition &pos) {
     this->info = info;
     this->pos = pos;
+    this->alive = true;
 }
 
 PlayerPosition Player::getPos() {
@@ -21,37 +22,28 @@ Race Player::getRace() {
     return this->race;
 }
 
-/*
-Response Player::_useWeapon(Player* target, int& damage) {
+bool Player::isAlive() {
+    return this->alive;
+}
+
+Response Player::useWeapon(Player* target, int& damage) {
     //Chequeamos que no se danie a si mismo
     if (this == target) {
         Response(false, CANT_ATTACK_ITSELF_ERROR_MSG);
     }
     //Verificamos que el target sea atacable
-    if (!target->state->canBeAttacked()) {
+    if (!target->getState()->canBeAttacked()) {
         Response(false, CANT_BE_ATTACKED_ERROR_MSG);
     }
     // Obtenemos el danio del arma.
-    Weapon weapon = this->info.getWeaponEquiped();
+    Weapon weapon = this->getInfo().getWeaponEquiped();
     damage = weapon.attack(damage);
-    // Deberiamos chequear si el ataque es mortal??
     // El atacado recibe el daño del ataque.
     target->receiveAttack(damage);
     return Response(true, SUCCESS_MSG);
 }
 
-Response Player::useWeapon(Player* target, int& damage) {
-    // Verificamos si puede atacar en su estado
-    if (!this->state->attack()) {
-        return Response(false, STATE_CANT_ATTACK_ERROR_MSG);
-    }
-    return _useWeapon(target, damage);
-}
-*/
 void Player::receiveAttack(int& damage) {
-    if (this->info.getLife() == 0) {
-        this->die();
-    }
     this->info.reduceLife(damage);
     if (this->info.getLife() == 0) {
         this->die();
@@ -61,6 +53,7 @@ void Player::receiveAttack(int& damage) {
 void Player::die() {
     delete this->state;
     this->state = new Dead(this->player_id);
+    this->alive = false;
     //drop items
 }
 
