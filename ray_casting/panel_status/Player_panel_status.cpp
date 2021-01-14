@@ -2,8 +2,8 @@
 #include "Player_panel_status.h"
 #include <SDL2/SDL_image.h>
 #include <utility>
-
-
+#include <cmath>
+#include <iostream>
 
 Player_panel_status::Player_panel_status(SDL_Renderer*& renderer) :
 										renderer(renderer), 
@@ -75,6 +75,8 @@ void Player_panel_status::copy_to_rederer(Player_info& player_info) {
 	this->copy_to_rederer_face(player_info.get_health());
 	this->copy_to_rederer_weapon(player_info.get_weapon());
 	this->copy_to_rederer_lives(player_info.get_lives());
+	this->copy_to_rederer_health(player_info.get_health());
+	this->copy_to_rederer_ammo(player_info.get_ammo());
 }
 
 void Player_panel_status::copy_to_rederer_weapon(int id) {
@@ -102,9 +104,50 @@ void Player_panel_status::copy_to_rederer_face(int health) {
 void Player_panel_status::copy_to_rederer_lives(int lives) {
 	SDL_Rect SrcR;
 	SrcR.w = PANEL_WIDTH * 0.03;
-	SrcR.h = PANEL_HEIGHT * 0.12;
+	SrcR.h = PANEL_HEIGHT * 0.10;
 	SrcR.x = PANEL_WIDTH * 0.340;
-	SrcR.y = PANEL_HEIGHT - SrcR.h;
+	SrcR.y = PANEL_HEIGHT - SrcR.h * 1.25;
 
 	this->number_status.copy_to_rederer(lives, &SrcR);
+}
+
+void Player_panel_status::copy_to_rederer_health(int health) {
+	SDL_Rect SrcR;
+	SrcR.w = PANEL_WIDTH * 0.025;
+	SrcR.h = PANEL_HEIGHT * 0.10;
+	SrcR.x = PANEL_WIDTH * 0.525;
+	SrcR.y = PANEL_HEIGHT - SrcR.h * 1.25;
+
+	this->copy_to_rederer_number(health, 3, SrcR, false);
+}
+
+void Player_panel_status::copy_to_rederer_ammo(int ammo) {
+	SDL_Rect SrcR;
+	SrcR.w = PANEL_WIDTH * 0.025;
+	SrcR.h = PANEL_HEIGHT * 0.10;
+	SrcR.x = PANEL_WIDTH * 0.660;
+	SrcR.y = PANEL_HEIGHT - SrcR.h * 1.25;
+
+	this->copy_to_rederer_number(ammo, 3, SrcR, false);
+}
+
+void Player_panel_status::copy_to_rederer_number(int number, int digits, SDL_Rect& SrcR, bool cero_rigth) {
+	if (digits == 0) {
+		return;
+	}
+
+	int id = 0;
+	int order = pow(10, digits - 1);
+
+	if (number >= order) {
+		id = number / order;
+		cero_rigth = true;
+	} 
+
+	if (id != 0 || cero_rigth) {
+		this->number_status.copy_to_rederer(id, &SrcR); 
+	}
+
+	SrcR.x += SrcR.w + 0.01;
+	this->copy_to_rederer_number(number - id * order, digits - 1,  SrcR, cero_rigth);
 }

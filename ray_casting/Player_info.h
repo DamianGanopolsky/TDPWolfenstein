@@ -15,11 +15,11 @@ public:
 	int get_weapon() const;
 
 private:
-	int lives = 0;
+	int lives = 8;
 	int scores = 0;
-	int health = 15;
-	int ammo = 70;
-	int weapon = 2;  
+	int health = 100;
+	int ammo = 100;
+	int weapon = 1;  
 	
 };
 #endif
