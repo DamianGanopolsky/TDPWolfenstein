@@ -15,12 +15,11 @@ public:
 	Element_panel_status& operator=(Element_panel_status&& other);
 	~Element_panel_status();
 
-	virtual void copy_to_rederer(int id) = 0;
+	virtual void copy_to_rederer(int id, SDL_Rect *SrcR);
 	
-protected:
+private:
 	SDL_Renderer* renderer;
 	std::map<int, SDL_Texture*> elements;
-	int total_elem;  
 };
 
 #endif

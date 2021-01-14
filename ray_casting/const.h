@@ -19,3 +19,13 @@
 #define FOV 60.0
 #define TOTAL_BOX 64
 
+//para panel status
+#define TOTAL_FACES 8
+#define IMAGE_FACES_PATH "../ray_casting/panel_status/images/face"
+#define MAX_HEALTH 100.0
+
+#define TOTAL_WEAPONS 4
+#define IMAGE_WEAPONS_PATH "../ray_casting/panel_status/images/weapon"
+
+#define TOTAL_NUMBERS 10
+#define IMAGE_NUMBERS_PATH "../ray_casting/panel_status/images/number"

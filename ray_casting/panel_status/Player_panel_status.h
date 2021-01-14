@@ -4,8 +4,7 @@
 #include <SDL2/SDL.h>
 #include "../Player_info.h"
 #include <SDL2/SDL.h>
-#include "Face_panel_status.h"
-#include "Weapon_panel_status.h"
+#include "Element_panel_status.h"
 
 class Player_panel_status {
 public:
@@ -17,11 +16,16 @@ public:
 
 	void copy_to_rederer(Player_info& player_info);
 
-protected:
+private:
 	SDL_Renderer* renderer;
 	SDL_Texture* status_tex;
-	Face_panel_status face_status;
-	Weapon_panel_status weapon_status;
+	Element_panel_status face_status;
+	Element_panel_status weapon_status;
+	Element_panel_status number_status;
+
+	void copy_to_rederer_weapon(int id);
+	void copy_to_rederer_face(int health);
+	void copy_to_rederer_lives(int lives);
 };
 
 #endif

@@ -2,8 +2,8 @@
 #include "../const.h"
 
 Element_panel_status::Element_panel_status(SDL_Renderer*& renderer, std::string root, int total_elem) :
-									renderer(renderer), total_elem(total_elem) {
-	for (int i = 0; i <= total_elem; i++) {
+									renderer(renderer) {
+	for (int i = 0; i < total_elem; i++) {
 		std::string new_root = root;
 		new_root.append(std::to_string(i));
 		new_root.append(".png");
@@ -14,10 +14,10 @@ Element_panel_status::Element_panel_status(SDL_Renderer*& renderer, std::string 
 }
 
 Element_panel_status::Element_panel_status(Element_panel_status&& other) : 
-											renderer(other.renderer), total_elem(other.total_elem) {
-	for (int i = 1; i <= this->total_elem; i++) {
-		this->elements[i] = other.elements[i];
-		other.elements[i] = nullptr;
+											renderer(other.renderer) {
+	for (auto it = other.elements.begin(); it != other.elements.end(); ++it) {
+		this->elements[it->first] = other.elements[it->first];
+		other.elements[it->first] = nullptr;
 	}
 
 }
@@ -34,7 +34,6 @@ Element_panel_status& Element_panel_status::operator=(Element_panel_status&& oth
 	}	
 
 	this->renderer = other.renderer;
-	this->total_elem = other.total_elem;
 
 	for (auto it = other.elements.begin(); it != other.elements.end(); ++it) {
 		this->elements[it->first] = other.elements[it->first];
@@ -48,14 +47,14 @@ Element_panel_status::Element_panel_status() {
 }
 
 Element_panel_status::~Element_panel_status() {
-	for (int i = 1; i <= this->total_elem; i++) {
-		if (this->elements[i]) {
-			SDL_DestroyTexture(this->elements[i]);
+	for (auto it = this->elements.begin(); it != this->elements.end(); ++it) {
+		if (it->second) {
+			SDL_DestroyTexture(it->second);
 		}
 	}
 }
 
-void Element_panel_status::copy_to_rederer(int health) {
-
+void Element_panel_status::copy_to_rederer(int id, SDL_Rect *SrcR) {
+    SDL_RenderCopy(this->renderer, this->elements[id], NULL, SrcR);
 }
 
