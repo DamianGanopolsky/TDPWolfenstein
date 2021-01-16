@@ -29,3 +29,6 @@
 
 #define TOTAL_NUMBERS 10
 #define IMAGE_NUMBERS_PATH "../ray_casting/panel_status/images/number"
+
+#define TOTAL_GUARDIAS 8
+#define IMAGE_GUARDIAS_PATH "../ray_casting/panel_status/images/guardia"

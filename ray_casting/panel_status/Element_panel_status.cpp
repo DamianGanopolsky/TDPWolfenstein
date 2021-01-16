@@ -58,3 +58,7 @@ void Element_panel_status::copy_to_rederer(int id, SDL_Rect *SrcR) {
     SDL_RenderCopy(this->renderer, this->elements[id], NULL, SrcR);
 }
 
+SDL_Texture* Element_panel_status::get_texture(int id) {
+	return this->elements[id];
+}
+

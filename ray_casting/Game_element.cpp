@@ -5,16 +5,16 @@
 #include <iostream>
 
 #define PI 3.1415
+#define TOTAL_SECTIONS 8
 
 
-Game_element::Game_element(int pos_x, int pos_y, std::string img_path, Player& player) {
-	this->img_path = img_path;
+Game_element::Game_element(int pos_x, int pos_y, int type_id, int vision_angle, Player& player) :
+							type_id(type_id) {
+	this->texture_section = this->get_texture_section(vision_angle, player.get_angle());
+
 	float x = player.get_pos_x() - pos_x;
 	float y = player.get_pos_y() - pos_y;
-	//std::cout << "X: "<< x << std::endl;
-	//std::cout << "Y: "<< y << std::endl;
 	float angle = x == 0 ? 90 : atan(abs(y / x)) * 180 / PI;
-	//std::cout << "angle: "<< angle << std::endl;
 
 	if (x > 0 && y >= 0) {
 		angle = 180 - angle;
@@ -46,7 +46,10 @@ Game_element::Game_element(int pos_x, int pos_y, std::string img_path, Player& p
 }
 
 Game_element::Game_element(Game_element&& other) :
-							pos_ray(other.pos_ray), img_path(other.img_path) {
+							pos_ray(other.pos_ray),
+							type_id(other.type_id),
+							texture_section(other.texture_section), 
+							texture(other.texture) {
 	this->dist = other.dist;
 }
 
@@ -57,14 +60,44 @@ bool Game_element::is_visible() {
 	return this->pos_ray >= 0; 
 } 
 
+void Game_element::set_texture(SDL_Texture* tex) {
+	this->texture = tex;
+}
+
+int Game_element::get_texture_section() {
+	return this->texture_section; 
+}
+
+int Game_element::get_texture_section(int element_angle, int player_angle) {
+	int element_section = this->get_angle_section(element_angle);  
+	int player_section = this->get_angle_section(player_angle);
+
+	int diff = player_section - element_section + 4;
+
+	return diff < 0 ? TOTAL_SECTIONS + diff : diff;     
+}
+
+int Game_element::get_angle_section(int angle) {
+	float angle_section = 360.0 / TOTAL_SECTIONS;
+
+	for (float i = 0; i < TOTAL_SECTIONS; i++) {
+		if (angle < (i + 0.5) * angle_section) {
+			return i;
+		}
+	}
+	return 0; 
+}
+
+
+int Game_element::get_type_id() {
+	return this->type_id; 
+}
+
 void Game_element::copy_to_rederer(SDL_Renderer& renderer) {
-	SDL_Surface *soldado_img = IMG_Load(this->img_path.c_str());
-	SDL_Texture *soldado_tex = SDL_CreateTextureFromSurface(&renderer, soldado_img);
-	SDL_FreeSurface(soldado_img);
 	SDL_Rect SrcR;
 	SrcR.w = (ENEMY_HEIGHT / this->dist) * PANEL_DISTANCE;
 	SrcR.h = (ENEMY_HEIGHT / this->dist) * PANEL_DISTANCE;
 	SrcR.x = this->pos_ray - SrcR.w / 2;
 	SrcR.y = (PANEL_HEIGHT - SrcR.w) / 2 ;
-    SDL_RenderCopy(&renderer, soldado_tex, NULL, &SrcR);
+    SDL_RenderCopy(&renderer, this->texture, NULL, &SrcR);
 } 

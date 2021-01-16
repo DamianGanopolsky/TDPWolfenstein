@@ -9,7 +9,8 @@ Player_panel_status::Player_panel_status(SDL_Renderer*& renderer) :
 										renderer(renderer), 
 										face_status(renderer, IMAGE_FACES_PATH, TOTAL_FACES),
 										weapon_status(renderer, IMAGE_WEAPONS_PATH, TOTAL_WEAPONS),
-										number_status(renderer, IMAGE_NUMBERS_PATH, TOTAL_NUMBERS) {
+										number_status(renderer, IMAGE_NUMBERS_PATH, TOTAL_NUMBERS), 
+										guardia_status(renderer, IMAGE_GUARDIAS_PATH, TOTAL_GUARDIAS) {
 	SDL_Surface *status_img = IMG_Load("../ray_casting/sprites/hud.png");
 	this->status_tex = SDL_CreateTextureFromSurface(this->renderer, status_img);
 	SDL_FreeSurface(status_img);
@@ -19,7 +20,8 @@ Player_panel_status::Player_panel_status(Player_panel_status&& other) :
 										renderer(other.renderer), 
 										face_status(std::move(other.face_status)),
 										weapon_status(std::move(other.weapon_status)),
-										number_status(std::move(other.number_status)) {	
+										number_status(std::move(other.number_status)),	
+										guardia_status(std::move(other.guardia_status)) {	
 	this->status_tex = other.status_tex;
 	other.status_tex = nullptr;
 }
@@ -40,6 +42,7 @@ Player_panel_status& Player_panel_status::operator=(Player_panel_status&& other)
 	this->face_status = std::move(other.face_status);
 	this->weapon_status = std::move(other.weapon_status);
 	this->number_status = std::move(other.number_status);
+	this->guardia_status = std::move(other.guardia_status);
 	other.status_tex = nullptr;
 	return *this;	
 }
@@ -151,3 +154,9 @@ void Player_panel_status::copy_to_rederer_number(int number, int digits, SDL_Rec
 	SrcR.x += SrcR.w + 0.01;
 	this->copy_to_rederer_number(number - id * order, digits - 1,  SrcR, cero_rigth);
 }
+
+SDL_Texture* Player_panel_status::get_texture(int tex_section, int id) {
+
+	return this->guardia_status.get_texture(tex_section);
+}
+

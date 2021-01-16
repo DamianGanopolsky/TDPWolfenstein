@@ -15,6 +15,7 @@ public:
 	~Player_panel_status();
 
 	void copy_to_rederer(Player_info& player_info);
+	SDL_Texture* get_texture(int value, int id);
 
 private:
 	SDL_Renderer* renderer;
@@ -22,6 +23,7 @@ private:
 	Element_panel_status face_status;
 	Element_panel_status weapon_status;
 	Element_panel_status number_status;
+	Element_panel_status guardia_status;
 
 	void copy_to_rederer_weapon(int id);
 	void copy_to_rederer_face(int health);

@@ -10,16 +10,24 @@
 
 class Game_element : public Element_panel {
 public:
-	Game_element(int pos_x, int pos_y, std::string img_path, Player& player);
+	Game_element(int pos_x, int pos_y, int type_id, int vision_angle, Player& player);
 	Game_element(Game_element&& other);
 	~Game_element();
 
-	bool is_visible();  
+	bool is_visible();
+	void set_texture(SDL_Texture* tex);  
+	int get_texture_section();
+	int get_type_id();
 	virtual void copy_to_rederer(SDL_Renderer& renderer) override; 
 
 private:
 	int pos_ray;
-	std::string img_path;
+	int type_id;
+	int texture_section;
+	SDL_Texture* texture;
+
+	int get_texture_section(int element_angle, int player_angle);
+	int get_angle_section(int angle);
 };
 
 #endif

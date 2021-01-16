@@ -17,10 +17,7 @@ std::set<Ray> Map_2d::get_player_rays() {
 	float ray_width = FOV / PANEL_WIDTH;
 	float angle = this->player.get_angle() + FOV / 2;
 	std::set<Ray> rays; 
-	//std::cout << "---------------"  << std::endl; 
-	//std::cout << "Angle: " << this->player.get_angle() << std::endl; 
-	//std::cout << "Point: (" << this->player.get_pos_x() << ", " << this->player.get_pos_y() << ")"<< std::endl;*/ 
-
+	
 	for (int i = 0; i < PANEL_WIDTH; i++) {
 		float shotter_angle = angle < 0.0 ? 360 + angle : angle;
 		shotter_angle = shotter_angle >= 360.0 ? shotter_angle - 360.0 : shotter_angle;
@@ -36,7 +33,7 @@ std::set<Ray> Map_2d::get_player_rays() {
 
 std::list<Game_element> Map_2d::get_game_elements() {
 	std::list<Game_element> elements;
-	Game_element element(128,128, "../ray_casting/sprites/soldado.png", this->player);
+	Game_element element(128,128, 1, 270, this->player);
 	elements.push_back(std::move(element));
 	return elements; 
 }

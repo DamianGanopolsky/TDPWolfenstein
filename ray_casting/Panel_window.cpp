@@ -37,6 +37,7 @@ void Panel_window::update(std::set<Ray>&& rays, std::list<Game_element>&& elemen
 
 	for (std::list<Game_element>::iterator element = elements.begin(); element != elements.end(); ++element) {
 		if (element->is_visible()) {
+			element->set_texture(this->player_panel_status.get_texture(element->get_texture_section(), element->get_type_id()));
 			q.push(std::move(*element));
 		}
 	}

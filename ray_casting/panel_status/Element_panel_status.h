@@ -15,7 +15,8 @@ public:
 	Element_panel_status& operator=(Element_panel_status&& other);
 	~Element_panel_status();
 
-	virtual void copy_to_rederer(int id, SDL_Rect *SrcR);
+	void copy_to_rederer(int id, SDL_Rect *SrcR);
+	SDL_Texture* get_texture(int id);
 	
 private:
 	SDL_Renderer* renderer;
