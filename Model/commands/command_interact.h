@@ -3,6 +3,7 @@
 
 #include "./../player/player.h"
 #include "./command_pick_up.h"
+#include "./command_drop.h"
 
 #include "./../objects/object.h"
 #include "./../objects/items/item.h"
@@ -19,10 +20,9 @@ class CommandInteract {
   CommandInteract();
   bool interactWith(Player &player, int **map, BlockingObject &blocker);
   bool interactWith(Player &player, int **map, NonBlockingObject &blocker);
-  bool interactWith(Player &player, int **map, Door &door);
-  bool interactWith(Player &player, int **map, LockedDoor &door);
   bool interactWith(Player &player, int **map, SecretPassage &SecretPassage);
   bool interactWith(Player &player, int **map, Item &item);
+  //bool interactWith(Player &player, int **map, Item &item, bool drop);
   bool interactWith(Player &player, int **map, Object &object);
 };
 

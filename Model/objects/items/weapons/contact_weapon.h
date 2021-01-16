@@ -4,7 +4,9 @@
 #include "weapon.h"
 
 class ContactWeapon: public Weapon {
-
+ public:
+    ContactWeapon() {};
+    static bool inRange() {/*establezco si el oponente esta en el radio del jugador*/};
 };
 
 #endif   // CONTACT_WEAPON_H_
