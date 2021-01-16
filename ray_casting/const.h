@@ -32,3 +32,6 @@
 
 #define TOTAL_GUARDIAS 8
 #define IMAGE_GUARDIAS_PATH "../ray_casting/panel_status/images/guardia"
+
+#define TOTAL_PISTOLAS 3
+#define IMAGE_PISTOLAS_PATH "../ray_casting/panel_status/images/pistola"

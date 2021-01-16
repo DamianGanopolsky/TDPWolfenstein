@@ -10,7 +10,8 @@ Player_panel_status::Player_panel_status(SDL_Renderer*& renderer) :
 										face_status(renderer, IMAGE_FACES_PATH, TOTAL_FACES),
 										weapon_status(renderer, IMAGE_WEAPONS_PATH, TOTAL_WEAPONS),
 										number_status(renderer, IMAGE_NUMBERS_PATH, TOTAL_NUMBERS), 
-										guardia_status(renderer, IMAGE_GUARDIAS_PATH, TOTAL_GUARDIAS) {
+										guardia_status(renderer, IMAGE_GUARDIAS_PATH, TOTAL_GUARDIAS),
+										pistola_status(renderer, IMAGE_PISTOLAS_PATH, TOTAL_PISTOLAS) {
 	SDL_Surface *status_img = IMG_Load("../ray_casting/sprites/hud.png");
 	this->status_tex = SDL_CreateTextureFromSurface(this->renderer, status_img);
 	SDL_FreeSurface(status_img);
@@ -21,7 +22,8 @@ Player_panel_status::Player_panel_status(Player_panel_status&& other) :
 										face_status(std::move(other.face_status)),
 										weapon_status(std::move(other.weapon_status)),
 										number_status(std::move(other.number_status)),	
-										guardia_status(std::move(other.guardia_status)) {	
+										guardia_status(std::move(other.guardia_status)),	
+										pistola_status(std::move(other.pistola_status)) {	
 	this->status_tex = other.status_tex;
 	other.status_tex = nullptr;
 }
@@ -43,6 +45,7 @@ Player_panel_status& Player_panel_status::operator=(Player_panel_status&& other)
 	this->weapon_status = std::move(other.weapon_status);
 	this->number_status = std::move(other.number_status);
 	this->guardia_status = std::move(other.guardia_status);
+	this->pistola_status = std::move(other.pistola_status);
 	other.status_tex = nullptr;
 	return *this;	
 }
@@ -60,36 +63,30 @@ void Player_panel_status::copy_to_rederer(Player_info& player_info) {
 	SrcR.x = 0;
 	SrcR.y = PANEL_HEIGHT - SrcR.h;
     SDL_RenderCopy(this->renderer, this->status_tex, NULL, &SrcR);
-
-	SDL_Surface *pistola_img = IMG_Load("../ray_casting/sprites/pistola.png");
-	SDL_Texture *pistola_tex = SDL_CreateTextureFromSurface(this->renderer, pistola_img);
-	SDL_FreeSurface(pistola_img);
-	SDL_Rect SrcR2;
-	SrcR2.w = PANEL_WIDTH * 0.25;
-	SrcR2.h = PANEL_HEIGHT * 0.25;
-	SrcR2.x = (PANEL_WIDTH - SrcR2.w) / 2 ;
-	SrcR2.y = SrcR.y - SrcR2.h;
-    SDL_RenderCopy(this->renderer, pistola_tex, NULL, &SrcR2);
     
-    if (pistola_tex) {
-		SDL_DestroyTexture(pistola_tex);
-	}
-
+	this->copy_to_rederer_weapon(player_info);
 	this->copy_to_rederer_face(player_info.get_health());
-	this->copy_to_rederer_weapon(player_info.get_weapon());
 	this->copy_to_rederer_lives(player_info.get_lives());
 	this->copy_to_rederer_health(player_info.get_health());
 	this->copy_to_rederer_ammo(player_info.get_ammo());
 }
 
-void Player_panel_status::copy_to_rederer_weapon(int id) {
+void Player_panel_status::copy_to_rederer_weapon(Player_info& info) {
 	SDL_Rect SrcR;
 	SrcR.w = PANEL_WIDTH * 0.2;
 	SrcR.h = PANEL_HEIGHT * 0.19;
 	SrcR.x = PANEL_WIDTH * 0.795;
 	SrcR.y = PANEL_HEIGHT - SrcR.h;
 
-	this->weapon_status.copy_to_rederer(id, &SrcR);
+	this->weapon_status.copy_to_rederer(info.get_weapon(), &SrcR);
+
+	SrcR.w = PANEL_WIDTH * 0.25;
+	SrcR.h = PANEL_HEIGHT * 0.25;
+	SrcR.x = (PANEL_WIDTH - SrcR.w) / 2 ;
+	SrcR.y = PANEL_HEIGHT * 0.8 - SrcR.h;
+
+	this->pistola_status.copy_to_rederer(info.get_weapon_status(), &SrcR);
+	info.change_weapon_status();
 }
 
 void Player_panel_status::copy_to_rederer_face(int health) {

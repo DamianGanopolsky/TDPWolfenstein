@@ -19,6 +19,7 @@ public:
 	void move_down();
 	void move_left();	
 	void move_right();
+	void shoot();
 
 private:
 	int pos_x;

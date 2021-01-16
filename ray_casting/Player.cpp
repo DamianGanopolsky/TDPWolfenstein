@@ -32,13 +32,11 @@ Player_info& Player::get_info() {
 }
 
 void Player::left_rotation() {
-	//std::cout << this->vision_angle << std::endl;
 	float new_vision_angle = this->vision_angle + ROTATION_SIZE;
 	this->vision_angle = new_vision_angle >= 360.0 ? new_vision_angle - 360.0 : new_vision_angle;
 }
 
 void Player::right_rotation() {
-	//std::cout << this->vision_angle << std::endl;
 	float new_vision_angle = this->vision_angle - ROTATION_SIZE;
 	this->vision_angle = new_vision_angle < 0.0 ? 360.0 + new_vision_angle : new_vision_angle;
 }
@@ -60,4 +58,9 @@ void Player::move_left() {
 void Player::move_right() {
 	this->pos_x += (int) (DISPLACEMENT * sin(this->vision_angle * PI / 180.0));
 	this->pos_y += (int) (DISPLACEMENT * cos(this->vision_angle * PI / 180.0));	
+}
+
+void Player::shoot() {
+	this->info.weapon_status = 2;
+	this->info.ammo--;  
 }

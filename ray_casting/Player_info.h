@@ -13,13 +13,16 @@ public:
 	int get_health() const;
 	int get_ammo() const;
 	int get_weapon() const;
+	int get_weapon_status() const;
+	void change_weapon_status();
 
 private:
 	int lives = 8;
 	int scores = 0;
 	int health = 100;
 	int ammo = 100;
-	int weapon = 1;  
+	int weapon = 1;
+	int weapon_status = 0;  
 	
 };
 #endif

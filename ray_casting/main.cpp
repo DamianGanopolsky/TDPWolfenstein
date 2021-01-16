@@ -22,8 +22,7 @@ int main() {
 	while (handler.is_running()) {
 		std::set<Ray> rays = std::move(map.get_player_rays());
 		std::list<Game_element> elements = std::move(map.get_game_elements());
-		Player_info info = player.get_info();
-		panel.update(std::move(rays), std::move(elements), info);
+		panel.update(std::move(rays), std::move(elements),  player.get_info());
 		crl.task_finished();  
 	}
 	return 0;

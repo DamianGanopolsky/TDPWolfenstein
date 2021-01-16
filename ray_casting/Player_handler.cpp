@@ -37,7 +37,10 @@ void Player_handler::handle() {
             		break;
         		case SDLK_d:
             		this->player.move_right();
-            		break;            		            		
+            		break; 
+                case SDLK_e:
+                    this->player.shoot();
+                    break;            		            		
     		}
     	}
     	else if (event.type == SDL_QUIT) {

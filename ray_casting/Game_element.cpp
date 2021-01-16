@@ -32,6 +32,10 @@ Game_element::Game_element(int pos_x, int pos_y, int type_id, int vision_angle, 
 
 	bool out =  angle_min > angle_max ? angle < angle_min && angle > angle_max : angle < angle_min || angle > angle_max;
 
+	/*if (out && angle < angle_min){
+		std::cout << angle << ", "<<  angle_min << std::endl;
+	}*/ 
+
 	if (out) {
 		this->dist = -1.0;
 		this->pos_ray = -1; 

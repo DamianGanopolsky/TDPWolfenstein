@@ -25,3 +25,13 @@ int Player_info::get_ammo() const {
 int Player_info::get_weapon() const {
 	return this->weapon;
 }
+
+int Player_info::get_weapon_status() const {
+	return this->weapon_status;
+}
+
+void Player_info::change_weapon_status() {
+	if (this->weapon_status != 0) {
+		this->weapon_status--;
+	}
+}
