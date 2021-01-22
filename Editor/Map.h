@@ -31,7 +31,7 @@ public:
 
     void draw(position initial_position,position draw_position);
 
-    void LoadMatrix();
+    void LoadMatrix(std::map <std::pair<int,int>,int>);
 
     void click(position final_pos);
 

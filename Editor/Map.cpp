@@ -63,18 +63,20 @@ int level1[36][21] = {
     { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 };
 
-void Map::LoadMatrix(){
-    rows=36;
-    columns=21;
+void Map::LoadMatrix(std::map <std::pair<int,int>,int> initial_map){
     matrix= new int*[rows];
     for(int i = 0; i < rows; ++i){
         matrix[i] = new int[columns];
     }
     for(int i=0;i<rows;i++){
         for(int j=0;j<columns;j++){
-            matrix[i][j]=level1[i][j];
+            matrix[i][j]=FLOOR_TILE;
         }
     }
+    for (auto const& x : initial_map){
+        matrix[x.first.first/64][x.first.second/64]=x.second;
+    }
+
 }
 
 void Map::ExpandMap(){
@@ -150,9 +152,11 @@ Map::Map(SdlWindow& Window,std::string YamlPath):window(Window),player_count(0){
     for(int i=0;i<TOTAL_IMAGES;i++){
         textures.push_back(SDL_CreateTextureFromSurface(window.getRenderer(),surfaces.at(i)));
     }
-    YamlParser yamlparser;
-    yamlparser.load_map(YamlPath);
-    LoadMatrix();
+    YamlParser yamlparser(YamlPath);
+    std::map <std::pair<int,int>,int> initial_map =yamlparser.load_map();
+    rows=yamlparser.Map_Height();
+    columns=yamlparser.Map_Width();
+    LoadMatrix(initial_map);
 }
 
 void Map::HandleMovementWASD(SDL_Event* event){
