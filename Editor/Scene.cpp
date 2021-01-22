@@ -1,7 +1,7 @@
 #include "Scene.h"
 
 
-Scene::Scene(SdlWindow& Window):window(Window),map(Window),main_window(Window){
+Scene::Scene(SdlWindow& Window,std::string YamlPath):window(Window),map(Window,YamlPath),main_window(Window){
 }
 
 void Scene::draw(position& initial_pos,position& final_pos){

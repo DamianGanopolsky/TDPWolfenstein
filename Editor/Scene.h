@@ -19,7 +19,7 @@ private:
 
 
 public:
-    Scene(SdlWindow& Window);
+    Scene(SdlWindow& Window,std::string YamlPath);
 
     void render();
 

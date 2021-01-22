@@ -7,7 +7,7 @@
 #define BAR_POS_IN_WINDOW 0.81481
 
 
-Editor::Editor(SdlWindow& Window):window(Window),scene(Window),is_clicked_correctly(false),is_dragging(false){
+Editor::Editor(SdlWindow& Window):window(Window),scene(Window,"../Maps/Simple.yaml"),is_clicked_correctly(false),is_dragging(false){
 }
 
 void Editor::HandleMotion(SDL_Event* event){

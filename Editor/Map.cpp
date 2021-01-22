@@ -2,6 +2,7 @@
 #include <SDL2/SDL_ttf.h>
 #include <iostream>
 #include "../Editor/SdlClasses/SdlText.h"
+#include "YamlParser.h"
 
 #define FLOOR_TILE 0
 #define PLAYER 1
@@ -126,7 +127,7 @@ void Map::ShrinkMap(){
 }
 
 
-Map::Map(SdlWindow& Window):window(Window),player_count(0){
+Map::Map(SdlWindow& Window,std::string YamlPath):window(Window),player_count(0){
     camera.x=0;
     camera.y=0;
     surfaces.push_back(IMG_Load("../Editor/Editor_Assets/GreyTile.png"));
@@ -149,6 +150,8 @@ Map::Map(SdlWindow& Window):window(Window),player_count(0){
     for(int i=0;i<TOTAL_IMAGES;i++){
         textures.push_back(SDL_CreateTextureFromSurface(window.getRenderer(),surfaces.at(i)));
     }
+    YamlParser yamlparser;
+    yamlparser.load_map(YamlPath);
     LoadMatrix();
 }
 
