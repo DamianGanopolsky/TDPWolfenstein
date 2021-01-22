@@ -1,5 +1,6 @@
 #include "YamlParser.h"
 #include <iostream>
+#include <fstream>
 #define PLAYER 1
 #define TREASURE 2
 #define MEDICAL_KIT 3
@@ -10,6 +11,8 @@
 #define BULLETS 8
 #define WALL 9
 #define DOOR 10
+
+std::string jugadores[]{"0","1"};
 
 
 std::map <std::pair<int,int>,int> YamlParser::load_map(){
@@ -38,6 +41,22 @@ std::map <std::pair<int,int>,int> YamlParser::load_map(){
         map_position.first=pos['x'].as<int>();;
         map_position.second=pos['y'].as<int>();;
         objects_map.insert({map_position,WALL});
+    }
+
+    const YAML::Node& players=initial_map["Players"];
+
+    for (YAML::const_iterator it = players.begin(); it != players.end(); ++it) {
+        const YAML::Node& pos = *it;
+
+        for(std::size_t i=0;i<sizeof(jugadores)/sizeof(jugadores[0]);i++){
+             //std::cout << jugadores[i] << std::endl;
+             const YAML::Node& position = pos[jugadores[i]]["position"];
+
+            for(YAML::const_iterator it2 = position.begin(); it2 != position.end(); ++it2){
+                const YAML::Node& coord = *it2;
+                //std::cout << coord['x'] << std::endl;
+            }
+        }
     }
     return objects_map;
 }

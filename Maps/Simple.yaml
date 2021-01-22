@@ -20,6 +20,7 @@ Weapons:
         position:
          []
 
+
 Treasures:
 
     Treasure:
@@ -61,11 +62,13 @@ Walls:
           y: 500
 
 Players:
-    0:
+    - 0:
         position:
-        - x: 0
+        - x: 42
           y: 0
-    1:
+        - x: 800
+          y: 0
+      1:
         position:
         - x: 1000
           y: 1000
