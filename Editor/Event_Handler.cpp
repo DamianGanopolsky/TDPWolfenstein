@@ -3,8 +3,6 @@
 
 
 bool Event_Handler::handleEvents(Editor& editor){
-    float ratio;
-    float width=960;
     while(SDL_PollEvent(&event)!=0){
         switch (event.type){    
             case SDL_QUIT:
@@ -26,9 +24,6 @@ bool Event_Handler::handleEvents(Editor& editor){
                 break;
             case SDL_MOUSEBUTTONDOWN:  //Clickear(no necesariamente soltar)
             // editor.HandleLeftClickPress(&event);
-                ratio=float(event.button.x/width);
-                printf("%f \n",ratio);
-                std::cout << event.button.x << std::endl;
                 if(event.button.button==SDL_BUTTON_LEFT){
                     editor.HandleLeftClickPress(&event);
                 }
