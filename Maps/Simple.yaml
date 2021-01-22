@@ -1,15 +1,48 @@
+equipable_items:
+    0:
+        position:
+        - x: 5
+          y: 10
+        - x: 14
+          y: 40
+    1:
+        position:
+        - x: 100
+          y: 24
+        - x: 461
+          y: 75
+    2:
+        position:
+        - x: 107
+          y: 52
+        - x: 24
+          y: 402
+    3:
+        position:
+         []
+    4:
+        position:
+         []
+    5:
+        position:
+         []
+    6:
+        position:
+         []
+    7:
+        position:
+         []
+    8:
+        position:
+         []
+    9:
+        position:
+         []
+walls:
+    0:
+        position:
+        - x: 433
+          y: 432
+        - x: 500
+          y: 500
 
-
-0:
-   position: 
-    - x: 5
-      y: 10
-    - x: 14
-      y: 40
-
-1:
-    position:
-    - x: 45
-      y: 85
-    - x: 164
-      y: 242

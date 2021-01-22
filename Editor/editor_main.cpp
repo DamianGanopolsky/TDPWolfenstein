@@ -19,19 +19,19 @@ int main(int argc,char* argv[]){
     
     YAML::Node map= YAML::LoadFile("../Maps/Simple.yaml");
     //int x=map['0']["position"].as<int>();
-    const YAML::Node& position = map['0'];
+    const YAML::Node& position = map["equipable_items"]['3'];
     for (YAML::const_iterator it = position["position"].begin(); it != position["position"].end(); ++it) {
         const YAML::Node& pos = *it;
         std::cout << pos['x'] << std::endl;
         std::cout << pos['y'] << std::endl;
     }
-
+/*
     const YAML::Node& position2 = map['1'];
     for (YAML::const_iterator it = position2["position"].begin(); it != position2["position"].end(); ++it) {
         const YAML::Node& pos = *it;
         std::cout << pos['x'] << std::endl;
         std::cout << pos['y'] << std::endl;
-    }
+    }*/
     //int y=position["position"].as<int>();
     //std::cout << y << std::endl;
     //std::cout << x << std::endl;
