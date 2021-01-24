@@ -14,7 +14,19 @@
 #define FOOD 7
 #define BULLETS 8
 #define WALL 9
-#define DOOR 10
+#define DOOR 10 
+/*
+#define FLOOR_TILE "Floor tile"
+#define PLAYER "Player"
+#define TREASURE "Treasure"
+#define MEDICAL_KIT "Medical_Kit"
+#define KEY "Key"
+#define AUTOMATIC_GUN "Automatic_gun"
+#define CHAIN_CANON "Chain_canon"
+#define FOOD "Food"
+#define BULLETS "Bullets"
+#define WALL "Wall"
+#define DOOR "Door" */
 #define X_SIZE 36
 #define Y_SIZE 21
 #define TILE_PIXELS 32
@@ -317,6 +329,28 @@ void Map::render(){
         pos_y=0;
         pos_x++;
     }
+}
+
+void Map::Export(std::string yamlName){
+    std::map <int,std::vector<std::pair<int,int>>> player_map;
+    std::pair<int,int> position;
+    for(int i=0;i<rows;i++){
+
+        for(int j=0;j<columns;j++){
+            if(matrix[i][j]==0) continue;
+                 
+            position = std::make_pair (i,j);
+            //player_map[matrix[i][j]]=position;
+            player_map[matrix[i][j]].push_back(position);
+        }
+    }
+    YamlParser yamlparser("../Maps/Output.yaml");
+    yamlparser.Write_Map("../Maps/Output.yaml",player_map);
+/*
+    for (auto const& x : player_map)
+    {
+        std::cout << x.first << ':' << x.second.first << std::endl;  // string (key)
+    }*/
 }
 
 Map::~Map(){

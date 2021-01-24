@@ -17,6 +17,8 @@ std::string jugadores[]{"0","1"};
 
 std::map <std::pair<int,int>,int> YamlParser::load_map(){
 
+
+
     /* Chain Cannon */
     const YAML::Node& chain_cannon = initial_map["Weapons"]["Chain_Cannon"];
     std::pair<int,int> map_position;
@@ -75,6 +77,46 @@ std::map <std::pair<int,int>,int> YamlParser::load_map(){
         }
     }
     return objects_map;
+}
+
+void YamlParser::Write_Map(std::string YamlPathToWrite,std::map <int,\
+std::vector<std::pair<int,int>>> map){
+    YAML::Emitter out;
+
+    for (auto const& x : map){
+        out << YAML::BeginMap;
+        out << YAML::Key << x.first;
+        out << YAML::Value << YAML::BeginMap;
+        out << YAML::Key << "position";
+        out << YAML::Value << YAML::BeginSeq;
+
+        for(std::pair<int,int> position : x.second) {
+            out << YAML::BeginMap;
+            out << YAML::Key << "x";
+            out << YAML::Value << position.first;
+            out << YAML::Key << "y";
+            out << YAML::Value << position.second;
+            out << YAML::EndMap;
+        }
+        out << YAML::EndSeq;
+        out << YAML::EndMap;
+        out << YAML::EndMap;
+    }
+    /*
+    out << YAML::BeginMap;
+    out << YAML::Key << "map_dimentions";
+    out << YAML::Value << YAML::BeginMap;
+    out << YAML::Key << "height" ;
+    out << YAML::Value << "36";
+    out << YAML::EndMap;
+    out << YAML::Key << "children";
+    //out << YAML::Value << YAML::BeginSeq << "Sasha" << "Malia" << YAML::EndSeq;
+    out << YAML::Value << YAML::BeginSeq;
+    out << "Sashas";
+    out << YAML::EndSeq;
+    out << YAML::EndMap;*/
+    std::ofstream fileOut("../Maps/Export.yaml");
+    fileOut << out.c_str();
 }
 
 int YamlParser::Map_Height(){
