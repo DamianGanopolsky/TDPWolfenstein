@@ -42,6 +42,8 @@ std::map <std::pair<int,int>,int> YamlParser::load_map(){
     for (YAML::const_iterator it = door["position"].begin(); it != door["position"].end(); ++it) {
         
         const YAML::Node& pos = *it;
+        //std::cout << "Map" << std::endl;
+        //std::cout << "x es" << map_position.first << "y es" << map_position.second << std::endl;
         map_position.first=pos['x'].as<int>();;
         map_position.second=pos['y'].as<int>();;
         objects_map.insert({map_position,DOOR});
@@ -53,7 +55,7 @@ std::map <std::pair<int,int>,int> YamlParser::load_map(){
         const YAML::Node& pos = *it;
         map_position.first=pos['x'].as<int>();;
         map_position.second=pos['y'].as<int>();;
-        objects_map.insert({map_position,DOOR});
+        objects_map.insert({map_position,FOOD});
     }
 
     const YAML::Node& medical_kit= map["Map"]["Medical_Kit"];
@@ -180,6 +182,8 @@ std::vector<std::pair<int,int>>> map,int height,int width){
                 break;
             case DOOR:
                 out << YAML::Key << "Door";
+                break;
+            default:
                 break;
         }
         out << YAML::Value << YAML::BeginMap;

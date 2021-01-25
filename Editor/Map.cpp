@@ -199,7 +199,7 @@ void Map::HandleMovementWASD(SDL_Event* event){
 }
 
 void Map::click(position final_pos){
-    if((final_pos.y>0.8578)&&(final_pos.y<0.9406)){
+    if((final_pos.y>0.8578*window.getHeight())&&(final_pos.y<0.9406*window.getHeight())){
         if((final_pos.x>=(0.7719*window.getWidth()))&&(final_pos.x<=0.8760*window.getWidth())){
             ExpandMap();
         }
