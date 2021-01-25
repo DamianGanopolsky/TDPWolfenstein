@@ -10,7 +10,6 @@
 //-------------------------------------------------------------------------------
 class Accepter: public Thread {
 	Socket socket;
-	std::string& root;
 	std::atomic<bool> keep_accepting;
 	std::list<ClientHandler *> client_list;
 
@@ -18,7 +17,7 @@ class Accepter: public Thread {
 	void _joinThreads();
 
 	public:
-		explicit Accepter(const char* service, std::string& root);
+		explicit Accepter(const char* service);
 		~Accepter();
 		
 		Accepter(const Accepter&) = delete;

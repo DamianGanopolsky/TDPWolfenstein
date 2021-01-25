@@ -77,7 +77,7 @@ void ClientHandler::_receive() {
 					this->notifications.push(reply_error);
 				}
 			} else {
-				throw Exception("Unknown opcode received by client handler.");
+				throw Exception("Unknown opcode received by ClientHandler.");
 			}
 			
         }
