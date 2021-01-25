@@ -2,74 +2,27 @@ map_dimentions:
     height: 36
     width: 21
 
-Weapons:
-    Chain_Cannon:
-        position:
-        - x: 5
-          y: 10
-        - x: 14
-          y: 40
-    Automatic_Gun:
-        position:
-        - x: 100
-          y: 24
-        - x: 461
-          y: 75
-
-    3:
-        position:
-         []
-
-
-Treasures:
-
-    Treasure:
-        position:
-        - x: 107
-          y: 52
-        - x: 24
-          y: 402
-    Cup:
-        position:
-         []
-    Crown:
-        position:
-         []
-    Cross:
-        position:
-         []
-    Chest:
-        position:
-         []
-Healers:
-
-    Food:
-        position:
-         []
-    Medical_Kit:
-        position:
-         []
-    Blood:
-        position:
-         []
-
-Walls:
-    Red_Wall:
-        position:
-        - x: 433
-          y: 432
-        - x: 500
-          y: 500
-
-Players:
-    - 0:
-        position:
-        - x: 42
-          y: 0
-        - x: 800
-          y: 0
-      1:
-        position:
-        - x: 1000
-          y: 1000
+Chain_Cannon:
+  position:
+    - x: 0
+      y: 6
+    - x: 1
+      y: 0
+---
+Automatic_Gun:
+  position:
+    - x: 7
+      y: 1
+---
+Treasure:
+  position:
+    - x: 0
+      y: 0
+---
+Red_Wall:
+  position:
+    - x: 6
+      y: 6
+    - x: 7
+      y: 7
 

@@ -20,6 +20,7 @@ public:
 
     int Map_Width();
 
-    void Write_Map(std::string YamlPathToWrite,std::map <int,std::vector<std::pair<int,int>>> map);
+    void Write_Map(std::string YamlPathToWrite,std::map <int,std::vector\
+    <std::pair<int,int>>> map,int height,int width);
 
 };

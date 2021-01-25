@@ -340,12 +340,11 @@ void Map::Export(std::string yamlName){
             if(matrix[i][j]==0) continue;
                  
             position = std::make_pair (i,j);
-            //player_map[matrix[i][j]]=position;
             player_map[matrix[i][j]].push_back(position);
         }
     }
-    YamlParser yamlparser("../Maps/Output.yaml");
-    yamlparser.Write_Map("../Maps/Output.yaml",player_map);
+    YamlParser yamlparser("../Maps/Export.yaml");
+    yamlparser.Write_Map("../Maps/Export.yaml",player_map,rows,columns);
 /*
     for (auto const& x : player_map)
     {

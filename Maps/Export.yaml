@@ -1,23 +1,13 @@
-2:
-  position:
-    - x: 0
-      y: 6
-    - x: 1
-      y: 0
+map_dimentions:
+  height: 36
+  width: 21
 ---
-5:
+Key:
   position:
-    - x: 7
-      y: 1
+    - x: 512
+      y: 768
 ---
-6:
+Chain_Cannon:
   position:
     - x: 0
       y: 0
----
-9:
-  position:
-    - x: 6
-      y: 6
-    - x: 7
-      y: 7
