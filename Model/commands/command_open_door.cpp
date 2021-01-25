@@ -15,15 +15,15 @@ Response CommandOpenDoor::run(Player &player, int **map) {
 }
 
 bool CommandOpenDoor::_interactWith(Player &player, int **map, Door &door) {
-    if(!door.isOpened()) {
+    if (!door.isOpened()) {
         door.open();
     }
     return true;
 }
 
 bool CommandOpenDoor::_interactWith(Player &player, int **map, LockedDoor &door) {
-    if(!door.isOpened()) {
-        if(player.getInfo().getKey() != 0){
+    if (!door.isOpened()) {
+        if (player.getInfo().getKey() != 0) {
             player.getInfo().reduceNumKeys(1);
             door.open();
             return true;
