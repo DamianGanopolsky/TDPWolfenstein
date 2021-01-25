@@ -20,7 +20,11 @@ void Scene::render(){
 
 void Scene::HandleMovementWASD(SDL_Event* event){
     map.HandleMovementWASD(event);
-    map.Export("asd");
+    //map.Export("asd");
+}
+
+void Scene::SaveMap(std::string PathToFile){
+    map.Export(PathToFile);
 }
 
 Scene::~Scene(){

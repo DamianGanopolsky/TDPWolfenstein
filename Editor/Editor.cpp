@@ -41,6 +41,7 @@ void Editor::HandleRightClickRelease(SDL_Event* event){
         initial_position.y=int(event->button.y);
         is_clicked_correctly=true;
     }
+
 }
 
 void Editor::HandleLeftClickRelease(SDL_Event* event){
@@ -53,6 +54,9 @@ void Editor::HandleLeftClickRelease(SDL_Event* event){
     }
     else{
         scene.click(final_position);
+    }
+    if((event->button.y<70)&(event->button.x>915)){ //HARDCODEADO
+        scene.SaveMap("asd");
     }
 }
 
