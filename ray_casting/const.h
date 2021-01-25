@@ -16,7 +16,7 @@
 #define WIDTH_GAME_MAP 8
 #define HEIGTH_GAME_MAP 8
 
-#define FOV 60.0
+#define FOV 90.0
 #define TOTAL_BOX 64
 
 //para panel status
@@ -35,3 +35,6 @@
 
 #define TOTAL_PISTOLAS 3
 #define IMAGE_PISTOLAS_PATH "../ray_casting/panel_status/images/pistola"
+
+#define TEXTURE_PATH "../ray_casting/sprites/wall"
+#define TOTAL_TEXTURES_WALLS 2 

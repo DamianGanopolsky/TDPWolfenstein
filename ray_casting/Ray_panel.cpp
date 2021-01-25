@@ -14,7 +14,7 @@ Ray_panel::Ray_panel(Ray&& ray, Wall_texture& wall_textures) : ray(std::move(ray
 			this->pixels[min] = FLOOR_COLOR;
 		} else if (min < pixel_max) {
 			int wall_y = (min - pixel_min) / (proy_slice_height / 64.0);
-			int number_tex = this->ray.get_point() % 3 == 0 ? 6 : 0;
+			int number_tex = this->ray.get_point() % 3 == 0 ? 1 : 0;
    			this->pixels[min] = wall_textures.get_pixel_tex(number_tex, wall_x, wall_y);
 		} else {
 			this->pixels[min] = CEILING_COLOR;
