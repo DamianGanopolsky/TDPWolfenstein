@@ -11,6 +11,8 @@ private:
 
     SdlWindow& window;
 
+    SDL_Texture* main_screen;
+
     bool active;
 
 public:
@@ -18,6 +20,8 @@ public:
     MapOptionsView(SdlWindow& Window);
 
     bool is_active();
+
+    void Handle_Click(int x,int y);
 
     void render();
 
