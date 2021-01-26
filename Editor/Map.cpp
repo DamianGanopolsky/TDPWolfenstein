@@ -93,8 +93,6 @@ void Map::LoadMatrix(std::map <std::pair<int,int>,int> initial_map){
             std::pair<int,int> pair_key;
             pair_key.first=x.first.first/CUADRICULA;
             pair_key.second=x.first.second/CUADRICULA;
-            //std::cout << "pair key x es" << x.first.first << "y es:" << x.first.second << std::endl;
-            //std::cout << "player count es " << player_count << std::endl;
             player_map.insert({pair_key,player_count});
         }
     }
