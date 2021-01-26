@@ -17,13 +17,13 @@
 std::string jugadores[]{"0","1"};
 
 YamlParser::YamlParser(std::string YamlPath){
-    map= YAML::LoadFile(YamlPath);
+    //map= YAML::LoadFile(YamlPath);
 }
 
 
-std::map <std::pair<int,int>,int> YamlParser::load_map(){
+std::map <std::pair<int,int>,int> YamlParser::load_map(std::string YamlPath){
 
-    
+    map= YAML::LoadFile(YamlPath);
     /* Chain Cannon */
     //const YAML::Node& initial_map=map["Map"];
     //std::cout << initial_map["map_dimentions"]["height"] << std::endl;
@@ -155,6 +155,7 @@ void YamlParser::Write_Map(std::string YamlPathToWrite,std::map <int,\
 std::vector<std::pair<int,int>>> map,int height,int width){
     YAML::Emitter out;
     //out << YAML::BeginDoc;
+    
     out << YAML::BeginMap;
     out << YAML::Key<< "Map";
     out << YAML::Value << YAML::BeginMap;
@@ -221,7 +222,9 @@ std::vector<std::pair<int,int>>> map,int height,int width){
         out << YAML::EndMap;
     }
     out << YAML::EndMap;
-    std::ofstream fileOut("../Maps/Export.yaml");
+    
+    std::ofstream fileOut(YamlPathToWrite);
+    //std::ofstream fileOut("../Maps/Export.yaml");
     fileOut << out.c_str();
 }
 

@@ -21,6 +21,10 @@ public:
 
     void set_active();
 
+    bool IsSaveButtonPressed(int x,int y);
+
+    std::string getMapName();
+
     void Update(SDL_Event* event);
 
 };

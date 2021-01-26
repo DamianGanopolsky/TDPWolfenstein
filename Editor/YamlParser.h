@@ -18,7 +18,7 @@ public:
 
     YamlParser(std::string YamlPath);
 
-    std::map <std::pair<int,int>,int> load_map();
+    std::map <std::pair<int,int>,int> load_map(std::string YamlPath);
 
     int Map_Height();
 

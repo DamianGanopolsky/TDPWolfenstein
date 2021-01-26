@@ -1,4 +1,6 @@
 #include "Scene.h"
+#define PATH_TO_MAP "../Maps/"
+#define EXTENSION ".yaml"
 
 
 Scene::Scene(SdlWindow& Window,std::string YamlPath):window(Window),\
@@ -11,7 +13,19 @@ void Scene::draw(position& initial_pos,position& final_pos){
 }
 
 void Scene::click(position final_pos){
-    map.click(final_pos);
+    if(InputView.is_active()){
+        if(InputView.IsSaveButtonPressed(final_pos.x,final_pos.y)){
+            std::string map_name=InputView.getMapName();
+            map.Export(PATH_TO_MAP+map_name+EXTENSION);
+        }
+    }
+    else{
+        if((final_pos.y<70)&(final_pos.x>915)){ //HARDCODEADO
+            InputView.set_active();
+            //map.render();
+        }
+        map.click(final_pos);
+    }
 }
 
 void Scene::render(){
@@ -48,12 +62,12 @@ void Scene::HandleMovementWASD(SDL_Event* event){
         map.HandleMovementWASD(event);
     }
 }
-
+/*
 void Scene::SaveMap(std::string PathToFile){
     InputView.set_active();
     //map.Export(PathToFile);
 }
-
+*/
 Scene::~Scene(){
     
 }
