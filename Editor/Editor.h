@@ -21,6 +21,8 @@ public:
 
     void HandleMotion(SDL_Event* event);
 
+    void HandleTextInput(SDL_Event* event);
+
     void HandleRightClickPress(SDL_Event* event);
 
     void HandleRightClickRelease(SDL_Event* event);

@@ -28,7 +28,9 @@ public:
 
     void click(position final_pos);
 
-    //void HandleMovementWASD(SDL_Event* event);
+    void HandleTextInput(SDL_Event* event);
+
+    void HandleMovementWASD(SDL_Event* event);
 
     void HandleKeyPressed(SDL_Event* event);
 

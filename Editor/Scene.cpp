@@ -1,7 +1,8 @@
 #include "Scene.h"
 
 
-Scene::Scene(SdlWindow& Window,std::string YamlPath):window(Window),map(Window,YamlPath),main_window(Window){
+Scene::Scene(SdlWindow& Window,std::string YamlPath):window(Window),\
+map(Window,YamlPath),main_window(Window),InputView(Window){
     
 }
 
@@ -17,22 +18,36 @@ void Scene::render(){
     
     map.render();
     main_window.render_window();
+    if(InputView.is_active()){
+        InputView.render();
+    }
 }
 
+void Scene::HandleTextInput(SDL_Event* event){
+    if(InputView.is_active()){
+        //Visualizo el texto
+        InputView.Update(event);
+    }
+}
+/*
 void Scene::HandleKeyPressed(SDL_Event* event){
     if(InputView.is_active()){
         //Visualizo el texto
+        std::cout << event->text.text << std::endl;
+        InputView.Update(event);
         std::cout << "IS active" << std::endl;
     }
     else{
         map.HandleMovementWASD(event);
     }
-}
-/*
-void Scene::HandleMovementWASD(SDL_Event* event){
-    map.HandleMovementWASD(event);
-    //map.Export("asd");
 }*/
+
+void Scene::HandleMovementWASD(SDL_Event* event){
+
+    if(!InputView.is_active()){
+        map.HandleMovementWASD(event);
+    }
+}
 
 void Scene::SaveMap(std::string PathToFile){
     InputView.set_active();

@@ -5,7 +5,7 @@
 bool Event_Handler::handleEvents(Editor& editor){
     quit=false; //Agregado en los ultimos cambios
 
-    
+
     while(SDL_PollEvent(&event)!=0){
         switch (event.type){    
             case SDL_QUIT:
@@ -26,6 +26,7 @@ bool Event_Handler::handleEvents(Editor& editor){
                 }
                 break;
             case SDL_TEXTINPUT:
+                editor.HandleTextInput(&event);
                 //username.box_content += event.text.text;
                 //texto.Load_Text("../OpenSans-Bold.ttf",username.box_content,12);
                 //Message = SDL_CreateTextureFromSurface(window.getRenderer(), texto.getSurface()); 

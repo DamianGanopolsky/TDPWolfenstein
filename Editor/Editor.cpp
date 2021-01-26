@@ -64,9 +64,13 @@ void Editor::HandleLeftClickRelease(SDL_Event* event){
     }
 }
 
+void Editor::HandleTextInput(SDL_Event* event){
+    scene.HandleTextInput(event);
+}
+
 void Editor::HandleMovementWASD(SDL_Event* event){
-    //scene.HandleMovementWASD(event);
-    scene.HandleKeyPressed(event);
+    scene.HandleMovementWASD(event);
+    //scene.HandleKeyPressed(event);
 }
 
 void Editor::render(){
