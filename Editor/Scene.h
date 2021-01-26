@@ -29,5 +29,7 @@ public:
 
     void draw(position& initial_pos,position& final_pos);
 
+    void SaveMap(std::string PathToFile);
+
 	~Scene();
 };

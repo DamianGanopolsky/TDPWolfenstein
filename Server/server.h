@@ -9,7 +9,7 @@ class Server {
 	Accepter accepter;
 
 	public: 
-		explicit Server(const char* service, std::string& root);
+		explicit Server(const char* service);
 		~Server();
 
 		Server(const Server&) = delete;

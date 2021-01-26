@@ -34,6 +34,7 @@
 #define SCREEN_WIDTH 32
 #define BUCKET_BAR_SPACE 145
 #define TOTAL_IMAGES 17
+#define CUADRICULA 64
 
 
 int level1[36][21] = {
@@ -86,7 +87,16 @@ void Map::LoadMatrix(std::map <std::pair<int,int>,int> initial_map){
         }
     }
     for (auto const& x : initial_map){
-        matrix[x.first.first/64][x.first.second/64]=x.second;
+        matrix[x.first.first/CUADRICULA][x.first.second/CUADRICULA]=x.second;
+        if(x.second==PLAYER){
+            player_count++;
+            std::pair<int,int> pair_key;
+            pair_key.first=x.first.first/CUADRICULA;
+            pair_key.second=x.first.second/CUADRICULA;
+            std::cout << "pair key x es" << x.first.first << "y es:" << x.first.second << std::endl;
+            std::cout << "player count es " << player_count << std::endl;
+            player_map.insert({pair_key,player_count});
+        }
     }
 
 }
@@ -189,11 +199,13 @@ void Map::HandleMovementWASD(SDL_Event* event){
 }
 
 void Map::click(position final_pos){
-    if((final_pos.x>=(0.7719*window.getWidth()))&&(final_pos.x<=0.8760*window.getWidth())){
-        ExpandMap();
-    }
-    else if((final_pos.x>=(0.8833*window.getWidth()))&&(final_pos.x<=0.9896*window.getWidth())){
-        ShrinkMap();
+    if((final_pos.y>0.8578)&&(final_pos.y<0.9406)){
+        if((final_pos.x>=(0.7719*window.getWidth()))&&(final_pos.x<=0.8760*window.getWidth())){
+            ExpandMap();
+        }
+        else if((final_pos.x>=(0.8833*window.getWidth()))&&(final_pos.x<=0.9896*window.getWidth())){
+            ShrinkMap();
+        }
     }
 }
 
@@ -270,6 +282,7 @@ void Map::render(){
                 case FLOOR_TILE:
                     break;
                 case PLAYER:
+                    
                     key.first=(pos_x*TILE_PIXELS+camera.x*TILE_PIXELS)/TILE_PIXELS;
                     key.second=((pos_y*TILE_PIXELS+camera.y*TILE_PIXELS)/TILE_PIXELS)-1;
                     player_number=player_map.at(key);
@@ -340,12 +353,11 @@ void Map::Export(std::string yamlName){
             if(matrix[i][j]==0) continue;
                  
             position = std::make_pair (i,j);
-            //player_map[matrix[i][j]]=position;
             player_map[matrix[i][j]].push_back(position);
         }
     }
-    YamlParser yamlparser("../Maps/Output.yaml");
-    yamlparser.Write_Map("../Maps/Output.yaml",player_map);
+    YamlParser yamlparser("../Maps/Export.yaml");
+    yamlparser.Write_Map("../Maps/Export.yaml",player_map,rows,columns);
 /*
     for (auto const& x : player_map)
     {

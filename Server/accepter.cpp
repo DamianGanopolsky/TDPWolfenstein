@@ -1,6 +1,6 @@
 #include "./accepter.h"
 #include "../Common/socket.h"
-//-------------------------------------------------------------------------------
+
 void Accepter::_joinReaper() {
 	std::list<ClientHandler *>::iterator it = client_list.begin();	
 	while (it != client_list.end()){
@@ -22,14 +22,12 @@ void Accepter::_joinThreads() {
 		it = client_list.erase(it);
 	}*/
 	for (ClientHandler *c: client_list) {
-		c->stop();
 		c->join();
 		delete c;
 	}
 }
 
-Accepter::Accepter(const char* service, std::string& root) : socket(service),
-										root(root), keep_accepting(true) {}
+Accepter::Accepter(const char* service) : socket(service), keep_accepting(true) {}
 
 Accepter::~Accepter() {}
 
@@ -38,7 +36,7 @@ void Accepter::run() {
 		while (keep_accepting){
 			try {
 				Socket peer = socket.accept();
-				ClientHandler *client = new ClientHandler(peer, root);
+				ClientHandler *client = new ClientHandler(peer);
 				client_list.push_back(client);
 				client->start();
 			} catch (const std::exception& e) {
