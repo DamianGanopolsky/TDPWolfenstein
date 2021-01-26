@@ -23,12 +23,12 @@ Wall_texture::~Wall_texture() {
 }
 
 int Wall_texture::get_pixel_tex(int tex_number, int tex_x, int tex_y) {
-	return this->walls_texture[0][tex_y][tex_x];
+	return this->walls_texture[tex_number][tex_y][tex_x];
 }
 
 Uint32 Wall_texture::get_pixel(int x, int y, SDL_Surface* image) {
     int bpp = image->format->BytesPerPixel;
     Uint8 *p = (Uint8 *)image->pixels + y * image->pitch + x * bpp;
-    return p[0] | p[1] << 8 | p[2] << 16;
+    return p[0] << 16 | p[1] << 8 | p[2];
 }
 
