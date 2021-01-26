@@ -10,6 +10,8 @@ struct TextBox{
 
     std::string box_content;
 
+    bool active;
+
     SDL_Rect box;
     SDL_Point box_pos;
 

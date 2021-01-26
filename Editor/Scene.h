@@ -5,6 +5,8 @@
 #include "Main_Window.h"
 #include <map>
 #include "Map.h"
+#include "InputTextView.h"
+//#include "TextBox.h"
 
 
 class Scene{
@@ -16,6 +18,7 @@ private:
     SDL_Texture* floor_tile;
     Map map;
     Main_Window main_window;
+    InputTextView InputView;
 
 
 public:
@@ -25,7 +28,9 @@ public:
 
     void click(position final_pos);
 
-    void HandleMovementWASD(SDL_Event* event);
+    //void HandleMovementWASD(SDL_Event* event);
+
+    void HandleKeyPressed(SDL_Event* event);
 
     void draw(position& initial_pos,position& final_pos);
 

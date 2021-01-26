@@ -10,7 +10,7 @@
 #include "YamlParser.h"
 #include <fstream>  
 #include <stdexcept>
-#include "TextBox.h"
+//#include "TextBox.h"
 
 
 int main(int argc,char* argv[]){
@@ -19,46 +19,33 @@ int main(int argc,char* argv[]){
     int width = config["width"].as<int>();
     int heigth =config["heigth"].as<int>();
 
-
-
-
-
     int error=SDL_Init(SDL_INIT_VIDEO);
     if(error!=0){
         throw std::invalid_argument("Error  en la inicializacion de sdl \n");
     }
     
     SdlWindow window(width,heigth);
+/*
     SdlText texto(window.getRenderer(),255,255,255);
-
     SDL_Rect Message_rect={80,300,145,80};
-    
-    window.render();
-
-
-    bool quit = false;
-
     SDL_Event event;
-
     TextBox username;
     username.box_content = "";
     SDL_Texture* Message;
-
     texto.Load_Text("../OpenSans-Bold.ttf",username.box_content,12);
     Message = SDL_CreateTextureFromSurface(window.getRenderer(), texto.getSurface());
+    window.render(); */
 
-
-    
-    /*
     Editor editor(window);
     Event_Handler event_handler;
+    bool quit = false;
     Main_Window mainwindow(window);
     mainwindow.render_window();
     window.render();
-*/
+
 
     while (!quit){
-
+/*
         while(SDL_PollEvent(&event)!=0){
             switch (event.type){    
                 case SDL_QUIT:
@@ -84,10 +71,12 @@ int main(int argc,char* argv[]){
         SDL_RenderClear(window.getRenderer());
         SDL_RenderCopy(window.getRenderer(), Message, NULL, &Message_rect); 
         window.render();
-    }
-        //quit=event_handler.handleEvents(editor);
-        //editor.render();
-        //window.render();
+
+    }*/
+        SDL_RenderClear(window.getRenderer());
+        quit=event_handler.handleEvents(editor);
+        editor.render();
+        window.render();
     }
 
     SDL_Quit();

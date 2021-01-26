@@ -10,7 +10,7 @@
 Editor::Editor(SdlWindow& Window):window(Window),scene(Window,"../Maps/Simple.yaml"),is_clicked_correctly(false),is_dragging(false){
 
 
-    
+
 }
 
 void Editor::HandleMotion(SDL_Event* event){
@@ -61,12 +61,12 @@ void Editor::HandleLeftClickRelease(SDL_Event* event){
     if((event->button.y<70)&(event->button.x>915)){ //HARDCODEADO
         scene.SaveMap("asd");
         //map.render();
-
     }
 }
 
 void Editor::HandleMovementWASD(SDL_Event* event){
-    scene.HandleMovementWASD(event);
+    //scene.HandleMovementWASD(event);
+    scene.HandleKeyPressed(event);
 }
 
 void Editor::render(){
