@@ -12,8 +12,7 @@
 #include <stdexcept>
 //#include "TextBox.h"
 
-#include <sys/types.h>
-#include <dirent.h>
+
 
 
 int main(int argc,char* argv[]){
@@ -21,19 +20,6 @@ int main(int argc,char* argv[]){
     YAML::Node config = YAML::LoadFile("../Yaml_configs/editor_config.yaml");
     int width = config["width"].as<int>();
     int heigth =config["heigth"].as<int>();
-
-    std::string directory_path="../Maps";
-    std::vector<std::string> v;
-    DIR* dirp = opendir(directory_path.c_str());
-    struct dirent * dp;
-    while ((dp = readdir(dirp)) != NULL) {
-        v.push_back(dp->d_name);
-    }
-    closedir(dirp);
-
-    for(std::vector<std::string>::iterator it = v.begin(); it != v.end(); ++it) {
-        std::cout << *it << std::endl;
-    }
 
     int error=SDL_Init(SDL_INIT_VIDEO);
     if(error!=0){

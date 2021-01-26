@@ -13,19 +13,26 @@ void Scene::draw(position& initial_pos,position& final_pos){
 }
 
 void Scene::click(position final_pos){
-    if(InputView.is_active()){
-        if(InputView.IsSaveButtonPressed(final_pos.x,final_pos.y)){
-            std::string map_name=InputView.getMapName();
-            map.Export(PATH_TO_MAP+map_name+EXTENSION);
-        }
+
+    if(map_options_view.is_active()){
+        map_options_view.Handle_Click(final_pos.x,final_pos.y);
     }
     else{
-        if((final_pos.y<int(0.1094*window.getHeight()))&(final_pos.x>int(0.9531*window.getWidth()))){ //HARDCODEADO
-            InputView.set_active();
-            //map.render();
+        if(InputView.is_active()){
+            if(InputView.IsSaveButtonPressed(final_pos.x,final_pos.y)){
+                std::string map_name=InputView.getMapName();
+                map.Export(PATH_TO_MAP+map_name+EXTENSION);
+            }
         }
-        map.click(final_pos);
+        else{
+            if((final_pos.y<int(0.1094*window.getHeight()))&(final_pos.x>int(0.9531*window.getWidth()))){ //HARDCODEADO
+                InputView.set_active();
+                //map.render();
+            }
+            map.click(final_pos);
+        }
     }
+
 }
 
 void Scene::render(){

@@ -2,6 +2,8 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include "SdlClasses/SdlWindow.h"
+#include <vector>
+#include <string>
 
 
 
@@ -14,6 +16,8 @@ private:
     SDL_Texture* main_screen;
 
     bool active;
+
+    std::vector<std::string> files;
 
 public:
 
