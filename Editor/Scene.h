@@ -12,10 +12,6 @@
 class Scene{
 private:
     SdlWindow& window;
-    SDL_Texture* player;
-    SDL_Texture* treasure;
-    SDL_Texture* bar;
-    SDL_Texture* floor_tile;
     Map map;
     Main_Window main_window;
     InputTextView InputView;

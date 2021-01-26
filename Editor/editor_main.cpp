@@ -25,16 +25,6 @@ int main(int argc,char* argv[]){
     }
     
     SdlWindow window(width,heigth);
-/*
-    SdlText texto(window.getRenderer(),255,255,255);
-    SDL_Rect Message_rect={80,300,145,80};
-    SDL_Event event;
-    TextBox username;
-    username.box_content = "";
-    SDL_Texture* Message;
-    texto.Load_Text("../OpenSans-Bold.ttf",username.box_content,12);
-    Message = SDL_CreateTextureFromSurface(window.getRenderer(), texto.getSurface());
-    window.render(); */
 
     Editor editor(window);
     Event_Handler event_handler;
@@ -45,34 +35,6 @@ int main(int argc,char* argv[]){
 
 
     while (!quit){
-/*
-        while(SDL_PollEvent(&event)!=0){
-            switch (event.type){    
-                case SDL_QUIT:
-                    quit=true;
-                    break;
-
-                case SDL_KEYDOWN:
-
-                    switch(event.key.keysym.sym){
-                        case SDLK_ESCAPE:  //Salir de la pantalla
-                            quit=true;
-                            break;
-                    }
-                    break;
-                case SDL_TEXTINPUT:
-                    std::cout << "asd" << std::endl;
-                    username.box_content += event.text.text;
-                    texto.Load_Text("../OpenSans-Bold.ttf",username.box_content,12);
-                    Message = SDL_CreateTextureFromSurface(window.getRenderer(), texto.getSurface()); 
-                    std::cout << username.box_content << std::endl;
-                    break;
-        }
-        SDL_RenderClear(window.getRenderer());
-        SDL_RenderCopy(window.getRenderer(), Message, NULL, &Message_rect); 
-        window.render();
-
-    }*/
         SDL_RenderClear(window.getRenderer());
         quit=event_handler.handleEvents(editor);
         editor.render();
