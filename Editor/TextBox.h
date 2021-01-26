@@ -13,5 +13,7 @@ struct TextBox{
     SDL_Rect box;
     SDL_Point box_pos;
 
+    SDL_Texture* font;
+
     TextBox(): box({0}),box_pos({0}){}
 };

@@ -1,5 +1,6 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
+#include <string>
 
 class SdlText{
 private:
@@ -12,7 +13,7 @@ private:
 public:
     SdlText(SDL_Renderer* renderer,Uint8 r,Uint8 g,Uint8 b);
     
-    void Load_Text(const char* path_to_ttf,const char* text\
+    void Load_Text(const char* path_to_ttf,std::string text\
     ,int FontSize);
 
     SDL_Surface* getSurface();

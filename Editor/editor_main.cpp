@@ -30,10 +30,9 @@ int main(int argc,char* argv[]){
     
     SdlWindow window(width,heigth);
     SdlText texto(window.getRenderer(),255,255,255);
-    texto.Load_Text("../OpenSans-Bold.ttf","Editor",12);
-    SDL_Texture* Message = SDL_CreateTextureFromSurface(window.getRenderer(), texto.getSurface()); 
+
     SDL_Rect Message_rect={80,300,145,80};
-    SDL_RenderCopy(window.getRenderer(), Message, NULL, &Message_rect); 
+    
     window.render();
 
 
@@ -43,6 +42,12 @@ int main(int argc,char* argv[]){
 
     TextBox username;
     username.box_content = "";
+    SDL_Texture* Message;
+
+    texto.Load_Text("../OpenSans-Bold.ttf",username.box_content,12);
+    Message = SDL_CreateTextureFromSurface(window.getRenderer(), texto.getSurface());
+
+
     
     /*
     Editor editor(window);
@@ -53,10 +58,6 @@ int main(int argc,char* argv[]){
 */
 
     while (!quit){
-        SDL_RenderClear(window.getRenderer());
-        SDL_RenderCopy(window.getRenderer(), Message, NULL, &Message_rect); 
-        window.render();
-
 
         while(SDL_PollEvent(&event)!=0){
             switch (event.type){    
@@ -73,11 +74,16 @@ int main(int argc,char* argv[]){
                     }
                     break;
                 case SDL_TEXTINPUT:
+                    std::cout << "asd" << std::endl;
                     username.box_content += event.text.text;
+                    texto.Load_Text("../OpenSans-Bold.ttf",username.box_content,12);
+                    Message = SDL_CreateTextureFromSurface(window.getRenderer(), texto.getSurface()); 
                     std::cout << username.box_content << std::endl;
                     break;
-
         }
+        SDL_RenderClear(window.getRenderer());
+        SDL_RenderCopy(window.getRenderer(), Message, NULL, &Message_rect); 
+        window.render();
     }
         //quit=event_handler.handleEvents(editor);
         //editor.render();
