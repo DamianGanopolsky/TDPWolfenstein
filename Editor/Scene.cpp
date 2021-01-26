@@ -20,7 +20,7 @@ void Scene::click(position final_pos){
         }
     }
     else{
-        if((final_pos.y<70)&(final_pos.x>915)){ //HARDCODEADO
+        if((final_pos.y<int(0.1094*window.getHeight()))&(final_pos.x>int(0.9531*window.getWidth()))){ //HARDCODEADO
             InputView.set_active();
             //map.render();
         }
@@ -39,7 +39,6 @@ void Scene::render(){
 
 void Scene::HandleTextInput(SDL_Event* event){
     if(InputView.is_active()){
-        //Visualizo el texto
         InputView.Update(event);
     }
 }

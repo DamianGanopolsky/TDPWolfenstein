@@ -5,8 +5,8 @@ InputTextView::InputTextView(SdlWindow& Window):texto(Window.getRenderer()\
 ,255,255,255),window(Window){
     textbox.box_content="";
     textbox.active=false;
-    textbox.box.x=303;
-    textbox.box.y=279;
+    textbox.box.x=0.3156*window.getWidth();
+    textbox.box.y=0.4359*window.getHeight();
     textbox.box.w=0;
     textbox.box.h=45;
     SDL_Surface* save_menu=IMG_Load("../Editor/Editor_Assets/MenuGuardar.png");
@@ -14,14 +14,27 @@ InputTextView::InputTextView(SdlWindow& Window):texto(Window.getRenderer()\
 }
 
 void InputTextView::Update(SDL_Event* event){
-    textbox.box_content += event->text.text;
-    textbox.box.w += 40;
+    if(event->type==SDL_KEYDOWN){
+        if(!textbox.box_content.empty()){
+            textbox.box_content.pop_back();
+            textbox.box.w -= 40;
+        }
+    }
+    else{
+        /* Si no se llego al maximo de caracteres disponibles */
+        if(!(textbox.box_content.length()>9)){
+            textbox.box_content += event->text.text;
+            textbox.box.w += 40;
+        }
+
+    }
     texto.Load_Text("../OpenSans-Bold.ttf",textbox.box_content,12);
     texture_of_text = SDL_CreateTextureFromSurface(window.getRenderer(), texto.getSurface()); 
 }
 
 void InputTextView::render(){
-    SDL_Rect Base_rect={250,200,500,250};
+    SDL_Rect Base_rect={int(0.2604*window.getWidth()),int(0.3125*window.getHeight()),\
+    int(0.5208*window.getWidth()),int(0.3906*window.getHeight())};
     //SDL_Rect Text_rect={303,279,382,45};
     //SDL_Rect Text_rect={303,279,40,45};
     

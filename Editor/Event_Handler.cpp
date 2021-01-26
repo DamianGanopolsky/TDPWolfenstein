@@ -20,6 +20,9 @@ bool Event_Handler::handleEvents(Editor& editor){
                     case SDLK_d:
                         editor.HandleMovementWASD(&event);
                         break; 
+                    case SDLK_BACKSPACE:
+                        editor.HandleTextInput(&event);
+                        break;
                     case SDLK_ESCAPE:  //Salir de la pantalla
                         quit=true;
                         break;
