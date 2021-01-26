@@ -14,11 +14,6 @@
 
 #include <sys/types.h>
 #include <dirent.h>
- /*
-void read_directory(const std::string& name, stringvec& v)
-{
-
-}*/
 
 
 int main(int argc,char* argv[]){

@@ -11,6 +11,8 @@ private:
 
     SdlWindow& window;
 
+    bool active;
+
 public:
 
     MapOptionsView(SdlWindow& Window);

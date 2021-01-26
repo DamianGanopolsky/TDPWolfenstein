@@ -6,6 +6,7 @@
 #include <map>
 #include "Map.h"
 #include "InputTextView.h"
+#include "MapOptionsView.h"
 //#include "TextBox.h"
 
 
@@ -15,6 +16,7 @@ private:
     Map map;
     Main_Window main_window;
     InputTextView InputView;
+    MapOptionsView map_options_view;
 
 
 public:
