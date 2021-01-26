@@ -9,6 +9,7 @@ private:
     SdlText texto;
     SdlWindow& window;
     SDL_Texture* texture_of_text;
+    SDL_Texture* save_menu_texture;
 
 public:
 
