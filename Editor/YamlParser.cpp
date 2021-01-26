@@ -92,6 +92,25 @@ std::map <std::pair<int,int>,int> YamlParser::load_map(){
         objects_map.insert({map_position,TREASURE});
     }
 
+    /* Bullets */
+    const YAML::Node& bullet=map["Map"]["Bullets"];
+    for (YAML::const_iterator it = bullet["position"].begin(); it != bullet["position"].end(); ++it) {
+        const YAML::Node& pos = *it;
+        map_position.first=pos['x'].as<int>();;
+        map_position.second=pos['y'].as<int>();;
+        objects_map.insert({map_position,BULLETS});
+    }
+
+    /* Keys */
+
+    const YAML::Node& key=map["Map"]["Key"];
+    for (YAML::const_iterator it = key["position"].begin(); it != key["position"].end(); ++it) {
+        const YAML::Node& pos = *it;
+        map_position.first=pos['x'].as<int>();;
+        map_position.second=pos['y'].as<int>();;
+        objects_map.insert({map_position,KEY});
+    }
+
     /* Red Wall */
 
     //const YAML::Node& red_wall = initial_map["Walls"]["Red_Wall"];
