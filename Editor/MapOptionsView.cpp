@@ -3,14 +3,15 @@
 #include <dirent.h>
 
 void MapOptionsView::load_textures(){
-    int count=0;
+    int count=3;
     for(std::vector<std::string>::iterator it = files.begin(); it != files.end(); ++it) {
 
         std::cout << *it << std::endl;
-        SdlText texto(window.getRenderer(),255,255,255);
-        //SDL_Rect rect={count*40,count*40,100,40};
+        std::cout << (*it).size() << std::endl;
+        if((*it).size()<4) continue;
+        SdlText texto(window.getRenderer(),139,0,0);
         texto.Load_Text("../OpenSans-Bold.ttf",*it,12);
-        positions.push_back({count*40,count*40,100,40});
+        positions.push_back({100,count*45,int((*it).size()*10),40});
         textures_of_files.push_back(SDL_CreateTextureFromSurface(window.getRenderer(), texto.getSurface())); 
         count++;
     }
