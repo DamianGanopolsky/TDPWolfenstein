@@ -19,6 +19,7 @@ enum CommandOpcode {
     STOP_ROTATING,
 
     USE_WEAPON_CMD,
+    RECIEVE_ATTACK_CMD,
     OPEN_DOOR_CMD,
     CHANGE_WEAPON_TO_KNIFE_CMD,
     CHANGE_WEAPON_TO_GUN_CMD,
@@ -37,8 +38,8 @@ enum EventOpcode {
 };
 
 enum MessageOpcode {
-    SUCCESS_MSG = 0,
-    ERROR_MSG
+    SUCCESS_MSSG = 0,
+    ERROR_MSSG
 };
 
 #endif

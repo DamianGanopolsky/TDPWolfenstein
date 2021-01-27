@@ -11,22 +11,6 @@ int main(int argc, char* argv[]) {
 		return 1;
 	}
 	char* service = argv[1];
-	/*std::string file_root = argv[2];
-	std::ifstream file(file_root);
-	std::stringstream stream;
-	std::string line;
-	if (file.is_open()) {
-		while (std::getline(file, line)) {
-			line += '\n';
-			stream << line;
-		}
-		file.close();
-	} else {
-		std::cerr << "Unable to open file_root" << "\n";
-		return 2;
-	}
-	std::string root = stream.str(); */
-
 	try {
 		Server server(service);
 		server();

@@ -1,7 +1,7 @@
-#ifndef COMMAND_PICK_UP_H_
-#define COMMAND_PICK_UP_H_
+#ifndef PICKUPER_H_
+#define PICKUPER_H_
 
-#include "./../player/player.h"
+#include "./player.h"
 
 #include "./../objects/items/bullets/bullet.h"
 #include "./../objects/items/healers/blood.h"
@@ -11,9 +11,9 @@
 #include "./../objects/items/treasures/treasure.h"
 #include "./../objects/items/weapons/weapon.h"
 
-class CommandPickUp {
+class PickUp {
  public:
-    CommandPickUp();
+    PickUp();
     bool pickUp(PlayerInfo &info, Item &item);
     // bullets:
     bool pickUp(PlayerInfo &info, Bullet &item);
@@ -30,4 +30,4 @@ class CommandPickUp {
 
 };
 
-#endif   // COMMAND_PICK_UP_H_
+#endif   // PICKUPER_H_
