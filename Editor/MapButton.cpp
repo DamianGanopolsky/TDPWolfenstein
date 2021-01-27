@@ -5,9 +5,9 @@ std::string texto):window(Window){
     file_name=texto;
     position=rect;
     base_position=rect;
-    base_position.x -= 30;
-    base_position.w=800;
-    SdlText texto_(window.getRenderer(),139,0,0);
+    base_position.x -= int(0.03125*window.getWidth());
+    base_position.w=int(0.8333*window.getWidth());
+    SdlText texto_(window.getRenderer(),int(0.2172*window.getHeight()),0,0);
     texto_.Load_Text("../OpenSans-Bold.ttf",texto,12);
     texture_of_text=SDL_CreateTextureFromSurface(window.getRenderer(), texto_.getSurface());
     SDL_Surface* base_surf=IMG_Load("../Editor/Editor_Assets/OptionBar.png");

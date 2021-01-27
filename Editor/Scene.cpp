@@ -13,11 +13,9 @@ void Scene::draw(position& initial_pos,position& final_pos){
 }
 
 void Scene::click(position final_pos){
-    //YamlPathToOpen="../Maps/Simple.yaml";
     if(map_options_view.is_active()){
         YamlPathToOpen=map_options_view.Handle_Click(final_pos.x,final_pos.y);
-        if(YamlPathToOpen!="../Maps/"){
-            std::cout << "yaml path es" << YamlPathToOpen << std::endl;
+        if(YamlPathToOpen!=PATH_TO_MAP){
             map.LoadMap(YamlPathToOpen);
         }
         map_options_view.load_textures();
@@ -32,7 +30,6 @@ void Scene::click(position final_pos){
         else{
             if((final_pos.y<int(0.1094*window.getHeight()))&(final_pos.x>int(0.9531*window.getWidth()))){ //HARDCODEADO
                 InputView.set_active();
-                //map.render();
             }
             map.click(final_pos);
         }
