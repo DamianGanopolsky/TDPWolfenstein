@@ -6,16 +6,16 @@
 
 class Player_handler {
 public:
-	Player_handler(Player& player, bool& running);
-	Player_handler(Player_handler&& other);
+	Player_handler(Player& player);
+	//Player_handler(Player_handler&& other);
 	~Player_handler();
 
-	void handle();
+	bool handle();
 
 private:
 	// Es necesario protegerlos de race condition?
 	Player& player;
-	bool& running;
+	bool quit;
 };
 
 #endif
