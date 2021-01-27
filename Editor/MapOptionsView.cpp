@@ -38,6 +38,7 @@ std::string MapOptionsView::Handle_Click(int x,int y){
             file_chosen=(*it).get_file_name();
         }
     }
+    std::cout << "File_chosen es" << file_chosen << std::endl;
     return file_chosen;
 }
 

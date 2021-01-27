@@ -27,8 +27,6 @@ private:
 
     std::vector<MapButton> map_buttons;
 
-    //std::vector<SdlText> textos;
-
 public:
 
     MapOptionsView(SdlWindow& Window);

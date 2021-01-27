@@ -20,7 +20,14 @@ void MapButton::render(){
 }
 
 bool MapButton::is_clicked(int x,int y){
-    return true;
+    if(((x<base_position.x+base_position.w)&&(x>base_position.x))\
+    &&((y<base_position.y+base_position.h)&&(y>base_position.y))){
+        return true;
+    }
+    else{
+        return false;
+    }
+    
 }
 
 std::string MapButton::get_file_name(){
