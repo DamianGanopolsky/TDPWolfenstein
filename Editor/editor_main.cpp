@@ -37,7 +37,6 @@ int main(int argc,char* argv[]){
 
 
     while (!quit){
-        std::cout << "asd" << std::endl;
         SDL_RenderClear(window.getRenderer());
         quit=event_handler.handleEvents(editor);
         editor.render();

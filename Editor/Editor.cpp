@@ -58,11 +58,6 @@ void Editor::HandleLeftClickRelease(SDL_Event* event){
     else{
         scene.click(final_position);
     }
-    /*
-    if((event->button.y<70)&(event->button.x>915)){ //HARDCODEADO
-        scene.SaveMap("asd");
-        //map.render();
-    }*/
 }
 
 void Editor::HandleTextInput(SDL_Event* event){
