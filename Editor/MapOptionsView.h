@@ -37,7 +37,7 @@ public:
 
     void load_textures();
 
-    void Handle_Click(int x,int y);
+    std::string Handle_Click(int x,int y);
 
     void render();
 

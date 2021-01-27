@@ -6,14 +6,8 @@ void MapOptionsView::load_textures(){
     int count=3;
     for(std::vector<std::string>::iterator it = files.begin(); it != files.end(); ++it) {
 
-        std::cout << *it << std::endl;
-        std::cout << (*it).size() << std::endl;
         if((*it).size()<4) continue;
         map_buttons.push_back(MapButton(window,{100,count*45,int((*it).size()*10),40},*it));
-        SdlText texto(window.getRenderer(),139,0,0);
-        texto.Load_Text("../OpenSans-Bold.ttf",*it,12);
-        positions.push_back({100,count*45,int((*it).size()*10),40});
-        textures_of_files.push_back(SDL_CreateTextureFromSurface(window.getRenderer(), texto.getSurface())); 
         count++;
     }
 }
@@ -29,7 +23,6 @@ MapOptionsView::MapOptionsView(SdlWindow& Window):window(Window),active(true){
     }
     closedir(dirp);
     load_textures();
-
 }
 
 
@@ -38,12 +31,14 @@ bool MapOptionsView::is_active(){
     return true;
 }
 
-void MapOptionsView::Handle_Click(int x,int y){
-
-    for(std::vector<std::string>::iterator it = files.begin(); it != files.end(); ++it) {
-        std::cout << *it << std::endl;
+std::string MapOptionsView::Handle_Click(int x,int y){
+    std::string file_chosen="";
+    for(std::vector<MapButton>::iterator it = map_buttons.begin(); it != map_buttons.end(); ++it) {
+        if((*it).is_clicked(x,y)){
+            file_chosen=(*it).get_file_name();
+        }
     }
-
+    return file_chosen;
 }
 
 void MapOptionsView::render(){
@@ -51,20 +46,8 @@ void MapOptionsView::render(){
     SDL_Rect main_screen_rect={0,0,960,640};
     SDL_SetRenderDrawColor(window.getRenderer(), 128, 128, 128, 255);
     SDL_RenderCopy(window.getRenderer(),main_screen,NULL,&main_screen_rect);
-    //int count=0;
 
     for(std::vector<MapButton>::iterator it = map_buttons.begin(); it != map_buttons.end(); ++it) {
         (*it).render();
-
     }
-/*
-    for(std::vector<SDL_Texture*>::iterator it = textures_of_files.begin(); it != textures_of_files.end(); ++it) {
-
-        SDL_RenderCopy(window.getRenderer(),textures_of_files.at(count),NULL,&positions.at(count));
-
-        count++;
-    }*/
-
-    //SDL_RenderCopy(window.getRenderer(),textures_of_files.at(1),NULL,&rect);
-    //SDL_RenderCopy(window.getRenderer(),textures_of_files.at(4),NULL,&rect2);
 }
