@@ -22,6 +22,8 @@ private:
 
     std::vector<SDL_Texture*> textures_of_files;
 
+    std::vector<SDL_Rect> positions;
+
     //std::vector<SdlText> textos;
 
 public:
