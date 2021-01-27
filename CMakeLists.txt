@@ -12,7 +12,7 @@ file(GLOB ray_casting_dep_2 "ray_casting/panel_status/*.cpp")
 
 add_executable(cliente Client/client_main.cpp Client/SdlSound.cpp Client/SdlMusic.cpp ../Editor/SdlClasses/SdlWindow.cpp)
 
-add_executable(editor Editor/editor_main.cpp Editor/SdlClasses/SdlWindow.cpp Editor/SdlClasses/SdlText.cpp Editor/Event_Handler.cpp Editor/Editor.cpp Editor/Scene.cpp Editor/SdlClasses/SdlMusic.cpp Editor/MusicSoundtrack.cpp Editor/Main_Window.cpp Editor/Map.cpp Editor/YamlParser.cpp Editor/InputTextView.cpp Editor/MapOptionsView.cpp)
+add_executable(editor Editor/editor_main.cpp Editor/SdlClasses/SdlWindow.cpp Editor/SdlClasses/SdlText.cpp Editor/Event_Handler.cpp Editor/Editor.cpp Editor/Scene.cpp Editor/SdlClasses/SdlMusic.cpp Editor/MusicSoundtrack.cpp Editor/Main_Window.cpp Editor/Map.cpp Editor/YamlParser.cpp Editor/InputTextView.cpp Editor/MapOptionsView.cpp Editor/MapButton.cpp)
 
 add_executable(servidor prueba_servidor.cpp)
 

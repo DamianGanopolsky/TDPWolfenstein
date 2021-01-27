@@ -5,6 +5,7 @@
 #include "SdlClasses/SdlText.h"
 #include <vector>
 #include <string>
+#include "MapButton.h"
 
 
 
@@ -23,6 +24,8 @@ private:
     std::vector<SDL_Texture*> textures_of_files;
 
     std::vector<SDL_Rect> positions;
+
+    std::vector<MapButton> map_buttons;
 
     //std::vector<SdlText> textos;
 

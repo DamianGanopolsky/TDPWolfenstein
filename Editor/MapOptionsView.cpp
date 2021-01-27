@@ -9,6 +9,7 @@ void MapOptionsView::load_textures(){
         std::cout << *it << std::endl;
         std::cout << (*it).size() << std::endl;
         if((*it).size()<4) continue;
+        map_buttons.push_back(MapButton(window,{100,count*45,int((*it).size()*10),40},*it));
         SdlText texto(window.getRenderer(),139,0,0);
         texto.Load_Text("../OpenSans-Bold.ttf",*it,12);
         positions.push_back({100,count*45,int((*it).size()*10),40});
@@ -48,20 +49,21 @@ void MapOptionsView::Handle_Click(int x,int y){
 void MapOptionsView::render(){
     
     SDL_Rect main_screen_rect={0,0,960,640};
-
-    //SDL_Rect rect2={250,250,250,250};
-
-    //SDL_Rect rect={100,100,100,100};
     SDL_SetRenderDrawColor(window.getRenderer(), 128, 128, 128, 255);
     SDL_RenderCopy(window.getRenderer(),main_screen,NULL,&main_screen_rect);
-    int count=0;
+    //int count=0;
 
+    for(std::vector<MapButton>::iterator it = map_buttons.begin(); it != map_buttons.end(); ++it) {
+        (*it).render();
+
+    }
+/*
     for(std::vector<SDL_Texture*>::iterator it = textures_of_files.begin(); it != textures_of_files.end(); ++it) {
 
         SDL_RenderCopy(window.getRenderer(),textures_of_files.at(count),NULL,&positions.at(count));
 
         count++;
-    }
+    }*/
 
     //SDL_RenderCopy(window.getRenderer(),textures_of_files.at(1),NULL,&rect);
     //SDL_RenderCopy(window.getRenderer(),textures_of_files.at(4),NULL,&rect2);
