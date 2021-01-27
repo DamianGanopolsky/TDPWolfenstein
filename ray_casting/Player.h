@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "Player_info.h"
+#include "SoundManager.h"
 
 class Player {
 public:
@@ -22,6 +23,7 @@ public:
 	void shoot();
 
 private:
+	SoundManager soundmanager;
 	int pos_x;
 	int pos_y;
 	float vision_angle;

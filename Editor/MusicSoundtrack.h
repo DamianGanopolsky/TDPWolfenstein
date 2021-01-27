@@ -3,18 +3,18 @@
 #include <vector>
 #include <map>
 
-class EditorSoundtrack{
+class MusicSoundtrack{
 private:
     Mix_Music* Suspense;
     Mix_Music* Pow;
 
 public:
-    EditorSoundtrack();
+    MusicSoundtrack();
 
     void load_editor_soundtrack();
 
     void play_editor();
 
-	~EditorSoundtrack();
+	~MusicSoundtrack();
 };
 

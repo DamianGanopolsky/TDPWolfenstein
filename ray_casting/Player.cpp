@@ -2,6 +2,8 @@
 #include <utility>
 #include <iostream>
 #include <cmath>
+#include <unistd.h>
+
 
 #define ROTATION_SIZE 3.0
 #define DISPLACEMENT 5
@@ -9,6 +11,7 @@
 
 Player::Player(int pos_x, int pos_y, float angle) :
 				pos_x(pos_x), pos_y(pos_y), vision_angle(angle) {
+	
 }
 
 Player::~Player() {
@@ -61,6 +64,10 @@ void Player::move_right() {
 }
 
 void Player::shoot() {
+	soundmanager.play_sound();
+	//SdlSound sonido("../Sounds/SS_Agent_death.wav");
+	//sonido.play(128);
+	//sleep(5);
 	this->info.weapon_status = 2;
 	this->info.ammo--;  
 }

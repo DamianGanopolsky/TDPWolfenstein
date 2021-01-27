@@ -3,7 +3,7 @@
 #include <unistd.h>
 
 
-EditorSoundtrack::EditorSoundtrack(){
+MusicSoundtrack::MusicSoundtrack(){
     if(SDL_Init(SDL_INIT_AUDIO)==-1) {
         printf("SDL_Init: %s\n", SDL_GetError());
     }
@@ -16,13 +16,13 @@ EditorSoundtrack::EditorSoundtrack(){
     Mix_VolumeMusic(2);
 }
 
-void EditorSoundtrack::load_editor_soundtrack(){
+void MusicSoundtrack::load_editor_soundtrack(){
 }
 
-void EditorSoundtrack::play_editor(){
+void MusicSoundtrack::play_editor(){
     Mix_PlayMusic(Suspense,-1);
 }
 
-EditorSoundtrack::~EditorSoundtrack(){
+MusicSoundtrack::~MusicSoundtrack(){
     Mix_Quit();
 }
