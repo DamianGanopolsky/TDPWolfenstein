@@ -9,11 +9,9 @@ Client::Client(Panel_window& Panel,Player& Player,Map_2d& Map):panel(Panel),play
 }
 
 void Client::render(){
-    std::cout << "asd" << std::endl;
     rays = std::move(map.get_player_rays());
     elements = std::move(map.get_game_elements());
-    panel.update(std::move(rays), std::move(elements),  player.get_info());
-    //crl.task_finished();  
+    panel.update(std::move(rays), std::move(elements),  player.get_info()); 
 }
 
 Player Client::get_player(){

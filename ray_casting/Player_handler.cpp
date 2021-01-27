@@ -23,7 +23,6 @@ bool Player_handler::handle() {
 					this->player.right_rotation();
 					break;
 				case SDLK_w:
-					std::cout << "w" << std::endl;
 					this->player.move_up();
 					break;
 				case SDLK_s:
