@@ -2,6 +2,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include "SdlClasses/SdlWindow.h"
+#include "SdlClasses/SdlText.h"
 #include <vector>
 #include <string>
 
@@ -19,11 +20,17 @@ private:
 
     std::vector<std::string> files;
 
+    std::vector<SDL_Texture*> textures_of_files;
+
+    //std::vector<SdlText> textos;
+
 public:
 
     MapOptionsView(SdlWindow& Window);
 
     bool is_active();
+
+    void load_textures();
 
     void Handle_Click(int x,int y);
 

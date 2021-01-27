@@ -16,6 +16,7 @@ void Scene::click(position final_pos){
 
     if(map_options_view.is_active()){
         map_options_view.Handle_Click(final_pos.x,final_pos.y);
+        map_options_view.load_textures();
     }
     else{
         if(InputView.is_active()){

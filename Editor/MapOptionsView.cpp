@@ -15,6 +15,17 @@ MapOptionsView::MapOptionsView(SdlWindow& Window):window(Window),active(true){
 
 }
 
+void MapOptionsView::load_textures(){
+
+    for(std::vector<std::string>::iterator it = files.begin(); it != files.end(); ++it) {
+        SdlText texto(window.getRenderer(),255,255,255);
+        texto.Load_Text("../OpenSans-Bold.ttf",*it,12);
+        textures_of_files.push_back(SDL_CreateTextureFromSurface(window.getRenderer(), texto.getSurface()));
+        //texture_of_text = SDL_CreateTextureFromSurface(window.getRenderer(), texto.getSurface()); 
+        std::cout << *it << std::endl;
+    }
+}
+
 bool MapOptionsView::is_active(){
     return true;
 }

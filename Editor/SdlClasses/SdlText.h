@@ -1,3 +1,6 @@
+#ifndef SDLTEXT_H
+#define SDLTEXT_H
+
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 #include <string>
@@ -20,3 +23,5 @@ public:
 
 	~SdlText();
 };
+
+#endif
