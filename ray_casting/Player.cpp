@@ -65,9 +65,6 @@ void Player::move_right() {
 
 void Player::shoot() {
 	soundmanager.play_sound();
-	//SdlSound sonido("../Sounds/SS_Agent_death.wav");
-	//sonido.play(128);
-	//sleep(5);
 	this->info.weapon_status = 2;
 	this->info.ammo--;  
 }

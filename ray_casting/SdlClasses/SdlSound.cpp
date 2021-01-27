@@ -11,7 +11,7 @@ SdlSound::SdlSound(const char* path_to_sound){
 
 void SdlSound::play(int volumen){
     Mix_VolumeChunk(soundEffect, volumen);
-    Mix_PlayChannel(1, soundEffect, 1);
+    Mix_PlayChannel(1, soundEffect, 0);
 }
 
 SdlSound::~SdlSound(){

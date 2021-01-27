@@ -13,8 +13,6 @@
 int main() {
 	
 	Panel_window panel;
-	
-	std::cout << "ok" << std::endl;
 	if(Mix_OpenAudio(44100,MIX_DEFAULT_FORMAT,2,1024)<0){
         std::cout << "eRROR:" << Mix_GetError() << std::endl;
     }
@@ -23,10 +21,8 @@ int main() {
 	
 	Player_handler handler(player);
 	Client client(panel,player,map);
-	//MusicSoundtrack music;
-	//music.play_editor();
-	SdlSound sonido("../Sounds/SS_Agent_death.wav");
-	sonido.play(128);
+	MusicSoundtrack music;
+	music.play_editor();
 	client.render();
 	bool quit=false;
 
