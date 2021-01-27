@@ -27,6 +27,8 @@ private:
 public:
     Map(SdlWindow& Window,std::string YamlPath);
 
+    void LoadMap(std::string YamlPath);
+
     void HandleMovementWASD(SDL_Event* event);
 
     void draw(position initial_position,position draw_position);

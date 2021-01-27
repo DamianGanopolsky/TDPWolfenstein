@@ -17,6 +17,7 @@ private:
     Main_Window main_window;
     InputTextView InputView;
     MapOptionsView map_options_view;
+    std::string YamlPathToOpen;
 
 
 public:

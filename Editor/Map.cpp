@@ -120,6 +120,14 @@ Map::Map(SdlWindow& Window,std::string YamlPath):window(Window),player_count(0){
     for(int i=0;i<TOTAL_IMAGES;i++){
         textures.push_back(SDL_CreateTextureFromSurface(window.getRenderer(),surfaces.at(i)));
     }
+    /*YamlParser yamlparser(YamlPath);
+    std::map <std::pair<int,int>,int> initial_map =yamlparser.load_map(YamlPath);
+    rows=yamlparser.Map_Height();
+    columns=yamlparser.Map_Width();
+    LoadMatrix(initial_map);*/
+}
+
+void Map::LoadMap(std::string YamlPath){
     YamlParser yamlparser(YamlPath);
     std::map <std::pair<int,int>,int> initial_map =yamlparser.load_map(YamlPath);
     rows=yamlparser.Map_Height();

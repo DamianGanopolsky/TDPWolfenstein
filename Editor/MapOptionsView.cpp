@@ -28,17 +28,17 @@ MapOptionsView::MapOptionsView(SdlWindow& Window):window(Window),active(true){
 
 
 bool MapOptionsView::is_active(){
-    return true;
+    return active;
 }
 
 std::string MapOptionsView::Handle_Click(int x,int y){
-    std::string file_chosen="";
+    std::string file_chosen="../Maps/";
     for(std::vector<MapButton>::iterator it = map_buttons.begin(); it != map_buttons.end(); ++it) {
         if((*it).is_clicked(x,y)){
-            file_chosen=(*it).get_file_name();
+            file_chosen+=(*it).get_file_name();
+            active=false;
         }
     }
-    std::cout << "File_chosen es" << file_chosen << std::endl;
     return file_chosen;
 }
 

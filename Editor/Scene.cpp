@@ -13,9 +13,13 @@ void Scene::draw(position& initial_pos,position& final_pos){
 }
 
 void Scene::click(position final_pos){
-
+    //YamlPathToOpen="../Maps/Simple.yaml";
     if(map_options_view.is_active()){
-        map_options_view.Handle_Click(final_pos.x,final_pos.y);
+        YamlPathToOpen=map_options_view.Handle_Click(final_pos.x,final_pos.y);
+        if(YamlPathToOpen!="../Maps/"){
+            std::cout << "yaml path es" << YamlPathToOpen << std::endl;
+            map.LoadMap(YamlPathToOpen);
+        }
         map_options_view.load_textures();
     }
     else{
