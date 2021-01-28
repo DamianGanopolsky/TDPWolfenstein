@@ -36,5 +36,8 @@
 #define TOTAL_PISTOLAS 3
 #define IMAGE_PISTOLAS_PATH "../ray_casting/panel_status/images/pistola"
 
+#define TOTAL_ELITE_GUARDIAS 2
+#define IMAGE_ELITE_GUARDIAS_PATH "../ray_casting/panel_status/images/Elite_guard/EGuard"
+
 #define TEXTURE_PATH "../ray_casting/sprites/wall"
 #define TOTAL_TEXTURES_WALLS 2 
