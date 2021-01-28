@@ -76,6 +76,7 @@ void Player_panel_status::copy_to_rederer(Player_info& player_info) {
 	this->copy_to_rederer_health(player_info.get_health());
 	this->copy_to_rederer_ammo(player_info.get_ammo());
 	this->copy_to_rederer_score(player_info.get_scores());
+	this->copy_to_rederer_level(player_info.get_level());
 }
 
 void Player_panel_status::copy_to_rederer_weapon(Player_info& info) {
@@ -135,7 +136,17 @@ void Player_panel_status::copy_to_rederer_score(int score) {
 	SrcR.x = PANEL_WIDTH * 0.1719;
 	SrcR.y = PANEL_HEIGHT* 0.87;
 
-	this->copy_to_rederer_number(score, 3, SrcR, false);
+	this->copy_to_rederer_number(score, 1, SrcR, true);
+}
+
+void Player_panel_status::copy_to_rederer_level(int level) {
+	SDL_Rect SrcR;
+	SrcR.w = PANEL_WIDTH * 0.025;
+	SrcR.h = PANEL_HEIGHT * 0.10;
+	SrcR.x = PANEL_WIDTH * 0.05;
+	SrcR.y = PANEL_HEIGHT* 0.87;
+
+	this->copy_to_rederer_number(level, 1, SrcR, false);
 }
 
 void Player_panel_status::copy_to_rederer_ammo(int ammo) {

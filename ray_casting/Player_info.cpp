@@ -18,6 +18,10 @@ int Player_info::get_health() const {
 	return this->health;
 }
 
+int Player_info::get_level() const{
+	return this->level;
+}
+
 int Player_info::get_ammo() const {
 	return this->ammo;
 }

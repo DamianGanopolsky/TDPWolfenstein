@@ -34,6 +34,7 @@ private:
 	void copy_to_rederer_score(int score);
 	void copy_to_rederer_health(int health);
 	void copy_to_rederer_ammo(int health);
+	void copy_to_rederer_level(int level);
 	void copy_to_rederer_number(int number, int digits, SDL_Rect& SrcR, bool is_cero);
 };
 
