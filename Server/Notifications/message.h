@@ -9,7 +9,7 @@ class Message : public Notification {
     char* message;
     
     public:
-        Message(MessageOpcode opcode, const char* message);
+        Message(MessageOpcode opcode, char* message);
         virtual ~Message();
         
         Message(const Message& other);

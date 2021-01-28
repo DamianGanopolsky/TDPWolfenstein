@@ -4,7 +4,7 @@
 #include <iostream>
 #include <cstdlib>
 #include "./accepter.h"
-//-------------------------------------------------------------------------------
+
 class Server {
 	Accepter accepter;
 

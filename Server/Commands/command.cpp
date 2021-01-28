@@ -63,7 +63,7 @@ Command* Command::newCommand(ConnectionId id_caller, uint8_t opcode, Socket& soc
             return new CommandChangeWeapon(id_caller, weapon);
         }
         default: {
-            //throw exception
+            throw Exception("Error: Server received an unknown command.");
         }
     }
 }
