@@ -9,12 +9,16 @@ Ray_panel::Ray_panel(Ray&& ray, Wall_texture& wall_textures) : ray(std::move(ray
 	int pixel_max = pixel_min + proy_slice_height;
 	int wall_x = this->ray.get_pos_x() == 0 || this->ray.get_pos_x() == 63 ? this->ray.get_pos_y() : this->ray.get_pos_x();
 
+	/* SOLO PARA PAREDES */
 	for (int min = 0; min < PANEL_HEIGHT; min++) {
 		if (min < pixel_min) {
 			this->pixels[min] = FLOOR_COLOR;
 		} else if (min < pixel_max) {
 			int wall_y = (min - pixel_min) / (proy_slice_height / 64.0);
-			int number_tex = this->ray.get_point() % 3 == 0 ? 1 : 0;
+			//Cuadricula, el mapa me va a decir que hay
+			int number_tex = this->ray.get_point() % 3 == 0 ? 1 : 0; //Get point me dice contra que cuadricula
+																	//del mapa esta chocando
+																	//No sirve lo del %3...
    			this->pixels[min] = wall_textures.get_pixel_tex(number_tex, wall_x, wall_y);
 		} else {
 			this->pixels[min] = CEILING_COLOR;

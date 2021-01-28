@@ -3,7 +3,7 @@
 
 #include <vector>
 #include "Player_info.h"
-#include "SoundManager.h"
+#include "SdlClasses/SoundManager.h"
 
 class Player {
 public:

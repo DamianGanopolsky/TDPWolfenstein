@@ -153,7 +153,7 @@ void Player_panel_status::copy_to_rederer_number(int number, int digits, SDL_Rec
 }
 
 SDL_Texture* Player_panel_status::get_texture(int tex_section, int id) {
-
+//Si el id es 2, se deberia llamar a oficial status. Hacer un switch posiblemente
 	return this->guardia_status.get_texture(tex_section);
 }
 

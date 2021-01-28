@@ -7,7 +7,7 @@
 #define PI 3.1415
 #define TOTAL_SECTIONS 8
 
-
+//Type id -> 
 Game_element::Game_element(int pos_x, int pos_y, int type_id, int vision_angle, Player& player) :
 							type_id(type_id) {
 	this->texture_section = this->get_texture_section(vision_angle, player.get_angle());

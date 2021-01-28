@@ -29,6 +29,8 @@ bool Panel_window::is_running() {
 }
 
 void Panel_window::update(std::set<Ray>&& rays, std::list<Game_element>&& elements, Player_info& player_info) {
+	//Cola donde estan los rayos y los elementos del juego, se renderiza primero lo que esta mas lejos.
+	//Paredes, piso y techo -> 
 	Elements_panel_queue q;
 	for (std::set<Ray>::iterator ray = rays.begin(); ray != rays.end(); ++ray) {
 		Ray ray_perp = ray->get_ray_perp();

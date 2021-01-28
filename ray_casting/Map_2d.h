@@ -19,7 +19,10 @@ public:
 	std::set<Ray> get_player_rays(); 
 	std::list<Game_element> get_game_elements(); 
 private:
+//PARED O NO
 	std::map<int, bool> boxes;
+	//POSICION DEL PLAYER
+	//Cada cuadricula tiene 64x64 posiciones
 	Player& player; 
 };
 
