@@ -26,6 +26,7 @@ private:
 	Element_panel_status guardia_status;
 	Element_panel_status pistola_status;
 	Element_panel_status elite_guard_status;
+	Element_panel_status official_guard_status;
 
 	void copy_to_rederer_weapon(Player_info& info);
 	void copy_to_rederer_face(int health);

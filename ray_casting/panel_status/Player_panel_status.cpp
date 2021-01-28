@@ -12,7 +12,8 @@ Player_panel_status::Player_panel_status(SDL_Renderer*& renderer) :
 										number_status(renderer, IMAGE_NUMBERS_PATH, TOTAL_NUMBERS), 
 										guardia_status(renderer, IMAGE_GUARDIAS_PATH, TOTAL_GUARDIAS),
 										pistola_status(renderer, IMAGE_PISTOLAS_PATH, TOTAL_PISTOLAS),
-										elite_guard_status(renderer,IMAGE_ELITE_GUARDIAS_PATH ,TOTAL_ELITE_GUARDIAS) {
+										elite_guard_status(renderer,IMAGE_ELITE_GUARDIAS_PATH ,TOTAL_ELITE_GUARDIAS),
+										official_guard_status(renderer,IMAGE_OFFICER_GUARDIAS_PATH,TOTAL_OFFICER_GUARDIAS) {
 	SDL_Surface *status_img = IMG_Load("../ray_casting/sprites/hud.png");
 	this->status_tex = SDL_CreateTextureFromSurface(this->renderer, status_img);
 	SDL_FreeSurface(status_img);
@@ -25,7 +26,8 @@ Player_panel_status::Player_panel_status(Player_panel_status&& other) :
 										number_status(std::move(other.number_status)),	
 										guardia_status(std::move(other.guardia_status)),	
 										pistola_status(std::move(other.pistola_status)),
-										elite_guard_status(std::move(other.elite_guard_status)) {	
+										elite_guard_status(std::move(other.elite_guard_status)),
+										official_guard_status(std::move(other.official_guard_status)) {	
 	this->status_tex = other.status_tex;
 	other.status_tex = nullptr;
 }
@@ -49,6 +51,7 @@ Player_panel_status& Player_panel_status::operator=(Player_panel_status&& other)
 	this->guardia_status = std::move(other.guardia_status);
 	this->elite_guard_status=std::move(other.elite_guard_status);
 	this->pistola_status = std::move(other.pistola_status);
+	this->official_guard_status= std::move(other.official_guard_status);
 	other.status_tex = nullptr;
 	return *this;	
 }
@@ -159,6 +162,9 @@ SDL_Texture* Player_panel_status::get_texture(int tex_section, int id) {
 //Si el id es 2, se deberia llamar a oficial status. Hacer un switch posiblemente
 	if(id==1){
 		return this->guardia_status.get_texture(tex_section);
+	}
+	if(id==2){
+		return this->official_guard_status.get_texture(tex_section);
 	}
 	else{
 		return this->elite_guard_status.get_texture(tex_section);
