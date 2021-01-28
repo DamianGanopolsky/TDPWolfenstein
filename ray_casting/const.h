@@ -39,7 +39,7 @@
 #define TOTAL_ELITE_GUARDIAS 8
 #define IMAGE_ELITE_GUARDIAS_PATH "../ray_casting/panel_status/images/Elite_guard/EGuard"
 
-#define TOTAL_OFFICER_GUARDIAS 2
+#define TOTAL_OFFICER_GUARDIAS 8
 #define IMAGE_OFFICER_GUARDIAS_PATH "../ray_casting/panel_status/images/Oficial/Officer"
 
 #define TEXTURE_PATH "../ray_casting/sprites/wall"
