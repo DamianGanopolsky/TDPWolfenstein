@@ -31,6 +31,7 @@ private:
 	void copy_to_rederer_weapon(Player_info& info);
 	void copy_to_rederer_face(int health);
 	void copy_to_rederer_lives(int lives);
+	void copy_to_rederer_score(int score);
 	void copy_to_rederer_health(int health);
 	void copy_to_rederer_ammo(int health);
 	void copy_to_rederer_number(int number, int digits, SDL_Rect& SrcR, bool is_cero);

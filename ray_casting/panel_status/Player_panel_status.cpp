@@ -127,6 +127,16 @@ void Player_panel_status::copy_to_rederer_health(int health) {
 	this->copy_to_rederer_number(health, 3, SrcR, false);
 }
 
+void Player_panel_status::copy_to_rederer_score(int score) {
+	SDL_Rect SrcR;
+	SrcR.w = PANEL_WIDTH * 0.025;
+	SrcR.h = PANEL_HEIGHT * 0.10;
+	SrcR.x = PANEL_WIDTH * 0.525;
+	SrcR.y = PANEL_HEIGHT - SrcR.h * 1.25;
+
+	this->copy_to_rederer_number(score, 3, SrcR, false);
+}
+
 void Player_panel_status::copy_to_rederer_ammo(int ammo) {
 	SDL_Rect SrcR;
 	SrcR.w = PANEL_WIDTH * 0.025;

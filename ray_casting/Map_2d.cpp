@@ -34,6 +34,8 @@ std::set<Ray> Map_2d::get_player_rays() {
 std::list<Game_element> Map_2d::get_game_elements() {
 	std::list<Game_element> elements;
 	Game_element element(150,250, 2, 270, this->player);
+	Game_element element2(170,250, 1, 270, this->player);
 	elements.push_back(std::move(element));
+	elements.push_back(std::move(element2));
 	return elements; 
 }
