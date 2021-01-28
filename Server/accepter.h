@@ -7,7 +7,7 @@
 #include "../Common/socket.h"
 #include "../Common/thread.h"
 #include "./clientHandler.h"
-//-------------------------------------------------------------------------------
+
 class Accepter: public Thread {
 	Socket socket;
 	std::atomic<bool> keep_accepting;

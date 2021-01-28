@@ -14,7 +14,8 @@ class ClientsConnected {
     NonBlockingQueue<ConnectionId*>& finished_connections;
     
     public:
-        ClientsConnected();
+        ClientsConnected(NonBlockingQueue<Command*>& commands,
+            NonBlockingQueue<ConnectionId*>& finished_connections);
         ~ClientsConnected();
 
         ClientsConnected(const ClientsConnected&) = delete;

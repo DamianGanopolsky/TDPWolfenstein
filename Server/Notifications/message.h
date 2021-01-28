@@ -2,10 +2,14 @@
 #define MESSAGE_H
 
 #include "notification.h"
+#include "../Common/protocol.h"
 
 class Message : public Notification {
+    MessageOpcode opcode;
+    char* message;
+    
     public:
-        Message();
+        Message(MessageOpcode opcode, const char* message);
         virtual ~Message();
         
         Message(const Message& other);

@@ -1,6 +1,6 @@
 #include "message.h"
 
-Message::Message() {}
+Message::Message(MessageOpcode opcode, const char* message) {}
 Message::~Message() {}
         
 Message::Message(const Message& other) {}

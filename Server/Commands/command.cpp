@@ -36,8 +36,12 @@ Command* Command::newCommand(ConnectionId id_caller, uint8_t opcode, Socket& soc
             return new CommandStopRotating(id_caller);
         }
         case USE_WEAPON_CMD: {
-            //socket >> id_target;
+            //socket >> id_target;??????????
             return new CommandAttack(id_caller, id_target);
+        }
+        case RECIEVE_ATTACK_CMD: {
+            //socket >> damage;
+            return new CommandReceiveAttack(id_caller, damage);
         }
         case OPEN_DOOR_CMD: {
             return new CommandOpenDoor(id_caller);

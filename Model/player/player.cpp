@@ -15,6 +15,7 @@ bool Player::_move(Id map, std::pair<int, int> next_pos) {
     if (changeCell || (next_pos.first == -1 && next_pos.second == -1)) {
         int object_code = map[next_pos.first][next_pos.second];
         Object obj = objMap.getObject(object_code);
+        Interact interactor;
         bool not_blocking = interactor.interactWith(this, map, obj);
         if (not_blocking) {
             return true;
@@ -37,6 +38,28 @@ bool Player::_changeCell(PlayerPosition &pos, std::pair<int, int> &next_pos) {
         return true;
     }
     return false;
+}
+
+void Player::_die() {
+    delete this->state;
+    this->state = new Dead(this->player_id);
+    this->alive = false;
+    Drop droper;
+    /*if (droper.drop(this->info, this->info.getWeaponEquiped())) {
+        //map.addItem(posx, posy, target->info.getWeaponEquiped());
+    }
+    if (droper.drop(this->info, bullet)) {
+        //map.addItem(posx, posy, bullet);
+    }
+    if (droper.drop(this->info, key)) {
+        int num_keys = this->info.getKey();
+        for (int i = 0; i<= num_keys; i++) {
+            //map.addItem(posx, posy, key);
+        }
+    }
+    if (droper.drop(this->info, corpse)) {
+        //map.addItem(posx, posy, corpse);
+    }*/
 }
 
 PlayerPosition Player::getPos() {
@@ -122,51 +145,25 @@ Response Player::stopRotating() {
 }
 
 Response Player::useWeapon(Id id, Id id_target, Player* target, int& damage) {
-    //Chequeamos que no se danie a si mismo
     if (this == target) {
         Response(false, CANT_ATTACK_ITSELF_ERROR_MSG);
     }
-    //Verificamos que el target sea atacable
     if (!target->getState()->canBeAttacked()) {
         Response(false, CANT_BE_ATTACKED_ERROR_MSG);
     }
-    // Obtenemos el danio del arma.
     Weapon weapon = this->getInfo().getWeaponEquiped();
     damage = weapon.attack(damage);
-    // El atacado recibe el daño del ataque.
     target->receiveAttack(damage);
     return Response(true, SUCCESS_MSG);
 }
 
-void Player::receiveAttack(int& damage) {
+Response Player::receiveAttack(int& damage) {
     this->info.reduceLife(damage);
     if (this->info.getLife() == 0) {
-        this->die();
+        this->_die();
+        return Response(true, PLAYER_DIED_MSG);
     }
-}
-
-void Player::die() {
-    delete this->state;
-    this->state = new Dead(this->player_id);
-    this->alive = false;
-    /*CommandDrop droper;
-    if (!target->isAlive()) {
-        if (droper.drop(target->getInfo(), target->getInfo().getWeaponEquiped())) {
-            //map.addItem(posx, posy, target->getInfo().getWeaponEquiped());
-        }
-        if (droper.drop(target->getInfo(), bullet)) {
-            //map.addItem(posx, posy, bullet);
-        }
-        if (droper.drop(target->getInfo(), key)) {
-            int num_keys = target->getInfo().getKey();
-            for (int i = 0; i<= num_keys; i++) {
-                //map.addItem(posx, posy, key);
-            }
-        }
-        if (droper.drop(target->getInfo(), corpse)) {
-            //map.addItem(posx, posy, corpse);
-        }
-    }*/
+    return Response(true, SUCCESS_MSG);
 }
 
 Response Player::resurrect() {
@@ -180,14 +177,10 @@ Response Player::resurrect() {
     //poner todos los valores iniciales de vida, balas, etc
 }
 
-void Player::changeWeapon(Weapon& weapon) {
-    this->info.changeWeaponEquiped(weapon);
-    /*int weapon_type = weapon.getType();
-    if (weapon_type == GUN_TYPE) {
-        this->race = GUARD;
-    } else if (weapon_type == MACHINE_GUN_TYPE) {
-        this->race = SS;
-    } else if (weapon_type == CHAIN_CANNON_TYPE) {
-        this->race = OFFICIAL;
-    }*/
+Response Player::changeWeapon(Weapon& weapon) {
+    if(this->info.hasWeapon(weapon)){
+        this->info.changeWeaponEquiped(weapon);
+        return Response(true, SUCCESS_MSG);
+    }
+    return Response(false, NO_WEAPON_IN_INVENTORY_ERROR_MSG);
 }

@@ -11,6 +11,8 @@
 #include "../constants/config_player.h"
 #include "../constants/const_object_map.h"
 #include "../Model/map/object_map.h"
+#include "./interactor.h"
+#include "./droper.h"
 
 class Player {
   Id player_id;
@@ -24,6 +26,7 @@ class Player {
   bool alive;
   bool _move(Id map, std::pair<int, int> next_pos);
   bool _changeCell(PlayerPosition &pos, std::pair<int, int> &next_pos);
+  void _die();
 
   public:
     Player(PlayerInfo &info, PlayerPosition &pos, std::string& nickname, Id map);
@@ -34,10 +37,9 @@ class Player {
     //Race getRace();
     bool isAlive();
     Response useWeapon(Id id, Id id_target, Player* target, int& damage);
-    void receiveAttack(int& damage);
-    void die();
+    Response receiveAttack(int& damage);
     Response resurrect();
-    void changeWeapon(Weapon& weapon);
+    Response changeWeapon(Weapon& weapon);
     Response moveUp();
     Response moveDown();
     Response moveLeft();

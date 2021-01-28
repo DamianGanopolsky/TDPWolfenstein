@@ -1,10 +1,11 @@
 #include "./clientHandler.h"
 //-------------------------------------------------------------------------------
 ClientHandler::ClientHandler(Socket& socket, const ConnectionId id, 
-						NonBlockingQueue<ConnectionId*>& finished_connections) : 
+						NonBlockingQueue<ConnectionId*>& finished_connections,
+                        NonBlockingQueue<Command*>& commands) : 
 						peer(std::move(socket)),
 						finished_connections(finished_connections),
-						id(id), 
+                        commands(commands), id(id), 
 						dead_threads(0) {}
 
 ClientHandler::~ClientHandler() {
@@ -54,30 +55,29 @@ void ClientHandler::_send() {
 														<< std::endl;
     } catch (...) {
         stop();
-        std::cerr << "Unknown error ClientHandler::_send(). "<< std::endl;;
+        std::cerr << "Unknown error ClientHandler::_send(). "<< std::endl;
     }
     _deadThread();
 	*/
 }
 
 void ClientHandler::_receive() {
-	/*
 	try {
-        uint8_t opcode;
-        while (peer >> opcode) {
-            if(opcode == COMMAND_OPCODE) {
-				uint8_t opcode_cmd;
-				peer >> opcode_cmd;
+        int bytes_received = 0;
+		uint8_t buffer[2];
+        while (peer.receive(buffer, 2, bytes_received)) {
+            uint8_t opcode = buffer[0];
+            uint8_t command_opcode = buffer[1];
+            if (opcode == COMMAND_OPCODE) {
 				try {
-					Command* cmd = CommandFactory::newCommand(id, opcode_cmd, peer);
+					Command* cmd = Command::newCommand(id, command_opcode, peer);
 					commands.push(cmd);
-				} catch (const UnknownCommandException& e) {
-					// Comando desconocido. Envio error.
-					Reply* reply_error = new Reply(ERROR_MSG, e.what());
-					this->notifications.push(reply_error);
+				} catch (const std::exception& e) {
+					Message* msg_error = new Message(ERROR_MSG, e.what());
+					this->notifications.push(msg_error);
 				}
 			} else {
-				throw Exception("Unknown opcode received by ClientHandler.");
+				throw Exception("Unknown opcode received.");
 			}
 			
         }
@@ -92,14 +92,18 @@ void ClientHandler::_receive() {
 
     this->notifications.close();
     _deadThread();
-	*/
 }
 
-void ClientHandler::start() {
-	send = std::thread(&ClientHandler::_send, this);
-    receive = std::thread(&ClientHandler::_receive, this);
+void ClientHandler::run() {
+    while(is_running) {
+        send = std::thread(&ClientHandler::_send, this);
+        receive = std::thread(&ClientHandler::_receive, this);
+    }
 }
 
+bool ClientHandler::isRunning() const{
+    return this->is_running;
+}
 //void ClientHandler::push(Notification* notification) {}
 
 //void ClientHandler::changeMap(Id map) {}
@@ -121,6 +125,7 @@ void ClientHandler::joinThreads() {
 }
 
 void ClientHandler::stop() {
+    is_running = false;
 	//notifications.close();
 	try{
 		peer.shutdown();

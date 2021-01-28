@@ -4,6 +4,7 @@
 Game::Game() {}
 Game::~Game() {}
 
+//_getPlayerPosition deberia chequear si el yaml establece la posicion en la que el player deberia aparecer o no.
 void Game::_notifyResponse(const Id id, const Response& response) {}
 
 const ConnectionId Game::newPlayer() {
@@ -112,10 +113,14 @@ void Game::attack(const ConnectionId id, const ConnectionId id_target) {
     int damage = 0;
     Player& player = this->players.at(id);
     Player& target = this->players.at(id_target);
-    // Verificamos si puede atacar en su estado
     if (!player.getState()->attack()) {
         _notifyResponse(id, Response(false, STATE_CANT_ATTACK_ERROR_MSG));
     } else {
         _notifyResponse(id, player.useWeapon(id, id_target, &target, damage));
     }
+}
+
+void Game::receiveAttack(const ConnectionId id, int& damage) {
+    Player& player = this->players.at(id);
+    _notifyResponse(id, player.receiveAttack(damage));
 }

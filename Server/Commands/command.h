@@ -15,6 +15,7 @@
 #include "./command_rotate_left.h"
 #include "./command_stop_rotating.h"
 #include "./command_attack.h"
+#include "./command_receive_attack.h"
 #include "./command_open_door.h"
 #include "./command_change_weapon.h"
 

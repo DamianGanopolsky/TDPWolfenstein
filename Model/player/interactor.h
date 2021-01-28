@@ -1,9 +1,8 @@
-#ifndef INTERACT_H_
-#define INTERACT_H_
+#ifndef INTERACTOR_H_
+#define INTERACTOR_H_
 
-#include "./../player/player.h"
-#include "./command_pick_up.h"
-#include "./command_drop.h"
+#include "./player.h"
+#include "./pickuper.h"
 
 #include "./../objects/object.h"
 #include "./../objects/items/item.h"
@@ -15,15 +14,14 @@
 
 #include <set>
 
-class CommandInteract {
+class Interact {
  public:
-  CommandInteract();
+  Interact();
   bool interactWith(Player &player, int **map, BlockingObject &blocker);
   bool interactWith(Player &player, int **map, NonBlockingObject &blocker);
   bool interactWith(Player &player, int **map, SecretPassage &SecretPassage);
   bool interactWith(Player &player, int **map, Item &item);
-  //bool interactWith(Player &player, int **map, Item &item, bool drop);
   bool interactWith(Player &player, int **map, Object &object);
 };
 
-# endif    // INTERACT_H_
+# endif    // INTERACTOR_H_

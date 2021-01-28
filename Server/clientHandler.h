@@ -12,13 +12,20 @@
 #include "../Common/blocking_queue.h"
 #include "../Common/non_blocking_queue.h"
 #include "../Common/defs.h"
-//-------------------------------------------------------------------------------
-class ClientHandler {
+#include "../Commands/command.h"
+#include "../Notifications/notification.h"
+#include "../Notifications/message.h"
+
+class ClientHandler : public Thread {
 	Socket peer;
+	std::atomic<bool> is_running;
 	ConnectionId id;
 	NonBlockingQueue<ConnectionId*>& finished_connections;
+	
 	std::mutex m;
 	int dead_threads;
+	BlockingQueue<Notification*> notifications;
+	NonBlockingQueue<Command*>& commands;
 	std::thread send;
 	std::thread receive;
 	
@@ -28,7 +35,8 @@ class ClientHandler {
 
 	public:
 		explicit ClientHandler(Socket& socket, const ConnectionId id, 
-						NonBlockingQueue<ConnectionId*>& finished_connections);
+						NonBlockingQueue<ConnectionId*>& finished_connections,
+                        NonBlockingQueue<Command*>& commands);
 		~ClientHandler();
 
 		ClientHandler(const ClientHandler&) = delete;
@@ -36,9 +44,10 @@ class ClientHandler {
 		ClientHandler(ClientHandler&& other) = delete;
 		ClientHandler operator=(ClientHandler&& other) = delete;
 
-		void start();
+		void run() override;
     	//void push(Notification* notification);
 		//void changeMap(Id map);
+		bool isRunning() const;
 		void joinThreads();
 		void stop();
 };
