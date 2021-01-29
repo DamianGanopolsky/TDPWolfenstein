@@ -15,7 +15,9 @@ public:
 
     YamlParser(std::string YamlPath);
 
-    std::map <std::pair<int,int>,int> load_map(std::string YamlPath);
+    std::map <std::pair<int,int>,int> load_objects(std::string YamlPath);
+
+    std::map<int,bool> get_boxes();
 
     int Map_Height();
 
