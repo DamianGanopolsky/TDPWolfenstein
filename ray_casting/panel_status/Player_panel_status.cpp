@@ -13,7 +13,8 @@ Player_panel_status::Player_panel_status(SDL_Renderer*& renderer) :
 										guardia_status(renderer, IMAGE_GUARDIAS_PATH, TOTAL_GUARDIAS),
 										pistola_status(renderer, IMAGE_PISTOLAS_PATH, TOTAL_PISTOLAS),
 										elite_guard_status(renderer,IMAGE_ELITE_GUARDIAS_PATH ,TOTAL_ELITE_GUARDIAS),
-										official_guard_status(renderer,IMAGE_OFFICER_GUARDIAS_PATH,TOTAL_OFFICER_GUARDIAS) {
+										official_guard_status(renderer,IMAGE_OFFICER_GUARDIAS_PATH,TOTAL_OFFICER_GUARDIAS),
+										bullets(renderer,IMAGE_BULLETS_PATH,TOTAL_BULLETS) {
 	SDL_Surface *status_img = IMG_Load("../ray_casting/sprites/hud.png");
 	this->status_tex = SDL_CreateTextureFromSurface(this->renderer, status_img);
 	SDL_FreeSurface(status_img);
@@ -27,7 +28,8 @@ Player_panel_status::Player_panel_status(Player_panel_status&& other) :
 										guardia_status(std::move(other.guardia_status)),	
 										pistola_status(std::move(other.pistola_status)),
 										elite_guard_status(std::move(other.elite_guard_status)),
-										official_guard_status(std::move(other.official_guard_status)) {	
+										official_guard_status(std::move(other.official_guard_status)),
+										bullets(std::move(other.bullets)) {	
 	this->status_tex = other.status_tex;
 	other.status_tex = nullptr;
 }
@@ -52,6 +54,7 @@ Player_panel_status& Player_panel_status::operator=(Player_panel_status&& other)
 	this->elite_guard_status=std::move(other.elite_guard_status);
 	this->pistola_status = std::move(other.pistola_status);
 	this->official_guard_status= std::move(other.official_guard_status);
+	this->bullets=std::move(other.bullets);
 	other.status_tex = nullptr;
 	return *this;	
 }
@@ -188,8 +191,11 @@ SDL_Texture* Player_panel_status::get_texture(int tex_section, int id) {
 	if(id==2){
 		return this->official_guard_status.get_texture(tex_section);
 	}
-	else{
+	if(id==3){
 		return this->elite_guard_status.get_texture(tex_section);
+	}
+	else{
+		return this->bullets.get_texture(tex_section);
 	}
 	
 }

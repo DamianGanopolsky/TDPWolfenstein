@@ -8,6 +8,7 @@
 #define TOTAL_SECTIONS 8
 
 //Type id -> No se esta usando ahora, podria servir para discriminar entre distintos 
+
 Game_element::Game_element(int pos_x, int pos_y, int type_id, int vision_angle, Player& player) :
 							type_id(type_id) {
 	this->texture_section = this->get_texture_section(vision_angle, player.get_angle());
@@ -75,6 +76,9 @@ int Game_element::get_texture_section() {
 }
 
 int Game_element::get_texture_section(int element_angle, int player_angle) {
+	if(get_type_id()>3){
+		return 0;
+	}
 	int element_section = this->get_angle_section(element_angle);  
 	int player_section = this->get_angle_section(player_angle);
 
@@ -101,6 +105,7 @@ int Game_element::get_type_id() {
 
 void Game_element::copy_to_rederer(SDL_Renderer& renderer) {
 	SDL_Rect SrcR;
+
 	SrcR.w = (ENEMY_HEIGHT / this->dist) * PANEL_DISTANCE;
 	SrcR.h = (ENEMY_HEIGHT / this->dist) * PANEL_DISTANCE;
 	SrcR.x = this->pos_ray - SrcR.w / 2;

@@ -39,8 +39,16 @@
 #define TOTAL_ELITE_GUARDIAS 8
 #define IMAGE_ELITE_GUARDIAS_PATH "../ray_casting/panel_status/images/Elite_guard/EGuard"
 
-#define TOTAL_OFFICER_GUARDIAS 8
+#define TOTAL_OFFICER_GUARDIAS 1
 #define IMAGE_OFFICER_GUARDIAS_PATH "../ray_casting/panel_status/images/Oficial/Officer"
+
+#define TOTAL_BULLETS 1
+#define IMAGE_BULLETS_PATH "../ray_casting/panel_status/images/BulletsOriginal"
+
+#define TOTAL_KEYS 1
+#define IMAGE_KEY_PATH "../ray_casting/panel_status/images/Key_"
+
+//#define TOTAL_
 
 #define TEXTURE_PATH "../ray_casting/sprites/wall"
 #define TOTAL_TEXTURES_WALLS 2 
