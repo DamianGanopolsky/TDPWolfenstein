@@ -14,7 +14,12 @@ Player_panel_status::Player_panel_status(SDL_Renderer*& renderer) :
 										pistola_status(renderer, IMAGE_PISTOLAS_PATH, TOTAL_PISTOLAS),
 										elite_guard_status(renderer,IMAGE_ELITE_GUARDIAS_PATH ,TOTAL_ELITE_GUARDIAS),
 										official_guard_status(renderer,IMAGE_OFFICER_GUARDIAS_PATH,TOTAL_OFFICER_GUARDIAS),
-										bullets(renderer,IMAGE_BULLETS_PATH,TOTAL_BULLETS) {
+										bullets(renderer,IMAGE_BULLETS_PATH,TOTAL_BULLETS)
+										/*food(renderer,IMAGE_FOOD_PATH,TOTAL_FOOD),
+										medical_kit(renderer,IMAGE_MEDICAL_KIT_PATH,TOTAL_MEDICAL_KIT),
+										key(renderer,IMAGE_KEY_PATH,TOTAL_KEYS),
+										automatic_gun(renderer,IMAGE_AUTOMATIC_GUN_PATH,TOTAL_AUTOMATIC_GUNS),
+										*/ {
 	SDL_Surface *status_img = IMG_Load("../ray_casting/sprites/hud.png");
 	this->status_tex = SDL_CreateTextureFromSurface(this->renderer, status_img);
 	SDL_FreeSurface(status_img);

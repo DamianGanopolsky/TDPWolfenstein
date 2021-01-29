@@ -43,6 +43,8 @@ bool Player_handler::handle() {
 						quit=true;
 						break;   
 				}
+			//case SDL_KEYUP:
+
 			//case SDL_MOUSEMOTION:
 				//std::cout << "En x:" << event.button.x << "En y:" << event.button.y << std::endl;
 		}

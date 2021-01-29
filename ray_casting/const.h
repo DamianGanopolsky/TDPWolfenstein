@@ -48,6 +48,20 @@
 #define TOTAL_KEYS 1
 #define IMAGE_KEY_PATH "../ray_casting/panel_status/images/Key_"
 
+#define TOTAL_AUTOMATIC_GUNS 1
+#define IMAGE_AUTOMATIC_GUN_PATH "../ray_casting/panel_status/images/AutomaticGun_"
+
+#define TOTAL_CHAIN_CANNONS 1
+#define IMAGE_CHAIN_CANNON_PATH "../ray_casting/panel_status/images/ChainCannon_"
+
+#define TOTAL_FOOD 1
+#define IMAGE_FOOD_PATH "../ray_casting/panel_status/images/Food"
+
+#define TOTAL_MEDICAL_KIT 1
+#define IMAGE_MEDICAL_KIT_PATH "../ray_casting/panel_status/images/MedicalKit"
+
+#define TOTAL_TREASURES 1
+#define IMAGE_TREASURE_PATH "../ray_casting/panel_status/images/Treasure"
 //#define TOTAL_
 
 #define TEXTURE_PATH "../ray_casting/sprites/wall"

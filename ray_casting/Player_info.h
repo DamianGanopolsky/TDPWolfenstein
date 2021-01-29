@@ -25,6 +25,7 @@ private:
 	int weapon = 1;
 	int weapon_status = 0;  
 	int level=1;
+	// int id_jugador= ?;
 	
 };
 #endif

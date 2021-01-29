@@ -28,6 +28,12 @@ private:
 	Element_panel_status elite_guard_status;
 	Element_panel_status official_guard_status;
 	Element_panel_status bullets;
+	/*Element_panel_status medical_kit;
+	Element_panel_status treasure;
+	Element_panel_status chain_cannon;
+	Element_panel_status automatic_gun;
+	Element_panel_status key;
+	Element_panel_status food;*/
 
 	void copy_to_rederer_weapon(Player_info& info);
 	void copy_to_rederer_face(int health);
