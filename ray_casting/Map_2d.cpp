@@ -6,23 +6,25 @@
 
 Map_2d::Map_2d(Player& player) : player(player) {
 
-	MapYamlParser mapyamlparser("../Maps/pruebacl.yaml");
+	MapYamlParser mapyamlparser("../Maps/Simple.yaml");
 	total_boxes=mapyamlparser.Map_Height()*mapyamlparser.Map_Width();
-	std::cout << "total boxes es" << total_boxes << std::endl;
 	
 	boxes=mapyamlparser.get_boxes();
 
-
-
-
-
+	elements_map=mapyamlparser.load_objects();
 
 	//std::map <int,bool> boxes_aux=mapyamlparser.get_boxes();
 
 		/*
 	for (int box = 0; box < TOTAL_BOX; box++) {
-		this->boxes[box] = !(box % 8 == 7 || box % 8 == 0 || box < 7 || box > 55 || box == 27);
-	}*/
+		this->boxes[box] = !(box % 16 == 7 || box % 16 == 0 || box < 15 || box > 121 || box == 27);
+	}
+	for (auto const& x : boxes){
+
+		if(x.second){
+			std::cout << "Hay pared en " << x.first << std::endl;
+		}
+}*/
 /*
 	for (int box = 0; box < TOTAL_BOX; box++) {
 		this->boxes[box] = !(box % 8 == 7 || box % 8 == 0 || box < 7 || box > 55 || box == 27);
@@ -57,6 +59,12 @@ std::set<Ray> Map_2d::get_player_rays() {
 
 std::list<Game_element> Map_2d::get_game_elements() {
 	std::list<Game_element> elements;
+
+	for (auto const& x : elements_map){
+		Game_element element(x.first.first,\
+		x.first.second,x.second,270,this->player);
+		elements.push_back(std::move(element));
+	}
 	Game_element element(150,250, 1, 270, this->player);
 	Game_element element2(170,250, 2, 270, this->player);
 	Game_element element3(120,250, 11, 270, this->player);

@@ -23,6 +23,8 @@ private:
 //PARED O NO
 	std::map<int, bool> boxes;
 	int total_boxes;
+
+	std::map <std::pair<int,int>,int> elements_map;
 	//POSICION DEL PLAYER
 	//Cada cuadricula tiene 64x64 posiciones
 	Player& player; 

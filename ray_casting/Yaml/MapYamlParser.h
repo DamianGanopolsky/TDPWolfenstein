@@ -19,7 +19,7 @@ public:
 
     MapYamlParser(std::string YamlPath);
 
-    //std::map <std::pair<int,int>,int> load_objects(std::string YamlPath);
+    std::map <std::pair<int,int>,int> load_objects();
 
     std::map<int,bool> get_boxes();
 

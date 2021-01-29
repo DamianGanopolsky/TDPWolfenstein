@@ -18,10 +18,10 @@ MapYamlParser::MapYamlParser(std::string YamlPath):yamlpath(YamlPath){
 
 
 
-/*
-std::map <std::pair<int,int>,int> MapYamlParser::load_objects(std::string YamlPath){
 
-    map= YAML::LoadFile(YamlPath);
+std::map <std::pair<int,int>,int> MapYamlParser::load_objects(){
+
+    //map= YAML::LoadFile(YamlPath);
     // Chain Cannon 
     //const YAML::Node& initial_map=map["Map"];
     //std::cout << initial_map["map_dimentions"]["height"] << std::endl;
@@ -103,14 +103,14 @@ std::map <std::pair<int,int>,int> MapYamlParser::load_objects(std::string YamlPa
     }
     return objects_map;
 }
-*/
+
 
 std::map<int,bool> MapYamlParser::get_boxes(){
     //map= YAML::LoadFile(yamlpath);
     int total_cuadriculas=Map_Width()*Map_Height();
     
     for(int i=0;i<total_cuadriculas;i++){
-        walls_map[i]=false;
+        walls_map[i]=true;
     }
     const YAML::Node& red_wall=map["Map"]["Red_Wall"];
     
@@ -121,10 +121,10 @@ std::map<int,bool> MapYamlParser::get_boxes(){
         int y=pos['y'].as<int>();;
         x=x/64;
         y=y/64;
-        std::cout << "en x" << x << "en y" << y << std::endl;
+        //std::cout << "en x" << x << "en y" << y << std::endl;
         int num_transformed=Map_Width()*x+y;
-        std::cout << "En " << num_transformed << "cargo una pared" << std::endl;
-        walls_map[num_transformed]=true;
+        //std::cout << "En " << num_transformed << "cargo una pared" << std::endl;
+        walls_map[num_transformed]=false;
     }
 
     const YAML::Node& door= map["Map"]["Door"];
@@ -137,7 +137,7 @@ std::map<int,bool> MapYamlParser::get_boxes(){
         x=x/64;
         y=y/64;
         int num_transformed=Map_Width()*y+x;
-        walls_map[num_transformed]=true;
+        walls_map[num_transformed]=false;
         //walls_map.insert({num_transformed,KEY});
 
     }
