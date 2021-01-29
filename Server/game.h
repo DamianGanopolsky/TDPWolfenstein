@@ -8,16 +8,18 @@
 #include "../Common/defs.h"
 #include "../Model/player/player.h"
 #include "../Model/objects/items/weapons/weapon.h"
+#include "./clients_connected.h"
 
 class Game {
     ConnectionId new_connection_id;
     std::unordered_map<ConnectionId, Player> players;
     std::unordered_map<std::string, ConnectionId> players_by_name;
+    ClientsConnected& clients_connected;
 
     void _notifyResponse(const Id id, const Response& response);
 
     public:
-        Game();
+        Game(ClientsConnected& clients_connected);
         ~Game();
 
         Game(const Game&) = delete;

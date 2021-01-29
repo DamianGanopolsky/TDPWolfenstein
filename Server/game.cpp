@@ -1,11 +1,21 @@
 #include "game.h"
 
 
-Game::Game() {}
+Game::Game(ClientsConnected& clients_connected) : clients_connected(clients_connected) {}
 Game::~Game() {}
 
 //_getPlayerPosition deberia chequear si el yaml establece la posicion en la que el player deberia aparecer o no.
-void Game::_notifyResponse(const Id id, const Response& response) {}
+void Game::_notifyResponse(const Id id, const Response& response) {
+    MessageOpcode message_opcode;
+    if (response.success) {
+        message_opcode = SUCCESS_MSSG;
+    } else {
+        message_opcode = ERROR_MSSG;
+    } 
+    Notification* message = new Message(message_opcode, response.message);
+    //this->clients_connected.notifyAll(id, message);????????
+    //this->clients_connected.sendEventToAll(new Event()?????????);
+}
 
 const ConnectionId Game::newPlayer() {
     Id new_player_id = this->new_connection_id;
@@ -21,18 +31,18 @@ const ConnectionId Game::newPlayer() {
                 std::forward_as_tuple(/*poner parametros del constructor del player*/));
     //de alguna manera me tienen que pasar el nickname
     this->players_by_name[nickname] = new_player_id;
-    //this->clients_connected.notifyAll(new Event()?????????)
+    //this->clients_connected.sendEventToAll(new Event()?????????);
     return new_player_id;
 
 }
 
 void Game::deletePlayer(const ConnectionId id) {
     if (!this->players.count(id)) {
-        //throw Exception();
+        throw Exception("Error in deletePLayer: unknown player id");
     }
     Player& player = players.at(id);
     this->players_by_name.erase(player.getNickname());
-    //this->clients_connected.notifyAll(new Event()?????????)
+    //this->clients_connected.sendEventToAll(new Event()?????????);
     this->players.erase(id);
 }
 

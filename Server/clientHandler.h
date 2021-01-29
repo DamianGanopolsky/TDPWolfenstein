@@ -45,7 +45,7 @@ class ClientHandler : public Thread {
 		ClientHandler operator=(ClientHandler&& other) = delete;
 
 		void run() override;
-    	//void push(Notification* notification);
+    	void push(Notification* notification);
 		//void changeMap(Id map);
 		bool isRunning() const;
 		void joinThreads();

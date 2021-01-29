@@ -29,12 +29,15 @@ enum CommandOpcode {
 
 enum EventOpcode {
     MOVEMENT_EV = 0,
-    //GRAB_EV??
     ATTACK_EV,
     BE_ATTACKED_EV,
     DEATH_EV,
     RESURRECT_EV,
     CHANGE_LEVEL_EV
+};
+
+enum ItemOpcode {
+    CLOSE_DOOR_ITM = 0
 };
 
 enum MessageOpcode {

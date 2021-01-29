@@ -9,11 +9,11 @@ ClientHandler::ClientHandler(Socket& socket, const ConnectionId id,
 						dead_threads(0) {}
 
 ClientHandler::~ClientHandler() {
-	/*notifications.close(); 
+	notifications.close(); 
     Notification* notification = NULL;
     while ((notification = notifications.pop())) {
         delete notification;
-    }*/
+    }
 }
 
 void ClientHandler::_deadThread() {
@@ -24,24 +24,10 @@ void ClientHandler::_deadThread() {
 }
 
 void ClientHandler::_send() {
-	/*
 	try {
         Notification* notification = nullptr;
         bool socket_valid = true;
         while ((notification = notifications.pop())) {
-            if (!notification->isForEveryMap()) {
-                if (!(notification->getMapId() == this->map)) {
-                    if (notification->isEntityBroadcast()) {
-                        if (notification->getSourceInstanceId() != this->id) {
-                            delete notification;
-                            continue;
-                        }
-                    } else {
-                        delete notification;
-                        continue;
-                    }
-                }
-            }
             socket_valid = notification->send(this->id, peer);
             delete notification;
 
@@ -58,7 +44,6 @@ void ClientHandler::_send() {
         std::cerr << "Unknown error ClientHandler::_send(). "<< std::endl;
     }
     _deadThread();
-	*/
 }
 
 void ClientHandler::_receive() {
@@ -73,7 +58,7 @@ void ClientHandler::_receive() {
 					Command* cmd = Command::newCommand(id, command_opcode, peer);
 					commands.push(cmd);
 				} catch (const std::exception& e) {
-					Message* msg_error = new Message(ERROR_MSG, e.what());
+					Message* msg_error = new Message(ERROR_MSSG, e.what());
 					this->notifications.push(msg_error);
 				}
 			} else {
@@ -104,7 +89,9 @@ void ClientHandler::run() {
 bool ClientHandler::isRunning() const{
     return this->is_running;
 }
-//void ClientHandler::push(Notification* notification) {}
+void ClientHandler::push(Notification* notification) {
+    notifications.push(notification);
+}
 
 //void ClientHandler::changeMap(Id map) {}
 
@@ -126,7 +113,7 @@ void ClientHandler::joinThreads() {
 
 void ClientHandler::stop() {
     is_running = false;
-	//notifications.close();
+	notifications.close();
 	try{
 		peer.shutdown();
 		peer.close();
