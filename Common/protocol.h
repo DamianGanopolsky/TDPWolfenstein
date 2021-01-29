@@ -9,22 +9,22 @@ enum Opcode {
 };
 //LO QUe el cliente le manda al servidor
 enum CommandOpcode {
-    START_MOVING_UP_CMD = 0,
-    START_MOVING_DOWN_CMD, 
-    START_MOVING_LEFT_CMD,
-    START_MOVING_RIGHT_CMD,
-    STOP_MOVING_CMD,
+    START_MOVING_UP_CMD = 0,    //OK
+    START_MOVING_DOWN_CMD,      //OK
+    START_MOVING_LEFT_CMD,     //OK
+    START_MOVING_RIGHT_CMD,    //OK
+    STOP_MOVING_CMD,           //OK
     START_ROTATING_LEFT,
     START_ROTATING_RIGHT,
     STOP_ROTATING,
 
-    USE_WEAPON_CMD, // "Boton e"
+    USE_WEAPON_CMD, // "Boton e"  OK
     //RECIEVE_ATTACK_CMD, 
-    OPEN_DOOR_CMD, //CLick derecho: posx,posy (de donde clickie)
-    CHANGE_WEAPON_TO_KNIFE_CMD, // Cliente selecciono el 1
-    CHANGE_WEAPON_TO_GUN_CMD, // Cliente selecciono el 2
-    CHANGE_WEAPON_TO_MACHINE_GUN_CMD, // Cliente selecciono el 3
-    CHANGE_WEAPON_TO_CHAIN_CANNON_CMD, // Cliente selecciono el 4
+    OPEN_DOOR_CMD, //CLick derecho: posx,posy (de donde clickie)   OK
+    CHANGE_WEAPON_TO_KNIFE_CMD, // Cliente selecciono el 1   OK
+    CHANGE_WEAPON_TO_GUN_CMD, // Cliente selecciono el 2   OK
+    CHANGE_WEAPON_TO_MACHINE_GUN_CMD, // Cliente selecciono el 3  OK
+    CHANGE_WEAPON_TO_CHAIN_CANNON_CMD, // Cliente selecciono el 4  OK
 }; 
 //Lo que el servidor le manda al cliente
 enum EventOpcode {

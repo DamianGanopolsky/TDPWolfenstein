@@ -16,6 +16,8 @@ private:
 	// Es necesario protegerlos de race condition?
 	Player& player;
 	bool quit;
+	bool moving;
+	bool rotating;
 };
 
 #endif
