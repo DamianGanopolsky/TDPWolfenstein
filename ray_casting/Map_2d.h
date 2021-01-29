@@ -9,6 +9,7 @@
 #include <set>
 #include <list>
 #include "const.h"
+#include "Yaml/MapYamlParser.h"
 
 class Map_2d {
 public:
@@ -21,6 +22,7 @@ public:
 private:
 //PARED O NO
 	std::map<int, bool> boxes;
+	int total_boxes;
 	//POSICION DEL PLAYER
 	//Cada cuadricula tiene 64x64 posiciones
 	Player& player; 

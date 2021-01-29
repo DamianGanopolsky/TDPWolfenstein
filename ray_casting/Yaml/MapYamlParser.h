@@ -4,7 +4,7 @@
 #include <iostream>
 #include <fstream>
 
-class YamlParser{
+class MapYamlParser{
 
 private:
     std::map <std::pair<int,int>,int> objects_map;
@@ -13,11 +13,13 @@ private:
     
     YAML::Node map;
 
+    std::string yamlpath;
+
 public:
 
-    YamlParser(std::string YamlPath);
+    MapYamlParser(std::string YamlPath);
 
-    std::map <std::pair<int,int>,int> load_objects(std::string YamlPath);
+    //std::map <std::pair<int,int>,int> load_objects(std::string YamlPath);
 
     std::map<int,bool> get_boxes();
 

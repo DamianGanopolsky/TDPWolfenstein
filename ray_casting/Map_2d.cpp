@@ -5,10 +5,29 @@
 
 
 Map_2d::Map_2d(Player& player) : player(player) {
+
+	MapYamlParser mapyamlparser("../Maps/pruebacl.yaml");
+	total_boxes=mapyamlparser.Map_Height()*mapyamlparser.Map_Width();
+	std::cout << "total boxes es" << total_boxes << std::endl;
 	
+	boxes=mapyamlparser.get_boxes();
+
+
+
+
+
+
+	//std::map <int,bool> boxes_aux=mapyamlparser.get_boxes();
+
+		/*
 	for (int box = 0; box < TOTAL_BOX; box++) {
 		this->boxes[box] = !(box % 8 == 7 || box % 8 == 0 || box < 7 || box > 55 || box == 27);
-	}
+	}*/
+/*
+	for (int box = 0; box < TOTAL_BOX; box++) {
+		this->boxes[box] = !(box % 8 == 7 || box % 8 == 0 || box < 7 || box > 55 || box == 27);
+	}*/
+
 	/*
 	for (int box = 0; box < TOTAL_BOX; box++) {
 		this->boxes[box] = !(box % 12 == 7 || box % 12 == 0 || box < 7 || box > 55 || box == 27);

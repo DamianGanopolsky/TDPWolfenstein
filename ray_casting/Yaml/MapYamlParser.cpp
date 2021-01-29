@@ -1,4 +1,5 @@
 #include "MapYamlParser.h"
+#include <iostream>
 #define KEY 4
 #define MEDICAL_KIT 5
 #define TREASURE 6
@@ -11,17 +12,17 @@
 
 
 
-YamlParser::YamlParser(std::string YamlPath){
-    //map= YAML::LoadFile(YamlPath);
+MapYamlParser::MapYamlParser(std::string YamlPath):yamlpath(YamlPath){
+    map= YAML::LoadFile(YamlPath);
 }
 
 
 
-
-std::map <std::pair<int,int>,int> YamlParser::load_objects(std::string YamlPath){
+/*
+std::map <std::pair<int,int>,int> MapYamlParser::load_objects(std::string YamlPath){
 
     map= YAML::LoadFile(YamlPath);
-    /* Chain Cannon */
+    // Chain Cannon 
     //const YAML::Node& initial_map=map["Map"];
     //std::cout << initial_map["map_dimentions"]["height"] << std::endl;
     //const YAML::Node& chain_cannon = initial_map["Chain_Cannon"];
@@ -35,7 +36,7 @@ std::map <std::pair<int,int>,int> YamlParser::load_objects(std::string YamlPath)
         objects_map.insert({map_position,CHAIN_CANNON});
     }
 
-    /* FOOD */
+     //FOOD 
 
     const YAML::Node& food= map["Map"]["Food"];
     for (YAML::const_iterator it = food["position"].begin(); it != food["position"].end(); ++it) {
@@ -47,7 +48,7 @@ std::map <std::pair<int,int>,int> YamlParser::load_objects(std::string YamlPath)
     }
 
 
-    /* MEDICAL_KIT */
+    // MEDICAL_KIT 
     const YAML::Node& medical_kit= map["Map"]["Medical_Kit"];
     for (YAML::const_iterator it = medical_kit["position"].begin(); it != medical_kit["position"].end(); ++it) {
         const YAML::Node& pos = *it;
@@ -57,7 +58,7 @@ std::map <std::pair<int,int>,int> YamlParser::load_objects(std::string YamlPath)
     }
     
 
-    /* Automatic gun */
+    // a gun
     //const YAML::Node& initial_map=map["Map"];
 
     //const YAML::Node& automatic_gun = initial_map["Weapons"]["Automatic_Gun"];
@@ -70,7 +71,7 @@ std::map <std::pair<int,int>,int> YamlParser::load_objects(std::string YamlPath)
         objects_map.insert({map_position,AUTOMATIC_GUN});
     }
 
-    /* Treasure */
+    // Treasure 
 
     //const YAML::Node& treasure=initial_map["Treasures"]["Treasure"];
     //const YAML::Node& treasure=initial_map["Treasure"];
@@ -82,7 +83,7 @@ std::map <std::pair<int,int>,int> YamlParser::load_objects(std::string YamlPath)
         objects_map.insert({map_position,TREASURE});
     }
 
-    /* Bullets */
+    // Bullets 
     const YAML::Node& bullet=map["Map"]["Bullets"];
     for (YAML::const_iterator it = bullet["position"].begin(); it != bullet["position"].end(); ++it) {
         const YAML::Node& pos = *it;
@@ -91,7 +92,7 @@ std::map <std::pair<int,int>,int> YamlParser::load_objects(std::string YamlPath)
         objects_map.insert({map_position,BULLETS});
     }
 
-    /* Keys */
+    // Keys 
 
     const YAML::Node& key=map["Map"]["Key"];
     for (YAML::const_iterator it = key["position"].begin(); it != key["position"].end(); ++it) {
@@ -102,10 +103,12 @@ std::map <std::pair<int,int>,int> YamlParser::load_objects(std::string YamlPath)
     }
     return objects_map;
 }
-
+*/
 
 std::map<int,bool> MapYamlParser::get_boxes(){
+    //map= YAML::LoadFile(yamlpath);
     int total_cuadriculas=Map_Width()*Map_Height();
+    
     for(int i=0;i<total_cuadriculas;i++){
         walls_map[i]=false;
     }
@@ -114,9 +117,13 @@ std::map<int,bool> MapYamlParser::get_boxes(){
 
     for (YAML::const_iterator it = red_wall["position"].begin(); it != red_wall["position"].end(); ++it) {
         const YAML::Node& pos = *it;
-        map_position.first=pos['x'].as<int>();;
-        map_position.second=pos['y'].as<int>();;
-        int num_transformed=Map_Width()*y+x;
+        int x=pos['x'].as<int>();;
+        int y=pos['y'].as<int>();;
+        x=x/64;
+        y=y/64;
+        std::cout << "en x" << x << "en y" << y << std::endl;
+        int num_transformed=Map_Width()*x+y;
+        std::cout << "En " << num_transformed << "cargo una pared" << std::endl;
         walls_map[num_transformed]=true;
     }
 
@@ -127,19 +134,22 @@ std::map<int,bool> MapYamlParser::get_boxes(){
         //NECESITO TRANSFORMARLO A CUADRICULA
         int x=pos['x'].as<int>();;
         int y=pos['y'].as<int>();;
+        x=x/64;
+        y=y/64;
         int num_transformed=Map_Width()*y+x;
         walls_map[num_transformed]=true;
         //walls_map.insert({num_transformed,KEY});
 
     }
+    return walls_map;
 }
 
-int YamlParser::Map_Height(){
+int MapYamlParser::Map_Height(){
     //return initial_map["map_dimentions"]["height"].as<int>();
     return map["Map"]["map_dimentions"]["height"].as<int>();
 }
 
-int YamlParser::Map_Width(){
+int MapYamlParser::Map_Width(){
     //return initial_map["map_dimentions"]["width"].as<int>();
     return map["Map"]["map_dimentions"]["width"].as<int>();
 }
