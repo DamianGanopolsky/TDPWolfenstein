@@ -14,12 +14,13 @@ Player_panel_status::Player_panel_status(SDL_Renderer*& renderer) :
 										pistola_status(renderer, IMAGE_PISTOLAS_PATH, TOTAL_PISTOLAS),
 										elite_guard_status(renderer,IMAGE_ELITE_GUARDIAS_PATH ,TOTAL_ELITE_GUARDIAS),
 										official_guard_status(renderer,IMAGE_OFFICER_GUARDIAS_PATH,TOTAL_OFFICER_GUARDIAS),
-										bullets(renderer,IMAGE_BULLETS_PATH,TOTAL_BULLETS)
-										/*food(renderer,IMAGE_FOOD_PATH,TOTAL_FOOD),
+										bullets(renderer,IMAGE_BULLETS_PATH,TOTAL_BULLETS),
+										food(renderer,IMAGE_FOOD_PATH,TOTAL_FOOD),
 										medical_kit(renderer,IMAGE_MEDICAL_KIT_PATH,TOTAL_MEDICAL_KIT),
 										key(renderer,IMAGE_KEY_PATH,TOTAL_KEYS),
 										automatic_gun(renderer,IMAGE_AUTOMATIC_GUN_PATH,TOTAL_AUTOMATIC_GUNS),
-										*/ {
+										treasure(renderer,IMAGE_TREASURE_PATH,TOTAL_TREASURES),
+										chain_cannon(renderer,IMAGE_CHAIN_CANNON_PATH,TOTAL_CHAIN_CANNONS) {
 	SDL_Surface *status_img = IMG_Load("../ray_casting/sprites/hud.png");
 	this->status_tex = SDL_CreateTextureFromSurface(this->renderer, status_img);
 	SDL_FreeSurface(status_img);
@@ -34,7 +35,13 @@ Player_panel_status::Player_panel_status(Player_panel_status&& other) :
 										pistola_status(std::move(other.pistola_status)),
 										elite_guard_status(std::move(other.elite_guard_status)),
 										official_guard_status(std::move(other.official_guard_status)),
-										bullets(std::move(other.bullets)) {	
+										bullets(std::move(other.bullets)),
+										food(std::move(other.food)),
+										medical_kit(std::move(other.medical_kit)),
+										key(std::move(other.key)),
+										automatic_gun(std::move(other.automatic_gun)),
+										treasure(std::move(other.treasure)),
+										chain_cannon(std::move(other.chain_cannon)) {	
 	this->status_tex = other.status_tex;
 	other.status_tex = nullptr;
 }
@@ -60,6 +67,12 @@ Player_panel_status& Player_panel_status::operator=(Player_panel_status&& other)
 	this->pistola_status = std::move(other.pistola_status);
 	this->official_guard_status= std::move(other.official_guard_status);
 	this->bullets=std::move(other.bullets);
+	this->food=std::move(other.food);
+	this->medical_kit=std::move(other.medical_kit);
+	this->automatic_gun=std::move(other.automatic_gun);
+	this->chain_cannon=std::move(other.chain_cannon);
+	this->treasure=std::move(other.treasure);
+	this->key=std::move(other.key);
 	other.status_tex = nullptr;
 	return *this;	
 }
@@ -190,6 +203,43 @@ void Player_panel_status::copy_to_rederer_number(int number, int digits, SDL_Rec
 
 SDL_Texture* Player_panel_status::get_texture(int tex_section, int id) {
 //Si el id es 2, se deberia llamar a oficial status. Hacer un switch posiblemente
+	SDL_Texture* texture;
+	switch(id){
+		case 1:
+			texture=this->guardia_status.get_texture(tex_section);
+			break;
+		case 2:
+			texture=this->official_guard_status.get_texture(tex_section);
+			break;
+		case 3:
+			texture=this->elite_guard_status.get_texture(tex_section);
+			break;
+		case 4:
+			texture=this->key.get_texture(tex_section);
+			break;
+		case 5:
+			texture=this->medical_kit.get_texture(tex_section);
+			break;
+		case 6:
+			texture=this->treasure.get_texture(tex_section);
+			break;
+		case 7:
+			texture=this->food.get_texture(tex_section);
+			break;
+		case 8:
+			texture=this->automatic_gun.get_texture(tex_section);
+			break;
+		case 9:
+			texture=this->bullets.get_texture(tex_section);
+			break;
+		case 10:
+			texture=this->chain_cannon.get_texture(tex_section);
+			break;
+		default:
+			texture=this->bullets.get_texture(tex_section);
+			break;
+	}
+	/*
 	if(id==1){
 		return this->guardia_status.get_texture(tex_section);
 	}
@@ -201,7 +251,8 @@ SDL_Texture* Player_panel_status::get_texture(int tex_section, int id) {
 	}
 	else{
 		return this->bullets.get_texture(tex_section);
-	}
+	}*/
+	return texture;
 	
 }
 
