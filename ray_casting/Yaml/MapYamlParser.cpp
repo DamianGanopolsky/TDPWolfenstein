@@ -103,8 +103,12 @@ std::map <std::pair<int,int>,int> YamlParser::load_objects(std::string YamlPath)
     return objects_map;
 }
 
-/*
-std::map<int,bool> get_boxes(){
+
+std::map<int,bool> MapYamlParser::get_boxes(){
+    int total_cuadriculas=Map_Width()*Map_Height();
+    for(int i=0;i<total_cuadriculas;i++){
+        walls_map[i]=false;
+    }
     const YAML::Node& red_wall=map["Map"]["Red_Wall"];
     
 
@@ -112,10 +116,24 @@ std::map<int,bool> get_boxes(){
         const YAML::Node& pos = *it;
         map_position.first=pos['x'].as<int>();;
         map_position.second=pos['y'].as<int>();;
-        objects_map.insert({map_position,WALL});
+        int num_transformed=Map_Width()*y+x;
+        walls_map[num_transformed]=true;
+    }
+
+    const YAML::Node& door= map["Map"]["Door"];
+    for (YAML::const_iterator it = door["position"].begin(); it != door["position"].end(); ++it) {
+        
+        const YAML::Node& pos = *it;
+        //NECESITO TRANSFORMARLO A CUADRICULA
+        int x=pos['x'].as<int>();;
+        int y=pos['y'].as<int>();;
+        int num_transformed=Map_Width()*y+x;
+        walls_map[num_transformed]=true;
+        //walls_map.insert({num_transformed,KEY});
+
     }
 }
-*/
+
 int YamlParser::Map_Height(){
     //return initial_map["map_dimentions"]["height"].as<int>();
     return map["Map"]["map_dimentions"]["height"].as<int>();

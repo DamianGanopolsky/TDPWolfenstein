@@ -8,6 +8,8 @@ class YamlParser{
 
 private:
     std::map <std::pair<int,int>,int> objects_map;
+
+    std::map<int,bool> walls_map;
     
     YAML::Node map;
 
