@@ -105,12 +105,12 @@ std::map <std::pair<int,int>,int> MapYamlParser::load_objects(){
 }
 
 
-std::map<int,bool> MapYamlParser::get_boxes(){
+std::map<int,int> MapYamlParser::get_boxes(){
     //map= YAML::LoadFile(yamlpath);
     int total_cuadriculas=Map_Width()*Map_Height();
     
     for(int i=0;i<total_cuadriculas;i++){
-        walls_map[i]=true;
+        walls_map[i]=2;
     }
     const YAML::Node& red_wall=map["Map"]["Red_Wall"];
     
@@ -124,7 +124,7 @@ std::map<int,bool> MapYamlParser::get_boxes(){
         //std::cout << "en x" << x << "en y" << y << std::endl;
         int num_transformed=Map_Width()*x+y;
         //std::cout << "En " << num_transformed << "cargo una pared" << std::endl;
-        walls_map[num_transformed]=false;
+        walls_map[num_transformed]=0;
     }
 
     const YAML::Node& door= map["Map"]["Door"];
@@ -137,7 +137,7 @@ std::map<int,bool> MapYamlParser::get_boxes(){
         x=x/64;
         y=y/64;
         int num_transformed=Map_Width()*y+x;
-        walls_map[num_transformed]=false;
+        walls_map[num_transformed]=1;
         //walls_map.insert({num_transformed,KEY});
 
     }
@@ -145,11 +145,9 @@ std::map<int,bool> MapYamlParser::get_boxes(){
 }
 
 int MapYamlParser::Map_Height(){
-    //return initial_map["map_dimentions"]["height"].as<int>();
     return map["Map"]["map_dimentions"]["height"].as<int>();
 }
 
 int MapYamlParser::Map_Width(){
-    //return initial_map["map_dimentions"]["width"].as<int>();
     return map["Map"]["map_dimentions"]["width"].as<int>();
 }

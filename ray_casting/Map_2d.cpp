@@ -6,34 +6,27 @@
 
 Map_2d::Map_2d(Player& player) : player(player) {
 
-	MapYamlParser mapyamlparser("../Maps/Simple.yaml");
+	MapYamlParser mapyamlparser("../Maps/prueba.yaml");
 	total_boxes=mapyamlparser.Map_Height()*mapyamlparser.Map_Width();
-	
-	boxes=mapyamlparser.get_boxes();
+	walls=mapyamlparser.get_boxes();
 
 	elements_map=mapyamlparser.load_objects();
-
-	//std::map <int,bool> boxes_aux=mapyamlparser.get_boxes();
-
-		/*
-	for (int box = 0; box < TOTAL_BOX; box++) {
-		this->boxes[box] = !(box % 16 == 7 || box % 16 == 0 || box < 15 || box > 121 || box == 27);
-	}
-	for (auto const& x : boxes){
-
-		if(x.second){
-			std::cout << "Hay pared en " << x.first << std::endl;
+	
+	for (auto const& x : walls){
+		if(x.second==2){
+			boxes[x.first]=true;
 		}
-}*/
-/*
-	for (int box = 0; box < TOTAL_BOX; box++) {
-		this->boxes[box] = !(box % 8 == 7 || box % 8 == 0 || box < 7 || box > 55 || box == 27);
-	}*/
+		if(x.second==1){
+			std::cout << "Hay una puerta en" << x.first << std::endl;
+		}
+		if(x.second==0){
+			std::cout << "Hay una pared en" << x.first << std::endl;
+		}
+	}
+}
 
-	/*
-	for (int box = 0; box < TOTAL_BOX; box++) {
-		this->boxes[box] = !(box % 12 == 7 || box % 12 == 0 || box < 7 || box > 55 || box == 27);
-	}*/
+int Map_2d::get_wall_texture(int cuadricula){
+	return walls[cuadricula];
 }
 
 Map_2d::~Map_2d() {

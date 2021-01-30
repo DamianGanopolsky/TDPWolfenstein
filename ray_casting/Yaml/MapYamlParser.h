@@ -9,7 +9,7 @@ class MapYamlParser{
 private:
     std::map <std::pair<int,int>,int> objects_map;
 
-    std::map<int,bool> walls_map;
+    std::map<int,int> walls_map;
     
     YAML::Node map;
 
@@ -21,7 +21,7 @@ public:
 
     std::map <std::pair<int,int>,int> load_objects();
 
-    std::map<int,bool> get_boxes();
+    std::map<int,int> get_boxes();
 
     int Map_Height();
 

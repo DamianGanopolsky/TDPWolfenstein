@@ -10,12 +10,13 @@
 #include "Player_info.h"
 #include <set>
 #include <list>
+#include "Map_2d.h"
 #include "const.h"
 
 
 class Panel_window {
 public:
-	Panel_window();
+	Panel_window(Map_2d& MAP);
 	Panel_window(const Panel_window& other) = delete;
 	Panel_window(Panel_window&& other) = delete;
 	~Panel_window();
@@ -24,7 +25,9 @@ public:
 	void update(std::set<Ray>&& rays, std::list<Game_element>&& elements, Player_info& player_info);
 
 private:
+	Map_2d& map;
 	SDL_Renderer* renderer;
+	
 	SDL_Window *window;
 	bool running;
 	Wall_texture wall_textures;

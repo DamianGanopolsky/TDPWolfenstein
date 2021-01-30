@@ -5,7 +5,7 @@
 #include <queue>
 
 
-Panel_window::Panel_window() : running(true) {
+Panel_window::Panel_window(Map_2d& MAP): map(MAP), running(true) {
 	if (SDL_Init(SDL_INIT_VIDEO) != 0) {
 		std::cout << "ERROR init video" << std::endl;
 	}
@@ -34,7 +34,7 @@ void Panel_window::update(std::set<Ray>&& rays, std::list<Game_element>&& elemen
 	Elements_panel_queue q;
 	for (std::set<Ray>::iterator ray = rays.begin(); ray != rays.end(); ++ray) {
 		Ray ray_perp = ray->get_ray_perp();
-		q.push(std::move(Ray_panel(std::move(ray_perp), this->wall_textures)));
+		q.push(std::move(Ray_panel(std::move(ray_perp), this->wall_textures,map)));
 	}
 	for (std::list<Game_element>::iterator element = elements.begin(); element != elements.end(); ++element) {
 		if (element->is_visible()) {
