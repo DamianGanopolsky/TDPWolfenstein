@@ -5,6 +5,7 @@
 #include "../Player_info.h"
 #include <SDL2/SDL.h>
 #include "Element_panel_status.h"
+#include "../SdlClasses/SdlText.h"
 
 class Player_panel_status {
 public:
@@ -37,6 +38,8 @@ private:
 	Element_panel_status automatic_gun;
 	Element_panel_status treasure;
 	Element_panel_status chain_cannon;
+	//SdlText numero;
+	
 	
 	
 	

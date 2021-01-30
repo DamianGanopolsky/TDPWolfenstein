@@ -3,6 +3,7 @@
 #include <SDL2/SDL_image.h>
 #include <utility>
 #include <cmath>
+
 #include <iostream>
 
 Player_panel_status::Player_panel_status(SDL_Renderer*& renderer) :
@@ -23,10 +24,15 @@ Player_panel_status::Player_panel_status(SDL_Renderer*& renderer) :
 										key(renderer,IMAGE_KEY_PATH,TOTAL_KEYS),
 										automatic_gun(renderer,IMAGE_AUTOMATIC_GUN_PATH,TOTAL_AUTOMATIC_GUNS),
 										treasure(renderer,IMAGE_TREASURE_PATH,TOTAL_TREASURES),
-										chain_cannon(renderer,IMAGE_CHAIN_CANNON_PATH,TOTAL_CHAIN_CANNONS) {
+										chain_cannon(renderer,IMAGE_CHAIN_CANNON_PATH,TOTAL_CHAIN_CANNONS){
+										//numero(renderer,255,255,255) 
+										
 	SDL_Surface *status_img = IMG_Load("../ray_casting/sprites/hud.png");
 	this->status_tex = SDL_CreateTextureFromSurface(this->renderer, status_img);
 	SDL_FreeSurface(status_img);
+	std::cout << "asd1" << std::endl;
+	TTF_Init();
+	
 }
 
 Player_panel_status::Player_panel_status(Player_panel_status&& other) :
@@ -47,7 +53,9 @@ Player_panel_status::Player_panel_status(Player_panel_status&& other) :
 										key(std::move(other.key)),
 										automatic_gun(std::move(other.automatic_gun)),
 										treasure(std::move(other.treasure)),
-										chain_cannon(std::move(other.chain_cannon)) {	
+										chain_cannon(std::move(other.chain_cannon)){	
+										//numero(std::move(other.numero)) 
+										
 	this->status_tex = other.status_tex;
 	other.status_tex = nullptr;
 }
@@ -159,7 +167,26 @@ void Player_panel_status::copy_to_rederer_lives(int lives) {
 	SrcR.x = PANEL_WIDTH * 0.340;
 	SrcR.y = PANEL_HEIGHT - SrcR.h * 1.25;
 
-	this->number_status.copy_to_rederer(lives, &SrcR);
+	
+	SDL_Rect prueba={100,100,300,300};//../ray_casting/panel_status/
+	TTF_Font* Sans = TTF_OpenFont("../ray_casting/panel_status/OpenSans-Bold.ttf", 13); 
+	
+	if(!Sans){
+		printf("ttf open font %s \n",TTF_GetError());
+	}
+	if(Sans){
+		std::cout << "asd" ;
+	}
+	std::cout << "asd2" << std::endl;
+    SDL_Surface* surfaceMessage = TTF_RenderText_Solid(Sans, "asdadsadas", {255, 255, 255});
+	
+	SDL_Texture* texture_of_text = SDL_CreateTextureFromSurface(this->renderer,surfaceMessage); 
+	SDL_RenderCopy(this->renderer, texture_of_text, NULL, &prueba);
+	//numero.Load_Text("../OpenSans-Bold.ttf","asd",12);
+    //SDL_Texture* texture_of_text; = SDL_CreateTextureFromSurface(this->renderer, numero.getSurface()); 
+	//SDL_RenderCopy(this->renderer, texture_of_text, NULL, &SrcR);
+
+	//this->number_status.copy_to_rederer(lives, &SrcR);
 }
 
 void Player_panel_status::copy_to_rederer_health(int health) {
@@ -261,19 +288,6 @@ SDL_Texture* Player_panel_status::get_texture(int tex_section, int id) {
 			texture=this->bullets.get_texture(tex_section);
 			break;
 	}
-	/*
-	if(id==1){
-		return this->guardia_status.get_texture(tex_section);
-	}
-	if(id==2){
-		return this->official_guard_status.get_texture(tex_section);
-	}
-	if(id==3){
-		return this->elite_guard_status.get_texture(tex_section);
-	}
-	else{
-		return this->bullets.get_texture(tex_section);
-	}*/
 	return texture;
 	
 }

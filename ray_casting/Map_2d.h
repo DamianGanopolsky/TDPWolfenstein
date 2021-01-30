@@ -21,6 +21,7 @@ public:
 	std::set<Ray> get_player_rays(); 
 	std::list<Game_element> get_game_elements(); 
 	int get_wall_texture(int cuadricula);
+	void open_door(int cuadricula);
 private:
 //PARED O NO
 	std::map<int, bool> boxes;

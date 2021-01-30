@@ -12,7 +12,9 @@ Map_2d::Map_2d(Player& player) : player(player) {
 	elements_map=mapyamlparser.load_objects();
 	
 	for (auto const& x : walls){
-		if(x.second==2) boxes[x.first]=true;
+		if(x.second==2){
+			boxes[x.first]=true;
+		} 
 	}
 }
 
@@ -40,6 +42,13 @@ std::set<Ray> Map_2d::get_player_rays() {
 	}
 	return rays;
 }
+
+void Map_2d::open_door(int cuadricula){
+	walls[cuadricula]=2;
+	boxes[cuadricula]=true;
+}
+
+
 
 std::list<Game_element> Map_2d::get_game_elements() {
 	std::list<Game_element> elements;

@@ -20,7 +20,7 @@ int main() {
 	Map_2d map(player);
 	Panel_window panel(map);
 	
-	Player_handler handler(player);
+	Player_handler handler(player,map);
 	Client client(panel,player,map);
 	MusicSoundtrack music;
 	music.play_editor();

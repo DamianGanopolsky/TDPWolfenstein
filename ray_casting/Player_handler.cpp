@@ -2,8 +2,9 @@
 #include <SDL2/SDL.h>
 #include <iostream>
 
-Player_handler::Player_handler(Player& player): 
-								player(player),moving(false),rotating(false) {
+
+Player_handler::Player_handler(Player& player,Map_2d& MAP): 
+								player(player),map(MAP),moving(false),rotating(false) {
 }
 
 
@@ -116,6 +117,7 @@ bool Player_handler::handle() {
 				}
 			case SDL_MOUSEBUTTONUP:
 				if(event.button.button==SDL_BUTTON_RIGHT){
+					map.open_door(93);
                     //std::cout << "Notifico al server que intente abrir una puerta en x:
 					//<< event.button.x << "en y:" << event.button.y << std::endl;
                 }
