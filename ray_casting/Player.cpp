@@ -68,3 +68,7 @@ void Player::shoot() {
 	this->info.weapon_status = 2;
 	this->info.ammo--;  
 }
+
+void Player::change_weapon(int weapon){
+	this->info.weapon=weapon;
+}

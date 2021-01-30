@@ -24,7 +24,10 @@ private:
 	Element_panel_status weapon_status;
 	Element_panel_status number_status;
 	Element_panel_status guardia_status;
+	Element_panel_status knife_status;
 	Element_panel_status pistola_status;
+	Element_panel_status automaticgun_status;
+	Element_panel_status chaincannon_status;
 	Element_panel_status elite_guard_status;
 	Element_panel_status official_guard_status;
 	Element_panel_status bullets;

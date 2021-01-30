@@ -21,6 +21,7 @@ public:
 	void move_left();	
 	void move_right();
 	void shoot();
+	void change_weapon(int weapon);
 
 private:
 	SoundManager soundmanager;

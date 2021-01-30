@@ -33,10 +33,10 @@ int Player_info::get_weapon() const {
 int Player_info::get_weapon_status() const {
 	return this->weapon_status;
 }
-
+/*
 void Player_info::change_weapon(int weapon_changed){
 	this->weapon=weapon_changed;
-}
+}*/
 
 void Player_info::change_weapon_status() {
 	if (this->weapon_status != 0) {
