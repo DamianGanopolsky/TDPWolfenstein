@@ -79,19 +79,19 @@ bool Player_handler::handle() {
 						break; 
 					case SDLK_1:
 						this->player.change_weapon(0);
-						std::cout << "Notifico al server que quiero cambiar a cuchillo" << std::endl;
+						//std::cout << "Notifico al server que quiero cambiar a cuchillo" << std::endl;
 						break;
 					case SDLK_2:
 						this->player.change_weapon(1);
-						std::cout << "Notifico al server que quiero cambiar a pistola" << std::endl;
+						//std::cout << "Notifico al server que quiero cambiar a pistola" << std::endl;
 						break;
 					case SDLK_3:
 						this->player.change_weapon(2);
-						std::cout << "Notifico al server que quiero cambiar a automatic_gun" << std::endl;
+						//std::cout << "Notifico al server que quiero cambiar a automatic_gun" << std::endl;
 						break;
 					case SDLK_4:
 						this->player.change_weapon(3);
-						std::cout << "Notifico al server que quiero cambiar a chain_cannon" << std::endl;
+						//std::cout << "Notifico al server que quiero cambiar a chain_cannon" << std::endl;
 						break;
 					case SDLK_ESCAPE:  
 						quit=true;
@@ -116,8 +116,8 @@ bool Player_handler::handle() {
 				}
 			case SDL_MOUSEBUTTONUP:
 				if(event.button.button==SDL_BUTTON_RIGHT){
-                    std::cout << "Notifico al server que intente abrir una puerta en x:"\
-					<< event.button.x << "en y:" << event.button.y << std::endl;
+                    //std::cout << "Notifico al server que intente abrir una puerta en x:
+					//<< event.button.x << "en y:" << event.button.y << std::endl;
                 }
 				break;
 

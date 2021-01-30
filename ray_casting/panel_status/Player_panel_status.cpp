@@ -115,7 +115,7 @@ void Player_panel_status::copy_to_rederer_weapon(Player_info& info) {
 	SrcR.h = PANEL_HEIGHT * 0.19;
 	SrcR.x = PANEL_WIDTH * 0.795;
 	SrcR.y = PANEL_HEIGHT - SrcR.h;
-
+	//Sombra del arma
 	this->weapon_status.copy_to_rederer(info.get_weapon(), &SrcR);
 
 	SrcR.w = PANEL_WIDTH * 0.25;

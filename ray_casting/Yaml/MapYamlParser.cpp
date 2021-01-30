@@ -121,10 +121,10 @@ std::map<int,int> MapYamlParser::get_boxes(){
         int y=pos['y'].as<int>();;
         x=x/64;
         y=y/64;
-        std::cout << "Wall";
-        std::cout << "en x" << x << "en y" << y << std::endl;
+        //std::cout << "Wall";
+        //std::cout << "en x" << x << "en y" << y << std::endl;
         int num_transformed=Map_Width()*y+x;
-        std::cout << "Num transformed" << num_transformed << std::endl;
+        //std::cout << "Num transformed" << num_transformed << std::endl;
         //std::cout << "En " << num_transformed << "cargo una pared" << std::endl;
         walls_map[num_transformed]=0;
     }
@@ -136,12 +136,12 @@ std::map<int,int> MapYamlParser::get_boxes(){
         //NECESITO TRANSFORMARLO A CUADRICULA
         int x=pos['x'].as<int>();;
         int y=pos['y'].as<int>();;
-        std::cout << "Door";
+        //std::cout << "Door";
         x=x/64;
         y=y/64;
-        std::cout << "en x" << x << "en y" << y << std::endl;
+        //std::cout << "en x" << x << "en y" << y << std::endl;
         int num_transformed=Map_Width()*y+x;
-        std::cout << "Num transformed" << num_transformed << std::endl;
+        //std::cout << "Num transformed" << num_transformed << std::endl;
         walls_map[num_transformed]=1;
         //walls_map.insert({num_transformed,KEY});
 

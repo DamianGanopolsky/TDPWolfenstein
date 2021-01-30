@@ -15,7 +15,6 @@ public:
 	int get_weapon() const;
 	int get_level() const;
 	int get_weapon_status() const;
-	//void change_weapon(int weapon_changed);
 	void change_weapon_status();
 
 private:

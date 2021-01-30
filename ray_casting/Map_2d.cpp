@@ -9,19 +9,10 @@ Map_2d::Map_2d(Player& player) : player(player) {
 	MapYamlParser mapyamlparser("../Maps/prueba3.yaml");
 	total_boxes=mapyamlparser.Map_Height()*mapyamlparser.Map_Width();
 	walls=mapyamlparser.get_boxes();
-
 	elements_map=mapyamlparser.load_objects();
 	
 	for (auto const& x : walls){
-		if(x.second==2){
-			boxes[x.first]=true;
-		}
-		if(x.second==1){
-			std::cout << "Hay una puerta en" << x.first << std::endl;
-		}
-		if(x.second==0){
-			std::cout << "Hay una pared en" << x.first << std::endl;
-		}
+		if(x.second==2) boxes[x.first]=true;
 	}
 }
 

@@ -39,7 +39,7 @@
 #define TOTAL_PISTOLAS 3
 #define IMAGE_PISTOLA_PATH "../ray_casting/panel_status/images/pistola"
 
-#define TOTAL_AUTOMATICGUNS 2
+#define TOTAL_AUTOMATICGUNS 3
 #define IMAGE_AUTOMATICGUN_PATH "../ray_casting/panel_status/images/AutomaticGun"
 
 #define TOTAL_CHAINCANNONS 3

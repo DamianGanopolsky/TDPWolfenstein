@@ -64,9 +64,9 @@ void Player::move_right() {
 }
 
 void Player::shoot() {
-	soundmanager.play_sound();
+	soundmanager.play_sound(info.weapon);
 	this->info.weapon_status = 2;
-	this->info.ammo--;  
+	if(info.weapon!=0) this->info.ammo--;  
 }
 
 void Player::change_weapon(int weapon){
