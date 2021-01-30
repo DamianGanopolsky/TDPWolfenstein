@@ -9,7 +9,13 @@ Loop::~Loop() {}
 
 void Loop::run() {
     while (is_running) {
+        // procesar conexiones nuevas
+        // procesar comandos / requests de los clientes
+        // avanzar las partidas going on
+        // chequear conexiones que terminaron
 
+        // tick rate
+        // 30 tps
     }
     clients_connected.stop();
 }

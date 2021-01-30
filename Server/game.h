@@ -5,6 +5,9 @@
 #include <string>
 #include <algorithm>
 
+#include "../Notifications/event.h"
+#include "../Notifications/item_changed.h"
+#include "../Notifications/message.h"
 #include "../Common/defs.h"
 #include "../Model/player/player.h"
 #include "../Model/objects/items/weapons/weapon.h"
@@ -15,11 +18,13 @@ class Game {
     std::unordered_map<ConnectionId, Player> players;
     std::unordered_map<std::string, ConnectionId> players_by_name;
     ClientsConnected& clients_connected;
+    Id map_id;
 
-    void _notifyResponse(const Id id, const Response& response);
+    void _notifyEvent(const Id id, const Response& response, EventOpcode event_type);
+    void _notifyItemChanged(const Id id, const Response& response, ItemOpcode item_type);
 
     public:
-        Game(ClientsConnected& clients_connected);
+        Game(ClientsConnected& clients_connected, Id map_id);
         ~Game();
 
         Game(const Game&) = delete;
@@ -29,9 +34,9 @@ class Game {
 
         const ConnectionId newPlayer();
         void deletePlayer(const ConnectionId id);
-        void updatePlayers();
+        void updatePlayers(const int iteration);
 
-        void updateOpenDoorsLifetime();
+        void updateOpenDoorsLifetime(const int iteration);
 
         void startMovingUp(const ConnectionId id);
         void startMovingDown(const ConnectionId id);

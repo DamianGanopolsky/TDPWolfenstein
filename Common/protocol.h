@@ -7,7 +7,8 @@ enum Opcode {
     MESSAGE_OPCODE,
     COMMAND_OPCODE = 128
 };
-//LO QUe el cliente le manda al servidor
+
+//Client -> Server
 enum CommandOpcode {
     START_MOVING_UP_CMD = 0,    //OK
     START_MOVING_DOWN_CMD,      //OK
@@ -26,32 +27,31 @@ enum CommandOpcode {
     CHANGE_WEAPON_TO_MACHINE_GUN_CMD, // Cliente selecciono el 3  OK
     CHANGE_WEAPON_TO_CHAIN_CANNON_CMD, // Cliente selecciono el 4  OK
 }; 
-//Lo que el servidor le manda al cliente
+
+//Server -> Client
 enum EventOpcode {
-    NEW_PLAYER_EV,  //Coordenada x, coordenada y, angulo del jugador, id del jugador(que jugador),
-                    //vida , las vidas, puntaje, balas, id del mapa a abrir
-    MOVEMENT_EV = 0, //Coordenada x, coordenada y, angulo del jugador, id del jugador(que jugador)
-                    // moviendo (si o no), disparando (si o no)
-                     
-    ATTACK_EV,      //Si puedo o si no puedo disparar
-    BE_ATTACKED_EV, // Entero con la vida que tengo( la que voy a mostrar)
-    DEATH_EV,       //Coordenada x, coordenada y, id del jugador(que jugador)
-    RESURRECT_EV,   //Coordenada x, coordenada y, angulo del jugador, id del jugador(que jugador),
-                    //vida,las vidas, balas, puntaje, 
-    CHANGE_LEVEL_EV, // No hace falta aunque sea por ahora
-    CHANGE_WEAPON //{0,1,2,3} 0=CUCHILLO, 1=pistola, ... 
+    MOVEMENT_EV,   //id del jugador, coordenada x, coordenada y, angulo del jugador, moviendo (1-si o 0-no), disparando (si o no)
+    NEW_PLAYER_EV,  //id del jugador, id del mapa a abrir, coordenada x, coordenada y, angulo del jugador,vida , cant de resurrecciones 
+                    //(la cant de vidas se puede obtener restando a la cte de vidas la cant de veces que resucito), puntaje, balas
+    DELETE_PLAYER_EV, //id del jugador
+    ATTACK_EV,      //id del jugador, disparando (si o no)
+    BE_ATTACKED_EV, //id del jugador, entero con la vida que tengo( la que voy a mostrar)
+    DEATH_EV,       //id del jugador, coordenada x, coordenada y (la llegada de este evento tambien implica que se dropean los objetos a la hora de la muerte)
+    RESURRECT_EV,   //id del jugador, id del mapa a abrir, coordenada x, coordenada y, angulo del jugador,vida , las vidas, puntaje, balas
+    //CHANGE_LEVEL_EV, // No hace falta aunque sea por ahora
+    CHANGE_WEAPON_EV //id del jugador, {0,1,2,3} 0=CUCHILLO, 1=pistola, ...
 };
-//Lo que el servidor le manda al cliente
+
 enum ItemOpcode {
-    //CLOSE_DOOR_ITM = 0
-    MEDICAL_KIT= //id del jugador que lo agarra, pos x, pos y, vida del jugador
-    FOOD //id del jugador que lo agarra, pos x, pos y, vida del jugador
-    KEY // id del jugador que lo agarra, pos x, pos y, keys del jugador
-    ARMAS // id del jugador que lo agarra, pos x, pos y
-    TESOROS //id del jugador que lo agarra, pos x, pos y, puntaja del jugador
-    BALAS //id del jugador que lo agarra, pos x, pos y, balas del jugador
-    CLOSE_DOOR_ITM //  pos x, pos y " posicion de la puerta"
-    OPEN_DOOR_ITEM // pos x, pos y " posicion de la puerta"
+    CLOSE_DOOR_ITM = 0, //  pos x, pos y " posicion de la puerta"
+    OPEN_DOOR_ITM, // pos x, pos y " posicion de la puerta"
+    MEDICAL_KIT_TAKEN_ITM, //id del jugador que lo agarra, pos x, pos y, vida del jugador
+    FOOD_TAKEN_ITM, //id del jugador que lo agarra, pos x, pos y, vida del jugador
+    BLOOD_TAKEN_ITM,
+    KEY_TAKEN_ITM, // id del jugador que lo agarra, pos x, pos y, keys del jugador
+    WEAPON_TAKEN_ITM, // id del jugador que lo agarra, pos x, pos y
+    TREASURE_TAKEN_ITM, //id del jugador que lo agarra, pos x, pos y, puntaja del jugador
+    BULLETS_TAKEN_ITM, //id del jugador que lo agarra, pos x, pos y, balas del jugador
 
 };
 
