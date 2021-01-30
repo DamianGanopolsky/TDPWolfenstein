@@ -11,7 +11,10 @@ Player_panel_status::Player_panel_status(SDL_Renderer*& renderer) :
 										weapon_status(renderer, IMAGE_WEAPONS_PATH, TOTAL_WEAPONS),
 										number_status(renderer, IMAGE_NUMBERS_PATH, TOTAL_NUMBERS), 
 										guardia_status(renderer, IMAGE_GUARDIAS_PATH, TOTAL_GUARDIAS),
-										pistola_status(renderer, IMAGE_PISTOLAS_PATH, TOTAL_PISTOLAS),
+										knife_status(renderer,IMAGE_KNIFE_PATH,TOTAL_KNIFES),
+										pistola_status(renderer, IMAGE_PISTOLA_PATH, TOTAL_PISTOLAS),
+										automaticgun_status(renderer,IMAGE_AUTOMATICGUN_PATH,TOTAL_AUTOMATICGUNS),
+										chaincannon_status(renderer,IMAGE_CHAINCANNON_PATH,TOTAL_CHAINCANNONS),
 										elite_guard_status(renderer,IMAGE_ELITE_GUARDIAS_PATH ,TOTAL_ELITE_GUARDIAS),
 										official_guard_status(renderer,IMAGE_OFFICER_GUARDIAS_PATH,TOTAL_OFFICER_GUARDIAS),
 										bullets(renderer,IMAGE_BULLETS_PATH,TOTAL_BULLETS),
@@ -31,8 +34,11 @@ Player_panel_status::Player_panel_status(Player_panel_status&& other) :
 										face_status(std::move(other.face_status)),
 										weapon_status(std::move(other.weapon_status)),
 										number_status(std::move(other.number_status)),	
-										guardia_status(std::move(other.guardia_status)),	
+										guardia_status(std::move(other.guardia_status)),
+										knife_status(std::move(other.knife_status)),	
 										pistola_status(std::move(other.pistola_status)),
+										automaticgun_status(std::move(other.automaticgun_status)),
+										chaincannon_status(std::move(other.chaincannon_status)),
 										elite_guard_status(std::move(other.elite_guard_status)),
 										official_guard_status(std::move(other.official_guard_status)),
 										bullets(std::move(other.bullets)),
@@ -64,7 +70,10 @@ Player_panel_status& Player_panel_status::operator=(Player_panel_status&& other)
 	this->number_status = std::move(other.number_status);
 	this->guardia_status = std::move(other.guardia_status);
 	this->elite_guard_status=std::move(other.elite_guard_status);
+	this->knife_status=std::move(other.knife_status);
 	this->pistola_status = std::move(other.pistola_status);
+	this->automaticgun_status=std::move(other.automaticgun_status);
+	this->chaincannon_status=std::move(other.chaincannon_status);
 	this->official_guard_status= std::move(other.official_guard_status);
 	this->bullets=std::move(other.bullets);
 	this->food=std::move(other.food);
@@ -114,7 +123,20 @@ void Player_panel_status::copy_to_rederer_weapon(Player_info& info) {
 	SrcR.x = (PANEL_WIDTH - SrcR.w) / 2 ;
 	SrcR.y = PANEL_HEIGHT * 0.8 - SrcR.h;
 
-	this->pistola_status.copy_to_rederer(info.get_weapon_status(), &SrcR);
+	switch(info.get_weapon()){
+		case 0:
+			this->knife_status.copy_to_rederer(info.get_weapon_status(),&SrcR);
+			break;
+		case 1:
+			this->pistola_status.copy_to_rederer(info.get_weapon_status(), &SrcR);
+			break;
+		case 2:
+			this->automaticgun_status.copy_to_rederer(info.get_weapon_status(),&SrcR);
+			break;
+		case 3:
+			this->chaincannon_status.copy_to_rederer(info.get_weapon_status(),&SrcR);
+			break;
+	}
 	info.change_weapon_status();
 }
 

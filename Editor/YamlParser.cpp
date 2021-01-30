@@ -153,6 +153,13 @@ std::map <std::pair<int,int>,int> YamlParser::load_map(std::string YamlPath){
 
 void YamlParser::Write_Map(std::string YamlPathToWrite,std::map <int,\
 std::vector<std::pair<int,int>>> map,int height,int width){
+    for (auto const& x : map){
+
+        std::cout << "Objeto" << x.first;
+        for(std::pair<int,int> position : x.second) {
+            std::cout << "x:" << position.first << "y:" << position.second << std::endl;
+    }
+    }
     YAML::Emitter out;
     //out << YAML::BeginDoc;
     
@@ -172,6 +179,7 @@ std::vector<std::pair<int,int>>> map,int height,int width){
     for (auto const& x : map){
         //out << YAML::BeginMap;
        // out << YAML::Key << x.first;
+
         switch(x.first){
             case PLAYER:
                 out << YAML::Key << "Players";
@@ -211,6 +219,12 @@ std::vector<std::pair<int,int>>> map,int height,int width){
         out << YAML::Value << YAML::BeginSeq;
 
         for(std::pair<int,int> position : x.second) {
+            /*if(x.first==WALL){
+                std::cout << "en x" << position.first << "en y" << position.second << std::endl;
+            }
+            if(x.first==DOOR){
+                std::cout << "en x" << position.first << "en y" << position.second << std::endl;
+            }*/
             out << YAML::BeginMap;
             out << YAML::Key << "x";
             out << YAML::Value << position.first*CUADRICULA;

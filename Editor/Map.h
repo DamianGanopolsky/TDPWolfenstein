@@ -37,6 +37,8 @@ public:
 
     void click(position final_pos);
 
+    void printMap();
+
     void ExpandMap();
 
     void ShrinkMap();

@@ -13,11 +13,11 @@
 
 #define SIZE_BOX 64 //Este valor debe ser una potencia de base 2
 #define BIT_OFFSET 6 //Este valor debe ser el Log de base 2 de SIZE_BOX
-#define WIDTH_GAME_MAP 8
-#define HEIGTH_GAME_MAP 8
+#define WIDTH_GAME_MAP 15
+#define HEIGTH_GAME_MAP 15
 
 #define FOV 90.0
-#define TOTAL_BOX 64
+#define TOTAL_BOX 300
 
 //para panel status
 #define TOTAL_FACES 8
@@ -33,8 +33,17 @@
 #define TOTAL_GUARDIAS 8
 #define IMAGE_GUARDIAS_PATH "../ray_casting/panel_status/images/guardia"
 
+#define TOTAL_KNIFES 3
+#define IMAGE_KNIFE_PATH "../ray_casting/panel_status/images/Knife"
+
 #define TOTAL_PISTOLAS 3
-#define IMAGE_PISTOLAS_PATH "../ray_casting/panel_status/images/ChainCannon"
+#define IMAGE_PISTOLA_PATH "../ray_casting/panel_status/images/pistola"
+
+#define TOTAL_AUTOMATICGUNS 2
+#define IMAGE_AUTOMATICGUN_PATH "../ray_casting/panel_status/images/AutomaticGun"
+
+#define TOTAL_CHAINCANNONS 3
+#define IMAGE_CHAINCANNON_PATH "../ray_casting/panel_status/images/ChainCannon"
 
 #define TOTAL_ELITE_GUARDIAS 8
 #define IMAGE_ELITE_GUARDIAS_PATH "../ray_casting/panel_status/images/Elite_guard/EGuard"

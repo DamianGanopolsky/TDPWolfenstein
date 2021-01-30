@@ -96,6 +96,14 @@ void Map::ShrinkMap(){
     columns=columns-1;
 }
 
+void Map::printMap(){
+    for(int i=0;i<rows;i++){
+        for(int j=0;j<columns;j++){
+            std::cout << "En x:" << i << "En y:" << j <<  "  Objeto:" << matrix[i][j] << std::endl;
+        }
+    }
+}
+
 
 Map::Map(SdlWindow& Window,std::string YamlPath):window(Window),player_count(0){
     camera.x=0;
@@ -300,6 +308,7 @@ void Map::Export(std::string yamlName){
 
         for(int j=0;j<columns;j++){
             if(matrix[i][j]==0) continue;
+            //std::cout << "en x" << i << "en y" << j << "objeto:" << matrix[i][j]<< std::endl;
                  
             position = std::make_pair (i,j);
             player_map[matrix[i][j]].push_back(position);

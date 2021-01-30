@@ -12,12 +12,13 @@
 
 int main() {
 	
-	Panel_window panel;
+	
 	if(Mix_OpenAudio(44100,MIX_DEFAULT_FORMAT,2,1024)<0){
         std::cout << "eRROR:" << Mix_GetError() << std::endl;
     }
-	Player player(128, 341, 90);
+	Player player(100, 100, 90);
 	Map_2d map(player);
+	Panel_window panel(map);
 	
 	Player_handler handler(player);
 	Client client(panel,player,map);

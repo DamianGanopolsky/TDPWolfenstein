@@ -1,7 +1,6 @@
 #include "Wall_texture.h"
 #include <string>
 #include <iostream>
-
 Wall_texture::Wall_texture() {
 
     for (int i = 0; i < TOTAL_TEXTURES_WALLS; i++) {

@@ -1,8 +1,9 @@
 #include "Ray_panel.h"
 #include <utility>
+#include <iostream>
 
 
-Ray_panel::Ray_panel(Ray&& ray, Wall_texture& wall_textures) : ray(std::move(ray)) {
+Ray_panel::Ray_panel(Ray&& ray, Wall_texture& wall_textures,Map_2d& MAP) : ray(std::move(ray)),map(MAP) {
 	this->dist = ray.get_dist();
 	int proy_slice_height = (WALL_HEIGHT / this->ray.get_dist()) * PANEL_DISTANCE;
 	int pixel_min = (PANEL_HEIGHT - proy_slice_height) / 2;
@@ -16,7 +17,8 @@ Ray_panel::Ray_panel(Ray&& ray, Wall_texture& wall_textures) : ray(std::move(ray
 		} else if (min < pixel_max) {
 			int wall_y = (min - pixel_min) / (proy_slice_height / 64.0);
 			//Cuadricula, el mapa me va a decir que hay
-			int number_tex = this->ray.get_point() % 3 == 0 ? 1 : 0; //Get point me dice contra que cuadricula
+			//std::cout << "get point es" << this->ray.get_point() << std::endl;
+			int number_tex = map.get_wall_texture(this->ray.get_point());// % 3 == 0 ? 1 : 0; //Get point me dice contra que cuadricula
 																	//del mapa esta chocando
 																	//No sirve lo del %3...
    			this->pixels[min] = wall_textures.get_pixel_tex(number_tex, wall_x, wall_y);
@@ -26,7 +28,7 @@ Ray_panel::Ray_panel(Ray&& ray, Wall_texture& wall_textures) : ray(std::move(ray
 	}
 }
 
-Ray_panel::Ray_panel(Ray_panel&& other) : ray(std::move(other.ray)){
+Ray_panel::Ray_panel(Ray_panel&& other) : ray(std::move(other.ray)),map(other.map){
 	this->tex = other.tex;
 	other.tex = nullptr;
 	for (int i = 0; i < PANEL_HEIGHT; i++) {
