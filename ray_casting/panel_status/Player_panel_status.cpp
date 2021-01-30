@@ -237,8 +237,11 @@ void Player_panel_status::copy_to_rederer_number_(int number,SDL_Rect& rect){
     SDL_Surface* surfaceMessage = TTF_RenderText_Solid(Sans, lives_str.c_str(), {255, 255, 255});
 	SDL_Texture* texture_of_text = SDL_CreateTextureFromSurface(this->renderer,surfaceMessage); 
 	SDL_RenderCopy(this->renderer, texture_of_text, NULL, &rect);
+	SDL_FreeSurface(surfaceMessage);
+	SDL_DestroyTexture(texture_of_text);
+	TTF_CloseFont(Sans);
 }
-/*
+
 void Player_panel_status::copy_to_rederer_number(int number, int digits, SDL_Rect& SrcR, bool cero_rigth) {
 	if (digits == 0) {
 		return;
@@ -259,7 +262,7 @@ void Player_panel_status::copy_to_rederer_number(int number, int digits, SDL_Rec
 	SrcR.x += SrcR.w + 0.01;
 	this->copy_to_rederer_number(number - id * order, digits - 1,  SrcR, cero_rigth);
 }
-*/
+
 SDL_Texture* Player_panel_status::get_texture(int tex_section, int id) {
 //Si el id es 2, se deberia llamar a oficial status. Hacer un switch posiblemente
 	SDL_Texture* texture;
