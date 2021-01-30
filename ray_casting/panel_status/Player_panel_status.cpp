@@ -123,7 +123,20 @@ void Player_panel_status::copy_to_rederer_weapon(Player_info& info) {
 	SrcR.x = (PANEL_WIDTH - SrcR.w) / 2 ;
 	SrcR.y = PANEL_HEIGHT * 0.8 - SrcR.h;
 
-	this->pistola_status.copy_to_rederer(info.get_weapon_status(), &SrcR);
+	switch(info.get_weapon()){
+		case 0:
+			this->knife_status.copy_to_rederer(info.get_weapon_status(),&SrcR);
+			break;
+		case 1:
+			this->pistola_status.copy_to_rederer(info.get_weapon_status(), &SrcR);
+			break;
+		case 2:
+			this->automaticgun_status.copy_to_rederer(info.get_weapon_status(),&SrcR);
+			break;
+		case 3:
+			this->chaincannon_status.copy_to_rederer(info.get_weapon_status(),&SrcR);
+			break;
+	}
 	info.change_weapon_status();
 }
 
