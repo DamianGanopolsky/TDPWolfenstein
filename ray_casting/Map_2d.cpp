@@ -6,7 +6,7 @@
 
 Map_2d::Map_2d(Player& player) : player(player) {
 
-	MapYamlParser mapyamlparser("../Maps/prueba.yaml");
+	MapYamlParser mapyamlparser("../Maps/2_Versus.yaml");
 	total_boxes=mapyamlparser.Map_Height()*mapyamlparser.Map_Width();
 	walls=mapyamlparser.get_boxes();
 
