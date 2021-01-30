@@ -1,20 +1,32 @@
 #include "game.h"
 
 
-Game::Game(ClientsConnected& clients_connected) : clients_connected(clients_connected) {}
+Game::Game(ClientsConnected& clients_connected, Id map_id) : 
+                            clients_connected(clients_connected), 
+                            map_id(map_id) {}
 Game::~Game() {}
 
 //_getPlayerPosition deberia chequear si el yaml establece la posicion en la que el player deberia aparecer o no.
-void Game::_notifyResponse(const Id id, const Response& response) {
-    MessageOpcode message_opcode;
+void Game::_notifyEvent(const Id id, const Response& response, EventOpcode event_type) {
+    Notification* notification;
     if (response.success) {
-        message_opcode = SUCCESS_MSSG;
+        notification = new Event(map_id, this->players.at(id), event_type);
+        this->clients_connected.sendEventToAll(notification);
     } else {
-        message_opcode = ERROR_MSSG;
+        notification = new Message(ERROR_MSSG, response.message);
+        this->clients_connected.notifyAll(notification);
     } 
-    Notification* message = new Message(message_opcode, response.message);
-    //this->clients_connected.notifyAll(id, message);????????
-    //this->clients_connected.sendEventToAll(new Event()?????????);
+}
+
+void Game::_notifyItemChanged(const Id id, const Response& response, ItemOpcode item_type) {
+    Notification* notification;
+    if (response.success) {
+        notification = new ItemChanged(map_id, this->players.at(id), item_type);
+        this->clients_connected.sendEventToAll(notification);
+    } else {
+        notification = new Message(ERROR_MSSG, response.message);
+        this->clients_connected.notifyAll(notification);
+    } 
 }
 
 const ConnectionId Game::newPlayer() {
@@ -46,48 +58,57 @@ void Game::deletePlayer(const ConnectionId id) {
     this->players.erase(id);
 }
 
-void Game::updatePlayers() {}
+void Game::updatePlayers(const int iteration) {
+    std::unordered_map<ConnectionId, Player>::iterator 
+        player_it = this->players.begin();
+    while (player_it != this->players.end()) {
+        ConnectionId id = player_it->first;
+        Player& player = player_it->second;
+        _notifyEvent(id, player.update(iteration), MOVEMENT_EV);
+        ++player_it;
+    }
+}
 
-void Game::updateOpenDoorsLifetime() {}
+void Game::updateOpenDoorsLifetime(const int iteration) {}
 
 void Game::startMovingUp(const ConnectionId id) {
     Player& player = this->players.at(id);
-    _notifyResponse(id, player.moveUp());
+    _notifyEvent(id, player.moveUp(), MOVEMENT_EV);
 }
 
 void Game::startMovingDown(const ConnectionId id) {
     Player& player = this->players.at(id);
-    _notifyResponse(id, player.moveDown());
+    _notifyEvent(id, player.moveDown(), MOVEMENT_EV);
 }
 
 void Game::startMovingLeft(const ConnectionId id) {
     Player& player = this->players.at(id);
-    _notifyResponse(id, player.moveLeft());
+    _notifyEvent(id, player.moveLeft(), MOVEMENT_EV);
 }
 
 void Game::startMovingRight(const ConnectionId id) {
     Player& player = this->players.at(id);
-    _notifyResponse(id, player.moveRight());
+    _notifyEvent(id, player.moveRight(), MOVEMENT_EV);
 }
 
 void Game::stopMoving(const ConnectionId id) {
     Player& player = this->players.at(id);
-    _notifyResponse(id, player.stopMoving());
+    _notifyEvent(id, player.stopMoving(), MOVEMENT_EV);
 }
 
 void Game::startRotatingLeft(const ConnectionId id) {
     Player& player = this->players.at(id);
-    _notifyResponse(id, player.rotateLeft());
+    _notifyEvent(id, player.rotateLeft(), MOVEMENT_EV);
 }
 
 void Game::startRotatingRight(const ConnectionId id) {
     Player& player = this->players.at(id);
-    _notifyResponse(id, player.rotateRight());
+    _notifyEvent(id, player.rotateRight(), MOVEMENT_EV);
 }
 
 void Game::stopRotating(const ConnectionId id) {
     Player& player = this->players.at(id);
-    _notifyResponse(id, player.stopRotating());
+    _notifyEvent(id, player.stopRotating(), MOVEMENT_EV);
 }
 
 void Game::openDoor(const ConnectionId id) {
@@ -99,9 +120,9 @@ void Game::openDoor(const ConnectionId id) {
 
     bool door_opened = _interactWith(player, map, obj);
     if (!door_opened) {
-        _notifyResponse(id, Response(false, NO_KEY_TO_OPEN_CLOSED_DOOR));
+        _notifyItemChanged(id, Response(false, NO_KEY_TO_OPEN_CLOSED_DOOR), OPEN_DOOR_ITM);
     } else {
-        _notifyResponse(id, Response(true, SUCCESS_MSG));
+        _notifyItemChanged(id, Response(true, SUCCESS_MSG), OPEN_DOOR_ITM);
     }
 }
 
@@ -112,10 +133,10 @@ void Game::changeWeapon(const ConnectionId id, Weapon weapon) {
 
     it = find(inventory.begin(), inventory.end(), weapon);
     if (it == inventory.end()) {
-        _notifyResponse(id, Response(false, NO_WEAPON_IN_INVENTORY_ERROR_MSG));
+        _notifyEvent(id, Response(false, NO_WEAPON_IN_INVENTORY_ERROR_MSG), CHANGE_WEAPON_EV);
     } else {
         player.changeWeapon(*it);
-        _notifyResponse(id, Response(true, SUCCESS_MSG));
+        _notifyEvent(id, Response(true, SUCCESS_MSG), CHANGE_WEAPON_EV);
     }
 }
 
@@ -124,13 +145,13 @@ void Game::attack(const ConnectionId id, const ConnectionId id_target) {
     Player& player = this->players.at(id);
     Player& target = this->players.at(id_target);
     if (!player.getState()->attack()) {
-        _notifyResponse(id, Response(false, STATE_CANT_ATTACK_ERROR_MSG));
+        _notifyEvent(id, Response(false, STATE_CANT_ATTACK_ERROR_MSG), ATTACK_EV);
     } else {
-        _notifyResponse(id, player.useWeapon(id, id_target, &target, damage));
+        _notifyEvent(id, player.useWeapon(id, id_target, &target, damage), ATTACK_EV);
     }
 }
 
 void Game::receiveAttack(const ConnectionId id, int& damage) {
     Player& player = this->players.at(id);
-    _notifyResponse(id, player.receiveAttack(damage));
+    _notifyEvent(id, player.receiveAttack(damage), BE_ATTACKED_EV);
 }

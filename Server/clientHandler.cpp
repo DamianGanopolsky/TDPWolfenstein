@@ -50,7 +50,7 @@ void ClientHandler::_receive() {
 	try {
         int bytes_received = 0;
 		uint8_t buffer[2];
-        while (peer.receive(buffer, 2, bytes_received)) {
+        while (peer.receive((char *)buffer, 2, bytes_received)) {
             uint8_t opcode = buffer[0];
             uint8_t command_opcode = buffer[1];
             if (opcode == COMMAND_OPCODE) {

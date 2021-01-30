@@ -1,15 +1,16 @@
 #ifndef MESSAGE_H
 #define MESSAGE_H
 
+#include <string>
 #include "notification.h"
 #include "../Common/protocol.h"
 
 class Message : public Notification {
     MessageOpcode opcode;
-    char* message;
+    std::string message;
     
     public:
-        Message(MessageOpcode opcode, char* message);
+        Message(MessageOpcode opcode, std::string message);
         virtual ~Message();
         
         Message(const Message& other);
