@@ -52,6 +52,7 @@ private:
 	void copy_to_rederer_ammo(int health);
 	void copy_to_rederer_level(int level);
 	void copy_to_rederer_number(int number, int digits, SDL_Rect& SrcR, bool is_cero);
+	void copy_to_rederer_number_(int number,SDL_Rect& rect);
 };
 
 #endif

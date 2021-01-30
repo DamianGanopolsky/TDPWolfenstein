@@ -3,7 +3,7 @@
 #include <SDL2/SDL_image.h>
 #include <utility>
 #include <cmath>
-
+#include <string>
 #include <iostream>
 
 Player_panel_status::Player_panel_status(SDL_Renderer*& renderer) :
@@ -30,7 +30,6 @@ Player_panel_status::Player_panel_status(SDL_Renderer*& renderer) :
 	SDL_Surface *status_img = IMG_Load("../ray_casting/sprites/hud.png");
 	this->status_tex = SDL_CreateTextureFromSurface(this->renderer, status_img);
 	SDL_FreeSurface(status_img);
-	std::cout << "asd1" << std::endl;
 	TTF_Init();
 	
 }
@@ -167,46 +166,43 @@ void Player_panel_status::copy_to_rederer_lives(int lives) {
 	SrcR.x = PANEL_WIDTH * 0.340;
 	SrcR.y = PANEL_HEIGHT - SrcR.h * 1.25;
 
-	
-	SDL_Rect prueba={100,100,300,300};//../ray_casting/panel_status/
-	TTF_Font* Sans = TTF_OpenFont("../ray_casting/panel_status/OpenSans-Bold.ttf", 13); 
-	
-	if(!Sans){
-		printf("ttf open font %s \n",TTF_GetError());
-	}
-	if(Sans){
-		std::cout << "asd" ;
-	}
-	std::cout << "asd2" << std::endl;
-    SDL_Surface* surfaceMessage = TTF_RenderText_Solid(Sans, "asdadsadas", {255, 255, 255});
+	/*std::string lives_str=std::to_string(lives);
+	TTF_Font* Sans = TTF_OpenFont("../ray_casting/panel_status/OpenSans-Bold.ttf", 35); 
+    SDL_Surface* surfaceMessage = TTF_RenderText_Solid(Sans, lives_str.c_str(), {255, 255, 255});
 	
 	SDL_Texture* texture_of_text = SDL_CreateTextureFromSurface(this->renderer,surfaceMessage); 
-	SDL_RenderCopy(this->renderer, texture_of_text, NULL, &prueba);
-	//numero.Load_Text("../OpenSans-Bold.ttf","asd",12);
-    //SDL_Texture* texture_of_text; = SDL_CreateTextureFromSurface(this->renderer, numero.getSurface()); 
-	//SDL_RenderCopy(this->renderer, texture_of_text, NULL, &SrcR);
+	SDL_RenderCopy(this->renderer, texture_of_text, NULL, &SrcR);*/
+	this->copy_to_rederer_number_(lives,SrcR);
 
 	//this->number_status.copy_to_rederer(lives, &SrcR);
 }
 
+
+
 void Player_panel_status::copy_to_rederer_health(int health) {
 	SDL_Rect SrcR;
-	SrcR.w = PANEL_WIDTH * 0.025;
+	//SrcR.w = PANEL_WIDTH * 0.025;
+	SrcR.w = PANEL_WIDTH * 0.086;
 	SrcR.h = PANEL_HEIGHT * 0.10;
 	SrcR.x = PANEL_WIDTH * 0.525;
 	SrcR.y = PANEL_HEIGHT - SrcR.h * 1.25;
 
-	this->copy_to_rederer_number(health, 3, SrcR, false);
+	this->copy_to_rederer_number_(health,SrcR);
+
+	//this->copy_to_rederer_number(health, 3, SrcR, false);
 }
 
 void Player_panel_status::copy_to_rederer_score(int score) {
 	SDL_Rect SrcR;
-	SrcR.w = PANEL_WIDTH * 0.025;
+	//SrcR.w = PANEL_WIDTH * 0.025;
+	SrcR.w = PANEL_WIDTH * 0.1;
 	SrcR.h = PANEL_HEIGHT * 0.10;
 	SrcR.x = PANEL_WIDTH * 0.1719;
 	SrcR.y = PANEL_HEIGHT* 0.87;
 
-	this->copy_to_rederer_number(score, 1, SrcR, true);
+	this->copy_to_rederer_number_(score,SrcR);
+
+	//this->copy_to_rederer_number(score, 1, SrcR, true);
 }
 
 void Player_panel_status::copy_to_rederer_level(int level) {
@@ -215,20 +211,34 @@ void Player_panel_status::copy_to_rederer_level(int level) {
 	SrcR.h = PANEL_HEIGHT * 0.10;
 	SrcR.x = PANEL_WIDTH * 0.05;
 	SrcR.y = PANEL_HEIGHT* 0.87;
+	this->copy_to_rederer_number_(level,SrcR);
 
-	this->copy_to_rederer_number(level, 1, SrcR, false);
+	//this->copy_to_rederer_number(level, 1, SrcR, false);
 }
 
 void Player_panel_status::copy_to_rederer_ammo(int ammo) {
 	SDL_Rect SrcR;
-	SrcR.w = PANEL_WIDTH * 0.025;
+	SrcR.w = PANEL_WIDTH * 0.1;
 	SrcR.h = PANEL_HEIGHT * 0.10;
 	SrcR.x = PANEL_WIDTH * 0.660;
 	SrcR.y = PANEL_HEIGHT - SrcR.h * 1.25;
 
-	this->copy_to_rederer_number(ammo, 3, SrcR, false);
+	this->copy_to_rederer_number_(ammo,SrcR);
+
+	//this->copy_to_rederer_number(ammo, 3, SrcR, false);
 }
 
+void Player_panel_status::copy_to_rederer_number_(int number,SDL_Rect& rect){
+	if(number<0){
+		return;
+	}
+	std::string lives_str=std::to_string(number);
+	TTF_Font* Sans = TTF_OpenFont("../ray_casting/panel_status/OpenSans-Bold.ttf", 35); 
+    SDL_Surface* surfaceMessage = TTF_RenderText_Solid(Sans, lives_str.c_str(), {255, 255, 255});
+	SDL_Texture* texture_of_text = SDL_CreateTextureFromSurface(this->renderer,surfaceMessage); 
+	SDL_RenderCopy(this->renderer, texture_of_text, NULL, &rect);
+}
+/*
 void Player_panel_status::copy_to_rederer_number(int number, int digits, SDL_Rect& SrcR, bool cero_rigth) {
 	if (digits == 0) {
 		return;
@@ -249,7 +259,7 @@ void Player_panel_status::copy_to_rederer_number(int number, int digits, SDL_Rec
 	SrcR.x += SrcR.w + 0.01;
 	this->copy_to_rederer_number(number - id * order, digits - 1,  SrcR, cero_rigth);
 }
-
+*/
 SDL_Texture* Player_panel_status::get_texture(int tex_section, int id) {
 //Si el id es 2, se deberia llamar a oficial status. Hacer un switch posiblemente
 	SDL_Texture* texture;
