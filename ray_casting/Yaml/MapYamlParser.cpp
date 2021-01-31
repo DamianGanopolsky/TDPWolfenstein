@@ -19,7 +19,8 @@ MapYamlParser::MapYamlParser(std::string YamlPath):yamlpath(YamlPath){
 
 
 
-std::map <std::pair<int,int>,int> MapYamlParser::load_objects(){
+//std::unordered_map<int,int> MapYamlParser::load_objects(){
+std::map<std::pair<int,int>,int> MapYamlParser::load_objects(){
 
     //map= YAML::LoadFile(YamlPath);
     // Chain Cannon 
@@ -34,6 +35,8 @@ std::map <std::pair<int,int>,int> MapYamlParser::load_objects(){
         map_position.first=pos['x'].as<int>();;
         map_position.second=pos['y'].as<int>();;
         objects_map.insert({map_position,CHAIN_CANNON});
+       /* int num_transformed=Map_Width()*map_position.second+map_position.first;
+        objects_map.insert({num_transformed,CHAIN_CANNON});*/
     }
 
      //FOOD 
@@ -44,10 +47,14 @@ std::map <std::pair<int,int>,int> MapYamlParser::load_objects(){
         const YAML::Node& pos = *it;
         map_position.first=pos['x'].as<int>();;
         map_position.second=pos['y'].as<int>();;
+        //std::cout << "x de obj a cargar es" << map_position.first << "y es" << map_position.second << std::endl;
         objects_map.insert({map_position,FOOD});
+        /*int num_transformed=Map_Width()*map_position.second+map_position.first;
+        std::cout << "Numero transformado es" << num_transformed << std::endl;
+        objects_map.insert({num_transformed,FOOD});*/
     }
 
-
+/*
     // MEDICAL_KIT 
     const YAML::Node& medical_kit= map["Map"]["Medical_Kit"];
     for (YAML::const_iterator it = medical_kit["position"].begin(); it != medical_kit["position"].end(); ++it) {
@@ -100,7 +107,7 @@ std::map <std::pair<int,int>,int> MapYamlParser::load_objects(){
         map_position.first=pos['x'].as<int>();;
         map_position.second=pos['y'].as<int>();;
         objects_map.insert({map_position,KEY});
-    }
+    }*/
     return objects_map;
 }
 
@@ -146,6 +153,7 @@ std::map<int,int> MapYamlParser::get_boxes(){
         //walls_map.insert({num_transformed,KEY});
 
     }
+    
     return walls_map;
 }
 

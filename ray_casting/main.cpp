@@ -31,7 +31,7 @@ int main() {
 	sender.start();
 	sender.send(4);
 	receiver.start();
-	//BlockingQueue blqueue;
+	//BlockingQueue<Client> blqueue;
 
 	Player player(100, 100, 90);
 	Map_2d map(player);

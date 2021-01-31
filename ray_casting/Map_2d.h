@@ -25,13 +25,16 @@ public:
 private:
 //PARED O NO
 	std::map<int, bool> boxes;
-	std::map<int, int> walls;
+	//std::map<int, int> walls;
 	//std::unordered_map<int, bool> boxes;
-	//std::unordered_map<int, int> walls;
+	std::map<int, int> walls;
 	int total_boxes;
 
+	int map_width;
+	int map_height;
+
 	std::map <std::pair<int,int>,int> elements_map;
-	//std::unordered_map<std::pair<int,int>,int> elements_map;
+	//std::unordered_map<int,int> elements_map;
 
 	//POSICION DEL PLAYER
 	//Cada cuadricula tiene 64x64 posiciones

@@ -1,0 +1,40 @@
+Map:
+  map_dimentions:
+    height: 5
+    width: 5
+  Red_Wall:
+    position:
+      - x: 0
+        y: 0
+      - x: 0
+        y: 64
+      - x: 0
+        y: 128
+      - x: 0
+        y: 256
+      - x: 64
+        y: 0
+      - x: 64
+        y: 256
+      - x: 128
+        y: 0
+      - x: 128
+        y: 256
+      - x: 192
+        y: 0
+      - x: 256
+        y: 0
+      - x: 256
+        y: 64
+      - x: 256
+        y: 192
+      - x: 256
+        y: 256
+  Door:
+    position:
+      - x: 0
+        y: 192
+      - x: 192
+        y: 256
+      - x: 256
+        y: 128

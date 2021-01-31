@@ -12,7 +12,6 @@ public:
 
 private:
     //Socket socket;
-    int asd;
 
 };
 

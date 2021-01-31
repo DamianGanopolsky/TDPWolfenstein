@@ -7,6 +7,9 @@
 Map_2d::Map_2d(Player& player) : player(player) {
 
 	MapYamlParser mapyamlparser("../Maps/bigbig.yaml");
+	map_width=mapyamlparser.Map_Width();
+	map_height=mapyamlparser.Map_Height();
+	//std::cout << "width es" << map_width << "height es " << map_height <<std::endl;
 	total_boxes=mapyamlparser.Map_Height()*mapyamlparser.Map_Width();
 	walls=mapyamlparser.get_boxes();
 	elements_map=mapyamlparser.load_objects();
@@ -53,9 +56,15 @@ void Map_2d::open_door(int cuadricula){
 std::list<Game_element> Map_2d::get_game_elements() {
 	std::list<Game_element> elements;
 
-	for (auto const& x : elements_map){
-		Game_element element(x.first.first,\
-		x.first.second,x.second,270,this->player);
+	for (auto const& object : elements_map){
+		/*std::cout << "NUmerot ransfomadoes " << object.first <<std::endl;
+		int y=object.first/map_width;
+		int x=object.first-y;
+		std::cout << "x de obj es" << x << "y es" << y << std::endl;*/
+		
+		Game_element element(object.first.first,\
+		object.first.second,object.second,270,this->player);
+		//Game_element element(x,y,object.second,270,this->player);
 		elements.push_back(std::move(element));
 	}
 	Game_element element(150,250, 1, 270, this->player);

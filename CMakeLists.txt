@@ -29,3 +29,12 @@ target_link_libraries(cliente SDL2 SDL2_mixer SDL2_ttf SDL2_image yaml-cpp)
 target_link_libraries(editor SDL2 SDL2_mixer SDL2_ttf SDL2_image yaml-cpp)
 
 target_link_libraries(panel SDL2 SDL2_image pthread SDL2_mixer yaml-cpp SDL2_ttf)
+
+file(GLOB common "Common/*.cpp")
+
+file(GLOB server "Server/*.cpp")
+
+file(GLOB model "Model/*.cpp")
+
+
+add_executable(servidor ${server} ${model} ${common})
