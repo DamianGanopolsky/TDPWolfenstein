@@ -18,7 +18,7 @@ class Event : public Notification {
     int resurrected;
     int treasure;
     int bullets;
-    int weapon;
+    int value;
 
     public:
         Event(const Id map, EventOpcode event_type, Id player_id,
@@ -26,11 +26,9 @@ class Event : public Notification {
         Event(const Id map, EventOpcode event_type, Id player_id,
             uint32_t pos_x, uint32_t pos_y, float angle, int life, int resurrected,
             int treasure, int bullets);
-        Event(const Id map, EventOpcode event_type, Id player_id, int is_shoting);
-        Event(const Id map, EventOpcode event_type, Id player_id, int life);
+        Event(const Id map, EventOpcode event_type, Id player_id, int value);
         Event(const Id map, EventOpcode event_type, Id player_id,
             uint32_t pos_x, uint32_t pos_y);
-        Event(const Id map, EventOpcode event_type, Id player_id, int weapon);
 
         virtual ~Event();
         
