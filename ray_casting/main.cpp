@@ -10,6 +10,7 @@
 
 #include "SdlClasses/MusicSoundtrack.h"
 #include "../Common/thread.h"
+#include "ClientConnector/ReceiveController.h"
 
 #include "Client.h"
 #include <iostream>
@@ -23,7 +24,7 @@ int main() {
     }
 
 	ClientSocket clientsock;
-	Receiver receiver;
+	Receiver receiver(&clientsock);
 	Sender sender(&clientsock);
 	sender.start();
 	sender.send(4);
@@ -31,6 +32,7 @@ int main() {
 	receiver.start();
 	Player player(100, 100, 90);
 	Map_2d map(player);
+	ReceiveController receivecontroller(player,map);
 	Panel_window panel(map);
 	
 	Player_handler handler(player,map);

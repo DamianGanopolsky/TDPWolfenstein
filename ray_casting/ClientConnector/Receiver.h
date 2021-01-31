@@ -10,7 +10,7 @@
 
 class Receiver: public Thread {
 public:
-    Receiver():receiving(true){
+    Receiver(ClientSocket* ClientSocket):receiving(true),clientsocket(ClientSocket){
 
     }
 
@@ -20,6 +20,7 @@ public:
 
 private:
     bool receiving;
+    ClientSocket* clientsocket;
     //Player& player;
     //Map_2d& map;
 
