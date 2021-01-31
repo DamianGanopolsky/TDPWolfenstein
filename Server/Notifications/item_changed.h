@@ -11,22 +11,13 @@ class ItemChanged : public Notification {
     Id player_id;
     uint32_t pos_x;
     uint32_t pos_y;
-    int player_life;
-    int player_keys;
-    int player_treasure;
-    int player_bullets;
+    int value;
 
     public:
         ItemChanged(const Id map, ItemOpcode item_type, Id player_id, 
                     uint32_t pos_x, uint32_t pos_y);
         ItemChanged(const Id map, ItemOpcode item_type, Id player_id, 
-                    uint32_t pos_x, uint32_t pos_y, int player_life);
-        ItemChanged(const Id map, ItemOpcode item_type, Id player_id, 
-                    uint32_t pos_x, uint32_t pos_y, int player_keys);
-        ItemChanged(const Id map, ItemOpcode item_type, Id player_id, 
-                    uint32_t pos_x, uint32_t pos_y, int player_treasure);
-        ItemChanged(const Id map, ItemOpcode item_type, Id player_id, 
-                    uint32_t pos_x, uint32_t pos_y, int player_bullets);
+                    uint32_t pos_x, uint32_t pos_y, int value);
         virtual ~ItemChanged();
         
         ItemChanged(const ItemChanged& other);

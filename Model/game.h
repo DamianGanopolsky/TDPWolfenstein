@@ -27,6 +27,7 @@ class Game {
     ObjectMap objMap;
 
     void _notifyEvent(const Id id, const Response& response, EventOpcode event_type);
+    void _notifyResponse(const Id id, const Response& response);
     void _notifyItemChanged(const Id id, const Response& response, ItemOpcode item_type);
     void _notifyMovementEvent(const Id id, const Response& response);
     Response _canMove(int** map, Player& player, std::pair<int, int> next_pos);

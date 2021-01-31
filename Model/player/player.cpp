@@ -1,8 +1,18 @@
 #include "player.h"
 
 
-Player::Player(PlayerInfo &info, PlayerPosition &pos, std::string& nickname) :  
-                info(info), pos(pos), nickname(nickname), alive(true) {}
+Player::Player(std::string& nickname, Id id_player) :  
+                info(), pos(), nickname(nickname), 
+                player_id(id_player), alive(true), moving(false), 
+                rotating(false), shooting(false),
+                state(new Alive(id_player)) {}
+
+Player::Player(int pos_x, int pos_y, std::string& nickname, 
+                Id id_player) :  
+                info(), pos(), nickname(nickname), 
+                player_id(id_player), alive(true), moving(false), 
+                rotating(false), shooting(false),
+                state(new Alive(id_player)) {}
 
 void Player::_die() {
     delete this->state;

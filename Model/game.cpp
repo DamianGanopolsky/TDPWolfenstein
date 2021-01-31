@@ -21,6 +21,14 @@ void Game::_notifyMovementEvent(const Id id, const Response& response) {
         this->clients_connected.notifyAll(notification);
     } 
 }
+
+void Game::_notifyResponse(const Id id, const Response& response) {
+    if(response.success){
+        this->clients_connected.sendMessageToAll(new Message(SUCCESS_MSSG, response.message));
+    } else {
+        this->clients_connected.sendMessageToAll(new Message(ERROR_MSSG, response.message));
+    }
+}
 //_notifyEvent()
 //_notifyResponse()
 void Game::_notifyItemChanged(const Id id, const Response& response, ItemOpcode item_type) {
@@ -107,9 +115,10 @@ const ConnectionId Game::newPlayer() {
     if (!has_assigned_position) {
         //this->maps.setPlayerPosition(map_id, init_x, init_y, new_player_id);
     }
+    std::string nickname = "hola";
     this->players.emplace(std::piecewise_construct, 
                 std::forward_as_tuple(new_player_id),
-                std::forward_as_tuple(/*poner parametros del constructor del player*/));
+                std::forward_as_tuple(nickname, new_player_id));
     //de alguna manera me tienen que pasar el nickname
     //this->players_by_name[nickname] = new_player_id;
     _notifyEvent(new_player_id, Response(true, SUCCESS_MSG), NEW_PLAYER_EV);
