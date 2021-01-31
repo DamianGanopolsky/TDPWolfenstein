@@ -3,6 +3,7 @@
 
 #include "Player.h"
 #include "Map_2d.h"
+#include "ClientConnector/Sender.h"
 
 class Player_handler {
 public:
@@ -19,6 +20,7 @@ private:
 	bool quit;
 	bool moving;
 	bool rotating;
+	Sender sender;
 	
 };
 

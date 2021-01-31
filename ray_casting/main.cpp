@@ -4,6 +4,8 @@
 //#include "Event_handler.h"
 #include "Player_handler.h"
 #include "ClientConnector/Receiver.h"
+#include "ClientConnector/Sender.h"
+
 
 #include "SdlClasses/MusicSoundtrack.h"
 #include "../Common/thread.h"
@@ -19,6 +21,9 @@ int main() {
         std::cout << "eRROR:" << Mix_GetError() << std::endl;
     }
 	Receiver receiver;
+	//Sender sender;
+	//sender.start();
+
 	receiver.start();
 	Player player(100, 100, 90);
 	Map_2d map(player);
@@ -36,6 +41,8 @@ int main() {
 		client.render();
 		quit=handler.handle();
 	}
+	//sender.stop();
+	//sender.join();
 	receiver.stop();
 	receiver.join();
 	return 0;

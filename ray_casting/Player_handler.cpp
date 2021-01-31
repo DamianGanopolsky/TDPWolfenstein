@@ -1,10 +1,12 @@
 #include "Player_handler.h"
 #include <SDL2/SDL.h>
 #include <iostream>
+#include "ClientConnector/Sender.h"
 
 
 Player_handler::Player_handler(Player& player,Map_2d& MAP): 
 								player(player),map(MAP),moving(false),rotating(false) {
+	sender.start();
 }
 
 
@@ -95,6 +97,8 @@ bool Player_handler::handle() {
 						//std::cout << "Notifico al server que quiero cambiar a chain_cannon" << std::endl;
 						break;
 					case SDLK_ESCAPE:  
+						sender.stop();
+						sender.join();
 						quit=true;
 						break;   
 				}
