@@ -1,7 +1,6 @@
 #include "Panel_window.h"
 #include "Player.h"
 #include "Player_info.h"
-//#include "Event_handler.h"
 #include "Player_handler.h"
 #include "ClientConnector/Receiver.h"
 #include "ClientConnector/Sender.h"
@@ -31,7 +30,7 @@ int main() {
 	sender.start();
 	sender.send(4);
 	receiver.start();
-	//BlockingQueue<Client> blqueue;
+	BlockingQueue<std::vector<int>*> blockqueue;
 
 	Player player(100, 100, 90);
 	Map_2d map(player);

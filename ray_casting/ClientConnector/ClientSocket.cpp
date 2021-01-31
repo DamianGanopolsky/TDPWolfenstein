@@ -13,6 +13,6 @@ int ClientSocket::recv(){
 
 void ClientSocket::send(int msg){
 
-    std::cout << "Envio" << msg << std::endl;
+    //std::cout << "Envio" << msg << std::endl;
 
 }
