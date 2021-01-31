@@ -5,6 +5,7 @@
 #include "Player_handler.h"
 #include "ClientConnector/Receiver.h"
 #include "ClientConnector/Sender.h"
+#include "ClientConnector/ClientSocket.h"
 
 
 #include "SdlClasses/MusicSoundtrack.h"
@@ -20,9 +21,12 @@ int main() {
 	if(Mix_OpenAudio(44100,MIX_DEFAULT_FORMAT,2,1024)<0){
         std::cout << "eRROR:" << Mix_GetError() << std::endl;
     }
+
+	ClientSocket clientsock;
 	Receiver receiver;
-	//Sender sender;
-	//sender.start();
+	Sender sender(&clientsock);
+	sender.start();
+	sender.send(4);
 
 	receiver.start();
 	Player player(100, 100, 90);
@@ -41,8 +45,8 @@ int main() {
 		client.render();
 		quit=handler.handle();
 	}
-	//sender.stop();
-	//sender.join();
+	sender.stop();
+	sender.join();
 	receiver.stop();
 	receiver.join();
 	return 0;

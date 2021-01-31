@@ -6,7 +6,7 @@
 
 Player_handler::Player_handler(Player& player,Map_2d& MAP): 
 								player(player),map(MAP),moving(false),rotating(false) {
-	sender.start();
+	//sender.start();
 }
 
 
@@ -21,7 +21,7 @@ bool Player_handler::handle() {
 	while(SDL_PollEvent(&event)!=0){
 		state = SDL_GetKeyboardState(NULL);
 		if ((state[SDL_SCANCODE_W])&&(moving==false)) {
-			sender.send(1);
+			//sender.send(1);
 			//printf("W ON\n");
 			moving=true;
 		}
@@ -98,8 +98,8 @@ bool Player_handler::handle() {
 						//std::cout << "Notifico al server que quiero cambiar a chain_cannon" << std::endl;
 						break;
 					case SDLK_ESCAPE:  
-						sender.stop();
-						sender.join();
+						//sender.stop();
+						//sender.join();
 						quit=true;
 						break;   
 				}

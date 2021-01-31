@@ -73,7 +73,7 @@ void Socket::_connect(addrinfo* results) {
 		fd = temp;
 	}
 }
-
+//Para conectarme con el server
 Socket::Socket(const char* host, const char* service) {
 	addrinfo* results;
 	_setClientAddresses(host, service, &results);

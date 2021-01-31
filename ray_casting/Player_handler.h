@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "Map_2d.h"
 #include "ClientConnector/Sender.h"
+#include "ClientConnector/ClientSocket.h"
 
 class Player_handler {
 public:
@@ -20,7 +21,9 @@ private:
 	bool quit;
 	bool moving;
 	bool rotating;
-	Sender sender;
+
+	//ClientSocket& clisocket;
+	//Sender sender;
 	
 };
 

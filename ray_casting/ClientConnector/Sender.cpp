@@ -7,7 +7,7 @@ void Sender::stop(){
 }
 
 void Sender::send(int i){
-    std::cout << "Envio que se empezo a mover" << std::endl;
+    clientsocket->send(4);
 }
 
 

@@ -13,7 +13,7 @@ MusicSoundtrack::MusicSoundtrack(){
 
     Main_music_soundtrack=Mix_LoadMUS("../Music/FullMusicSoundtrack.mp3");
     //Pow=Mix_LoadMUS("../Music/05-P.O.W. E1M3.mp3");
-    Mix_VolumeMusic(50);
+    Mix_VolumeMusic(30);
 }
 
 void MusicSoundtrack::load_editor_soundtrack(){

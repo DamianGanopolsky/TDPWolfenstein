@@ -6,6 +6,7 @@
 #include "../../Common/thread.h"
 #include "../../Common/non_blocking_queue.h"
 #include "../../Common/socket.h"
+#include "ClientSocket.h"
 
 class Receiver: public Thread {
 public:

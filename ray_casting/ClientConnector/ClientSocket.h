@@ -6,8 +6,13 @@
 class ClientSocket {
 public:
     ClientSocket();
+    int recv();
+    void send(int msg);
+    
 
 private:
+    //Socket socket;
+    int asd;
 
 };
 
