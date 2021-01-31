@@ -3,8 +3,8 @@
 
 #include <cstdint>
 #include <string>
-#include "./../Common/socket.h"
-#include "./../Common/defs.h"
+#include "../../Common/socket.h"
+#include "../../Common/defs.h"
 
 class Notification {
    public:

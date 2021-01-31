@@ -1,15 +1,15 @@
 #ifndef PICKUPER_H_
 #define PICKUPER_H_
 
-#include "./player.h"
+#include "./player/player.h"
 
-#include "./../objects/items/bullets/bullet.h"
-#include "./../objects/items/healers/blood.h"
-#include "./../objects/items/healers/kit.h"
-#include "./../objects/items/healers/food.h"
-#include "./../objects/items/keys/key.h"
-#include "./../objects/items/treasures/treasure.h"
-#include "./../objects/items/weapons/weapon.h"
+#include "./objects/items/bullets/bullet.h"
+#include "./objects/items/healers/blood.h"
+#include "./objects/items/healers/kit.h"
+#include "./objects/items/healers/food.h"
+#include "./objects/items/keys/key.h"
+#include "./objects/items/treasures/treasure.h"
+#include "./objects/items/weapons/weapon.h"
 
 class PickUp {
  public:

@@ -1,7 +1,7 @@
 #ifndef DOOR_H_
 #define DOOR_H
 
-#include "./../object.h"
+#include "./../../object.h"
 class Door: public Object {
 public:
     Door();

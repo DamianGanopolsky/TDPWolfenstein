@@ -1,50 +1,15 @@
 #include "./accepter.h"
 #include "../Common/socket.h"
 
-void Accepter::_joinReaper() {
-	std::list<ClientHandler *>::iterator it = client_list.begin();	
-	while (it != client_list.end()){
-		if (!(*it)->isRunning()) {
-			(*it)->join();
-			delete *it;
-			it = client_list.erase(it);
-		} else {
-			++it;
-		}
-	}
-}
-
-void Accepter::_joinThreads() {
-	/*std::list<ClientHandler *>::iterator it;
-	for (it = client_list.begin(); it != client_list.end(); ++it) {
-		(*it)->join();
-		delete *it;
-		it = client_list.erase(it);
-	}*/
-	for (ClientHandler *c: client_list) {
-		c->join();
-		delete c;
-	}
-}
-
-Accepter::Accepter(const char* service) : socket(service), keep_accepting(true) {}
+Accepter::Accepter(const char* service) : socket(service), keep_accepting(false) {}
 
 Accepter::~Accepter() {}
 
 void Accepter::run() {
+	keep_accepting = true;
 	try {
-		while (keep_accepting){
-			try {
-				Socket peer = socket.accept();
-				ClientHandler *client = new ClientHandler(peer);
-				client_list.push_back(client);
-				client->start();
-			} catch (const std::exception& e) {
-				break;
-			}
-			_joinReaper();
-		}
-		_joinThreads();
+		Socket peer = socket.accept();
+		new_connections.push(&peer);
 	} catch (const std::exception& e) {
 		std::cerr << e.what() << std::endl;
 	}
