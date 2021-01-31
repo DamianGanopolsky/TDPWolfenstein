@@ -56,71 +56,66 @@ bool ItemChanged::send(const ConnectionId sender, const Socket& peer) {
         buffer[1] = item_type;
         peer.send((char *)buffer, 2);
         switch (item_type) {
-            case CLOSE_DOOR_ITM: { //  pos x, pos y (posicion de la puerta)
+            case CLOSE_DOOR_ITM:
+            case OPEN_DOOR_ITM: { //  pos x, pos y (posicion de la puerta)
                 this->pos_x = htole32(this->pos_x);
                 this->pos_y = htole32(this->pos_y);
                 peer.send((char *)&pos_x, sizeof(pos_x));
                 peer.send((char *)&pos_y, sizeof(pos_y));
                 break;
             }
-            case OPEN_DOOR_ITM: { // pos x, pos y (posicion de la puerta)
-                uint32_t buffer[8];
-                //buffer[0] = ;
-                //buffer[1] = ;
-                peer.send((char *)buffer, 9);
-                break;
-            }
-            case MEDICAL_KIT_TAKEN_ITM: { //id del jugador que lo agarra, pos x, pos y, vida del jugador
-                uint32_t buffer[1];
-                //buffer[0] = ;
-                //buffer[1] = ;
-                peer.send((char *)buffer, 2);
-                break;
-            }
-            case FOOD_TAKEN_ITM: { //id del jugador que lo agarra, pos x, pos y, vida del jugador
-                uint32_t buffer[1];
-                //buffer[0] = ;
-                //buffer[1] = ;
-                peer.send((char *)buffer, 2);
-                break;
-            }
+            case MEDICAL_KIT_TAKEN_ITM:
+            case FOOD_TAKEN_ITM:
             case BLOOD_TAKEN_ITM: { //id del jugador que lo agarra, pos x, pos y, vida del jugador
-                uint32_t buffer[2];
-                //buffer[0] = ;
-                //buffer[1] = ;
-                peer.send((char *)buffer, 3);
+                this->player_id = htole32(this->player_id);
+                peer.send((char *)&player_id, sizeof(player_id));
+                this->pos_x = htole32(this->pos_x);
+                this->pos_y = htole32(this->pos_y);
+                peer.send((char *)&pos_x, sizeof(pos_x));
+                peer.send((char *)&pos_y, sizeof(pos_y));
                 break;
             }
             case KEY_TAKEN_ITM: { // id del jugador que lo agarra, pos x, pos y, keys del jugador
-                uint32_t buffer[7];
-                //buffer[0] = ;
-                //buffer[1] = ;
-                peer.send((char *)buffer, 8);
+                this->player_id = htole32(this->player_id);
+                peer.send((char *)&player_id, sizeof(player_id));
+                this->pos_x = htole32(this->pos_x);
+                this->pos_y = htole32(this->pos_y);
+                peer.send((char *)&pos_x, sizeof(pos_x));
+                peer.send((char *)&pos_y, sizeof(pos_y));
+                peer.send((char *)&player_keys, sizeof(player_keys));
                 break;
             }
             case WEAPON_TAKEN_ITM: { // id del jugador que lo agarra, pos x, pos y
-                uint32_t buffer[3];
-                //buffer[0] = ;
-                //buffer[1] = ;
-                peer.send((char *)buffer, 4);
+                this->player_id = htole32(this->player_id);
+                peer.send((char *)&player_id, sizeof(player_id));
+                this->pos_x = htole32(this->pos_x);
+                this->pos_y = htole32(this->pos_y);
+                peer.send((char *)&pos_x, sizeof(pos_x));
+                peer.send((char *)&pos_y, sizeof(pos_y));
                 break;
             }
             case TREASURE_TAKEN_ITM: { //id del jugador que lo agarra, pos x, pos y, puntaje del jugador
-                uint32_t buffer[3];
-                //buffer[0] = ;
-                //buffer[1] = ;
-                peer.send((char *)buffer, 4);
+                this->player_id = htole32(this->player_id);
+                peer.send((char *)&player_id, sizeof(player_id));
+                this->pos_x = htole32(this->pos_x);
+                this->pos_y = htole32(this->pos_y);
+                peer.send((char *)&pos_x, sizeof(pos_x));
+                peer.send((char *)&pos_y, sizeof(pos_y));
+                peer.send((char *)&player_treasure, sizeof(player_treasure));
                 break;
             }
             case BULLETS_TAKEN_ITM: { //id del jugador que lo agarra, pos x, pos y, balas del jugador
-                uint32_t buffer[3];
-                //buffer[0] = ;
-                //buffer[1] = ;
-                peer.send((char *)buffer, 4);
+                this->player_id = htole32(this->player_id);
+                peer.send((char *)&player_id, sizeof(player_id));
+                this->pos_x = htole32(this->pos_x);
+                this->pos_y = htole32(this->pos_y);
+                peer.send((char *)&pos_x, sizeof(pos_x));
+                peer.send((char *)&pos_y, sizeof(pos_y));
+                peer.send((char *)&player_bullets, sizeof(player_bullets));
                 break;
             }
             default:
-                throw Exception("Unknown event type.");
+                throw Exception("Unknown item type.");
                 break;
             }
 

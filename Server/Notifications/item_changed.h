@@ -8,7 +8,7 @@
 class ItemChanged : public Notification {
     ItemOpcode item_type;
     const Id map;
-    const Id player_id;
+    Id player_id;
     uint32_t pos_x;
     uint32_t pos_y;
     int player_life;

@@ -1,50 +1,18 @@
 #include "player.h"
 
 
-Player::Player(PlayerInfo &info, PlayerPosition &pos, std::string& nickname, Id map) {
+Player::Player(PlayerInfo &info, PlayerPosition &pos, std::string& nickname) {
     this->info = info;
     this->pos = pos;
     this->nickname = nickname;
     this->alive = true;
-    this->map = map;
-}
-
-bool Player::_move(Id map, std::pair<int, int> next_pos) {
-    PlayerPosition pos = this->getPos();
-    bool changeCell = _changeCell(pos, next_pos);
-    if (changeCell || (next_pos.first == -1 && next_pos.second == -1)) {
-        int object_code = map[next_pos.first][next_pos.second];
-        Object obj = objMap.getObject(object_code);
-        Interact interactor;
-        bool not_blocking = interactor.interactWith(this, map, obj);
-        if (not_blocking) {
-            return true;
-        } else {
-            return false;
-        }
-    } else { //se mueve dentro de la misma celda
-        return true;
-    }
-}
-
-bool Player::_changeCell(PlayerPosition &pos, std::pair<int, int> &next_pos) {
-    int current_x = pos.getX();
-    int current_y = pos.getY();
-    int next_x = next_pos.first;
-    int next_y = next_pos.second;
-    float value_x = abs((current_x/POINTS_PER_CELL)-(next_x/POINTS_PER_CELL));
-    float value_y = abs((current_y/POINTS_PER_CELL)-(next_y/POINTS_PER_CELL));
-    if (value_x >= 1 || value_y >= 1) {
-        return true;
-    }
-    return false;
 }
 
 void Player::_die() {
     delete this->state;
     this->state = new Dead(this->player_id);
     this->alive = false;
-    Drop droper;
+    //Drop droper;
     /*if (droper.drop(this->info, this->info.getWeaponEquiped())) {
         //map.addItem(posx, posy, target->info.getWeaponEquiped());
     }
@@ -78,70 +46,83 @@ std::string Player::getNickname() {
     return this->nickname;
 }
 
-/*Race Player::getRace() {
-    return this->race;
-}*/
-
 bool Player::isAlive() {
     return this->alive;
 }
 
-Response Player::moveUp() {
-    std::pair<int, int> next_pos = this->getPos().getPosUp();
-    bool can_move = _move(this->map, next_pos);
-    if (can_move) {
-        this->getPos().moveUp();
-        return Response(true, SUCCESS_MSG);
+bool Player::isMoving() {
+    return this->moving;
+}
+
+bool Player::isShooting() {
+    return this->shooting;
+}
+Response Player::update(int iteration) {
+    //cosas de cooldown
+    if (this->moving) {
+        _updateMovement();
     }
-    return Response(false, CANT_MOVE_UP_ERROR_MSG);
-}
-
-Response Player::moveDown() {
-    std::pair<int, int> next_pos = this->getPos().getPosDown();
-    bool can_move = _move(this->map, next_pos);
-    if (can_move) {
-        this->getPos().moveDown();
-        return Response(true, SUCCESS_MSG);
+    if (this->rotating) {
+        _updateRotation();
     }
-    return Response(false, CANT_MOVE_DOWN_ERROR_MSG);
 }
 
-Response Player::moveRight() {
-    std::pair<int, int> next_pos = this->getPos().getPosRight();
-    bool can_move = _move(this->map, next_pos);
-    if (can_move) {
-        this->getPos().moveRight();
-        return Response(true, SUCCESS_MSG);
+Response Player::startMovingUp() {
+    if (!this->state->canMove()) {
+        return Response(false, CANT_MOVE_UP_ERROR_MSG);
     }
-    return Response(false, CANT_MOVE_RIGHT_ERROR_MSG);
-}
-
-Response Player::moveLeft() {
-    std::pair<int, int> next_pos = this->getPos().getPosLeft();
-    bool can_move = _move(this->map, next_pos);
-    if (can_move) {
-        this->getPos().moveLeft();
-        return Response(true, SUCCESS_MSG);
-    }
-    return Response(false, CANT_MOVE_LEFT_ERROR_MSG);
-}
-
-Response Player::stopMoving() {
-    
-}
-
-Response Player::rotateLeft() {
-    this->getPos().rotateLeft();
+    this->pos.changeDirection(UP_DIR);
+    this->moving = true;
     return Response(true, SUCCESS_MSG);
 }
 
-Response Player::rotateRight() {
-    this->getPos().rotateRight();
+Response Player::startMovingDown() {
+    if (!this->state->canMove()) {
+        return Response(false, CANT_MOVE_DOWN_ERROR_MSG);
+    }
+    this->pos.changeDirection(DOWN_DIR);
+    this->moving = true;
+    return Response(true, SUCCESS_MSG);
+}
+
+Response Player::startMovingRight() {
+    if (!this->state->canMove()) {
+        return Response(false, CANT_MOVE_RIGHT_ERROR_MSG);
+    }
+    this->pos.changeDirection(RIGHT_DIR);
+    this->moving = true;
+    return Response(true, SUCCESS_MSG);
+}
+
+Response Player::startMovingLeft() {
+    if (!this->state->canMove()) {
+        return Response(false, CANT_MOVE_LEFT_ERROR_MSG);
+    }
+    this->pos.changeDirection(LEFT_DIR);
+    this->moving = true;
+    return Response(true, SUCCESS_MSG);
+}
+
+Response Player::stopMoving() {
+    this->moving = false;
+    return Response(true, SUCCESS_MSG);
+}
+
+Response Player::startRotatingLeft() {
+    this->pos.changeRotation(LEFT_ROTATION_DIR);
+    this->rotating = true;
+    return Response(true, SUCCESS_MSG);
+}
+
+Response Player::startRotatingRight() {
+    this->pos.changeRotation(RIGHT_ROTATION_DIR);
+    this->rotating = true;
     return Response(true, SUCCESS_MSG);
 }
 
 Response Player::stopRotating() {
-    
+    this->rotating = false;
+    return Response(true, SUCCESS_MSG);
 }
 
 Response Player::useWeapon(Id id, Id id_target, Player* target, int& damage) {
@@ -174,6 +155,7 @@ Response Player::resurrect() {
     }
     delete this->state;
     this->state = new Alive(this->player_id);
+    return Response(true, SUCCESS_MSG);
     //poner todos los valores iniciales de vida, balas, etc
 }
 

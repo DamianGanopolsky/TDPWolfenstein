@@ -9,7 +9,31 @@
 #define DISPLACEMENT 5
 #define PI 3.14159265
 
+//player position direction
+enum Direction {
+    UP_DIR = 0,
+    DOWN_DIR,
+    LEFT_DIR,
+    RIGHT_DIR,
+};
+//player position rotation
+enum Rotation {
+    LEFT_ROTATION_DIR = 0,
+    RIGHT_ROTATION_DIR
+};
+
 #define SUCCESS_MSG "Success."
+//picked up items success
+#define ITEM_PICKED_UP_MSG "Success: Item picked up."
+#define BULLETS_PICKED_UP_MSG "Success: Bullets picked up."
+#define FOOD_PICKED_UP_MSG "Success: Food picked up."
+#define KIT_PICKED_UP_MSG "Success: Kit picked up."
+#define BLOOD_PICKED_UP_MSG "Success: Blood picked up."
+#define KEY_PICKED_UP_MSG "Success: Key picked up."
+#define TREASURE_PICKED_UP_MSG "Success: Treasure picked up."
+#define WEAPON_PICKED_UP_MSG "Success: Weapon picked up."
+#define NO_ITEM_PICKED_UP_MSG "Success: No item picked up."
+//player death succes
 #define PLAYER_DIED_MSG "Success: Player died."
 #define CANT_ATTACK_ITSELF_ERROR_MSG "ERROR: Player can't attack itself."
 #define CANT_BE_ATTACKED_ERROR_MSG "ERROR: Player can't attack other player."

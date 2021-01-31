@@ -17,11 +17,11 @@
 class Interact {
  public:
   Interact();
-  bool interactWith(Player &player, int **map, BlockingObject &blocker);
-  bool interactWith(Player &player, int **map, NonBlockingObject &blocker);
-  bool interactWith(Player &player, int **map, SecretPassage &SecretPassage);
-  bool interactWith(Player &player, int **map, Item &item);
-  bool interactWith(Player &player, int **map, Object &object);
+  Response interactWith(Player &player, int **map, BlockingObject &blocker);
+  Response interactWith(Player &player, int **map, NonBlockingObject &blocker);
+  Response interactWith(Player &player, int **map, SecretPassage &SecretPassage);
+  Response interactWith(Player &player, int **map, Item &item);
+  Response interactWith(Player &player, int **map, Object &object);
 };
 
 # endif    // INTERACTOR_H_

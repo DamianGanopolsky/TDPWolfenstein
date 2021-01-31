@@ -3,13 +3,15 @@
 
 #include <utility>
 #include <cmath>
-#include "config_player.h"
+#include "../constants/config_player.h"
 
 class PlayerPosition {
  private:
     int x;
     int y;
     float vision_angle;
+    Direction direction;
+    Rotation rotation;
     int width;
     int height;
     void setInitialPos(int inicial_x, int inicial_y);
@@ -22,10 +24,11 @@ class PlayerPosition {
     void moveRight();
     void rotateLeft();
     void rotateRight();
-    std::pair<int, int> getPosUp();
-    std::pair<int, int> getPosLeft();
-    std::pair<int, int> getPosDown();
-    std::pair<int, int> getPosRight();
+    std::pair<int, int> getNextPos(Direction direction);
+    void changeDirection(Direction direction);
+    void changeRotation(Rotation rotation);
+    Direction getDirection();
+    Rotation getRotation();
     int getX();
     int getY();
     float getAngle();

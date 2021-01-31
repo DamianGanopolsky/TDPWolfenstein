@@ -14,19 +14,19 @@
 class PickUp {
  public:
     PickUp();
-    bool pickUp(PlayerInfo &info, Item &item);
+    Response pickUp(PlayerInfo &info, Item &item);
     // bullets:
-    bool pickUp(PlayerInfo &info, Bullet &item);
+    Response pickUp(PlayerInfo &info, Bullet &item);
     // healers:
-    bool pickUp(PlayerInfo &info, Food &item);
-    bool pickUp(PlayerInfo &info, Kit &item);
-    bool pickUp(PlayerInfo &info, Blood &item);
+    Response pickUp(PlayerInfo &info, Food &item);
+    Response pickUp(PlayerInfo &info, Kit &item);
+    Response pickUp(PlayerInfo &info, Blood &item);
     // key:
-    bool pickUp(PlayerInfo &info, Key &item);
+    Response pickUp(PlayerInfo &info, Key &item);
     // treasures:
-    bool pickUp(PlayerInfo &info, Treasure &item);
+    Response pickUp(PlayerInfo &info, Treasure &item);
     // weapons:
-    bool pickUp(PlayerInfo &info, Weapon &item);
+    Response pickUp(PlayerInfo &info, Weapon &item);
 
 };
 

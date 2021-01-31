@@ -60,7 +60,7 @@ bool Event::send(const ConnectionId sender, const Socket& peer) {
                 peer.send((char *)&is_shoting, sizeof(is_shoting));
                 break;
             }
-            case (NEW_PLAYER_EV | RESURRECT_EV) : { //id del jugador, id del mapa a abrir, coordenada x, coordenada y, angulo del jugador,vida , las vidas, puntaje, balas
+            case (NEW_PLAYER_EV) || (RESURRECT_EV) : { //id del jugador, id del mapa a abrir, coordenada x, coordenada y, angulo del jugador,vida , las vidas, puntaje, balas
                 this->player_id = htole32(this->player_id);
                 peer.send((char *)&player_id, sizeof(player_id));
                 this->map = htole32(this->map);

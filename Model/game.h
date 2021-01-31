@@ -9,9 +9,13 @@
 #include "../Notifications/item_changed.h"
 #include "../Notifications/message.h"
 #include "../Common/defs.h"
-#include "../Model/player/player.h"
-#include "../Model/objects/items/weapons/weapon.h"
-#include "./clients_connected.h"
+#include "../Server/clients_connected.h"
+#include "./map/object_map.h"
+#include "./constants/const_object_map.h"
+#include "./player/player.h"
+#include "./objects/items/weapons/weapon.h"
+#include "./interactor.h"
+#include "./droper.h"
 
 class Game {
     ConnectionId new_connection_id;
@@ -19,9 +23,14 @@ class Game {
     std::unordered_map<std::string, ConnectionId> players_by_name;
     ClientsConnected& clients_connected;
     Id map_id;
+    int** map;
+    ObjectMap objMap;
 
     void _notifyEvent(const Id id, const Response& response, EventOpcode event_type);
     void _notifyItemChanged(const Id id, const Response& response, ItemOpcode item_type);
+    void _notifyMovementEvent(const Id id, const Response& response);
+    Response _canMove(int** map, Player& player, std::pair<int, int> next_pos);
+    bool _changeCell(PlayerPosition &pos, std::pair<int, int> &next_pos);
 
     public:
         Game(ClientsConnected& clients_connected, Id map_id);

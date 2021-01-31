@@ -9,44 +9,44 @@
 #include "./def.h"
 #include "../response.h"
 #include "../constants/config_player.h"
-#include "../constants/const_object_map.h"
-#include "../Model/map/object_map.h"
-#include "./interactor.h"
-#include "./droper.h"
+//#include "./interactor.h"
+//#include "./droper.h"
 
 class Player {
   Id player_id;
   PlayerPosition pos;
   PlayerInfo info;
   State* state;
-  ObjectMap objMap; 
   std::string nickname;
-  Id map;
-  //Race race;
   bool alive;
-  bool _move(Id map, std::pair<int, int> next_pos);
-  bool _changeCell(PlayerPosition &pos, std::pair<int, int> &next_pos);
+  bool moving;
+  bool rotating;
+  bool shooting;
   void _die();
 
   public:
-    Player(PlayerInfo &info, PlayerPosition &pos, std::string& nickname, Id map);
+    Player(PlayerInfo &info, PlayerPosition &pos, std::string& nickname);
     PlayerPosition getPos();
     PlayerInfo getInfo();
     State* getState();
     std::string getNickname(); 
     //Race getRace();
     bool isAlive();
+    bool isMoving();
+    bool isRotating();
+    bool isShooting();
+    Response update(int iteration);
     Response useWeapon(Id id, Id id_target, Player* target, int& damage);
     Response receiveAttack(int& damage);
     Response resurrect();
     Response changeWeapon(Weapon& weapon);
-    Response moveUp();
-    Response moveDown();
-    Response moveLeft();
-    Response moveRight();
+    Response startMovingUp();
+    Response startMovingDown();
+    Response startMovingLeft();
+    Response startMovingRight();
     Response stopMoving();
-    Response rotateLeft();
-    Response rotateRight();
+    Response startRotatingLeft();
+    Response startRotatingRight();
     Response stopRotating();
 };
 

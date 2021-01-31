@@ -7,10 +7,62 @@ Game::Game(ClientsConnected& clients_connected, Id map_id) :
 Game::~Game() {}
 
 //_getPlayerPosition deberia chequear si el yaml establece la posicion en la que el player deberia aparecer o no.
-void Game::_notifyEvent(const Id id, const Response& response, EventOpcode event_type) {
+
+void Game::_notifyMovementEvent(const Id id, const Response& response) {
     Notification* notification;
+    Player& player = this->players.at(id);
     if (response.success) {
-        notification = new Event(map_id, this->players.at(id), event_type);
+        notification = new Event(map_id, MOVEMENT_EV, id, player.getPos().getX(),
+                                 player.getPos().getY(), player.getPos().getAngle(),
+                                 player.isMoving(), player.isShooting());
+        this->clients_connected.sendEventToAll(notification);
+    } else {
+        notification = new Message(ERROR_MSSG, response.message);
+        this->clients_connected.notifyAll(notification);
+    } 
+}
+//_notifyEvent()
+void Game::_notifyItemChanged(const Id id, const Response& response, ItemOpcode item_type) {
+    Notification* notification;
+    Player& player = this->players.at(id);
+    if (response.success) {
+        switch (item_type) {
+            case CLOSE_DOOR_ITM:
+            case OPEN_DOOR_ITM:
+            case WEAPON_TAKEN_ITM:
+                notification = new ItemChanged(map_id, item_type, id,
+                                player.getPos().getX(), player.getPos().getY());
+                break;
+            case MEDICAL_KIT_TAKEN_ITM:
+            case FOOD_TAKEN_ITM:
+            case BLOOD_TAKEN_ITM: { 
+                notification = new ItemChanged(map_id, item_type, id,
+                                player.getPos().getX(), player.getPos().getY(),
+                                player.getInfo().getLife());
+                break;
+            }
+            case KEY_TAKEN_ITM: { 
+                notification = new ItemChanged(map_id, item_type, id,
+                                player.getPos().getX(), player.getPos().getY(),
+                                player.getInfo().getKey());
+                break;
+            }
+            case TREASURE_TAKEN_ITM: { 
+                notification = new ItemChanged(map_id, item_type, id,
+                                player.getPos().getX(), player.getPos().getY(),
+                                player.getInfo().getTreasure());
+                break;
+            }
+            case BULLETS_TAKEN_ITM: { 
+                notification = new ItemChanged(map_id, item_type, id,
+                                player.getPos().getX(), player.getPos().getY(),
+                                player.getInfo().getNumBullets());
+                break;
+            }
+            default:
+                throw Exception("Unknown item type.");
+                break;
+        }
         this->clients_connected.sendEventToAll(notification);
     } else {
         notification = new Message(ERROR_MSSG, response.message);
@@ -18,15 +70,31 @@ void Game::_notifyEvent(const Id id, const Response& response, EventOpcode event
     } 
 }
 
-void Game::_notifyItemChanged(const Id id, const Response& response, ItemOpcode item_type) {
-    Notification* notification;
-    if (response.success) {
-        notification = new ItemChanged(map_id, this->players.at(id), item_type);
-        this->clients_connected.sendEventToAll(notification);
-    } else {
-        notification = new Message(ERROR_MSSG, response.message);
-        this->clients_connected.notifyAll(notification);
-    } 
+Response Game::_canMove(int** map, Player& player, std::pair<int, int> next_pos) {
+    PlayerPosition pos = player.getPos();
+    bool changeCell = _changeCell(pos, next_pos);
+    if (changeCell) {
+        int object_code = map[next_pos.first][next_pos.second];
+        Object obj = objMap.getObject(object_code);
+        Interact interactor;
+        Response not_blocking = interactor.interactWith(player, map, obj);
+        return not_blocking;
+    } else { //se mueve dentro de la misma celda
+        return Response(true, NO_ITEM_PICKED_UP_MSG);
+    }
+}
+
+bool Game::_changeCell(PlayerPosition &pos, std::pair<int, int> &next_pos) {
+    int current_x = pos.getX();
+    int current_y = pos.getY();
+    int next_x = next_pos.first;
+    int next_y = next_pos.second;
+    float value_x = abs((current_x/POINTS_PER_CELL)-(next_x/POINTS_PER_CELL));
+    float value_y = abs((current_y/POINTS_PER_CELL)-(next_y/POINTS_PER_CELL));
+    if (value_x >= 1 || value_y >= 1) {
+        return true;
+    }
+    return false;
 }
 
 const ConnectionId Game::newPlayer() {
@@ -43,6 +111,7 @@ const ConnectionId Game::newPlayer() {
                 std::forward_as_tuple(/*poner parametros del constructor del player*/));
     //de alguna manera me tienen que pasar el nickname
     this->players_by_name[nickname] = new_player_id;
+    _notifyEvent(new_player_id, Response(true, SUCCESS_MSG), NEW_PLAYER_EV);
     //this->clients_connected.sendEventToAll(new Event()?????????);
     return new_player_id;
 
@@ -54,6 +123,7 @@ void Game::deletePlayer(const ConnectionId id) {
     }
     Player& player = players.at(id);
     this->players_by_name.erase(player.getNickname());
+    _notifyEvent(id, Response(true, SUCCESS_MSG), DELETE_PLAYER_EV);
     //this->clients_connected.sendEventToAll(new Event()?????????);
     this->players.erase(id);
 }
@@ -64,7 +134,16 @@ void Game::updatePlayers(const int iteration) {
     while (player_it != this->players.end()) {
         ConnectionId id = player_it->first;
         Player& player = player_it->second;
-        _notifyEvent(id, player.update(iteration), MOVEMENT_EV);
+        std::pair<int, int> next_pos = player.getPos().getNextPos(player.getPos().getDirection());
+        Response can_move = _canMove(map, player, next_pos);
+        if (can_move.success && ((can_move.message) !=  NO_ITEM_PICKED_UP_MSG)) {
+            _notifyMovementEvent(id, player.update(iteration));
+            _notifyItemChanged(id, can_move, _getItemOpcode(can_move.message));
+        } else if (can_move.success) {
+            _notifyMovementEvent(id, player.update(iteration));
+        } else {
+            _notifyMovementEvent(id, Response(false, CANT_MOVE_UP_ERROR_MSG));
+        }
         ++player_it;
     }
 }
@@ -73,42 +152,42 @@ void Game::updateOpenDoorsLifetime(const int iteration) {}
 
 void Game::startMovingUp(const ConnectionId id) {
     Player& player = this->players.at(id);
-    _notifyEvent(id, player.moveUp(), MOVEMENT_EV);
+    _notifyResponse(id, player.startMovingUp());
 }
 
 void Game::startMovingDown(const ConnectionId id) {
     Player& player = this->players.at(id);
-    _notifyEvent(id, player.moveDown(), MOVEMENT_EV);
+    _notifyResponse(id, player.startMovingDown());
 }
 
 void Game::startMovingLeft(const ConnectionId id) {
     Player& player = this->players.at(id);
-    _notifyEvent(id, player.moveLeft(), MOVEMENT_EV);
+    _notifyResponse(id, player.startMovingLeft());
 }
 
 void Game::startMovingRight(const ConnectionId id) {
     Player& player = this->players.at(id);
-    _notifyEvent(id, player.moveRight(), MOVEMENT_EV);
+    _notifyResponse(id, player.startMovingRight());
 }
 
 void Game::stopMoving(const ConnectionId id) {
     Player& player = this->players.at(id);
-    _notifyEvent(id, player.stopMoving(), MOVEMENT_EV);
+    _notifyResponse(id, player.stopMoving());
 }
 
 void Game::startRotatingLeft(const ConnectionId id) {
     Player& player = this->players.at(id);
-    _notifyEvent(id, player.rotateLeft(), MOVEMENT_EV);
+    _notifyResponse(id, player.startRotatingLeft());
 }
 
 void Game::startRotatingRight(const ConnectionId id) {
     Player& player = this->players.at(id);
-    _notifyEvent(id, player.rotateRight(), MOVEMENT_EV);
+    _notifyResponse(id, player.startRotatingRight());
 }
 
 void Game::stopRotating(const ConnectionId id) {
     Player& player = this->players.at(id);
-    _notifyEvent(id, player.stopRotating(), MOVEMENT_EV);
+    _notifyResponse(id, player.stopRotating());
 }
 
 void Game::openDoor(const ConnectionId id) {

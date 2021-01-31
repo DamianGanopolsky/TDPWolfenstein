@@ -21,7 +21,34 @@ PlayerPosition::PlayerPosition(int inicial_x, int inicial_y, int width, int heig
     this->setInitialPos(inicial_x, inicial_y);
 }
 
-std::pair<int, int> PlayerPosition::getPosUp() {
+std::pair<int, int> PlayerPosition::getNextPos(Direction direction) {
+    switch (direction) {
+    case UP_DIR: {
+        int new_x = (this->x + (int) (DISPLACEMENT * cos(this->vision_angle * PI / 180.0)));
+	    int new_y = (this->y - (int) (DISPLACEMENT * sin(this->vision_angle * PI / 180.0)));
+        return std::pair<int, int> (new_x, new_y);
+    }
+    case DOWN_DIR: {
+        int new_x = (this->x - (int) (DISPLACEMENT * cos(this->vision_angle * PI / 180.0)));
+	    int new_y = (this->y + (int) (DISPLACEMENT * sin(this->vision_angle * PI / 180.0)));
+        return std::pair<int, int> (new_x, new_y);
+    }
+    case LEFT_DIR: {
+        int new_x = (this->x - (int) (DISPLACEMENT * sin(this->vision_angle * PI / 180.0)));
+	    int new_y = (this->y - (int) (DISPLACEMENT * cos(this->vision_angle * PI / 180.0)));
+        return std::pair<int, int> (new_x, new_y);
+    }
+    case RIGHT_DIR: {
+        int new_x = (this->x + (int) (DISPLACEMENT * sin(this->vision_angle * PI / 180.0)));
+	    int new_y = (this->y + (int) (DISPLACEMENT * cos(this->vision_angle * PI / 180.0)));
+        return std::pair<int, int> (new_x, new_y);
+    }
+    default:
+        break;
+    }
+}
+
+/*std::pair<int, int> PlayerPosition::getPosUp() {
     //int new_y = (this->y - 1 < 0) ? 0 : (this->y - 1);
     int new_x = (this->x + (int) (DISPLACEMENT * cos(this->vision_angle * PI / 180.0)));
 	int new_y = (this->y - (int) (DISPLACEMENT * sin(this->vision_angle * PI / 180.0)));
@@ -47,7 +74,7 @@ std::pair<int, int> PlayerPosition::getPosRight() {
     int new_x = (this->x + (int) (DISPLACEMENT * sin(this->vision_angle * PI / 180.0)));
 	int new_y = (this->y + (int) (DISPLACEMENT * cos(this->vision_angle * PI / 180.0)));
     return std::pair<int, int> (new_x, new_y);
-}
+}*/
 
 void PlayerPosition::moveUp() {
     //this->y = (this->y - 1 < 0) ? 0 : (this->y - 1);
@@ -82,9 +109,27 @@ void PlayerPosition::rotateRight() {
 	float new_vision_angle = this->vision_angle - ROTATION_SIZE;
 	this->vision_angle = new_vision_angle < 0.0 ? 360.0 + new_vision_angle : new_vision_angle;
 }
+
+void PlayerPosition::changeDirection(Direction direction) {
+    this->direction = direction;
+}
+
+void PlayerPosition::changeRotation(Rotation rotation) {
+    this->rotation = rotation;
+}
+
+Direction PlayerPosition::getDirection() {
+    return this->direction;
+}
+
+Rotation PlayerPosition::getRotation() {
+    return this->rotation;
+}
+
 int PlayerPosition::getX() {
     return this->x;
 }
+
 int PlayerPosition::getY() {
     return this->y;
 }

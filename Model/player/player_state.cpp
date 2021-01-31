@@ -14,6 +14,9 @@ const bool Alive::canBeAttacked() const {
 const bool Alive::resurrect() const {
     return false;
 }
+const bool Alive::canMove() const {
+    return true;
+}
 
 Dead::Dead(Id player_id) : State(player_id) {}
 Dead::~Dead() {}
@@ -26,4 +29,7 @@ const bool Dead::canBeAttacked() const {
 }
 const bool Dead::resurrect() const {
     return true;
+}
+const bool Dead::canMove() const {
+    return false;
 }

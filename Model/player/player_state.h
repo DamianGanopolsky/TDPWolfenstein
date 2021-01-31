@@ -22,6 +22,7 @@ class State {
     virtual const bool attack() const = 0;
     virtual const bool canBeAttacked() const = 0;
     virtual const bool resurrect() const = 0;
+    virtual const bool canMove() const = 0;
 };
 
 class Alive : public State {
@@ -37,6 +38,7 @@ class Alive : public State {
     virtual const bool attack() const override;
     virtual const bool canBeAttacked() const override;
     virtual const bool resurrect() const override;
+    virtual const bool canMove() const override;
 
 };
 
@@ -53,6 +55,7 @@ class Dead : public State {
     virtual const bool attack() const override;
     virtual const bool canBeAttacked() const override;
     virtual const bool resurrect() const override;
+    virtual const bool canMove() const override;
 
 };
 #endif
