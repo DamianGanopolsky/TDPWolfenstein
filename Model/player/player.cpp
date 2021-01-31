@@ -1,12 +1,8 @@
 #include "player.h"
 
 
-Player::Player(PlayerInfo &info, PlayerPosition &pos, std::string& nickname) {
-    this->info = info;
-    this->pos = pos;
-    this->nickname = nickname;
-    this->alive = true;
-}
+Player::Player(PlayerInfo &info, PlayerPosition &pos, std::string& nickname) :  
+                info(info), pos(pos), nickname(nickname), alive(true) {}
 
 void Player::_die() {
     delete this->state;

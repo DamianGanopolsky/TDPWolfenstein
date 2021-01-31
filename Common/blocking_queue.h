@@ -14,17 +14,46 @@ class BlockingQueue {
     bool permanently_closed;
 
     public:
-        BlockingQueue();
-        ~BlockingQueue();
+        BlockingQueue(): permanently_closed(false) {}
+        ~BlockingQueue(){
+            while (!queue.empty()) {
+                T t = queue.front();
+                queue.pop();
+                delete t;
+            }
+        }
         
         BlockingQueue(const BlockingQueue&) = delete;
         BlockingQueue& operator=(const BlockingQueue&) = delete;
         BlockingQueue(BlockingQueue&& other) = delete;
         BlockingQueue& operator=(BlockingQueue&& other) = delete;
         
-        void push(T t);
-        T pop();
-        void close();
+        void push(T t) {
+            std::unique_lock<std::mutex> l(m);
+            queue.push(t);
+            cv.notify_all();
+        }
+
+    T pop() {
+        std::unique_lock<std::mutex> l(m);
+        while (queue.empty()) {
+            if (permanently_closed) {
+                return NULL;
+            }
+
+            cv.wait(l);
+        }
+
+        T t = queue.front();
+        queue.pop();
+        return t;
+    }
+
+    void close() {
+        std::unique_lock<std::mutex> l(m);
+        permanently_closed = true;
+        cv.notify_all();
+    }
         
 };
 

@@ -9,8 +9,6 @@
 #include "./def.h"
 #include "../response.h"
 #include "../constants/config_player.h"
-//#include "./interactor.h"
-//#include "./droper.h"
 
 class Player {
   Id player_id;
@@ -30,7 +28,6 @@ class Player {
     PlayerInfo getInfo();
     State* getState();
     std::string getNickname(); 
-    //Race getRace();
     bool isAlive();
     bool isMoving();
     bool isRotating();

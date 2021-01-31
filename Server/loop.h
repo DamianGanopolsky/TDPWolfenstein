@@ -2,7 +2,7 @@
 #define LOOP_H
 
 #include "../Common/thread.h"
-#include "./game.h"
+#include "../Model/game.h"
 #include "./clients_connected.h"
 
 class Loop : public Thread {
@@ -10,7 +10,9 @@ class Loop : public Thread {
     ClientsConnected clients_connected;
     NonBlockingQueue<Command*> commands;
     NonBlockingQueue<ConnectionId*> finished_connections;
+    NonBlockingQueue<Socket *> new_connections;
     std::atomic<bool> is_running;
+    void _newConnections();
 
     public:
         Loop();

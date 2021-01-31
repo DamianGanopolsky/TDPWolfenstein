@@ -22,6 +22,7 @@ void Game::_notifyMovementEvent(const Id id, const Response& response) {
     } 
 }
 //_notifyEvent()
+//_notifyResponse()
 void Game::_notifyItemChanged(const Id id, const Response& response, ItemOpcode item_type) {
     Notification* notification;
     Player& player = this->players.at(id);
@@ -110,7 +111,7 @@ const ConnectionId Game::newPlayer() {
                 std::forward_as_tuple(new_player_id),
                 std::forward_as_tuple(/*poner parametros del constructor del player*/));
     //de alguna manera me tienen que pasar el nickname
-    this->players_by_name[nickname] = new_player_id;
+    //this->players_by_name[nickname] = new_player_id;
     _notifyEvent(new_player_id, Response(true, SUCCESS_MSG), NEW_PLAYER_EV);
     //this->clients_connected.sendEventToAll(new Event()?????????);
     return new_player_id;

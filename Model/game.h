@@ -5,9 +5,9 @@
 #include <string>
 #include <algorithm>
 
-#include "../Notifications/event.h"
-#include "../Notifications/item_changed.h"
-#include "../Notifications/message.h"
+#include "../Server/Notifications/event.h"
+#include "../Server/Notifications/item_changed.h"
+#include "../Server/Notifications/message.h"
 #include "../Common/defs.h"
 #include "../Server/clients_connected.h"
 #include "./map/object_map.h"

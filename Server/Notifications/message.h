@@ -3,7 +3,7 @@
 
 #include <string>
 #include "notification.h"
-#include "../Common/protocol.h"
+#include "../../Common/protocol.h"
 
 class Message : public Notification {
     MessageOpcode opcode;

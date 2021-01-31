@@ -7,9 +7,18 @@ Loop::Loop() : commands(), finished_connections(),
 
 Loop::~Loop() {}
 
+void Loop::_newConnections() {
+    Socket* peer = nullptr;
+    while ((peer = this->new_connections.pop())) {
+        ConnectionId id = this->game.newPlayer();
+        clients_connected.add(id, *peer);
+        delete peer;
+    } 
+}
+
 void Loop::run() {
     while (is_running) {
-        // procesar conexiones nuevas
+        _newConnections();
         // procesar comandos / requests de los clientes
         // avanzar las partidas going on
         // chequear conexiones que terminaron

@@ -6,15 +6,16 @@
 #include <iostream>
 #include "../Common/socket.h"
 #include "../Common/thread.h"
+#include "../Common/non_blocking_queue.h"
 #include "./clientHandler.h"
 
 class Accepter: public Thread {
 	Socket socket;
 	std::atomic<bool> keep_accepting;
-	std::list<ClientHandler *> client_list;
+	NonBlockingQueue<Socket *> new_connections;
 
-	void _joinReaper();
-	void _joinThreads();
+	//void _joinReaper();
+	//sssssvoid _joinThreads();
 
 	public:
 		explicit Accepter(const char* service);

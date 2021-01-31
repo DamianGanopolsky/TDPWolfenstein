@@ -3,7 +3,7 @@
 ClientHandler::ClientHandler(Socket& socket, const ConnectionId id, 
 						NonBlockingQueue<ConnectionId*>& finished_connections,
                         NonBlockingQueue<Command*>& commands) : 
-						peer(std::move(socket)),
+						peer(std::move(socket)), is_running(false),
 						finished_connections(finished_connections),
                         commands(commands), id(id), 
 						dead_threads(0) {}
@@ -80,10 +80,9 @@ void ClientHandler::_receive() {
 }
 
 void ClientHandler::run() {
-    while(is_running) {
-        send = std::thread(&ClientHandler::_send, this);
-        receive = std::thread(&ClientHandler::_receive, this);
-    }
+    is_running =true;
+    send = std::thread(&ClientHandler::_send, this);
+    receive = std::thread(&ClientHandler::_receive, this);
 }
 
 bool ClientHandler::isRunning() const{

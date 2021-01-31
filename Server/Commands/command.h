@@ -1,10 +1,10 @@
 #ifndef COMMAND_H
 #define COMMAND_H
 
-#include "../Common/defs.h"
-#include "../Common/socket.h"
-#include "../game.h"
-#include "../Common/protocol.h"
+#include "../../Common/defs.h"
+#include "../../Common/socket.h"
+#include "../../Model/game.h"
+#include "../../Common/protocol.h"
 
 #include "./command_move_up.h"
 #include "./command_move_down.h"

@@ -12,9 +12,9 @@
 #include "../Common/blocking_queue.h"
 #include "../Common/non_blocking_queue.h"
 #include "../Common/defs.h"
-#include "../Commands/command.h"
-#include "../Notifications/notification.h"
-#include "../Notifications/message.h"
+#include "./Commands/command.h"
+#include "./Notifications/notification.h"
+#include "./Notifications/message.h"
 
 class ClientHandler : public Thread {
 	Socket peer;
