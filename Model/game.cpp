@@ -30,7 +30,6 @@ void Game::_notifyResponse(const Id id, const Response& response) {
     }
 }
 //_notifyEvent()
-//_notifyResponse()
 void Game::_notifyItemChanged(const Id id, const Response& response, ItemOpcode item_type) {
     Notification* notification;
     Player& player = this->players.at(id);

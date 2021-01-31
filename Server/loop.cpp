@@ -2,7 +2,7 @@
 
 Loop::Loop() : commands(), finished_connections(), 
                 clients_connected(commands, finished_connections),
-                game(clients_connected),
+                game(clients_connected,map),
                 is_running(true) {}
 
 Loop::~Loop() {}
@@ -43,8 +43,6 @@ void Loop::run() {
         _newCommands();
         game.updatePlayers(it);
         _finishedConnections();
-        // avanzar las partidas going on
-        // chequear conexiones que terminaron
 
         // tick rate
         // 30 tps

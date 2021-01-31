@@ -12,6 +12,7 @@ class Loop : public Thread {
     NonBlockingQueue<ConnectionId*> finished_connections;
     NonBlockingQueue<Socket *> new_connections;
     std::atomic<bool> is_running;
+    Id map;
     void _newConnections();
     void _newCommands();
     void _finishedConnections();

@@ -1,7 +1,7 @@
 #ifndef COMMAND_STOP_ROTATING_H
 #define COMMAND_STOP_ROTATING_H
 
-class Command;
+#include "./command.h"
 
 class CommandStopRotating : public Command {
     public:
