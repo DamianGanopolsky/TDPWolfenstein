@@ -5,8 +5,8 @@
 #include <unistd.h>
 
 
-#define ROTATION_SIZE 3.0
-#define DISPLACEMENT 5
+#define ROTATION_SIZE 5.0
+#define DISPLACEMENT 8
 #define PI 3.14159265
 
 Player::Player(int pos_x, int pos_y, float angle) :

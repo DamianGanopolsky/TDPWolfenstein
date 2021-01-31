@@ -14,6 +14,8 @@ file(GLOB ray_casting_dep_2 "ray_casting/panel_status/*.cpp")
 
 file(GLOB ray_casting_dep_4 "ray_casting/Yaml/*.cpp")
 
+file(GLOB ray_casting_dep_5 "ray_casting/ClientConnector/*.cpp")
+
 
 
 add_executable(cliente Client/client_main.cpp Client/SdlSound.cpp Client/SdlMusic.cpp ../Editor/SdlClasses/SdlWindow.cpp)
@@ -22,7 +24,7 @@ add_executable(editor Editor/editor_main.cpp Editor/SdlClasses/SdlWindow.cpp Edi
 
 add_executable(servidor prueba_servidor.cpp)
 
-add_executable(panel ${ray_casting_dep_3} ${ray_casting_dep} ${ray_casting_dep_2} ${ray_casting_dep_4} ) 
+add_executable(panel ${ray_casting_dep_3} ${ray_casting_dep} ${ray_casting_dep_2} ${ray_casting_dep_4} ${ray_casting_dep_5}  ) 
 
 target_link_libraries(cliente SDL2 SDL2_mixer SDL2_ttf SDL2_image yaml-cpp)
 
