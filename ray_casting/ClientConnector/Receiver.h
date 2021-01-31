@@ -3,7 +3,9 @@
 
 #include "../Player.h"
 #include "../Map_2d.h"
-#include "thread.h"
+#include "../../Common/thread.h"
+#include "../../Common/non_blocking_queue.h"
+#include "../../Common/socket.h"
 
 class Receiver: public Thread {
 public:

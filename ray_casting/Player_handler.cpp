@@ -21,6 +21,7 @@ bool Player_handler::handle() {
 	while(SDL_PollEvent(&event)!=0){
 		state = SDL_GetKeyboardState(NULL);
 		if ((state[SDL_SCANCODE_W])&&(moving==false)) {
+			sender.send(1);
 			//printf("W ON\n");
 			moving=true;
 		}

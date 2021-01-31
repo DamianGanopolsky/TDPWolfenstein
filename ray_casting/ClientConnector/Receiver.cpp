@@ -8,7 +8,5 @@ void Receiver::stop(){
 
 void Receiver::run(){
     while(receiving){
-        std::cout <<"Estoy recibiendo" << std::endl;
-        sleep(5);
     }
 }
