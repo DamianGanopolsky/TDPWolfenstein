@@ -13,8 +13,8 @@
 
 #define SIZE_BOX 64 //Este valor debe ser una potencia de base 2
 #define BIT_OFFSET 6 //Este valor debe ser el Log de base 2 de SIZE_BOX
-#define WIDTH_GAME_MAP 36
-#define HEIGTH_GAME_MAP 51
+#define WIDTH_GAME_MAP 59
+#define HEIGTH_GAME_MAP 74
 
 #define FOV 90.0
 #define TOTAL_BOX 1836

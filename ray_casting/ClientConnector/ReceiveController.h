@@ -10,15 +10,14 @@
 class ReceiveController {
 public:
     ReceiveController(Player& PLAYER,Map_2d& MAP):player(PLAYER),map(MAP){
-
     }
+
+    void ExecuteEvent();
 
 private:
     Player& player;
     Map_2d& map;
     
-
-
 };
 
 #endif

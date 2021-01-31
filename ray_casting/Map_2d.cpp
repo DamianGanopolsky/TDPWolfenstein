@@ -6,7 +6,7 @@
 
 Map_2d::Map_2d(Player& player) : player(player) {
 
-	MapYamlParser mapyamlparser("../Maps/Fort_maze.yaml");
+	MapYamlParser mapyamlparser("../Maps/bigbig.yaml");
 	total_boxes=mapyamlparser.Map_Height()*mapyamlparser.Map_Width();
 	walls=mapyamlparser.get_boxes();
 	elements_map=mapyamlparser.load_objects();
