@@ -1,15 +1,19 @@
 #include "loop.h"
 
-Loop::Loop() : commands(), finished_connections(), 
+Loop::Loop(NonBlockingQueue<Socket*>& new_connections, Id map) : 
+                game(clients_connected,map), 
                 clients_connected(commands, finished_connections),
-                game(clients_connected,map),
-                is_running(true) {}
+                commands(), 
+                finished_connections(), 
+                new_connections(new_connections),
+                is_running(true),
+                map(map) {}
 
 Loop::~Loop() {}
 
 void Loop::_newConnections() {
     Socket* peer = nullptr;
-    while (peer = this->new_connections.pop()) {
+    while ((peer = this->new_connections.pop())) {
         ConnectionId id = this->game.newPlayer();
         clients_connected.add(id, *peer);
         delete peer;
@@ -18,7 +22,7 @@ void Loop::_newConnections() {
 
 void Loop::_newCommands() {
     Command* command = nullptr;
-    while(command = this->commands.pop()) {
+    while((command = this->commands.pop())) {
         try {
             command->run(this->game);
         } catch (const std::exception& e) {
@@ -30,7 +34,7 @@ void Loop::_newCommands() {
 
 void Loop::_finishedConnections() {
     ConnectionId* connection = nullptr;
-    while (connection = finished_connections.pop()){
+    while ((connection = finished_connections.pop())){
         game.deletePlayer(*connection);
         clients_connected.remove(*connection);
         delete connection;
@@ -39,6 +43,7 @@ void Loop::_finishedConnections() {
 
 void Loop::run() {
     while (is_running) {
+        int it = 0;
         _newConnections();
         _newCommands();
         game.updatePlayers(it);

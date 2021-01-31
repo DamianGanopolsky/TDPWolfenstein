@@ -1,5 +1,5 @@
-#ifndef CLIENTHANDLER_H
-#define CLIENTHANDLER_H
+#ifndef CLIENT_HANDLER_H
+#define CLIENT_HANDLER_H
 #define BUFF_SIZE 64
 
 #include <atomic>
@@ -8,13 +8,10 @@
 #include <mutex>
 
 #include "../Common/thread.h"
-#include "../Common/socket.h"
 #include "../Common/blocking_queue.h"
 #include "../Common/non_blocking_queue.h"
-#include "../Common/defs.h"
 #include "./Commands/command.h"
 #include "./Notifications/notification.h"
-#include "./Notifications/message.h"
 
 class ClientHandler : public Thread {
 	Socket peer;

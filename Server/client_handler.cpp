@@ -1,12 +1,11 @@
-#include "./clientHandler.h"
-//-------------------------------------------------------------------------------
+#include "./client_handler.h"
+
 ClientHandler::ClientHandler(Socket& socket, const ConnectionId id, 
 						NonBlockingQueue<ConnectionId*>& finished_connections,
                         NonBlockingQueue<Command*>& commands) : 
-						peer(std::move(socket)), is_running(false),
+						peer(std::move(socket)), is_running(false), id(id),
 						finished_connections(finished_connections),
-                        commands(commands), id(id), 
-						dead_threads(0) {}
+                        dead_threads(0), notifications(), commands(commands) {}
 
 ClientHandler::~ClientHandler() {
 	notifications.close(); 

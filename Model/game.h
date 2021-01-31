@@ -5,11 +5,11 @@
 #include <string>
 #include <algorithm>
 
+class ClientsConnected;
 #include "../Server/Notifications/event.h"
 #include "../Server/Notifications/item_changed.h"
 #include "../Server/Notifications/message.h"
 #include "../Common/defs.h"
-#include "../Server/clients_connected.h"
 #include "./map/object_map.h"
 #include "./constants/const_object_map.h"
 #include "./player/player.h"
@@ -32,6 +32,8 @@ class Game {
     void _notifyMovementEvent(const Id id, const Response& response);
     Response _canMove(int** map, Player& player, std::pair<int, int> next_pos);
     bool _changeCell(PlayerPosition &pos, std::pair<int, int> &next_pos);
+    ItemOpcode _getItemOpcode(std::string message);
+    bool _interactWith(Player& player, int** map, Object obj);
 
     public:
         Game(ClientsConnected& clients_connected, Id map_id);

@@ -10,7 +10,7 @@ class Loop : public Thread {
     ClientsConnected clients_connected;
     NonBlockingQueue<Command*> commands;
     NonBlockingQueue<ConnectionId*> finished_connections;
-    NonBlockingQueue<Socket *> new_connections;
+    NonBlockingQueue<Socket*>& new_connections;
     std::atomic<bool> is_running;
     Id map;
     void _newConnections();
@@ -18,7 +18,7 @@ class Loop : public Thread {
     void _finishedConnections();
 
     public:
-        Loop();
+        Loop(NonBlockingQueue<Socket*>& new_connections, Id map);
         ~Loop();
 
         Loop(const Loop&) = delete;

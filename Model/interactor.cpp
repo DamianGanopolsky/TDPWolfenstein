@@ -1,5 +1,5 @@
 #include "interactor.h"
-#include "./../constants/const_object_map.h"
+#include "./constants/const_object_map.h"
 
 Response Interact::interactWith(Player &player, int **map, BlockingObject &obj) {
     return Response(false, NO_ITEM_PICKED_UP_MSG);

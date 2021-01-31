@@ -1,4 +1,5 @@
 #include "game.h"
+#include "../Server/clients_connected.h"
 
 
 Game::Game(ClientsConnected& clients_connected, Id map_id) : 
@@ -104,16 +105,21 @@ bool Game::_changeCell(PlayerPosition &pos, std::pair<int, int> &next_pos) {
     }
     return false;
 }
+ItemOpcode _getItemOpcode(std::string message) {return CLOSE_DOOR_ITM;}
+
+bool _interactWith(Player& player, int** map, Object obj) {return true;}
+
+bool _getPlayerPosition(Id map_id, int init_x, int init_y, Id new_player_id) {return true;}
 
 const ConnectionId Game::newPlayer() {
     Id new_player_id = this->new_connection_id;
     ++this->new_connection_id;
     //del yaml con mapas obtener Id map_id = ...
-    int init_x, init_y;
-    bool has_assigned_position = _getPlayerPosition(map_id, init_x, init_y, new_player_id);
-    if (!has_assigned_position) {
+    //int init_x, init_y;
+    //bool has_assigned_position = _getPlayerPosition(map_id, init_x, init_y, new_player_id);
+    //if (!has_assigned_position) {
         //this->maps.setPlayerPosition(map_id, init_x, init_y, new_player_id);
-    }
+    //}
     std::string nickname = "hola";
     this->players.emplace(std::piecewise_construct, 
                 std::forward_as_tuple(new_player_id),
@@ -215,7 +221,7 @@ void Game::openDoor(const ConnectionId id) {
 }
 
 void Game::changeWeapon(const ConnectionId id, Weapon weapon) {
-    Player& player = this->players.at(id);
+    /*Player& player = this->players.at(id);
     std::list<Weapon> inventory = player.getInfo().getInventory();
     std::list<Weapon>::iterator it;
 
@@ -225,7 +231,7 @@ void Game::changeWeapon(const ConnectionId id, Weapon weapon) {
     } else {
         player.changeWeapon(*it);
         _notifyEvent(id, Response(true, SUCCESS_MSG), CHANGE_WEAPON_EV);
-    }
+    }*/
 }
 
 void Game::attack(const ConnectionId id, const ConnectionId id_target) {

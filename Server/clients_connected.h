@@ -2,12 +2,10 @@
 #define CLIENTS_CONNECTED_H
 
 #include <unordered_map>
-//#include "../Common/defs.h"
-#include "../Common/non_blocking_queue.h"
-//#include "./Commands/command.h"
-#include "./clientHandler.h"
-#include "./Commands/command.h"
-//#include "./Notifications/notification.h"
+
+//class Command;
+#include "./client_handler.h"
+
 
 class ClientsConnected {
     NonBlockingQueue<Command*>& commands;

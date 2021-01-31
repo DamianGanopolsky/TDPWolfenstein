@@ -35,6 +35,8 @@ class Player {
     bool isRotating();
     bool isShooting();
     Response update(int iteration);
+    void _updateMovement();
+    void _updateRotation();
     Response useWeapon(Id id, Id id_target, Player* target, int& damage);
     Response receiveAttack(int& damage);
     Response resurrect();

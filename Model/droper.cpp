@@ -1,5 +1,5 @@
 #include "./droper.h"
-#include "./../constants/const_object_map.h"
+#include "./constants/const_object_map.h"
 
 
 Drop::Drop() {}
