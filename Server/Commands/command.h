@@ -3,7 +3,7 @@
 
 #include "../../Common/defs.h"
 #include "../../Common/socket.h"
-#include "../../Model/game.h"
+#include "./../Model/game.h"
 #include "../../Common/protocol.h"
 
 class Command {

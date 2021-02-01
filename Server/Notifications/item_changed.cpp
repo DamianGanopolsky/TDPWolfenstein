@@ -2,16 +2,16 @@
 
 ItemChanged::ItemChanged(const Id map, ItemOpcode item_type, Id player_id, 
                         uint32_t pos_x, uint32_t pos_y) :
-                        map(map),
                         item_type(item_type),
+                        map(map),
                         player_id(player_id),
                         pos_x(pos_x),
                         pos_y(pos_y) {}
 
 ItemChanged::ItemChanged(const Id map, ItemOpcode item_type, Id player_id, 
                         uint32_t pos_x, uint32_t pos_y, int value) :
-                        map(map),
                         item_type(item_type),
+                        map(map),
                         player_id(player_id),
                         pos_x(pos_x),
                         pos_y(pos_y), 
@@ -19,8 +19,24 @@ ItemChanged::ItemChanged(const Id map, ItemOpcode item_type, Id player_id,
 
 ItemChanged::~ItemChanged() {}
         
-/*ItemChanged::ItemChanged(const ItemChanged& other) {}
-ItemChanged& ItemChanged::operator=(const ItemChanged& other) {}*/
+ItemChanged::ItemChanged(const ItemChanged& other) {
+    this->item_type = other.item_type;
+    this->map = other.map;
+    this->player_id = other.player_id;
+    this->pos_x = other.pos_x;
+    this->pos_y = other.pos_y;
+    this->value = other.value;
+}
+
+ItemChanged& ItemChanged::operator=(const ItemChanged& other) {
+    this->item_type = other.item_type;
+    this->map = other.map;
+    this->player_id = other.player_id;
+    this->pos_x = other.pos_x;
+    this->pos_y = other.pos_y;
+    this->value = other.value;
+    return *this;
+}
 
 bool ItemChanged::send(const ConnectionId sender, const Socket& peer) {
     try{

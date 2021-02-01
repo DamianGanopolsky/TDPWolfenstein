@@ -2,7 +2,7 @@
 #define LOOP_H
 
 #include "../Common/thread.h"
-#include "../Model/game.h"
+#include "./Model/game.h"
 #include "./clients_connected.h"
 
 class Loop : public Thread {

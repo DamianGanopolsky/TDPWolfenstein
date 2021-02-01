@@ -3,7 +3,7 @@
 
 #include "notification.h"
 #include "../../Common/protocol.h"
-#include "../../Model/player/player.h"
+#include "./../Model/player/player.h"
 
 class Event : public Notification {
     Id map;

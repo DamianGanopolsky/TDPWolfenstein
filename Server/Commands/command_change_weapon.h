@@ -2,7 +2,7 @@
 #define COMMAND_CHANGE_WEAPON_H
 
 #include "command.h"
-#include "../../Model/objects/items/weapons/weapon.h"
+#include "../Model/objects/items/weapons/weapon.h"
 
 class CommandChangeWeapon : public Command {
     Weapon weapon;

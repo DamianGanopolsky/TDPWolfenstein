@@ -13,10 +13,10 @@
 #include "./command_open_door.h"
 #include "./command_change_weapon.h"
 
-#include "../Model/objects/items/weapons/knife.h"
-#include "../Model/objects/items/weapons/gun.h"
-#include "../Model/objects/items/weapons/machine_gun.h"
-#include "../Model/objects/items/weapons/chain_cannon.h"
+#include "./../Model/objects/items/weapons/knife.h"
+#include "./../Model/objects/items/weapons/gun.h"
+#include "./../Model/objects/items/weapons/machine_gun.h"
+#include "./../Model/objects/items/weapons/chain_cannon.h"
 
 Command::Command(const ConnectionId id_caller) : id_caller(id_caller) {}
 

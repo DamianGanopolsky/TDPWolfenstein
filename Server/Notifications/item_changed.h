@@ -3,11 +3,11 @@
 
 #include "notification.h"
 #include "../../Common/protocol.h"
-#include "../../Model/player/player.h"
+#include "./../Model/player/player.h"
 
 class ItemChanged : public Notification {
     ItemOpcode item_type;
-    const Id map;
+    Id map;
     Id player_id;
     uint32_t pos_x;
     uint32_t pos_y;

@@ -22,18 +22,38 @@ Event::Event(const Id map, EventOpcode event_type, Id player_id,
 
 Event::~Event() {}
         
-/*Event::Event(const Event& other) {
+Event::Event(const Event& other) {
     this->map = other.map;
-    this->player = other.player;
     this->event_type = other.event_type;
+    this->player_id = other.player_id;
+    this->pos_x = other.pos_x;
+    this->pos_y = other.pos_y;
+    this->angle = other.angle;
+    this->is_moving = other.is_moving;
+    this->is_shoting = other.is_shoting;
+    this->life = other.life;
+    this->resurrected = other.resurrected;
+    this->treasure = other.treasure;
+    this->bullets = other.bullets;
+    this->value = other.value;
 }
 
 Event& Event::operator=(const Event& other) {
     this->map = other.map;
-    this->player = other.player;
     this->event_type = other.event_type;
+    this->player_id = other.player_id;
+    this->pos_x = other.pos_x;
+    this->pos_y = other.pos_y;
+    this->angle = other.angle;
+    this->is_moving = other.is_moving;
+    this->is_shoting = other.is_shoting;
+    this->life = other.life;
+    this->resurrected = other.resurrected;
+    this->treasure = other.treasure;
+    this->bullets = other.bullets;
+    this->value = other.value;
     return *this;
-}*/
+}
 
 bool Event::send(const ConnectionId sender, const Socket& peer) {
     try{
