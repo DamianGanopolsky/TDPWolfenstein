@@ -59,7 +59,6 @@ bool Event_Handler::handleEvents(Editor& editor){
         }
     }
     return quit;
-
 }
 Event_Handler::~Event_Handler(){
 

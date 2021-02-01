@@ -1,4 +1,4 @@
-#include <iostream>
+/*#include <iostream>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_mixer.h>
 #include <SDL2/SDL_image.h>
@@ -9,14 +9,15 @@
 #include "MusicSoundtrack.h"
 #include "YamlParser.h"
 #include <fstream>  
-#include <stdexcept>
+#include <stdexcept>*/
 //#include "TextBox.h"
+#include "EditorManager.h"
 
 
 
 
 int main(int argc,char* argv[]){
-
+/*
     YAML::Node config = YAML::LoadFile("../Yaml_configs/editor_config.yaml");
     int width = config["width"].as<int>();
     int heigth =config["heigth"].as<int>();
@@ -43,6 +44,8 @@ int main(int argc,char* argv[]){
         window.render();
     }
 
-    SDL_Quit();
+    SDL_Quit();*/
+    EditorManager editormanager;
+    editormanager.start();
     return 0;
 }

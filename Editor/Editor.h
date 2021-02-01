@@ -1,3 +1,6 @@
+#ifndef __EDITOR_H__
+#define __EDITOR_H__
+
 #include <SDL2/SDL.h>
 #include "SdlClasses/SdlWindow.h"
 #include "Scene.h"
@@ -33,3 +36,5 @@ public:
 
 	~Editor();
 };
+
+#endif

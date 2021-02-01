@@ -153,13 +153,13 @@ std::map <std::pair<int,int>,int> YamlParser::load_map(std::string YamlPath){
 
 void YamlParser::Write_Map(std::string YamlPathToWrite,std::map <int,\
 std::vector<std::pair<int,int>>> map,int height,int width){
-    for (auto const& x : map){
+    /*for (auto const& x : map){
 
         std::cout << "Objeto" << x.first;
         for(std::pair<int,int> position : x.second) {
             std::cout << "x:" << position.first << "y:" << position.second << std::endl;
     }
-    }
+    }*/
     YAML::Emitter out;
     //out << YAML::BeginDoc;
     
