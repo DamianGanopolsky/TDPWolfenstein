@@ -45,4 +45,5 @@ void ClientManager::start(){
 
 ClientManager::~ClientManager(){
     Mix_CloseAudio();
+    SDL_Quit();
 }
