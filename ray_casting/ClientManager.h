@@ -17,8 +17,14 @@
 
 class ClientManager {
 public:
+    ClientManager();
 
+    void start();
+
+    ~ClientManager();
 private:
+    //ClientSocket clientsocket;
+    //Receiver receiver;
 };
 
 

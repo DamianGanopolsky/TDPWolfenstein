@@ -28,14 +28,10 @@ add_executable(panel ${ray_casting_dep_3} ${ray_casting_dep} ${ray_casting_dep_2
 
 add_executable(servidor ${server} ${model} ${common})
 
-add_executable(server_prueba Server_prueba/server_main.cpp  ${common})
-
 target_link_libraries(cliente SDL2 SDL2_mixer SDL2_ttf SDL2_image yaml-cpp)
 
 target_link_libraries(editor SDL2 SDL2_mixer SDL2_ttf SDL2_image yaml-cpp)
 
 target_link_libraries(panel SDL2 SDL2_image pthread SDL2_mixer yaml-cpp SDL2_ttf)
-
-target_link_libraries(server_prueba pthread)
 
 target_link_libraries(servidor pthread)

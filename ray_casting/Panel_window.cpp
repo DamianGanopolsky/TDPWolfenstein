@@ -6,9 +6,9 @@
 
 
 Panel_window::Panel_window(Map_2d& MAP): map(MAP), running(true) {
-	if (SDL_Init(SDL_INIT_VIDEO) != 0) {
+	/*if (SDL_Init(SDL_INIT_VIDEO) != 0) {
 		std::cout << "ERROR init video" << std::endl;
-	}
+	}*/
 	this->window = SDL_CreateWindow(PANEL_TITLE, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, PANEL_WIDTH, PANEL_HEIGHT, 0);
 	this->renderer = SDL_CreateRenderer(this->window, -1, 0);
 	this->player_panel_status = Player_panel_status(this->renderer);

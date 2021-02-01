@@ -30,7 +30,7 @@ Player_panel_status::Player_panel_status(SDL_Renderer*& renderer) :
 	SDL_Surface *status_img = IMG_Load("../ray_casting/sprites/hud.png");
 	this->status_tex = SDL_CreateTextureFromSurface(this->renderer, status_img);
 	SDL_FreeSurface(status_img);
-	TTF_Init();
+	//TTF_Init();
 	
 }
 

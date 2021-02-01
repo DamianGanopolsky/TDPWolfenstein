@@ -1,4 +1,4 @@
-#include "Panel_window.h"
+/*#include "Panel_window.h"
 #include "Player.h"
 #include "Player_info.h"
 #include "Player_handler.h"
@@ -14,12 +14,15 @@
 #include "../Common/blocking_queue.h"
 
 #include "Client.h"
-#include <iostream>
+#include <iostream>*/
+#include "ClientManager.h"
 
 
 int main() {
 	
-	
+	ClientManager clientmanager;
+	clientmanager.start();
+	/*
 	if(Mix_OpenAudio(44100,MIX_DEFAULT_FORMAT,2,1024)<0){
         std::cout << "eRROR:" << Mix_GetError() << std::endl;
     }
@@ -56,7 +59,7 @@ int main() {
 	sender.join();
 	receiver.stop();
 	receiver.join();
-
+*/
 	return 0;
 }
 

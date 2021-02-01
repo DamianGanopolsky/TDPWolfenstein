@@ -9,9 +9,6 @@
 #define CHAIN_CANNON 10
 
 
-
-
-
 MapYamlParser::MapYamlParser(std::string YamlPath):yamlpath(YamlPath){
     map= YAML::LoadFile(YamlPath);
 }
