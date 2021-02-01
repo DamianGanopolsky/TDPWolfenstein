@@ -97,11 +97,11 @@ void Map::ShrinkMap(){
 }
 
 void Map::printMap(){
-    for(int i=0;i<rows;i++){
+    /*for(int i=0;i<rows;i++){
         for(int j=0;j<columns;j++){
             std::cout << "En x:" << i << "En y:" << j <<  "  Objeto:" << matrix[i][j] << std::endl;
         }
-    }
+    }*/
 }
 
 
@@ -319,8 +319,8 @@ void Map::Export(std::string yamlName){
 }
 
 Map::~Map(){
-    for(int i=0;i<rows;i++){
+    /*for(int i=0;i<rows;i++){
         delete matrix[i];
     }
-    delete matrix;
+    delete matrix;*/
 }

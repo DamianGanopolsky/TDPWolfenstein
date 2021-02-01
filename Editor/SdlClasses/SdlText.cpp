@@ -22,7 +22,7 @@ SDL_Surface* SdlText::getSurface(){
 
 
 SdlText::~SdlText(){
-    TTF_CloseFont(Sans);
-    SDL_FreeSurface(surfaceMessage);
+    //TTF_CloseFont(Sans);
+    //SDL_FreeSurface(surfaceMessage);
     TTF_Quit();
 }
