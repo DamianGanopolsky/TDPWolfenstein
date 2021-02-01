@@ -108,7 +108,6 @@ Map::Map(SdlWindow& Window,std::string YamlPath):window(Window),player_count(0){
     YAML::Node config = YAML::LoadFile("../Yaml_configs/editor_config.yaml");
     int total_images = config["total_images_to_load"].as<int>();
     cuadricula=config["cuadricula_size"].as<int>();
-    std::cout << "Total images es" << total_images << std::endl;
     camera.x=0;
     camera.y=0;
     surfaces.push_back(IMG_Load("../Editor/Editor_Assets/GreyTile.png"));
@@ -128,7 +127,7 @@ Map::Map(SdlWindow& Window,std::string YamlPath):window(Window),player_count(0){
     surfaces.push_back(IMG_Load("../Editor/Editor_Assets/Player_Number/Cuatro.png"));
     surfaces.push_back(IMG_Load("../Editor/Editor_Assets/Player_Number/Cinco.png"));
     surfaces.push_back(IMG_Load("../Editor/Editor_Assets/Player_Number/Seis.png"));
-    for(int i=0;i<TOTAL_IMAGES;i++){
+    for(int i=0;i<total_images;i++){
         textures.push_back(SDL_CreateTextureFromSurface(window.getRenderer(),surfaces.at(i)));
     }
 }

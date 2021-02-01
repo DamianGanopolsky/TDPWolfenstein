@@ -11,7 +11,7 @@ MusicSoundtrack::MusicSoundtrack(){
         std::cout << "eRROR:" << Mix_GetError() << std::endl;
     }
 
-    Main_music_soundtrack=Mix_LoadMUS("../Music/FullMusicSoundtrack.mp3");
+    Main_music_soundtrack=Mix_LoadMUS("../Music/MusicSoundtrack.mp3");
     //Pow=Mix_LoadMUS("../Music/05-P.O.W. E1M3.mp3");
     Mix_VolumeMusic(30);
 }

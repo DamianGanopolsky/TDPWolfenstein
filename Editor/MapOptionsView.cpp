@@ -2,9 +2,10 @@
 #include <sys/types.h>
 #include <dirent.h>
 #define PATH_TO_MAP "../Maps/"
+#define FIRST_POS_TEX 3
 
 void MapOptionsView::load_textures(){
-    int count=3;
+    int count=FIRST_POS_TEX;
     for(std::vector<std::string>::iterator it = files.begin(); it != files.end(); ++it) {
 
         if((*it).size()<4) continue;
@@ -20,12 +21,12 @@ MapOptionsView::MapOptionsView(SdlWindow& Window):window(Window),active(true){
     main_screen=SDL_CreateTextureFromSurface(window.getRenderer(),main_screen_surf);
     SDL_FreeSurface(main_screen_surf);
     std::string directory_path=PATH_TO_MAP;
-    DIR* dirp = opendir(directory_path.c_str());
+    DIR* directory = opendir(directory_path.c_str());
     struct dirent * dp;
-    while ((dp = readdir(dirp)) != NULL) {
+    while ((dp = readdir(directory)) != NULL) {
         files.push_back(dp->d_name);
     }
-    closedir(dirp);
+    closedir(directory);
     load_textures();
 }
 

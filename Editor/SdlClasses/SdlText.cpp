@@ -1,8 +1,9 @@
 #include "SdlText.h"
+#include <iostream>
 
 
 SdlText::SdlText(SDL_Renderer* renderer,Uint8 r,Uint8 g,Uint8 b): renderer_(renderer){
-    TTF_Init();
+    //TTF_Init();
     color = {r, g, b};  
 }
 
@@ -11,8 +12,17 @@ void SdlText::Load_Text(const char* path_to_ttf,std::string text\
     char cstr[text.size() + 1];
     strcpy(cstr, text.c_str()); 
     Sans = TTF_OpenFont(path_to_ttf, FontSize); 
+    if(!Sans){
+        printf("TTF_openfnt: %s \n",TTF_GetError());
+    }
     surfaceMessage = TTF_RenderText_Solid(Sans, cstr, color);
+    if(!surfaceMessage){
+        std::cout << "Error al cargar la surface" << std::endl;
+    }
+}
 
+void SdlText::close_font(){
+    TTF_CloseFont(Sans);
 }
 
 SDL_Surface* SdlText::getSurface(){
@@ -24,5 +34,5 @@ SDL_Surface* SdlText::getSurface(){
 SdlText::~SdlText(){
     //TTF_CloseFont(Sans);
     //SDL_FreeSurface(surfaceMessage);
-    TTF_Quit();
+    //TTF_Quit();
 }
