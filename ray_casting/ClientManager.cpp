@@ -2,11 +2,13 @@
 
 ClientManager::ClientManager(){
 	if(Mix_OpenAudio(44100,MIX_DEFAULT_FORMAT,2,1024)<0){
-        std::cout << "eRROR:" << Mix_GetError() << std::endl;
+        //std::cout << "eRROR:" << Mix_GetError() << std::endl;
+        throw std::invalid_argument("Error  en la inicializacion del audio \n");
     }
 
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
-		std::cout << "ERROR init video" << std::endl;
+		//std::cout << "ERROR init video" << std::endl;
+        throw std::invalid_argument("Error en la inicializacion de sdl \n");
 	}
     TTF_Init();
 }
