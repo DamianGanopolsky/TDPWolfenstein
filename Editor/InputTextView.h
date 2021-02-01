@@ -10,6 +10,7 @@ private:
     SdlWindow& window;
     SDL_Texture* texture_of_text;
     SDL_Texture* save_menu_texture;
+    size_t max_length_file;
 
 public:
 

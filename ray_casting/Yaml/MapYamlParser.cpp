@@ -51,7 +51,7 @@ std::map<std::pair<int,int>,int> MapYamlParser::load_objects(){
         objects_map.insert({num_transformed,FOOD});*/
     }
 
-/*
+
     // MEDICAL_KIT 
     const YAML::Node& medical_kit= map["Map"]["Medical_Kit"];
     for (YAML::const_iterator it = medical_kit["position"].begin(); it != medical_kit["position"].end(); ++it) {
@@ -104,7 +104,7 @@ std::map<std::pair<int,int>,int> MapYamlParser::load_objects(){
         map_position.first=pos['x'].as<int>();;
         map_position.second=pos['y'].as<int>();;
         objects_map.insert({map_position,KEY});
-    }*/
+    }
     return objects_map;
 }
 

@@ -16,7 +16,7 @@ void ClientManager::start(){
 	ClientSocket clientsock;
 	Receiver receiver(&clientsock);
 	Sender sender(&clientsock);
-	Player player(100, 100, 90);
+	Player player(100, 100, 270);
 	Map_2d map(player);
 
 	//Pruebas de concepto

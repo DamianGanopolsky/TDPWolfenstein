@@ -18,6 +18,7 @@ void MapOptionsView::load_textures(){
 MapOptionsView::MapOptionsView(SdlWindow& Window):window(Window),active(true){
     SDL_Surface* main_screen_surf=IMG_Load("../Editor/Editor_Assets/Mapas_Main_Screen.png");
     main_screen=SDL_CreateTextureFromSurface(window.getRenderer(),main_screen_surf);
+    SDL_FreeSurface(main_screen_surf);
     std::string directory_path=PATH_TO_MAP;
     DIR* dirp = opendir(directory_path.c_str());
     struct dirent * dp;

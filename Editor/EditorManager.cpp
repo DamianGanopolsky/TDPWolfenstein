@@ -14,6 +14,8 @@ void EditorManager::start(){
     int width = config["width"].as<int>();
     int heigth =config["heigth"].as<int>();
     SdlWindow window(width,heigth);
+    //window.set_full_screen();
+                            
     Editor editor(window);
     Event_Handler event_handler;
     bool quit = false;
@@ -28,7 +30,6 @@ void EditorManager::start(){
         editor.render();
         window.render();
     }
-    //SDL_Quit();
 }
 
 EditorManager::~EditorManager(){

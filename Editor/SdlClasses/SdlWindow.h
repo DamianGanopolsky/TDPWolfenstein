@@ -20,6 +20,8 @@ public:
 
     float getWidth() const;
 
+    void set_full_screen();
+
     SDL_Renderer* getRenderer() const;
 
 	~SdlWindow();

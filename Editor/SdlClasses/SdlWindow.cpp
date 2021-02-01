@@ -17,6 +17,10 @@ SDL_Renderer* SdlWindow::getRenderer() const{
     return this->renderer;
 }
 
+void SdlWindow::set_full_screen(){
+    SDL_SetWindowFullscreen(window,0);
+}
+
 float SdlWindow::getHeight() const{
     return Height;
 }

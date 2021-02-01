@@ -21,6 +21,7 @@ private:
     int** matrix;
     int rows;
     int columns;
+    int cuadricula;
 
 
 

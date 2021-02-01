@@ -6,7 +6,8 @@
 
 Map_2d::Map_2d(Player& player) : player(player) {
 
-	MapYamlParser mapyamlparser("../Maps/bigbig.yaml");
+	//MapYamlParser mapyamlparser("../Maps/bigbig.yaml");
+	MapYamlParser mapyamlparser("../Maps/2_Versus_.yaml");
 	map_width=mapyamlparser.Map_Width();
 	map_height=mapyamlparser.Map_Height();
 	//std::cout << "width es" << map_width << "height es " << map_height <<std::endl;
