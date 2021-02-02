@@ -79,14 +79,15 @@ void InputTextView::render(){
 
 bool InputTextView::IsSaveButtonPressed(int x,int y){
     textbox.active=false;
-    if(((x>0.5437*window.getWidth())&&(x<0.6927*window.getWidth()))\
+    /*if(((x>0.5437*window.getWidth())&&(x<0.6927*window.getWidth()))\
+    &&(y>0.5344*window.getHeight())&&(y<0.6062*window.getHeight())){*/
+    if(((x>0.5781*window.getWidth())&&(x<0.7813*window.getWidth()))\
     &&(y>0.5344*window.getHeight())&&(y<0.6062*window.getHeight())){
         return true;
     }
     else{
         return false;
     }
-    return true;
 }
 
 std::string InputTextView::getMapName(){

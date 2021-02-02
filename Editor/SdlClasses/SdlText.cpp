@@ -12,13 +12,13 @@ void SdlText::Load_Text(const char* path_to_ttf,std::string text\
     char cstr[text.size() + 1];
     strcpy(cstr, text.c_str()); 
     Sans = TTF_OpenFont(path_to_ttf, FontSize); 
-    if(!Sans){
+    /*if(!Sans){
         printf("TTF_openfnt: %s \n",TTF_GetError());
-    }
+    }*/
     surfaceMessage = TTF_RenderText_Solid(Sans, cstr, color);
-    if(!surfaceMessage){
+    /*if(!surfaceMessage){
         std::cout << "Error al cargar la surface" << std::endl;
-    }
+    }*/
 }
 
 void SdlText::close_font(){
