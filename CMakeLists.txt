@@ -14,11 +14,11 @@ file(GLOB ray_casting_dep_4 "ray_casting/Yaml/*.cpp")
 
 file(GLOB ray_casting_dep_5 "ray_casting/ClientConnector/*.cpp")
 
-file(GLOB common "Common/*.cpp")
+file(GLOB_RECURSE common "Common/*.cpp")
 
-file(GLOB server "Server/*.cpp")
+file(GLOB_RECURSE server "Server/*.cpp")
 
-file(GLOB model "Model/*.cpp")
+add_library(common-lib SHARED ${common})
 
 
 add_executable(cliente Client/client_main.cpp Client/SdlSound.cpp Client/SdlMusic.cpp ../Editor/SdlClasses/SdlWindow.cpp)
@@ -27,7 +27,9 @@ add_executable(editor Editor/editor_main.cpp Editor/SdlClasses/SdlWindow.cpp Edi
 
 add_executable(panel ${ray_casting_dep_3} ${ray_casting_dep} ${ray_casting_dep_2} ${ray_casting_dep_4} ${ray_casting_dep_5} ${common}  ) 
 
-add_executable(servidor ${server} ${model} ${common})
+add_executable(servidor ${server})
+
+target_link_libraries(servidor common-lib pthread)
 
 target_link_libraries(cliente SDL2 SDL2_mixer SDL2_ttf SDL2_image yaml-cpp)
 
@@ -35,4 +37,3 @@ target_link_libraries(editor SDL2 SDL2_ttf SDL2_image yaml-cpp)
 
 target_link_libraries(panel SDL2 SDL2_image pthread SDL2_mixer yaml-cpp SDL2_ttf)
 
-target_link_libraries(servidor pthread)
