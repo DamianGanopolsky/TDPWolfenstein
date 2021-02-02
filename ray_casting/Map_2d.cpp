@@ -7,11 +7,13 @@
 Map_2d::Map_2d(Player& player) : player(player) {
 
 	//MapYamlParser mapyamlparser("../Maps/bigbig.yaml");
-	MapYamlParser mapyamlparser("../Maps/prueba3_.yaml");
+	MapYamlParser mapyamlparser("../Maps/kingprueba5.yaml");
 	map_width=mapyamlparser.Map_Width();
 	map_height=mapyamlparser.Map_Height();
 	//std::cout << "width es" << map_width << "height es " << map_height <<std::endl;
 	total_boxes=mapyamlparser.Map_Height()*mapyamlparser.Map_Width();
+	std::cout << "total boxes es" << total_boxes << "height:" << mapyamlparser.Map_Height() << "width;\
+	" << mapyamlparser.Map_Width() << std::endl;
 	walls=mapyamlparser.get_boxes();
 	elements_map=mapyamlparser.load_objects();
 	
@@ -19,6 +21,12 @@ Map_2d::Map_2d(Player& player) : player(player) {
 		if(x.second==2){
 			boxes[x.first]=true;
 		} 
+		if(x.second==1){
+			std::cout << "Hay puerta en "<< x.first << std::endl;
+		}
+		if(x.second==0){
+			std::cout << "Hay pared en " << x.first <<std::endl;
+		}
 	}
 }
 

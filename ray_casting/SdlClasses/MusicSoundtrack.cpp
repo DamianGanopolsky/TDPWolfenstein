@@ -1,19 +1,20 @@
 #include "MusicSoundtrack.h"
 #include <iostream>
 #include <unistd.h>
+#include "yaml-cpp/yaml.h"
 
 
 MusicSoundtrack::MusicSoundtrack(){
-    if(SDL_Init(SDL_INIT_AUDIO)==-1) {
+    /*if(SDL_Init(SDL_INIT_AUDIO)==-1) {
         printf("SDL_Init: %s\n", SDL_GetError());
     }
     if(Mix_OpenAudio(44100,MIX_DEFAULT_FORMAT,2,1024)<0){
         std::cout << "eRROR:" << Mix_GetError() << std::endl;
-    }
-
+    }*/
     Main_music_soundtrack=Mix_LoadMUS("../Music/MusicSoundtrack.mp3");
-    //Pow=Mix_LoadMUS("../Music/05-P.O.W. E1M3.mp3");
-    Mix_VolumeMusic(30);
+    YAML::Node config = YAML::LoadFile("../Yaml_configs/client_settings.yaml");
+    int volume_music = config["Music_volume"].as<int>();
+    Mix_VolumeMusic(volume_music);
 }
 
 void MusicSoundtrack::load_editor_soundtrack(){
@@ -21,7 +22,6 @@ void MusicSoundtrack::load_editor_soundtrack(){
 
 void MusicSoundtrack::play_editor(){
     Mix_PlayMusic(Main_music_soundtrack,2);
-    //Mix_PlayMusic(Pow,1);
 }
 
 MusicSoundtrack::~MusicSoundtrack(){

@@ -35,7 +35,6 @@ void Scene::click(position final_pos){
             map.click(final_pos);
         }
     }
-
 }
 
 void Scene::render(){
