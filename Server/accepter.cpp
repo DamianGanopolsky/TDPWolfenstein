@@ -1,16 +1,20 @@
 #include "./accepter.h"
-#include "../Common/socket.h"
 
-Accepter::Accepter(const char* service) : socket(service), keep_accepting(false) {}
+Accepter::Accepter(const char* service, NonBlockingQueue<ConnectionElement*>& new_connections) : 
+					socket(service), keep_accepting(false), new_connections(new_connections) {}
 
 Accepter::~Accepter() {}
 
 void Accepter::run() {
 	keep_accepting = true;
 	try {
-		Socket peer = socket.accept();
-		new_connections.push(&peer);
+		while(keep_accepting){
+			Socket peer = socket.accept();
+			new_connections.push(new ConnectionElement(&peer));
+			std::cout <<"Accepter: Se connecto un peer"<< std::endl;
+		}
 	} catch (const std::exception& e) {
+		std::cout <<"Accepter: Error en peer"<< std::endl;
 		std::cerr << e.what() << std::endl;
 	}
 }

@@ -3,6 +3,7 @@
 
 
 Drop::Drop() {}
+Drop::~Drop() {}
 
 bool Drop::drop(PlayerInfo &info, Bullet &item) {
     return true;
@@ -15,9 +16,9 @@ bool Drop::drop(PlayerInfo &info, Key &item) {
     return true;
 }
 
-bool Drop::drop(PlayerInfo &info, Weapon &item) {
+bool Drop::drop(PlayerInfo &info, Weapon* item) {
     //int response;
-    if (info.getWeaponEquiped().getType() == GUN_TYPE) {
+    if (info.getWeaponEquiped()->getType() == GUN_TYPE) {
         return false;// has a gun
     }
     return true;

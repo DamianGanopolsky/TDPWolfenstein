@@ -56,6 +56,7 @@ Event& Event::operator=(const Event& other) {
 }
 
 bool Event::send(const ConnectionId sender, const Socket& peer) {
+    std::cout <<"Event: comienza el send()"<< std::endl;
     try{
         uint8_t buffer[2];
         buffer[0] = EVENT_OPCODE;

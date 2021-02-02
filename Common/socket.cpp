@@ -1,4 +1,5 @@
 #include "./socket.h"
+#include <iostream>
 //-------------------------------------------------------------------------------
 void Socket::_setServerAddresses(const char* service, addrinfo** results) {
 	addrinfo hints;	
@@ -130,6 +131,7 @@ ssize_t Socket::send(const char* buffer, size_t buffer_size) const {
 	while (total_sent < buffer_size) {
 		ssize_t last_sent = ::send(fd, &buffer[total_sent], buffer_size-total_sent,
 							MSG_NOSIGNAL);
+		std::cout <<"Socket: Se enviaron bytes"<< std::endl;
 		if (last_sent == -1) {
 			throw Exception("Error in send");
 		} else if (last_sent == 0){

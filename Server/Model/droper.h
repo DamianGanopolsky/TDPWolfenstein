@@ -10,12 +10,13 @@
 class Drop {
  public: 
     Drop();
+    ~Drop();
     // bullets:
     bool drop(PlayerInfo &info, Bullet &item);
     // key:
     bool drop(PlayerInfo &info, Key &item);
     // weapons:
-    bool drop(PlayerInfo &info, Weapon &item);
+    bool drop(PlayerInfo &info, Weapon* item);
     // corpse:
     bool drop(PlayerInfo &info, Corpse &item);
 

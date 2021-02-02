@@ -1,28 +1,32 @@
 #include "loop.h"
+#include <chrono>
 
-Loop::Loop(NonBlockingQueue<Socket*>& new_connections, Id map) : 
+Loop::Loop(NonBlockingQueue<ConnectionElement*>& new_connections) : 
                 game(clients_connected,map), 
                 clients_connected(commands, finished_connections),
                 commands(), 
                 finished_connections(), 
                 new_connections(new_connections),
                 is_running(true),
-                map(map) {}
+                map(), rate(1000/30) {}
 
 Loop::~Loop() {}
 
 void Loop::_newConnections() {
-    Socket* peer = nullptr;
-    while ((peer = this->new_connections.pop())) {
+    ConnectionElement* connection = nullptr;
+    while ((connection = this->new_connections.pop())) {
+        std::cout <<"Loop: new_connection"<< std::endl;
         ConnectionId id = this->game.newPlayer();
-        clients_connected.add(id, *peer);
-        delete peer;
+        std::cout <<"Loop: new player added"<< std::endl;
+        clients_connected.add(id, *((*connection).peer));
+        delete connection;
     } 
 }
 
 void Loop::_newCommands() {
     Command* command = nullptr;
     while((command = this->commands.pop())) {
+        std::cout <<"Loop: new_command"<< std::endl;
         try {
             command->run(this->game);
         } catch (const std::exception& e) {
@@ -35,24 +39,57 @@ void Loop::_newCommands() {
 void Loop::_finishedConnections() {
     ConnectionId* connection = nullptr;
     while ((connection = finished_connections.pop())){
+        std::cout <<"Loop: deleting finished connection"<< std::endl;
         game.deletePlayer(*connection);
         clients_connected.remove(*connection);
         delete connection;
     }
 }
 
+void Loop::_deleteQueues() {
+    Command* command = nullptr;
+    while((command = this->commands.pop())) {
+        delete command;
+    }
+    ConnectionId* connection = nullptr;
+    while ((connection = finished_connections.pop())){
+        game.deletePlayer(*connection);
+        delete connection;
+    }
+}
+
 void Loop::run() {
+    std::cout <<"Loop: comenzo el loop"<< std::endl;
+    auto t1 = std::chrono::steady_clock::now();
+    auto t2 = t1;
+    std::chrono::duration<float, std::milli> diff;
+    int rest = 0, behind = 0, lost = 0;
+    int it = 1;
     while (is_running) {
-        int it = 0;
         _newConnections();
         _newCommands();
         game.updatePlayers(it);
         _finishedConnections();
+        
+        it = 0;
+        t2 = std::chrono::steady_clock::now();
+        diff = t2 - t1;
+        rest = rate - std::ceil(diff.count());
 
-        // tick rate
-        // 30 tps
+        if (rest < 0) {
+            behind = -rest;
+            lost = rate + (behind - behind % rate);
+            rest = rate - behind % rate;
+            t1 += std::chrono::milliseconds(lost);
+            it += std::floor(lost / rate);
+        }
+        std::this_thread::sleep_for(std::chrono::milliseconds(rest));
+        t1 += std::chrono::milliseconds(rate);
+        it += 1;
     }
+    std::cout <<"Loop: termino el loop"<< std::endl;
     clients_connected.stop();
+    _deleteQueues();
 }
 
 void Loop::stop() {

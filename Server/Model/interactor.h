@@ -17,6 +17,7 @@
 class Interact {
  public:
   Interact();
+  ~Interact();
   Response interactWith(Player &player, int **map, BlockingObject &blocker);
   Response interactWith(Player &player, int **map, NonBlockingObject &blocker);
   Response interactWith(Player &player, int **map, SecretPassage &SecretPassage);

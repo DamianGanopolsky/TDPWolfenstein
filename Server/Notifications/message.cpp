@@ -15,5 +15,6 @@ Message& Message::operator=(const Message& other) {
 }
 
 bool Message::send(const ConnectionId sender, const Socket& peer) {
+    std::cout <<"Message: comienza el send()"<< std::endl;
     return true;
 }

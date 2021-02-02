@@ -19,7 +19,7 @@ void Game::_notifyMovementEvent(const Id id, const Response& response) {
         this->clients_connected.sendEventToAll(notification);
     } else {
         notification = new Message(ERROR_MSSG, response.message);
-        this->clients_connected.notifyAll(notification);
+        this->clients_connected.sendMessageToAll(notification);
     } 
 }
 
@@ -30,7 +30,8 @@ void Game::_notifyResponse(const Id id, const Response& response) {
         this->clients_connected.sendMessageToAll(new Message(ERROR_MSSG, response.message));
     }
 }
-//_notifyEvent()
+void Game::_notifyEvent(const Id id, const Response& response, EventOpcode event_type) {}
+
 void Game::_notifyItemChanged(const Id id, const Response& response, ItemOpcode item_type) {
     Notification* notification;
     Player& player = this->players.at(id);
@@ -75,7 +76,7 @@ void Game::_notifyItemChanged(const Id id, const Response& response, ItemOpcode 
         this->clients_connected.sendEventToAll(notification);
     } else {
         notification = new Message(ERROR_MSSG, response.message);
-        this->clients_connected.notifyAll(notification);
+        this->clients_connected.sendMessageToAll(notification);
     } 
 }
 
@@ -105,11 +106,17 @@ bool Game::_changeCell(PlayerPosition &pos, std::pair<int, int> &next_pos) {
     }
     return false;
 }
-ItemOpcode _getItemOpcode(std::string message) {return CLOSE_DOOR_ITM;}
+ItemOpcode Game::_getItemOpcode(std::string message) {
+    return CLOSE_DOOR_ITM;
+}
 
-bool _interactWith(Player& player, int** map, Object obj) {return true;}
+bool Game::_interactWith(Player& player, int** map, Object obj) {
+    return true;
+}
 
-bool _getPlayerPosition(Id map_id, int init_x, int init_y, Id new_player_id) {return true;}
+bool Game::_getPlayerPosition(Id map_id, int init_x, int init_y, Id new_player_id) {
+    return true;
+}
 
 const ConnectionId Game::newPlayer() {
     Id new_player_id = this->new_connection_id;
@@ -121,9 +128,11 @@ const ConnectionId Game::newPlayer() {
         //this->maps.setPlayerPosition(map_id, init_x, init_y, new_player_id);
     //}
     std::string nickname = "hola";
+    std::cout <<"Game: adding a new player"<< std::endl;
     this->players.emplace(std::piecewise_construct, 
                 std::forward_as_tuple(new_player_id),
                 std::forward_as_tuple(nickname, new_player_id));
+    std::cout <<"Game: new player added"<< std::endl;
     //de alguna manera me tienen que pasar el nickname
     //this->players_by_name[nickname] = new_player_id;
     _notifyEvent(new_player_id, Response(true, SUCCESS_MSG), NEW_PLAYER_EV);
@@ -149,16 +158,7 @@ void Game::updatePlayers(const int iteration) {
     while (player_it != this->players.end()) {
         ConnectionId id = player_it->first;
         Player& player = player_it->second;
-        std::pair<int, int> next_pos = player.getPos().getNextPos(player.getPos().getDirection());
-        Response can_move = _canMove(map, player, next_pos);
-        if (can_move.success && ((can_move.message) !=  NO_ITEM_PICKED_UP_MSG)) {
-            _notifyMovementEvent(id, player.update(iteration));
-            _notifyItemChanged(id, can_move, _getItemOpcode(can_move.message));
-        } else if (can_move.success) {
-            _notifyMovementEvent(id, player.update(iteration));
-        } else {
-            _notifyMovementEvent(id, Response(false, CANT_MOVE_UP_ERROR_MSG));
-        }
+        _notifyResponse(id, player.update(iteration));
         ++player_it;
     }
 }
@@ -220,10 +220,10 @@ void Game::openDoor(const ConnectionId id) {
     }
 }
 
-void Game::changeWeapon(const ConnectionId id, Weapon weapon) {
-    /*Player& player = this->players.at(id);
-    std::list<Weapon> inventory = player.getInfo().getInventory();
-    std::list<Weapon>::iterator it;
+void Game::changeWeapon(const ConnectionId id, Weapon* weapon) {
+    Player& player = this->players.at(id);
+    std::list<Weapon*> inventory = player.getInfo().getInventory();
+    std::list<Weapon*>::iterator it;
 
     it = find(inventory.begin(), inventory.end(), weapon);
     if (it == inventory.end()) {
@@ -231,7 +231,7 @@ void Game::changeWeapon(const ConnectionId id, Weapon weapon) {
     } else {
         player.changeWeapon(*it);
         _notifyEvent(id, Response(true, SUCCESS_MSG), CHANGE_WEAPON_EV);
-    }*/
+    }
 }
 
 void Game::attack(const ConnectionId id, const ConnectionId id_target) {

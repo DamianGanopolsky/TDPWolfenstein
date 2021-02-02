@@ -5,7 +5,7 @@ ClientHandler::ClientHandler(Socket& socket, const ConnectionId id,
                         NonBlockingQueue<Command*>& commands) : 
 						peer(std::move(socket)), is_running(false), id(id),
 						finished_connections(finished_connections),
-                        dead_threads(0), notifications(), commands(commands) {}
+                        dead_threads(0), commands(commands) {}
 
 ClientHandler::~ClientHandler() {
 	notifications.close(); 
@@ -23,14 +23,17 @@ void ClientHandler::_deadThread() {
 }
 
 void ClientHandler::_send() {
+    std::cout <<"ClientHandler: Se lanza el hilo send"<< std::endl;
 	try {
         Notification* notification = nullptr;
-        bool socket_valid = true;
+        bool is_sent = true;
         while ((notification = notifications.pop())) {
-            socket_valid = notification->send(this->id, peer);
+            std::cout <<"ClientHandler: Se envian bytes..."<< std::endl;
+            is_sent = notification->send(this->id, this->peer);
+            std::cout <<"ClientHandler: Se enviaron bytes"<< std::endl;
             delete notification;
-
-            if (!socket_valid) {
+            std::cout <<"ClientHandler: Se elimina la notificacion"<< std::endl;
+            if (!is_sent) {
                 break;
             }
         }
@@ -46,10 +49,12 @@ void ClientHandler::_send() {
 }
 
 void ClientHandler::_receive() {
-	try {
+	std::cout <<"ClientHandler: se lanza el hilo recv"<< std::endl;
+    try {
         int bytes_received = 0;
 		uint8_t buffer[2];
         while (peer.receive((char *)buffer, 2, bytes_received)) {
+	        std::cout <<"ClientHandler: Se recibieron bytes"<< std::endl;
             uint8_t opcode = buffer[0];
             uint8_t command_opcode = buffer[1];
             if (opcode == COMMAND_OPCODE) {
@@ -79,6 +84,7 @@ void ClientHandler::_receive() {
 }
 
 void ClientHandler::run() {
+    std::cout <<"ClientsHandler: starting run()"<< std::endl;
     is_running =true;
     send = std::thread(&ClientHandler::_send, this);
     receive = std::thread(&ClientHandler::_receive, this);
@@ -88,12 +94,12 @@ bool ClientHandler::isRunning() const{
     return this->is_running;
 }
 void ClientHandler::push(Notification* notification) {
+    std::cout <<"ClientsHandler: push notification"<< std::endl;
     notifications.push(notification);
 }
 
-//void ClientHandler::changeMap(Id map) {}
-
 void ClientHandler::joinThreads() {
+    std::cout <<"ClientsHandler: joinThreads"<< std::endl;
 	if (send.joinable()) {
         send.join();
     }
@@ -110,6 +116,7 @@ void ClientHandler::joinThreads() {
 }
 
 void ClientHandler::stop() {
+    std::cout <<"ClientsHandler: stop()"<< std::endl;
     is_running = false;
 	notifications.close();
 	try{

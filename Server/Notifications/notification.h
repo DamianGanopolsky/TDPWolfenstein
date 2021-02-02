@@ -3,6 +3,7 @@
 
 #include <cstdint>
 #include <string>
+#include <iostream>
 #include "../../Common/socket.h"
 #include "../../Common/defs.h"
 

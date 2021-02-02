@@ -31,7 +31,7 @@ int PlayerInfo::getNumResurrection() {
     return this->resurrected;
 }
 
-Weapon PlayerInfo::getWeaponEquiped() {
+Weapon* PlayerInfo::getWeaponEquiped() {
     return this->equiped;
 }
 
@@ -55,7 +55,7 @@ void PlayerInfo::reduceTreasure(int treasure) {
     this->treasure = (this->treasure < 0) ? 0 : this->treasure;
 }
 
-void PlayerInfo::changeWeaponEquiped(Weapon &weapon) {
+void PlayerInfo::changeWeaponEquiped(Weapon* &weapon) {
     this->equiped = weapon;
 }
 
@@ -81,16 +81,16 @@ void PlayerInfo::addNumResurrection() {
     this->resurrected += 1;
 }
 
-/*std::list <Weapon> PlayerInfo::getInventory() {
+std::list <Weapon*> PlayerInfo::getInventory() {
     return this->inventory;
 }
 
-void PlayerInfo::addInventory(Weapon &weapon) {
+void PlayerInfo::addInventory(Weapon* &weapon) {
     this->inventory.push_back(weapon);
 }
 
-bool PlayerInfo::hasWeapon(Weapon &weapon) {
+bool PlayerInfo::hasWeapon(Weapon* &weapon) {
     return (std::find(this->inventory.begin(), this->inventory.end(), weapon) != this->inventory.end());
-}*/
+}
 
 PlayerInfo::~PlayerInfo(){}

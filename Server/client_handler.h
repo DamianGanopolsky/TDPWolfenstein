@@ -43,7 +43,6 @@ class ClientHandler : public Thread {
 
 		void run() override;
     	void push(Notification* notification);
-		//void changeMap(Id map);
 		bool isRunning() const;
 		void joinThreads();
 		void stop();

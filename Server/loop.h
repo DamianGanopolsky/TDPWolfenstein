@@ -4,21 +4,24 @@
 #include "../Common/thread.h"
 #include "./Model/game.h"
 #include "./clients_connected.h"
+#include "./connection_element.h"
 
 class Loop : public Thread {
     Game game;
     ClientsConnected clients_connected;
     NonBlockingQueue<Command*> commands;
     NonBlockingQueue<ConnectionId*> finished_connections;
-    NonBlockingQueue<Socket*>& new_connections;
+    NonBlockingQueue<ConnectionElement*>& new_connections;
     std::atomic<bool> is_running;
     Id map;
+    int rate;
     void _newConnections();
     void _newCommands();
     void _finishedConnections();
+    void _deleteQueues();
 
     public:
-        Loop(NonBlockingQueue<Socket*>& new_connections, Id map);
+        Loop(NonBlockingQueue<ConnectionElement*>& new_connections);
         ~Loop();
 
         Loop(const Loop&) = delete;

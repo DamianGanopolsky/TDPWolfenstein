@@ -14,6 +14,7 @@
 class PickUp {
  public:
     PickUp();
+    ~PickUp();
     Response pickUp(PlayerInfo &info, Item &item);
     // bullets:
     Response pickUp(PlayerInfo &info, Bullet &item);
@@ -26,7 +27,7 @@ class PickUp {
     // treasures:
     Response pickUp(PlayerInfo &info, Treasure &item);
     // weapons:
-    Response pickUp(PlayerInfo &info, Weapon &item);
+    Response pickUp(PlayerInfo &info, Weapon* item);
 
 };
 

@@ -60,7 +60,7 @@ class Game {
         void startRotatingRight(const ConnectionId id);
         void stopRotating(const ConnectionId id);
         void openDoor(const ConnectionId id);
-        void changeWeapon(const ConnectionId id, Weapon weapon);
+        void changeWeapon(const ConnectionId id, Weapon* weapon);
         void attack(const ConnectionId id, const ConnectionId id_target);
         void receiveAttack(const ConnectionId, int& damage);
 

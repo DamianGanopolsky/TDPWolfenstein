@@ -5,7 +5,7 @@
 #include "../Model/objects/items/weapons/weapon.h"
 
 class CommandChangeWeapon : public Command {
-    Weapon weapon;
+    Weapon* weapon;
     public:
         CommandChangeWeapon(ConnectionId id_caller, Weapon& weapon);
         ~CommandChangeWeapon();

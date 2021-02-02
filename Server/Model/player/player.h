@@ -40,7 +40,7 @@ class Player {
     Response useWeapon(Id id, Id id_target, Player* target, int& damage);
     Response receiveAttack(int& damage);
     Response resurrect();
-    Response changeWeapon(Weapon& weapon);
+    Response changeWeapon(Weapon* weapon);
     Response startMovingUp();
     Response startMovingDown();
     Response startMovingLeft();

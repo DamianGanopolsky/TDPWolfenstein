@@ -24,12 +24,6 @@ class ClientsConnected {
 
         void add(const ConnectionId id, Socket& peer);
         void remove(const ConnectionId id);
-        void notify(const ConnectionId id, Notification* notification);
-        void notifyAll(Notification* notification);
-        //void changeMap(const ConnectionId id, const Id new_map);
-        //void updateToAll(Notification* broadcast,
-        //                const ConnectionId updated_client,
-        //                const bool send_to_updated_client);
         void sendMessageToAll(Notification* message);
         void sendEventToAll(Notification* event);
         void stop();

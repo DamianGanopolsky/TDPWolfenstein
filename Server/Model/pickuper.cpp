@@ -1,6 +1,8 @@
 #include "pickuper.h"
 
-PickUp::PickUp(){}
+PickUp::PickUp() {}
+
+PickUp::~PickUp () {}
 
 Response PickUp::pickUp(PlayerInfo &info, Item &item) {
     return Response(true, ITEM_PICKED_UP_MSG);
@@ -47,7 +49,7 @@ Response PickUp::pickUp(PlayerInfo &info, Treasure &item) {
     return Response(true, TREASURE_PICKED_UP_MSG);
 }
 
-Response PickUp::pickUp(PlayerInfo &info, Weapon &item) {
+Response PickUp::pickUp(PlayerInfo &info, Weapon* item) {
     if(info.hasWeapon(item)){
         return Response(false, NO_ITEM_PICKED_UP_MSG);
     }

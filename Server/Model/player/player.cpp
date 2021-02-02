@@ -37,6 +37,23 @@ void Player::_die() {
         //map.addItem(posx, posy, corpse);
     }*/
 }
+Response Player::_updateMovement() {
+    /*std::pair<int, int> next_pos = this->getPos().getNextPos(this->getPos().getDirection());
+    Response can_move = _canMove(map, player, next_pos);
+    if (can_move.success && ((can_move.message) !=  NO_ITEM_PICKED_UP_MSG)) {
+        _notifyMovementEvent(id, player.update(iteration));
+         _notifyItemChanged(id, can_move, _getItemOpcode(can_move.message));
+    } else if (can_move.success) {
+        _notifyMovementEvent(id, player.update(iteration));
+    } else {
+        _notifyMovementEvent(id, Response(false, CANT_MOVE_UP_ERROR_MSG));
+    }*/
+    return Response(true, SUCCESS_MSG);
+}
+
+Response Player::_updateRotation() {
+    return Response(true, SUCCESS_MSG);
+}
 
 PlayerPosition Player::getPos() {
     return this->pos;
@@ -142,8 +159,8 @@ Response Player::useWeapon(Id id, Id id_target, Player* target, int& damage) {
     if (!target->getState()->canBeAttacked()) {
         Response(false, CANT_BE_ATTACKED_ERROR_MSG);
     }
-    Weapon weapon = this->getInfo().getWeaponEquiped();
-    weapon.attack(damage);
+    Weapon* weapon = this->getInfo().getWeaponEquiped();
+    weapon->attack(damage);
     target->receiveAttack(damage);
     return Response(true, SUCCESS_MSG);
 }
@@ -169,7 +186,7 @@ Response Player::resurrect() {
     //poner todos los valores iniciales de vida, balas, etc
 }
 
-Response Player::changeWeapon(Weapon& weapon) {
+Response Player::changeWeapon(Weapon* weapon) {
     if(this->info.hasWeapon(weapon)){
         this->info.changeWeaponEquiped(weapon);
         return Response(true, SUCCESS_MSG);

@@ -10,10 +10,13 @@ void ClientsConnected::add(const ConnectionId id, Socket& peer) {
     if (clients.count(id) > 0) {
         throw Exception("Repeated client_id.");
     }
+    std::cout <<"ClientsConnected: adding a new_connection"<< std::endl;
     clients.emplace(
         std::piecewise_construct, std::forward_as_tuple(id),
         std::forward_as_tuple(peer, id, finished_connections, commands));
+    std::cout <<"ClientsConnected: starting new_connection"<< std::endl;
     clients.at(id).start();
+    std::cout <<"ClientsConnected: new_connection added"<< std::endl;
 }
 
 void ClientsConnected::remove(const ConnectionId id) {
@@ -25,19 +28,10 @@ void ClientsConnected::remove(const ConnectionId id) {
     clients.erase(id);
 } 
 
-void ClientsConnected::notify(const ConnectionId id, Notification* notification) {}
-
-void ClientsConnected::notifyAll(Notification* notification) {}
-
-//void ClientsConnected::changeMap(const ConnectionId id, const Id new_map) {}
-
-/*void ClientsConnected::updateToAll(Notification* broadcast,
-                const ConnectionId updated_client,
-                const bool send_to_updated_client) {}*/
-
 void ClientsConnected::sendMessageToAll(Notification* message) {
     std::unordered_map<ConnectionId, ClientHandler>::iterator it;
     for (it = clients.begin(); it != clients.end(); it++) {
+        std::cout <<"ClientsConnected: push message"<< std::endl;
         it->second.push(message);
     }
     delete message;

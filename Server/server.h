@@ -4,9 +4,12 @@
 #include <iostream>
 #include <cstdlib>
 #include "./accepter.h"
+#include "./loop.h"
 
 class Server {
+	NonBlockingQueue<ConnectionElement*> new_connections;
 	Accepter accepter;
+	Loop loop;
 
 	public: 
 		explicit Server(const char* service);

@@ -39,6 +39,7 @@ ItemChanged& ItemChanged::operator=(const ItemChanged& other) {
 }
 
 bool ItemChanged::send(const ConnectionId sender, const Socket& peer) {
+    std::cout <<"ItemChanged: comienza el send()"<< std::endl;
     try{
         uint8_t buffer[2];
         buffer[0] = ITEM_CHANGED_OPCODE;

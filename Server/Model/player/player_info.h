@@ -12,7 +12,7 @@ class PlayerInfo {
     int getKey();
     int getTreasure();
     int getNumResurrection();
-    Weapon getWeaponEquiped();
+    Weapon* getWeaponEquiped();
     void addLife(int life);
     void addBullets(int bullets);
     void addNumKeys(int key);
@@ -22,11 +22,11 @@ class PlayerInfo {
     void reduceBullets(int bullets);
     void reduceNumKeys(int key);
     void reduceTreasure(int treasure);
-    void changeWeaponEquiped(Weapon &weapon);
+    void changeWeaponEquiped(Weapon* &weapon);
     
-    //std::list <Weapon> getInventory();
-    void addInventory(Weapon &weapon);
-    bool hasWeapon(Weapon &weapon);
+    std::list <Weapon*> getInventory();
+    void addInventory(Weapon* &weapon);
+    bool hasWeapon(Weapon* &weapon);
     ~PlayerInfo();
  private:
     int life;
@@ -34,8 +34,8 @@ class PlayerInfo {
     int keys;
     int treasure;
     int resurrected;
-    Weapon equiped;
-    //std::list <Weapon> inventory;
+    Weapon* equiped;
+    std::list <Weapon*> inventory;
     
 };
 
