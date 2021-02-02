@@ -4,7 +4,7 @@
 #include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL_image.h>
 #include "SdlSound.h"
-#include "../Editor/SdlClasses/SdlMusic.h"
+//#include "../Editor/SdlClasses/SdlMusic.h"
 #include "../Editor/SdlClasses/SdlWindow.h"
 #include "yaml-cpp/yaml.h"
 #define VOLUMEN_MAXIMO 128
@@ -15,9 +15,9 @@ int main(int argc,char* argv[]){
     if(SDL_Init(SDL_INIT_AUDIO)==-1) {
         printf("SDL_Init: %s\n", SDL_GetError());
     }
-    if(Mix_OpenAudio(44100,MIX_DEFAULT_FORMAT,2,1024)<0){
+   /* if(Mix_OpenAudio(44100,MIX_DEFAULT_FORMAT,2,1024)<0){
         std::cout << "eRROR:" << Mix_GetError() << std::endl;
-    }
+    }*/
     YAML::Node config = YAML::LoadFile("../Yaml_configs/editor_config.yaml");
     int width = config["width"].as<int>();
     int heigth =config["heigth"].as<int>();
@@ -37,8 +37,8 @@ int main(int argc,char* argv[]){
     SDL_RenderCopy(window.getRenderer(), bar, NULL, &Bar_Rect); 
     SDL_RenderCopy(window.getRenderer(), connect, NULL, &Connect_Rect); 
 
-    SdlMusic music("../Music/menu.mp3");
-    music.play();
+    //SdlMusic music("../Music/menu.mp3");
+    //music.play();
 
     while(quit!=true){
         while(SDL_PollEvent(&event)!=0){
@@ -66,9 +66,9 @@ int main(int argc,char* argv[]){
             window.render();
         }
     }
-    std::cout << "FInalizo" << std::endl;
+   // std::cout << "FInalizo" << std::endl;
 
-    Mix_Quit();
+   // Mix_Quit();
     SDL_Quit();
     return 0;
 }

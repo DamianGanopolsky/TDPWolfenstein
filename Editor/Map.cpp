@@ -234,19 +234,29 @@ void Map::render(){
                 continue;
             }
             SDL_Rect rect={pos_x*TILE_PIXELS,pos_y*TILE_PIXELS,TILE_PIXELS,TILE_PIXELS};
-            SDL_Rect rect_text={pos_x*TILE_PIXELS+3,(pos_y*TILE_PIXELS)-10,TILE_PIXELS,TILE_PIXELS};
+            //SDL_Rect rect_text={pos_x*TILE_PIXELS+3,(pos_y*TILE_PIXELS)-10,TILE_PIXELS,TILE_PIXELS};
+            SDL_Rect rect_text={pos_x*TILE_PIXELS+10,(pos_y*TILE_PIXELS)-5,TILE_PIXELS/2,TILE_PIXELS/2};
             pos_y++;
             SDL_RenderCopy(window.getRenderer(),textures.at(0),NULL,&rect);
             switch(matrix[i][j]){
                 case FLOOR_TILE:
                     break;
                 case PLAYER:
+                {
                     
                     key.first=(pos_x*TILE_PIXELS+camera.x*TILE_PIXELS)/TILE_PIXELS;
                     key.second=((pos_y*TILE_PIXELS+camera.y*TILE_PIXELS)/TILE_PIXELS)-1;
                     player_number=player_map.at(key);
                     SDL_RenderCopy(window.getRenderer(),textures.at(1),NULL,&rect);
-                    switch(player_number){
+                    std::string lives_str=std::to_string(player_number);
+                    TTF_Font* Sans = TTF_OpenFont("../ray_casting/panel_status/OpenSans-Bold.ttf", 20); 
+                    SDL_Surface* surfaceMessage = TTF_RenderText_Solid(Sans, lives_str.c_str(), {152, 0, 2});
+                    SDL_Texture* texture_of_text = SDL_CreateTextureFromSurface(window.getRenderer(),surfaceMessage); 
+                    SDL_RenderCopy(window.getRenderer(), texture_of_text, NULL, &rect_text);
+                    SDL_FreeSurface(surfaceMessage);
+                    SDL_DestroyTexture(texture_of_text);
+                    TTF_CloseFont(Sans);
+                    /*switch(player_number){
                         case 1:
                             SDL_RenderCopy(window.getRenderer(), textures.at(11), NULL, &rect_text); 
                             break;
@@ -265,7 +275,8 @@ void Map::render(){
                         case 6:
                             SDL_RenderCopy(window.getRenderer(), textures.at(16), NULL, &rect_text); 
                             break;
-                    }
+                    }*/
+                }
                     break;
                 case TREASURE:
                     SDL_RenderCopy(window.getRenderer(),textures.at(2),NULL,&rect);
