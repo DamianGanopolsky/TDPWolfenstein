@@ -10,7 +10,7 @@ void Accepter::run() {
 	try {
 		while(keep_accepting){
 			Socket peer = socket.accept();
-			new_connections.push(new ConnectionElement(&peer));
+			new_connections.push(new ConnectionElement(peer));
 			std::cout <<"Accepter: Se connecto un peer"<< std::endl;
 		}
 	} catch (const std::exception& e) {

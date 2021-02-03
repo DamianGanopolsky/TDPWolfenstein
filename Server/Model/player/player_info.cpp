@@ -11,6 +11,8 @@ PlayerInfo::PlayerInfo() {
     this->resurrected = 0;
 }
 
+PlayerInfo::~PlayerInfo(){}
+
 int PlayerInfo::getLife() {
     return this->life;
 }
@@ -92,5 +94,3 @@ void PlayerInfo::addInventory(Weapon* &weapon) {
 bool PlayerInfo::hasWeapon(Weapon* &weapon) {
     return (std::find(this->inventory.begin(), this->inventory.end(), weapon) != this->inventory.end());
 }
-
-PlayerInfo::~PlayerInfo(){}

@@ -20,13 +20,13 @@ void ClientManager::start(){
 	ClientSocket clientsock;
 	BlockingQueue<Command*> send_queue;
 	NonBlockingQueue<UpdateMessage*> recv_queue;
-	Receiver receiver(&clientsock,recv_queue);
+	//Receiver receiver(&clientsock,recv_queue);
 	Sender sender(&clientsock,send_queue);
 	sender.start();
 	Player player(100, 100, 270);
 	Map_2d map(player);
 	//Pruebas de concepto
-	ReceiveController receivecontroller(player,map,recv_queue);
+	//ReceiveController receivecontroller(player,map,recv_queue);
 	Panel_window panel(map);
 	Player_handler handler(player,map,send_queue);
 	Client client(panel,player,map);
@@ -38,11 +38,11 @@ void ClientManager::start(){
     while (!quit) {
 		client.render();
 		quit=handler.handle();
-		receivecontroller.ExecuteEvent();
+		//receivecontroller.ExecuteEvent();
 	}
 	sender.stop();
 	//sender.join();
-    receiver.stop();
+    //receiver.stop();
 	//receiver.join();  
 }
 

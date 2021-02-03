@@ -4,8 +4,8 @@
 #include "../Common/socket.h"
 
 struct ConnectionElement{
-    Socket* peer;
-    ConnectionElement(Socket* peer) : peer(std::move(peer)){}
+    Socket peer;
+    ConnectionElement(Socket& peer) : peer(std::move(peer)){}
 };
 
 

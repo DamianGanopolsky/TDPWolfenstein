@@ -29,27 +29,33 @@ void ClientsConnected::remove(const ConnectionId id) {
 } 
 
 void ClientsConnected::sendMessageToAll(Notification* message) {
-    std::unordered_map<ConnectionId, ClientHandler>::iterator it;
+    /*std::unordered_map<ConnectionId, ClientHandler>::iterator it;
     for (it = clients.begin(); it != clients.end(); it++) {
         std::cout <<"ClientsConnected: push message"<< std::endl;
         it->second.push(message);
     }
-    delete message;
+    delete message;*/
+    //while (message.unique()){ delete message}
 }
 
 void ClientsConnected::sendEventToAll(Notification* event) {
-    std::unordered_map<ConnectionId, ClientHandler>::iterator it;
+    /*std::unordered_map<ConnectionId, ClientHandler>::iterator it;
     for (it = clients.begin(); it != clients.end(); it++) {
         it->second.push(event);
     }
-    delete event;
+    delete event;*/
+    //por parametro std::shared_ptr<Notification> event
+    //while (event.unique()){ delete event}
 }
 
 void ClientsConnected::stop() { 
     std::unordered_map<ConnectionId, ClientHandler>::iterator it;
     for (it = clients.begin(); it != clients.end(); it++) {
+        std::cout <<"ClientsConnected: entro"<< std::endl;
 		it->second.stop();
         it->second.joinThreads();
-        clients.erase(it);
 	}
+    std::cout <<"ClientsConnected: salio"<< std::endl;
+    clients.clear();
+    std::cout <<"ClientsConnected: termino"<< std::endl;
 }

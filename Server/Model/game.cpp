@@ -3,8 +3,9 @@
 
 
 Game::Game(ClientsConnected& clients_connected, Id map_id) : 
+                            new_connection_id(0),
                             clients_connected(clients_connected), 
-                            map_id(map_id) {}
+                            map_id(map_id), objMap() {}
 Game::~Game() {}
 
 //_getPlayerPosition deberia chequear si el yaml establece la posicion en la que el player deberia aparecer o no.
@@ -84,14 +85,16 @@ Response Game::_canMove(int** map, Player& player, std::pair<int, int> next_pos)
     PlayerPosition pos = player.getPos();
     bool changeCell = _changeCell(pos, next_pos);
     if (changeCell) {
-        int object_code = map[next_pos.first][next_pos.second];
+        /*int object_code = map[next_pos.first][next_pos.second];
         Object obj = objMap.getObject(object_code);
         Interact interactor;
         Response not_blocking = interactor.interactWith(player, map, obj);
-        return not_blocking;
+        return not_blocking;*/
     } else { //se mueve dentro de la misma celda
         return Response(true, NO_ITEM_PICKED_UP_MSG);
     }
+    //esto no va
+    return Response(true, NO_ITEM_PICKED_UP_MSG);
 }
 
 bool Game::_changeCell(PlayerPosition &pos, std::pair<int, int> &next_pos) {
@@ -119,8 +122,8 @@ bool Game::_getPlayerPosition(Id map_id, int init_x, int init_y, Id new_player_i
 }
 
 const ConnectionId Game::newPlayer() {
-    Id new_player_id = this->new_connection_id;
-    ++this->new_connection_id;
+    ConnectionId new_player_id = this->new_connection_id;
+    ++(this->new_connection_id);
     //del yaml con mapas obtener Id map_id = ...
     //int init_x, init_y;
     //bool has_assigned_position = _getPlayerPosition(map_id, init_x, init_y, new_player_id);
@@ -209,7 +212,7 @@ void Game::openDoor(const ConnectionId id) {
     Player& player = this->players.at(id);
     PlayerPosition pos = player.getPos();
 
-    int object_code = map[pos.getX()][pos.getY()];
+    /*int object_code = map[pos.getX()][pos.getY()];
     Object obj = objMap.getObject(object_code);
 
     bool door_opened = _interactWith(player, map, obj);
@@ -217,7 +220,7 @@ void Game::openDoor(const ConnectionId id) {
         _notifyItemChanged(id, Response(false, NO_KEY_TO_OPEN_CLOSED_DOOR), OPEN_DOOR_ITM);
     } else {
         _notifyItemChanged(id, Response(true, SUCCESS_MSG), OPEN_DOOR_ITM);
-    }
+    }*/
 }
 
 void Game::changeWeapon(const ConnectionId id, Weapon* weapon) {

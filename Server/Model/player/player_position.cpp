@@ -2,6 +2,8 @@
 
 PlayerPosition::PlayerPosition(){}
 
+PlayerPosition::~PlayerPosition() {}
+
 void PlayerPosition::setInitialPos(int inicial_x, int inicial_y) {
     if (inicial_x < 0 || inicial_x > this->width ) {
         this->x = 0;

@@ -8,6 +8,7 @@
 class Map {
  public:
     Map(int width, int height);
+    ~Map();
     //cargar_mapa(char* archivo_yalm)
     // update()
     // send

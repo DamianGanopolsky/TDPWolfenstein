@@ -57,6 +57,7 @@ void ClientHandler::_receive() {
 	        std::cout <<"ClientHandler: Se recibieron bytes"<< std::endl;
             uint8_t opcode = buffer[0];
             uint8_t command_opcode = buffer[1];
+            std::cout <<"Bytess recieved:"<< unsigned(opcode) << " --- " << unsigned(command_opcode) << std::endl;
             if (opcode == COMMAND_OPCODE) {
 				try {
 					Command* cmd = Command::newCommand(id, command_opcode, peer);
@@ -92,6 +93,7 @@ void ClientHandler::run() {
 
 bool ClientHandler::isRunning() const{
     return this->is_running;
+    return true;
 }
 void ClientHandler::push(Notification* notification) {
     std::cout <<"ClientsHandler: push notification"<< std::endl;

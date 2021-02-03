@@ -26,6 +26,7 @@ class Player {
     Player(int pos_x, int pos_y, std::string& nickname, 
             Id id_player);
     Player(std::string& nickname, Id id_player);
+    ~Player();
     PlayerPosition getPos();
     PlayerInfo getInfo();
     State* getState();

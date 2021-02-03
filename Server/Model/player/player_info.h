@@ -7,6 +7,7 @@
 class PlayerInfo {
  public:
     explicit PlayerInfo();
+    ~PlayerInfo();
     int getLife();
     int getNumBullets();
     int getKey();
@@ -27,7 +28,6 @@ class PlayerInfo {
     std::list <Weapon*> getInventory();
     void addInventory(Weapon* &weapon);
     bool hasWeapon(Weapon* &weapon);
-    ~PlayerInfo();
  private:
     int life;
     int bullets;

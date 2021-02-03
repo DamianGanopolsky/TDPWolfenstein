@@ -8,8 +8,6 @@
 #include "./objects/items/item.h"
 #include "./objects/scene/blocking_objects/blocking_object.h"
 #include "./objects/scene/non_blocking_objects/non_blocking_object.h"
-#include "./objects/scene/doors/door.h"
-#include "./objects/scene/doors/locked_door.h"
 #include "./objects/scene/hidden_objects/secret_passage.h"
 
 #include <set>

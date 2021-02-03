@@ -19,6 +19,7 @@ class PlayerPosition {
  public:
     PlayerPosition();
     explicit PlayerPosition(int inicial_x, int inicial_y, int width, int height);
+    ~PlayerPosition();
     void moveUp();
     void moveLeft();
     void moveDown();

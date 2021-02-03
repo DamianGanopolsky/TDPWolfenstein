@@ -2,6 +2,7 @@
 #define CLIENTS_CONNECTED_H
 
 #include <unordered_map>
+#include <memory>
 
 //class Command;
 #include "./client_handler.h"

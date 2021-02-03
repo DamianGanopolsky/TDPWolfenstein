@@ -17,8 +17,8 @@ void Loop::_newConnections() {
     while ((connection = this->new_connections.pop())) {
         std::cout <<"Loop: new_connection"<< std::endl;
         ConnectionId id = this->game.newPlayer();
-        std::cout <<"Loop: new player added"<< std::endl;
-        clients_connected.add(id, *((*connection).peer));
+        std::cout <<"Loop: new player added"<< id <<std::endl;
+        clients_connected.add(id, connection->peer);
         delete connection;
     } 
 }
@@ -68,7 +68,7 @@ void Loop::run() {
     while (is_running) {
         _newConnections();
         _newCommands();
-        game.updatePlayers(it);
+        //game.updatePlayers(it);
         _finishedConnections();
         
         it = 0;
@@ -89,7 +89,9 @@ void Loop::run() {
     }
     std::cout <<"Loop: termino el loop"<< std::endl;
     clients_connected.stop();
+    std::cout <<"Loop: termino el looppppppppp"<< std::endl;
     _deleteQueues();
+    std::cout <<"Loop: termino "<< std::endl;
 }
 
 void Loop::stop() {

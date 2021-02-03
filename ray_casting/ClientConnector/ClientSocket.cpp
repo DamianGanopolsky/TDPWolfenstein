@@ -3,7 +3,7 @@
 #include <stdint.h>
 #include "../../Common/protocol.h"
 
-ClientSocket::ClientSocket():socket("127.0.0.1","8080"){
+ClientSocket::ClientSocket():socket("127.0.0.1","8082"){
    // Socket socket("127.0.0.1","8080");
     
 }
@@ -16,7 +16,10 @@ int ClientSocket::recv(){
 void ClientSocket::send(uint8_t msg){
     uint8_t opcode=1;
     //uint8_t opcode=START_MOVING_UP_CMD;
-    //char opcode_enviar=(char) opcode;     El posta(descomentar)
+    uint8_t buffer[2];
+    buffer[0] = opcode;
+    buffer[1] = msg;
+    //char opcode_enviar=(char) opcode;    
    // char buff1[2]="1";
    // char* opcode=1;
     std::cout << "Envio por socket: Comando:" << unsigned(opcode) << "Tipo de comando:" << unsigned(msg) << std::endl;
@@ -26,6 +29,7 @@ void ClientSocket::send(uint8_t msg){
     //socket.send(opcode_char, 1);
     //socket.send(command_type, 1);
     //socket.send((char*)opcode, 1);
-    //socket.send(&opcode_enviar,1);    El posta(descomentar)
+    //socket.send(&opcode_enviar,1); 
     //socket.send(command_type, 1);
+    socket.send((char*)buffer, 2);
 }

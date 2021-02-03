@@ -16,6 +16,10 @@ Player::Player(int pos_x, int pos_y, std::string& nickname,
                 moving(false), rotating(false), 
                 shooting(false) {}
 
+Player::~Player() {
+    delete this->state;
+}
+
 void Player::_die() {
     delete this->state;
     this->state = new Dead(this->player_id);

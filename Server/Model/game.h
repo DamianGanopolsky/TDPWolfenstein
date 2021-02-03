@@ -13,7 +13,7 @@ class ClientsConnected;
 #include "./map/object_map.h"
 #include "./constants/const_object_map.h"
 #include "./player/player.h"
-#include "./objects/items/weapons/weapon.h"
+//#include "./objects/items/weapons/weapon.h"
 #include "./interactor.h"
 #include "./droper.h"
 
