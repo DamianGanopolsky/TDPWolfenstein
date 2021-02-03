@@ -34,6 +34,12 @@ Player_info& Player::get_info() {
 	return this->info;
 }
 
+void Player::update_position_and_angle(int X,int Y,float ANGLE){
+	this->pos_x=X;
+	this->pos_y=Y;
+	this->vision_angle=ANGLE;
+}
+
 void Player::left_rotation() {
 	float new_vision_angle = this->vision_angle + ROTATION_SIZE;
 	this->vision_angle = new_vision_angle >= 360.0 ? new_vision_angle - 360.0 : new_vision_angle;

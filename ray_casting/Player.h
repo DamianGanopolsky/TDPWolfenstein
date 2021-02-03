@@ -22,6 +22,7 @@ public:
 	void move_right();
 	void shoot();
 	void change_weapon(int weapon);
+	void update_position_and_angle(int x,int y,float ANGLE);
 
 private:
 	SoundManager soundmanager;
