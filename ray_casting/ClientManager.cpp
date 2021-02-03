@@ -1,5 +1,6 @@
 #include "ClientManager.h"
 #include "../Common/blocking_queue.h"
+#include "../Common/non_blocking_queue.h"
 #include "Command.h"
 
 ClientManager::ClientManager(){

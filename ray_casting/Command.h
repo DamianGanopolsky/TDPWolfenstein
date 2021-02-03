@@ -13,6 +13,7 @@ public:
 
 private:
     uint8_t opcode;
+    uint8_t command_opcode;
 };
 
 #endif

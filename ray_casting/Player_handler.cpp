@@ -26,37 +26,52 @@ bool Player_handler::handle() {
 			//printf("W ON\n");
 			//
 			Command* command = new Command(1);
-			std::cout << "Opcode:" << command->get_opcode() << std::endl;
+			//std::cout << "Opcode:" << command->get_opcode() << std::endl;
 			SendQueue.push(std::move(command));
 			moving=true;
 		}
 		if ((state[SDL_SCANCODE_S])&&(moving==false)) {
 			//printf("S ON.\n");
+			Command* command = new Command(2);
+			SendQueue.push(std::move(command));
 			moving=true;
+			
 		}
 		if ((state[SDL_SCANCODE_A])&&(moving==false)) {
 			//printf("A ON.\n");
+			Command* command = new Command(3);
+			SendQueue.push(std::move(command));
 			moving=true;
 		}
 		if ((state[SDL_SCANCODE_D])&&(moving==false)) {
 			//printf("D ON\n");
+			Command* command = new Command(4);
+			SendQueue.push(std::move(command));
 			moving=true;
 		}
 		if ((state[SDL_SCANCODE_RIGHT])&&(rotating==false)){
+			Command* command = new Command(6);
+			SendQueue.push(std::move(command));
 			//printf("Rotating right on \n");
 			rotating=true;
 		}
 		if ((state[SDL_SCANCODE_LEFT])&&(rotating==false)){
 			//printf("Rotating left on \n");
+			Command* command = new Command(7);
+			SendQueue.push(std::move(command));
 			rotating=true;
 		}
 		if (((state[SDL_SCANCODE_W]==0)&&(state[SDL_SCANCODE_A]==0)&&\
 		(state[SDL_SCANCODE_S]==0)&&(state[SDL_SCANCODE_D]==0))&&(moving)){
 			//printf("STOP MOVING\n");
+			Command* command = new Command(5);
+			SendQueue.push(std::move(command));
 			moving=false;
 		}
 		if (((state[SDL_SCANCODE_LEFT]==0)&&(state[SDL_SCANCODE_RIGHT]==0))&&(rotating)){
 			//printf("Stop rotating \n");
+			Command* command = new Command(8);
+			SendQueue.push(std::move(command));
 			rotating=false;
 		}
 		switch(event.type){

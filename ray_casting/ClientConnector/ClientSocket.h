@@ -7,11 +7,11 @@ class ClientSocket {
 public:
     ClientSocket();
     int recv();
-    void send(int msg);
+    void send(uint8_t msg);
     
 
 private:
-    //Socket socket;
+    Socket socket;
 
 };
 
