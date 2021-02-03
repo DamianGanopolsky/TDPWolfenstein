@@ -6,12 +6,12 @@
 void Sender::stop(){
     sending=false;
 }
-
+/*
 void Sender::send(int i){
     clientsocket->send(4);
 }
 
-
+*/
 void Sender::run(){
     while(sending){
         Command* command=SendQueue.pop();

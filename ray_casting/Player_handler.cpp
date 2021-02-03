@@ -103,6 +103,7 @@ bool Player_handler::handle() {
 						this->player.shoot();
 						break; 
 					case SDLK_1:
+						
 						this->player.change_weapon(0);
 						//std::cout << "Notifico al server que quiero cambiar a cuchillo" << std::endl;
 						break;
@@ -117,6 +118,10 @@ bool Player_handler::handle() {
 					case SDLK_4:
 						this->player.change_weapon(3);
 						//std::cout << "Notifico al server que quiero cambiar a chain_cannon" << std::endl;
+						break;
+					case SDLK_5:
+						//PRUEBA
+						this->player.update_position_and_angle(300,300,300);
 						break;
 					case SDLK_ESCAPE:  
 						//sender.stop();

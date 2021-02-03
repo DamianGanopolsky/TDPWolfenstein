@@ -22,6 +22,7 @@ public:
 	std::list<Game_element> get_game_elements(); 
 	int get_wall_texture(int cuadricula);
 	void open_door(int cuadricula);
+	void update_player_pos(int id,int pos_x,int pos_y,int angle);
 private:
 //PARED O NO
 	std::map<int, bool> boxes;
@@ -34,6 +35,8 @@ private:
 	int map_height;
 
 	std::map <std::pair<int,int>,int> elements_map;
+
+	std::list<Game_element> players_in_map;
 	//std::unordered_map<int,int> elements_map;
 
 	//POSICION DEL PLAYER
