@@ -2,6 +2,7 @@
 #include <SDL2/SDL.h>
 #include <iostream>
 #include "ClientConnector/Sender.h"
+#include "../Common/protocol.h"
 
 
 Player_handler::Player_handler(Player& player,Map_2d& MAP,BlockingQueue<Command*>& send_queue): 
@@ -50,14 +51,14 @@ bool Player_handler::handle() {
 			moving=true;
 		}
 		if ((state[SDL_SCANCODE_RIGHT])&&(rotating==false)){
-			Command* command = new Command(6);
+			Command* command = new Command(START_ROTATING_RIGHT);
 			SendQueue.push(std::move(command));
 			//printf("Rotating right on \n");
 			rotating=true;
 		}
 		if ((state[SDL_SCANCODE_LEFT])&&(rotating==false)){
 			//printf("Rotating left on \n");
-			Command* command = new Command(7);
+			Command* command = new Command(START_ROTATING_LEFT);
 			SendQueue.push(std::move(command));
 			rotating=true;
 		}
@@ -70,7 +71,7 @@ bool Player_handler::handle() {
 		}
 		if (((state[SDL_SCANCODE_LEFT]==0)&&(state[SDL_SCANCODE_RIGHT]==0))&&(rotating)){
 			//printf("Stop rotating \n");
-			Command* command = new Command(8);
+			Command* command = new Command(STOP_ROTATING);
 			SendQueue.push(std::move(command));
 			rotating=false;
 		}
