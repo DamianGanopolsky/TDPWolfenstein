@@ -4,8 +4,6 @@
 #include "../../Common/protocol.h"
 
 ClientSocket::ClientSocket():socket("127.0.0.1","8082"){
-   // Socket socket("127.0.0.1","8080");
-    
 }
 
 
@@ -14,7 +12,7 @@ ClientSocket::ClientSocket():socket("127.0.0.1","8082"){
 int ClientSocket::recv(char* recv_buff,int len){
     int bytes_received=0;
     socket.receive(recv_buff,2,bytes_received);
-    
+
     return 2;
 }
 
