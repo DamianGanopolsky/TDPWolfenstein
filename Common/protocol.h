@@ -1,5 +1,15 @@
 #ifndef PROTOCOL_H
 #define PROTOCOL_H
+#include <stdint.h>
+
+struct Movement_event {
+    uint8_t player_id;
+    uint8_t pos_x;
+    uint8_t pos_y;
+    float angle;
+    uint8_t is_moving;
+    uint8_t is_shooting;
+};
 
 enum Opcode {
     EVENT_OPCODE = 0,

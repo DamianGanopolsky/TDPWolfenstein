@@ -26,19 +26,22 @@ void ClientManager::start(){
 	Player player(100, 100, 270);
 	Map_2d map(player);
 	//Pruebas de concepto
-	ReceiveController receivecontroller(player,map,recv_queue);
+	
 	receiver.start();
 	Panel_window panel(map);
 	Player_handler handler(player,map,send_queue);
 	Client client(panel,player,map);
+	ReceiveController receivecontroller(player,map,recv_queue,client);
 	MusicSoundtrack music;
 	music.play_editor();
 	client.render();
+	receivecontroller.start();
 	bool quit=false;
 
     while (!quit) {
-		client.render();
-		quit=handler.handle();
+		//client.render();
+		quit=receivecontroller.start();    //Recibo eventos y actualizo
+		quit=handler.handle();   //Capturo eventos del cliente y envio
 		//receivecontroller.ExecuteEvent();
 	}
 	sender.stop();
