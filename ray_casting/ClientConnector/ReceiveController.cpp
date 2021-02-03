@@ -20,13 +20,17 @@ bool ReceiveController::start(){
      else{
          if(updatemessage->get_opcode()==0){
              switch(updatemessage->get_event_type()){
-                case 0:  //MOVEMENT EVENT
+                case 0:  {//MOVEMENT EVENT
                     Movement_event mov_event=updatemessage->get_event_info();
                     if(mov_event.player_id==1){   // 1 SERIA YO
                         player.update_position_and_angle(mov_event.pos_x,\
                         mov_event.pos_y,mov_event.angle);
                     }
+                    else{
+
+                    }
                     break;
+                }
                 default:
                     break;
 

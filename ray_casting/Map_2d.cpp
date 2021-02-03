@@ -56,6 +56,10 @@ void Map_2d::open_door(int cuadricula){
 	boxes[cuadricula]=true;
 }
 
+void Map_2d::update_player_pos(int id,int pos_x,int pos_y,int angle){
+	//players_in_map[id]=
+}
+
 
 
 std::list<Game_element> Map_2d::get_game_elements() {

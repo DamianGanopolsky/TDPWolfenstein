@@ -36,7 +36,7 @@ private:
 
 	std::map <std::pair<int,int>,int> elements_map;
 
-	std::list<Game_element> players_in_map;
+	std::unordered_map<int,Game_element> players_in_map;
 	//std::unordered_map<int,int> elements_map;
 
 	//POSICION DEL PLAYER
