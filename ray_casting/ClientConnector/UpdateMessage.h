@@ -5,7 +5,7 @@
 
 class UpdateMessage {
 public:
-
+    UpdateMessage();
 
 private:
 

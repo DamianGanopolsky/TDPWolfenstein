@@ -9,7 +9,12 @@ ClientSocket::ClientSocket():socket("127.0.0.1","8082"){
 }
 
 
-int ClientSocket::recv(){
+
+
+int ClientSocket::recv(char* recv_buff,int len){
+    int bytes_received=0;
+    socket.receive(recv_buff,2,bytes_received);
+    
     return 2;
 }
 
