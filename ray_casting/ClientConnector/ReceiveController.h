@@ -10,7 +10,8 @@
 
 class ReceiveController {
 public:
-    ReceiveController(Player& PLAYER,Map_2d& MAP):player(PLAYER),map(MAP){
+    ReceiveController(Player& PLAYER,Map_2d& MAP,NonBlockingQueue<UpdateMessage*>&\
+     RECV_QUEUE):player(PLAYER),map(MAP),recv_queue(RECV_QUEUE){
     }
 
     void ExecuteEvent();
@@ -18,6 +19,7 @@ public:
 private:
     Player& player;
     Map_2d& map;
+    NonBlockingQueue<UpdateMessage*>& recv_queue;
     
 };
 

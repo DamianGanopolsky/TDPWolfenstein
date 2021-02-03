@@ -14,7 +14,7 @@ int ClientSocket::recv(){
 }
 
 void ClientSocket::send(uint8_t msg){
-    uint8_t opcode=1;
+    uint8_t opcode=128;
     //uint8_t opcode=START_MOVING_UP_CMD;
     uint8_t buffer[2];
     buffer[0] = opcode;
