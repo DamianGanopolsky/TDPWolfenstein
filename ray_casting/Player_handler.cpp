@@ -4,8 +4,9 @@
 #include "ClientConnector/Sender.h"
 
 
-Player_handler::Player_handler(Player& player,Map_2d& MAP): 
-								player(player),map(MAP),moving(false),rotating(false) {
+Player_handler::Player_handler(Player& player,Map_2d& MAP,BlockingQueue<Command*>& send_queue): 
+								player(player),map(MAP),moving(false),rotating(false),\
+								SendQueue(send_queue) {
 	//sender.start();
 }
 
@@ -23,6 +24,10 @@ bool Player_handler::handle() {
 		if ((state[SDL_SCANCODE_W])&&(moving==false)) {
 			//sender.send(1);
 			//printf("W ON\n");
+			//
+			Command* command = new Command(1);
+			std::cout << "Opcode:" << command->get_opcode() << std::endl;
+			SendQueue.push(std::move(command));
 			moving=true;
 		}
 		if ((state[SDL_SCANCODE_S])&&(moving==false)) {
@@ -122,7 +127,7 @@ bool Player_handler::handle() {
 				}
 			case SDL_MOUSEBUTTONUP:
 				if(event.button.button==SDL_BUTTON_RIGHT){
-					map.open_door(93);
+					map.open_door(171);
                     //std::cout << "Notifico al server que intente abrir una puerta en x:
 					//<< event.button.x << "en y:" << event.button.y << std::endl;
                 }

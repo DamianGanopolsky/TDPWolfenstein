@@ -4,11 +4,13 @@
 #include "Player.h"
 #include "Map_2d.h"
 #include "ClientConnector/Sender.h"
+#include "../Common/blocking_queue.h"
+#include "Command.h"
 #include "ClientConnector/ClientSocket.h"
 
 class Player_handler {
 public:
-	Player_handler(Player& player,Map_2d& MAP);
+	Player_handler(Player& player,Map_2d& MAP,BlockingQueue<Command*>& send_queue);
 	//Player_handler(Player_handler&& other);
 	~Player_handler();
 
@@ -21,6 +23,7 @@ private:
 	bool quit;
 	bool moving;
 	bool rotating;
+	BlockingQueue<Command*>& SendQueue;
 
 	//ClientSocket& clisocket;
 	//Sender sender;

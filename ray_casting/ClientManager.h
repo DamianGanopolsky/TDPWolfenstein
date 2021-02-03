@@ -24,6 +24,7 @@ public:
     ~ClientManager();
 private:
     //ClientSocket clientsocket;
+    
     //Receiver receiver;
 };
 

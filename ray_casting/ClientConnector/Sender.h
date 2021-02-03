@@ -4,11 +4,13 @@
 #include "../../Common/thread.h"
 #include "../../Common/blocking_queue.h"
 #include "../../Common/socket.h"
+#include "../Command.h"
 #include "ClientSocket.h"
 
 class Sender: public Thread {
 public:
-    Sender(ClientSocket* ClientSocket): sending(true),clientsocket(ClientSocket){
+    Sender(ClientSocket* ClientSocket,BlockingQueue<Command*>& send_queue): \
+    sending(true),clientsocket(ClientSocket),SendQueue(send_queue){
 
     }
 
@@ -21,6 +23,7 @@ public:
 private:
     bool sending;
     ClientSocket* clientsocket;
+    BlockingQueue<Command*>& SendQueue;
     //Player& player;
     //Map_2d& map;
 

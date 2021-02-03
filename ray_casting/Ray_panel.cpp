@@ -21,6 +21,7 @@ Ray_panel::Ray_panel(Ray&& ray, Wall_texture& wall_textures,Map_2d& MAP) : ray(s
 			int number_tex = map.get_wall_texture(this->ray.get_point());// % 3 == 0 ? 1 : 0; //Get point me dice contra que cuadricula
 																	//del mapa esta chocando
 																	//No sirve lo del %3...
+			
 			//int number_tex=0;
    			this->pixels[min] = wall_textures.get_pixel_tex(number_tex, wall_x, wall_y);
 		} else {
