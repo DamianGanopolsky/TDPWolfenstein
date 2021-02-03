@@ -4,6 +4,7 @@
 #include "../Player.h"
 #include "../Map_2d.h"
 #include "../../Common/non_blocking_queue.h"
+#include "UpdateMessage.h"
 
 /* ESta clase va a ir haciendo pop de la cola no bloqueante */
 

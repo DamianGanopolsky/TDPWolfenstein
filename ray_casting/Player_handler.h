@@ -5,7 +5,7 @@
 #include "Map_2d.h"
 #include "ClientConnector/Sender.h"
 #include "../Common/blocking_queue.h"
-#include "Command.h"
+#include "ClientConnector/Command.h"
 #include "ClientConnector/ClientSocket.h"
 
 class Player_handler {

@@ -7,10 +7,13 @@
 #include "../../Common/non_blocking_queue.h"
 #include "../../Common/socket.h"
 #include "ClientSocket.h"
+#include "UpdateMessage.h"
 
 class Receiver: public Thread {
 public:
-    Receiver(ClientSocket* ClientSocket):receiving(true),clientsocket(ClientSocket){
+    Receiver(ClientSocket* ClientSocket,\
+    NonBlockingQueue<UpdateMessage*>& RECV_QUEUE):receiving(true),\
+    clientsocket(ClientSocket),recv_queue(RECV_QUEUE){
 
     }
 
@@ -21,6 +24,7 @@ public:
 private:
     bool receiving;
     ClientSocket* clientsocket;
+    NonBlockingQueue<UpdateMessage*>& recv_queue;
     //Player& player;
     //Map_2d& map;
 

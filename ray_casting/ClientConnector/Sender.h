@@ -4,7 +4,7 @@
 #include "../../Common/thread.h"
 #include "../../Common/blocking_queue.h"
 #include "../../Common/socket.h"
-#include "../Command.h"
+#include "Command.h"
 #include "ClientSocket.h"
 
 class Sender: public Thread {
