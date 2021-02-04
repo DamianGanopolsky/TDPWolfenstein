@@ -19,6 +19,7 @@ void Loop::_newConnections() {
         ConnectionId id = this->game.newPlayer();
         std::cout <<"Loop: new player added"<< id <<std::endl;
         clients_connected.add(id, connection->peer);
+        this->game.notifyNewPlayer(id);
         delete connection;
     } 
 }
@@ -89,7 +90,6 @@ void Loop::run() {
     }
     std::cout <<"Loop: termino el loop"<< std::endl;
     clients_connected.stop();
-    std::cout <<"Loop: termino el looppppppppp"<< std::endl;
     _deleteQueues();
     std::cout <<"Loop: termino "<< std::endl;
 }

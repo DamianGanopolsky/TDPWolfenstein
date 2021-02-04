@@ -2,7 +2,7 @@
 
 ClientsConnected::ClientsConnected(NonBlockingQueue<Command*>& commands,
             NonBlockingQueue<ConnectionId*>& finished_connections) : 
-            commands(commands), finished_connections(finished_connections) {}
+            commands(commands), finished_connections(finished_connections), clients() {}
 
 ClientsConnected::~ClientsConnected() {}
 
@@ -25,37 +25,41 @@ void ClientsConnected::remove(const ConnectionId id) {
     }
     clients.at(id).stop();
     clients.at(id).joinThreads();
+    clients.at(id).join();
+    std::cout <<"ClientsConnected: borro client"<< std::endl;
     clients.erase(id);
+    std::cout <<"ClientsConnected: erased client"<< std::endl;
 } 
 
 void ClientsConnected::sendMessageToAll(Notification* message) {
-    /*std::unordered_map<ConnectionId, ClientHandler>::iterator it;
+    std::unordered_map<ConnectionId, ClientHandler>::iterator it;
+    std::shared_ptr<Notification> message_ptr(message);
     for (it = clients.begin(); it != clients.end(); it++) {
         std::cout <<"ClientsConnected: push message"<< std::endl;
-        it->second.push(message);
+        it->second.push(message_ptr);
     }
-    delete message;*/
-    //while (message.unique()){ delete message}
 }
 
 void ClientsConnected::sendEventToAll(Notification* event) {
-    /*std::unordered_map<ConnectionId, ClientHandler>::iterator it;
+    std::cout <<"ClientsConnected: send()"<< std::endl;
+    std::unordered_map<ConnectionId, ClientHandler>::iterator it;
+    std::shared_ptr<Notification> event_ptr(event);
     for (it = clients.begin(); it != clients.end(); it++) {
-        it->second.push(event);
+        std::cout <<"ClientsConnected: push event"<< std::endl;
+        it->second.push(event_ptr);
     }
-    delete event;*/
-    //por parametro std::shared_ptr<Notification> event
-    //while (event.unique()){ delete event}
 }
 
 void ClientsConnected::stop() { 
+    std::cout <<"ClientsConnected: stop()"<< std::endl;
     std::unordered_map<ConnectionId, ClientHandler>::iterator it;
-    for (it = clients.begin(); it != clients.end(); it++) {
+    for (it = clients.begin(); it != clients.end();) {
         std::cout <<"ClientsConnected: entro"<< std::endl;
-		it->second.stop();
+        it->second.stop();
         it->second.joinThreads();
+        it->second.join();
+        std::cout <<"ClientsConnected: salio"<< std::endl;
+        it = clients.erase(it);
+        std::cout <<"ClientsConnected: termino"<< std::endl;
 	}
-    std::cout <<"ClientsConnected: salio"<< std::endl;
-    clients.clear();
-    std::cout <<"ClientsConnected: termino"<< std::endl;
 }

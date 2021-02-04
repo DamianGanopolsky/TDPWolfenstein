@@ -75,6 +75,10 @@ std::string Player::getNickname() {
     return this->nickname;
 }
 
+Id Player::getId() {
+    return this->player_id;
+}
+
 bool Player::isAlive() {
     return this->alive;
 }

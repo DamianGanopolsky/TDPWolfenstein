@@ -26,10 +26,10 @@ class Game {
     int** map;
     ObjectMap objMap;
 
-    void _notifyEvent(const Id id, const Response& response, EventOpcode event_type);
-    void _notifyResponse(const Id id, const Response& response);
-    void _notifyItemChanged(const Id id, const Response& response, ItemOpcode item_type);
-    void _notifyMovementEvent(const Id id, const Response& response);
+    void _notifyEvent(const ConnectionId id, const Response& response, EventOpcode event_type);
+    void _notifyResponse(const ConnectionId id, const Response& response);
+    void _notifyItemChanged(const ConnectionId id, const Response& response, ItemOpcode item_type);
+    void _notifyMovementEvent(const ConnectionId id, const Response& response);
     Response _canMove(int** map, Player& player, std::pair<int, int> next_pos);
     bool _changeCell(PlayerPosition &pos, std::pair<int, int> &next_pos);
     ItemOpcode _getItemOpcode(std::string message); ///falta implmentar
@@ -46,6 +46,7 @@ class Game {
         Game& operator=(Game&& other) = delete;
 
         const ConnectionId newPlayer();
+        void notifyNewPlayer(const ConnectionId id);
         void deletePlayer(const ConnectionId id);
         void updatePlayers(const int iteration);
 

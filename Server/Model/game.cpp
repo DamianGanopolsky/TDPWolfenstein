@@ -10,7 +10,7 @@ Game::~Game() {}
 
 //_getPlayerPosition deberia chequear si el yaml establece la posicion en la que el player deberia aparecer o no.
 
-void Game::_notifyMovementEvent(const Id id, const Response& response) {
+void Game::_notifyMovementEvent(const ConnectionId id, const Response& response) {
     Notification* notification;
     Player& player = this->players.at(id);
     if (response.success) {
@@ -24,16 +24,49 @@ void Game::_notifyMovementEvent(const Id id, const Response& response) {
     } 
 }
 
-void Game::_notifyResponse(const Id id, const Response& response) {
+void Game::_notifyResponse(const ConnectionId id, const Response& response) {
     if(response.success){
         this->clients_connected.sendMessageToAll(new Message(SUCCESS_MSSG, response.message));
     } else {
         this->clients_connected.sendMessageToAll(new Message(ERROR_MSSG, response.message));
     }
 }
-void Game::_notifyEvent(const Id id, const Response& response, EventOpcode event_type) {}
+void Game::_notifyEvent(const ConnectionId id, const Response& response, EventOpcode event_type) {
+    Notification* notification;
+    std::cout<<"Game: _notifyEvent"<<std::endl;
+    Player& player = this->players.at(id);
+    std::cout<<"Game: _notifyEvent 1"<<std::endl;
+    if (response.success) {
+        std::cout<<"Game: _notifyEvent 2"<<std::endl;
+        switch (event_type) {
+            case NEW_PLAYER_EV: {
+                std::cout<<"Game: _notifyEvent, new event"<<std::endl;
+                notification = new Event(map_id, event_type, id, player.getPos().getX(), player.getPos().getY(),
+                                            player.getPos().getAngle(), player.getInfo().getLife(), player.getInfo().getNumResurrection(),
+                                            player.getInfo().getTreasure(), player.getInfo().getNumBullets());
+                break;
+            }
+            case MOVEMENT_EV:
+            case DELETE_PLAYER_EV:
+            case ATTACK_EV:
+            case BE_ATTACKED_EV:
+            case RESURRECT_EV:
+            case DEATH_EV:
+            case CHANGE_WEAPON_EV:{
+                break;
+            }
 
-void Game::_notifyItemChanged(const Id id, const Response& response, ItemOpcode item_type) {
+        }
+        std::cout<<"Game: Se notifica a todos"<<std::endl;
+        this->clients_connected.sendEventToAll(notification);
+    } else {
+        notification = new Message(ERROR_MSSG, response.message);
+        this->clients_connected.sendMessageToAll(notification);
+    } 
+    player.getInfo();
+}
+
+void Game::_notifyItemChanged(const ConnectionId id, const Response& response, ItemOpcode item_type) {
     Notification* notification;
     Player& player = this->players.at(id);
     if (response.success) {
@@ -138,10 +171,12 @@ const ConnectionId Game::newPlayer() {
     std::cout <<"Game: new player added"<< std::endl;
     //de alguna manera me tienen que pasar el nickname
     //this->players_by_name[nickname] = new_player_id;
-    _notifyEvent(new_player_id, Response(true, SUCCESS_MSG), NEW_PLAYER_EV);
-    //this->clients_connected.sendEventToAll(new Event()?????????);
     return new_player_id;
 
+}
+void Game::notifyNewPlayer(const ConnectionId id) {
+    std::cout <<"Game: new player notified"<< std::endl;
+    _notifyEvent(id, Response(true, SUCCESS_MSG), NEW_PLAYER_EV);
 }
 
 void Game::deletePlayer(const ConnectionId id) {

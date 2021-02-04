@@ -17,9 +17,9 @@ class BlockingQueue {
         BlockingQueue(): permanently_closed(false) {}
         ~BlockingQueue(){
             while (!queue.empty()) {
-                T t = queue.front();
+                //T t = queue.front();
                 queue.pop();
-                delete t;
+                //delete t;
             }
         }
         

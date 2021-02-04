@@ -31,6 +31,7 @@ class Player {
     PlayerInfo getInfo();
     State* getState();
     std::string getNickname(); 
+    Id getId(); 
     bool isAlive();
     bool isMoving();
     bool isRotating();

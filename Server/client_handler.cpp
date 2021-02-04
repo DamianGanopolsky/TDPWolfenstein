@@ -9,10 +9,10 @@ ClientHandler::ClientHandler(Socket& socket, const ConnectionId id,
 
 ClientHandler::~ClientHandler() {
 	notifications.close(); 
-    Notification* notification = NULL;
+    /*Notification* notification = nullptr;
     while ((notification = notifications.pop())) {
         delete notification;
-    }
+    }*/
 }
 
 void ClientHandler::_deadThread() {
@@ -25,14 +25,14 @@ void ClientHandler::_deadThread() {
 void ClientHandler::_send() {
     std::cout <<"ClientHandler: Se lanza el hilo send"<< std::endl;
 	try {
-        Notification* notification = nullptr;
+        std::shared_ptr<Notification> notification = nullptr;
         bool is_sent = true;
         while ((notification = notifications.pop())) {
             std::cout <<"ClientHandler: Se envian bytes..."<< std::endl;
             is_sent = notification->send(this->id, this->peer);
             std::cout <<"ClientHandler: Se enviaron bytes"<< std::endl;
-            delete notification;
-            std::cout <<"ClientHandler: Se elimina la notificacion"<< std::endl;
+            //delete notification;
+            //std::cout <<"ClientHandler: Se elimina la notificacion"<< std::endl;
             if (!is_sent) {
                 break;
             }
@@ -63,8 +63,7 @@ void ClientHandler::_receive() {
 					Command* cmd = Command::newCommand(id, command_opcode, peer);
 					commands.push(cmd);
 				} catch (const std::exception& e) {
-					Message* msg_error = new Message(ERROR_MSSG, e.what());
-					this->notifications.push(msg_error);
+                    this->notifications.push(std::shared_ptr<Notification>(new Message(ERROR_MSSG, e.what())));
 				}
 			} else {
 				throw Exception("Unknown opcode received.");
@@ -93,11 +92,10 @@ void ClientHandler::run() {
 
 bool ClientHandler::isRunning() const{
     return this->is_running;
-    return true;
 }
-void ClientHandler::push(Notification* notification) {
+void ClientHandler::push(std::shared_ptr<Notification>& notification_ptr) {
     std::cout <<"ClientsHandler: push notification"<< std::endl;
-    notifications.push(notification);
+    notifications.push(notification_ptr);
 }
 
 void ClientHandler::joinThreads() {
@@ -110,7 +108,7 @@ void ClientHandler::joinThreads() {
     }
 	try {
         peer.shutdown();
-		peer.close();
+		//peer.close();
     } catch (const Exception& e) {
         std::cerr << "Error while shutingdown peer: "<< e.what() 
 														<< std::endl;

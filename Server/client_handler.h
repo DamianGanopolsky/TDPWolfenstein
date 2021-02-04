@@ -21,7 +21,7 @@ class ClientHandler : public Thread {
 	
 	std::mutex m;
 	int dead_threads;
-	BlockingQueue<Notification*> notifications;
+	BlockingQueue< std::shared_ptr<Notification> > notifications;
 	NonBlockingQueue<Command*>& commands;
 	std::thread send;
 	std::thread receive;
@@ -42,7 +42,7 @@ class ClientHandler : public Thread {
 		ClientHandler operator=(ClientHandler&& other) = delete;
 
 		void run() override;
-    	void push(Notification* notification);
+    	void push(std::shared_ptr<Notification>& notification);
 		bool isRunning() const;
 		void joinThreads();
 		void stop();
