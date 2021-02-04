@@ -8,16 +8,21 @@
 #include <string>
 
 
+
+
 class Game_element : public Element_panel {
 public:
 	Game_element(int pos_x, int pos_y, int type_id, int vision_angle, Player& player);
 	Game_element(Game_element&& other);
 	~Game_element();
 
+	//Game_element& operator=(const Game_element& other);
+
 	bool is_visible();
 	void set_texture(SDL_Texture* tex);  
 	int get_texture_section();
 	int get_type_id();
+	void update(int pos_x, int pos_y, int type_id, int vision_angle, Player& player);
 	virtual void copy_to_rederer(SDL_Renderer& renderer) override; 
 
 private:

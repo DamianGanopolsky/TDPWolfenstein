@@ -6,11 +6,59 @@
 
 #define PI 3.1415
 #define TOTAL_SECTIONS 8
-
+/*
+Game_element& Game_element::operator=(const Game_element& other) {
+    this->pos_ray = other.pos_ray;
+	this->texture_section=other.texture_section;
+	this->type_id=other.type_id;
+    return *this;
+}
+*/
 //Type id -> No se esta usando ahora, podria servir para discriminar entre distintos 
 
 Game_element::Game_element(int pos_x, int pos_y, int type_id, int vision_angle, Player& player) :
 							type_id(type_id) {
+	this->texture_section = this->get_texture_section(vision_angle, player.get_angle());
+
+	float x = player.get_pos_x() - pos_x;
+	float y = player.get_pos_y() - pos_y;
+	float angle = x == 0 ? 90 : atan(abs(y / x)) * 180 / PI;
+
+	if (x > 0 && y >= 0) {
+		angle = 180 - angle;
+	} else if (x > 0 && y < 0) {
+		angle += 180;
+	} else if (x < 0 && y < 0) {
+		angle = 360 - angle; 
+	}
+
+
+	int ply_angle = player.get_angle() - FOV / 2;
+	float  angle_min = ply_angle < 0 ? 360.0 + ply_angle : ply_angle;
+	ply_angle = player.get_angle() + FOV / 2;
+	float angle_max = ply_angle  >= 360 ? ply_angle - 360.0 : ply_angle;
+
+	bool out =  angle_min > angle_max ? angle < angle_min && angle > angle_max : angle < angle_min || angle > angle_max;
+
+	/*if (out && angle < angle_min){
+		std::cout << angle << ", "<<  angle_min << std::endl;
+	}*/ 
+
+	if (out) {
+		this->dist = -1.0;
+		this->pos_ray = -1; 
+	} else {
+		float angle_diff = angle > angle_max ? angle_max - angle + 360.0 : angle_max - angle;
+		this->pos_ray = angle_diff / FOV * PANEL_WIDTH;
+
+		float real_dist = sqrt(pow(x,2) + pow(y,2));
+		int offset =  this->pos_ray < PANEL_WIDTH / 2 ? this->pos_ray : PANEL_WIDTH - this->pos_ray;
+		this->dist = real_dist * cos((FOV / 2.0 - offset * FOV / PANEL_WIDTH) * PI / 180.0);
+	} 
+}
+
+void Game_element::update(int pos_x, int pos_y, int TYPE_ID, int vision_angle, Player& player){
+	type_id=TYPE_ID;
 	this->texture_section = this->get_texture_section(vision_angle, player.get_angle());
 
 	float x = player.get_pos_x() - pos_x;

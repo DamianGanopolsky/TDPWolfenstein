@@ -12,6 +12,13 @@
 #include "const.h"
 #include "Yaml/MapYamlParser.h"
 
+struct state{
+    int pos_x;
+    int pos_y;
+    int type_id;
+    int vision_angle;
+};
+
 class Map_2d {
 public:
 	explicit Map_2d(Player& player);
@@ -38,7 +45,7 @@ private:
 
 	std::unordered_map<int,Game_element> players_in_map;
 	//std::unordered_map<int,int> elements_map;
-
+	std::unordered_map<int,state> players_state;
 	//POSICION DEL PLAYER
 	//Cada cuadricula tiene 64x64 posiciones
 	Player& player; 

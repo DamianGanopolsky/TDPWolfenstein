@@ -13,11 +13,11 @@
 
 #define SIZE_BOX 64 //Este valor debe ser una potencia de base 2
 #define BIT_OFFSET 6 //Este valor debe ser el Log de base 2 de SIZE_BOX
-#define WIDTH_GAME_MAP 20
-#define HEIGTH_GAME_MAP 35
+#define WIDTH_GAME_MAP 36
+#define HEIGTH_GAME_MAP 36
 
 #define FOV 90.0
-#define TOTAL_BOX 700
+#define TOTAL_BOX 1296
 
 //para panel status
 #define TOTAL_FACES 8
@@ -74,3 +74,5 @@
 
 #define TEXTURE_PATH "../ray_casting/sprites/wall"
 #define TOTAL_TEXTURES_WALLS 2 
+
+

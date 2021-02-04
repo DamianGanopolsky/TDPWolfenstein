@@ -6,7 +6,7 @@
 
 Map_2d::Map_2d(Player& player) : player(player) {
 
-	MapYamlParser mapyamlparser("../Maps/prueba_2.yaml");
+	MapYamlParser mapyamlparser("../Maps/pruebafinal.yaml");
 	map_width=mapyamlparser.Map_Width();
 	map_height=mapyamlparser.Map_Height();
 	//std::cout << "map width "<< mapyamlparser.Map_Width() << "map height" << mapyamlparser.Map_Height() <<std::endl;
@@ -57,7 +57,24 @@ void Map_2d::open_door(int cuadricula){
 }
 
 void Map_2d::update_player_pos(int id,int pos_x,int pos_y,int angle){
-	//players_in_map[id]=
+	//2 va a hacer que muestre a un officer
+	/*if(players_state.find(id)==players_state.end()){
+
+	}*/
+	players_state[id].pos_x=pos_x;
+	players_state[id].pos_y=pos_y;
+	players_state[id].vision_angle=angle;
+	players_state[id].type_id=2;
+	/*if(players_in_map.find(id)==players_in_map.end()){
+		Game_element element(pos_x,pos_y,2,angle,this->player);
+		//players_in_map.insert(std::make_pair(id,std::move(element)));
+	}
+	else{
+		//players_in_map[id].update(pos_x,pos_y,2,angle,this->player);
+	}
+	Game_element element(pos_x,pos_y,2,angle,this->player);
+	//players_in_map.insert
+	players_in_map[id]=Game_element(element);*/
 }
 
 
@@ -69,6 +86,13 @@ std::list<Game_element> Map_2d::get_game_elements() {
 		
 		Game_element element(object.first.first,\
 		object.first.second,object.second,270,this->player);
+		elements.push_back(std::move(element));
+	}
+	/* ACA RENDERIZO LOS DISTINTOS JUGADORES CON SUS POSICIONES ACTUALIZADAS */
+	for (auto const& object : players_state){
+		
+		Game_element element(object.second.pos_x,object.second.pos_y,object.second.type_id,\
+		object.second.vision_angle,this->player);
 		elements.push_back(std::move(element));
 	}
 	Game_element element(150,250, 1, 270, this->player);
