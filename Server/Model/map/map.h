@@ -3,11 +3,13 @@
 
 #include "../player/player.h"
 #include <unordered_map>
+#include "../../../Editor/YamlParser.h"
 
 
 class Map {
  public:
-    Map(int width, int height);
+   // Map(int width, int height);
+    Map(std::string YamlPathToMap);
     ~Map();
     //cargar_mapa(char* archivo_yalm)
     // update()
@@ -18,6 +20,10 @@ class Map {
  private:
     std::unordered_map<Id, Player> players;
     int** map;
+    int rows;
+    int columns;
+
+    void LoadMatrix(std::map <std::pair<int,int>,int> initial_map);
     
 };
 

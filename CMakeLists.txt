@@ -27,7 +27,7 @@ add_executable(editor Editor/editor_main.cpp Editor/SdlClasses/SdlWindow.cpp Edi
 
 add_executable(panel ${ray_casting_dep_3} ${ray_casting_dep} ${ray_casting_dep_2} ${ray_casting_dep_4} ${ray_casting_dep_5} ${common}  ) 
 
-add_executable(servidor ${server})
+add_executable(servidor ${server} Editor/YamlParser.cpp)
 
 target_link_libraries(servidor common-lib pthread yaml-cpp)
 
