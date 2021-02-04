@@ -31,7 +31,7 @@ Map::Map(std::string YamlPathToMap){
     rows=yamlparser.Map_Height();
     columns=yamlparser.Map_Width();
 }
-
+//HACERLE FREE A LA MATRIZ
 Map::~Map() {}
 
 /*void Map::update_player(int command, Id player_id, Id target_id) {
