@@ -18,6 +18,9 @@ void Map::LoadMatrix(std::map <std::pair<int,int>,int> initial_map){
         }
     }
     for (auto const& x : initial_map){
+        if(x.second==MAP_PLAYER_EDITOR){
+            continue;
+        }
         map[x.first.first/CUADRICULA][x.first.second/CUADRICULA]=x.second;
     }
 }

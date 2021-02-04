@@ -1,6 +1,7 @@
 #include "YamlParser.h"
 #include <iostream>
-
+#include "../Server/Model/constants/const_object_map.h"
+/*
 #define PLAYER 1
 #define TREASURE 2
 #define MEDICAL_KIT 3
@@ -11,6 +12,7 @@
 #define BULLETS 8
 #define WALL 9
 #define DOOR 10
+*/
 #define CUADRICULA 64
 
 
@@ -35,7 +37,7 @@ std::map <std::pair<int,int>,int> YamlParser::load_map(std::string YamlPath){
         const YAML::Node& pos = *it;
         map_position.first=pos['x'].as<int>();;
         map_position.second=pos['y'].as<int>();;
-        objects_map.insert({map_position,CHAIN_CANNON});
+        objects_map.insert({map_position,MAP_CHAIN_CANNON});
     }
 
     const YAML::Node& door= map["Map"]["Door"];
@@ -46,7 +48,7 @@ std::map <std::pair<int,int>,int> YamlParser::load_map(std::string YamlPath){
         //std::cout << "x es" << map_position.first << "y es" << map_position.second << std::endl;
         map_position.first=pos['x'].as<int>();;
         map_position.second=pos['y'].as<int>();;
-        objects_map.insert({map_position,DOOR});
+        objects_map.insert({map_position,MAP_DOOR});
     }
 
     const YAML::Node& food= map["Map"]["Food"];
@@ -55,7 +57,7 @@ std::map <std::pair<int,int>,int> YamlParser::load_map(std::string YamlPath){
         const YAML::Node& pos = *it;
         map_position.first=pos['x'].as<int>();;
         map_position.second=pos['y'].as<int>();;
-        objects_map.insert({map_position,FOOD});
+        objects_map.insert({map_position,MAP_FOOD});
     }
 
     const YAML::Node& medical_kit= map["Map"]["Medical_Kit"];
@@ -63,7 +65,7 @@ std::map <std::pair<int,int>,int> YamlParser::load_map(std::string YamlPath){
         const YAML::Node& pos = *it;
         map_position.first=pos['x'].as<int>();;
         map_position.second=pos['y'].as<int>();;
-        objects_map.insert({map_position,MEDICAL_KIT});
+        objects_map.insert({map_position,MAP_KIT});
     }
     
 
@@ -77,7 +79,7 @@ std::map <std::pair<int,int>,int> YamlParser::load_map(std::string YamlPath){
         const YAML::Node& pos = *it;
         map_position.first=pos['x'].as<int>();;
         map_position.second=pos['y'].as<int>();;
-        objects_map.insert({map_position,AUTOMATIC_GUN});
+        objects_map.insert({map_position,MAP_MACHINE_GUN});
     }
 
     /* Treasure */
@@ -89,7 +91,7 @@ std::map <std::pair<int,int>,int> YamlParser::load_map(std::string YamlPath){
         const YAML::Node& pos = *it;
         map_position.first=pos['x'].as<int>();;
         map_position.second=pos['y'].as<int>();;
-        objects_map.insert({map_position,TREASURE});
+        objects_map.insert({map_position,MAP_CUP});
     }
 
     /* Bullets */
@@ -98,7 +100,7 @@ std::map <std::pair<int,int>,int> YamlParser::load_map(std::string YamlPath){
         const YAML::Node& pos = *it;
         map_position.first=pos['x'].as<int>();;
         map_position.second=pos['y'].as<int>();;
-        objects_map.insert({map_position,BULLETS});
+        objects_map.insert({map_position,MAP_BULLET});
     }
 
     /* Keys */
@@ -108,7 +110,7 @@ std::map <std::pair<int,int>,int> YamlParser::load_map(std::string YamlPath){
         const YAML::Node& pos = *it;
         map_position.first=pos['x'].as<int>();;
         map_position.second=pos['y'].as<int>();;
-        objects_map.insert({map_position,KEY});
+        objects_map.insert({map_position,MAP_KEY});
     }
 
     /* Red Wall */
@@ -122,7 +124,7 @@ std::map <std::pair<int,int>,int> YamlParser::load_map(std::string YamlPath){
         const YAML::Node& pos = *it;
         map_position.first=pos['x'].as<int>();;
         map_position.second=pos['y'].as<int>();;
-        objects_map.insert({map_position,WALL});
+        objects_map.insert({map_position,MAP_WALL});
     }
 
     /* Players */
@@ -136,7 +138,7 @@ std::map <std::pair<int,int>,int> YamlParser::load_map(std::string YamlPath){
         const YAML::Node& pos = *it;
         map_position.first=pos['x'].as<int>();;
         map_position.second=pos['y'].as<int>();;
-        objects_map[map_position]=PLAYER;
+        objects_map[map_position]=MAP_PLAYER_EDITOR;
        // objects_map.insert({map_position,PLAYER});
         /*for(std::size_t i=0;i<sizeof(jugadores)/sizeof(jugadores[0]);i++){
              //std::cout << jugadores[i] << std::endl;
@@ -181,34 +183,34 @@ std::vector<std::pair<int,int>>> map,int height,int width){
        // out << YAML::Key << x.first;
 
         switch(x.first){
-            case PLAYER:
+            case MAP_PLAYER_EDITOR:
                 out << YAML::Key << "Players";
                 break;
-            case TREASURE:
+            case MAP_CUP:
                 out << YAML::Key << "Treasure";
                 break;
-            case MEDICAL_KIT:
+            case MAP_KIT:
                 out << YAML::Key << "Medical_Kit";
                 break;
-            case KEY:
+            case MAP_KEY:
                 out << YAML::Key << "Key";
                 break;
-            case AUTOMATIC_GUN:
+            case MAP_MACHINE_GUN:
                 out << YAML::Key << "Automatic_Gun";
                 break;
-            case CHAIN_CANNON:
+            case MAP_CHAIN_CANNON:
                 out << YAML::Key << "Chain_Cannon";
                 break;
-            case FOOD:
+            case MAP_FOOD:
                 out << YAML::Key << "Food";
                 break;
-            case BULLETS:
+            case MAP_BULLET:
                 out << YAML::Key << "Bullets";
                 break;
-            case WALL:
+            case MAP_WALL:
                 out << YAML::Key << "Red_Wall";
                 break;
-            case DOOR:
+            case MAP_DOOR:
                 out << YAML::Key << "Door";
                 break;
             default:
