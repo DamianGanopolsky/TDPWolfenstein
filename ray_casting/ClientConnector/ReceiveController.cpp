@@ -13,7 +13,7 @@ bool ReceiveController::start(){
      //POP
      UpdateMessage* updatemessage=recv_queue.pop();
      if(!updatemessage){
-         std::cout << "No se popeo nada" << std::endl;
+         //std::cout << "No se popeo nada" << std::endl;
          client.render();
      }
      
