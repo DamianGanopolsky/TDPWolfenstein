@@ -3,7 +3,8 @@
 #include <iostream>
 #include "../Editor/SdlClasses/SdlText.h"
 #include "YamlParser.h"
-
+#include "../Server/Model/constants/const_object_map.h"
+/*
 #define FLOOR_TILE 0
 #define PLAYER 1
 #define TREASURE 2
@@ -15,6 +16,7 @@
 #define BULLETS 8
 #define WALL 9
 #define DOOR 10 
+*/
 #define TILE_PIXELS 32
 //#define SCREEN_HEIGTH 19
 #define SCREEN_HEIGTH 50
@@ -30,12 +32,12 @@ void Map::LoadMatrix(std::map <std::pair<int,int>,int> initial_map){
     }
     for(int i=0;i<rows;i++){
         for(int j=0;j<columns;j++){
-            matrix[i][j]=FLOOR_TILE;
+            matrix[i][j]=MAP_NONE;
         }
     }
     for (auto const& x : initial_map){
         matrix[x.first.first/cuadricula][x.first.second/cuadricula]=x.second;
-        if(x.second==PLAYER){
+        if(x.second==MAP_PLAYER_EDITOR){
             player_count++;
             std::pair<int,int> pair_key;
             pair_key.first=x.first.first/cuadricula;
@@ -75,12 +77,12 @@ void Map::ExpandMap(){
     }
     for(int i=0;i<rows;i++){
         for(int j=previous_cols;j<columns;j++){
-            matrix[i][j]=FLOOR_TILE;
+            matrix[i][j]=MAP_NONE;
         }
     }
     for(int i=previous_rows;i<rows;i++){
         for(int j=0;j<columns;j++){
-            matrix[i][j]=FLOOR_TILE;
+            matrix[i][j]=MAP_NONE;
         }
     }
     for(int i=0;i<previous_rows;i++){
@@ -175,48 +177,48 @@ void Map::draw(position initial_position,position draw_position){
         return;
     }
     if((initial_position.x>=(0.0073*window.getWidth()))&&(initial_position.x<=0.1292*window.getWidth())){
-        if(matrix[matrix_x][matrix_y]!=PLAYER){
+        if(matrix[matrix_x][matrix_y]!=MAP_PLAYER_EDITOR){
             player_count++;
             std::pair<int,int> pair_key;
             pair_key.first=matrix_x;
             pair_key.second=matrix_y;
             player_map.insert({pair_key,player_count});
         }
-        matrix[matrix_x][matrix_y]=PLAYER;
+        matrix[matrix_x][matrix_y]=MAP_PLAYER_EDITOR;
         
     }
     else if((initial_position.x>=(0.1396*window.getWidth()))&&(initial_position.x<=0.1906*window.getWidth())){
-        matrix[matrix_x][matrix_y]=TREASURE;
+        matrix[matrix_x][matrix_y]=MAP_CUP;
     }
     else if((initial_position.x>=(0.1979*window.getWidth()))&&(initial_position.x<=0.2469*window.getWidth())){
-        matrix[matrix_x][matrix_y]=MEDICAL_KIT;
+        matrix[matrix_x][matrix_y]=MAP_KIT;
     }
     else if((initial_position.x>=(0.2531*window.getWidth()))&&(initial_position.x<=0.3042*window.getWidth())){
-        matrix[matrix_x][matrix_y]=KEY;
+        matrix[matrix_x][matrix_y]=MAP_KEY;
     }
     else if((initial_position.x>=(0.3094*window.getWidth()))&&(initial_position.x<=0.3604*window.getWidth())){
-        matrix[matrix_x][matrix_y]=AUTOMATIC_GUN;
+        matrix[matrix_x][matrix_y]=MAP_MACHINE_GUN;
     }
     else if((initial_position.x>=(0.3656*window.getWidth()))&&(initial_position.x<=0.4135*window.getWidth())){
-        matrix[matrix_x][matrix_y]=CHAIN_CANON;
+        matrix[matrix_x][matrix_y]=MAP_CHAIN_CANNON;
     }
     else if((initial_position.x>=(0.4198*window.getWidth()))&&(initial_position.x<=0.4677*window.getWidth())){
-        matrix[matrix_x][matrix_y]=FOOD;
+        matrix[matrix_x][matrix_y]=MAP_FOOD;
     }
     else if((initial_position.x>=(0.474*window.getWidth()))&&(initial_position.x<=0.5271*window.getWidth())){
-        matrix[matrix_x][matrix_y]=BULLETS;
+        matrix[matrix_x][matrix_y]=MAP_BULLET;
     }
     else if((initial_position.x>=(0.5385*window.getWidth()))&&(initial_position.x<=0.6093*window.getWidth())){
-        if(matrix[matrix_x][matrix_y]==PLAYER){
+        if(matrix[matrix_x][matrix_y]==MAP_PLAYER_EDITOR){
             player_count--;
         }
-        matrix[matrix_x][matrix_y]=FLOOR_TILE;
+        matrix[matrix_x][matrix_y]=MAP_NONE;
     }
     else if((initial_position.x>=(0.6177*window.getWidth()))&&(initial_position.x<=0.6833*window.getWidth())){
-        matrix[matrix_x][matrix_y]=WALL;
+        matrix[matrix_x][matrix_y]=MAP_WALL;
     }
     else if((initial_position.x>=(0.6906*window.getWidth()))&&(initial_position.x<=0.7583*window.getWidth())){
-        matrix[matrix_x][matrix_y]=DOOR;
+        matrix[matrix_x][matrix_y]=MAP_LOCKED_DOOR;
     }
 
 }
@@ -239,9 +241,9 @@ void Map::render(){
             pos_y++;
             SDL_RenderCopy(window.getRenderer(),textures.at(0),NULL,&rect);
             switch(matrix[i][j]){
-                case FLOOR_TILE:
+                case MAP_NONE:
                     break;
-                case PLAYER:
+                case MAP_PLAYER_EDITOR:
                 {
                     
                     key.first=(pos_x*TILE_PIXELS+camera.x*TILE_PIXELS)/TILE_PIXELS;
@@ -278,31 +280,31 @@ void Map::render(){
                     }*/
                 }
                     break;
-                case TREASURE:
+                case MAP_CUP:
                     SDL_RenderCopy(window.getRenderer(),textures.at(2),NULL,&rect);
                     break;
-                case MEDICAL_KIT:
+                case MAP_KIT:
                     SDL_RenderCopy(window.getRenderer(),textures.at(3),NULL,&rect);
                     break;
-                case KEY:
+                case MAP_KEY:
                     SDL_RenderCopy(window.getRenderer(),textures.at(4),NULL,&rect);
                     break;
-                case AUTOMATIC_GUN:
+                case MAP_MACHINE_GUN:
                     SDL_RenderCopy(window.getRenderer(),textures.at(5),NULL,&rect);
                     break;
-                case CHAIN_CANON:
+                case MAP_CHAIN_CANNON:
                     SDL_RenderCopy(window.getRenderer(),textures.at(6),NULL,&rect);
                     break;
-                case FOOD:
+                case MAP_FOOD:
                     SDL_RenderCopy(window.getRenderer(),textures.at(7),NULL,&rect);
                     break;
-                case BULLETS:
+                case MAP_BULLET:
                     SDL_RenderCopy(window.getRenderer(),textures.at(8),NULL,&rect);
                     break;
-                case WALL:
+                case MAP_WALL:
                     SDL_RenderCopy(window.getRenderer(),textures.at(9),NULL,&rect);
                     break;
-                case DOOR:
+                case MAP_DOOR:
                     SDL_RenderCopy(window.getRenderer(),textures.at(10),NULL,&rect);
                     break;
                 default:
