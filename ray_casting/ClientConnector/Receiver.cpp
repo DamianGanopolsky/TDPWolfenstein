@@ -8,13 +8,13 @@ void Receiver::stop(){
 
 void Receiver::run(){
     while(receiving){
-        int bytes_received = 0; //DESCOMENTAR
+        //int bytes_received = 0; //DESCOMENTAR
 		uint8_t buffer[2];  //DESCOMENTAR
         
-        std::cout << "Empiezo a recibir" << std::endl;
+        //std::cout << "Empiezo a recibir" << std::endl;
         //sleep(20);
-        bytes_received=clientsocket->recv((char*)buffer,2);  //DESCOMENTAR
-        std::cout << bytes_received << std::endl;
+        clientsocket->recv((char*)buffer,2);  //DESCOMENTAR
+        //std::cout << bytes_received << std::endl;
        // std::cout << "Recibi" << bytes_received << std::endl;
         //UpdateMessage* updatemessage = new UpdateMessage(buffer[0],buffer[1]); //DESCOMENTAR
         //std::cout << bytes_received << std::endl;
