@@ -27,7 +27,8 @@ bool ReceiveController::start(){
                         mov_event.pos_y,mov_event.angle);
                     }
                     else{
-
+                        map.update_player_pos(mov_event.player_id,\
+                        mov_event.pos_x,mov_event.pos_y,mov_event.angle);
                     }
                     break;
                 }

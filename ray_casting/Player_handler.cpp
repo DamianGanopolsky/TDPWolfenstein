@@ -123,6 +123,12 @@ bool Player_handler::handle() {
 						//PRUEBA
 						this->player.update_position_and_angle(300,300,300);
 						break;
+					case SDLK_6:
+						this->map.update_player_pos(2,600,600,200);
+						break;
+					case SDLK_7:
+						this->map.update_player_pos(2,400,400,200);
+						break;
 					case SDLK_ESCAPE:  
 						//sender.stop();
 						//sender.join();
