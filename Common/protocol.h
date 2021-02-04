@@ -4,8 +4,8 @@
 
 struct Movement_event {
     uint8_t player_id;
-    uint8_t pos_x;
-    uint8_t pos_y;
+    uint32_t pos_x;
+    uint32_t pos_y;
     float angle;
     uint8_t is_moving;
     uint8_t is_shooting;
