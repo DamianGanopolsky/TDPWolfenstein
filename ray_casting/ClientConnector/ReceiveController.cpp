@@ -6,11 +6,12 @@
  void ReceiveController::ExecuteEvent(){
      //player.move_right();
  }
-
+/*
  void ReceiveController::InitializeClient(New_Player_Event& my_player){
      std::cout << "El id de mi  player es" << my_player.player_id << std::endl;
+     player(my_player.pos_x,my_player.pos_y,my_player.angle);
  }
-
+*/
 
 
 bool ReceiveController::start(){

@@ -12,11 +12,11 @@
 
 class ReceiveController {
 public:
-    ReceiveController(Player& PLAYER,Map_2d& MAP,NonBlockingQueue<UpdateMessage*>&\
-     RECV_QUEUE,Client& CLIENT):player(PLAYER),map(MAP),recv_queue(RECV_QUEUE),client(CLIENT){
+    ReceiveController(Player& Player,Map_2d& MAP,NonBlockingQueue<UpdateMessage*>&\
+     RECV_QUEUE,Client& CLIENT):player(Player),map(MAP),recv_queue(RECV_QUEUE),client(CLIENT){
     }
 
-    void InitializeClient(New_Player_Event& my_player);
+    //void InitializeClient(New_Player_Event& my_player);
 
     void ExecuteEvent();
 

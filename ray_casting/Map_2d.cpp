@@ -20,9 +20,6 @@ Map_2d::Map_2d(Player& player) : player(player) {
 		if(x.second==2){
 			boxes[x.first]=true;
 		} 
-		/*if(x.second==1){
-			std::cout << "hay puerta en " << x.first << std::endl;
-		}*/
 	}
 }
 

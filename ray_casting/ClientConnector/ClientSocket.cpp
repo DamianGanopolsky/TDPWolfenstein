@@ -9,9 +9,10 @@ recv_queue(non_bloq_queue),socket("127.0.0.1","8082"){
 }
 
 
-New_Player_Event ClientSocket::recv_player(char* recv_buff){
+New_Player_Event ClientSocket::recv_player(){
     int bytes_received=0;
-    socket.receive(recv_buff,2,bytes_received);
+    uint8_t buffer[2];
+    socket.receive((char*)buffer,sizeof(buffer),bytes_received);
    // uint8_t buffer[2];
    // buffer[0]=*recv_buff;
    // buffer[1]=*(recv_buff+1);

@@ -11,7 +11,7 @@ public:
     int recv(char* recv_buff,int len);
     void send(uint8_t msg);
 
-    New_Player_Event recv_player(char* recv_buff);
+    New_Player_Event recv_player();
 
     
 
