@@ -24,10 +24,26 @@ void Map::_loadMatrix(std::map <std::pair<int,int>,int> initial_map){
         }
     }
     for (auto const& x : initial_map){
+        //std::cout << "En x:" << x.first.first << "en y:" << x.first.second << "obj:" << x.second << std::endl;
+        if(x.second==MAP_WALL){
+            std::cout << "Hay pared en x:" << x.first.first <<"y:" << x.first.second << std::endl;
+            std::cout << "Cargo pared en cuadricula x:" << x.first.first/CUADRICULA <<"y:" << x.first.second/CUADRICULA << std::endl;
+        }
         if(x.second==MAP_PLAYER_EDITOR){
             continue;
         }
         map[x.first.first/CUADRICULA][x.first.second/CUADRICULA]=x.second;
+    }
+}
+
+void Map::printMatrix(){
+    for(int i=0;i<rows;i++){
+        for(int j=0;j<columns;j++){
+            if(map[i][j]==MAP_WALL){
+                std::cout << "En x:" << i << "En y;" << j << std::endl;
+            }
+            
+        }
     }
 }
 

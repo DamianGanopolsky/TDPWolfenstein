@@ -12,10 +12,13 @@ class Map {
     int rows;
     int columns;
     void _loadMatrix(std::map <std::pair<int,int>,int> initial_map);
+
+    
    
    public:
       // Map(int width, int height);
       Map(std::string YamlPathToMap);
+      void printMatrix();
       ~Map();
       int getObjectPos(int x, int y);
       void setObjectPos(int x, int y, ObjectsInMap object);

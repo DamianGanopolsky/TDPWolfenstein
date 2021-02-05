@@ -24,7 +24,6 @@ bool ReceiveController::start(){
      
      //UPDATe
      else{
-         std::cout << "Popie el new player " << std::endl;
          if(updatemessage->get_opcode()==0){
              switch(updatemessage->get_event_type()){
                 case MOVEMENT_EV:  {//MOVEMENT EVENT

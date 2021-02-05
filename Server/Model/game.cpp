@@ -6,7 +6,9 @@ Game::Game(ClientsConnected& clients_connected, Id map_id) :
                             new_connection_id(0),
                             clients_connected(clients_connected), 
                             map_id(map_id), map("../Maps/Basic.yaml"),
-                            objMap() {}
+                            objMap() {
+                                map.printMatrix();
+                            }
 Game::~Game() {}
 
 //_getPlayerPosition deberia chequear si el yaml establece la posicion en la que el player deberia aparecer o no.
