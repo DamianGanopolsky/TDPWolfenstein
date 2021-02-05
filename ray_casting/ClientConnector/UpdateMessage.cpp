@@ -21,7 +21,7 @@ UpdateMessage::UpdateMessage(uint8_t opcode,uint8_t type_of_event):\
 
 }
 
-void UpdateMessage::load_movement_event(uint8_t player_id,uint8_t pos_x,uint8_t pos_y,\
+void UpdateMessage::load_movement_event(uint32_t player_id,uint32_t pos_x,uint32_t pos_y,\
     float angle,uint8_t is_moving,uint8_t is_shooting){
     MovEvent.player_id=player_id;
     MovEvent.pos_x=pos_x;

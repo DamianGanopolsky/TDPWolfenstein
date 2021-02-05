@@ -10,7 +10,7 @@ public:
     UpdateMessage(const UpdateMessage& other);
     UpdateMessage& operator=(const UpdateMessage& other);
 
-    void load_movement_event(uint8_t player_id,uint8_t pos_x,uint8_t pos_y,\
+    void load_movement_event(uint32_t player_id,uint32_t pos_x,uint32_t pos_y,\
     float angle,uint8_t is_moving,uint8_t is_shooting);
 
     void load_new_player_event(uint8_t player_id,uint8_t map,uint32_t pos_x,uint32_t pos_y,\

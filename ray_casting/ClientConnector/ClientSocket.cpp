@@ -76,6 +76,9 @@ int ClientSocket::recv(char* recv_buff,int len){
             socket.receive((char*)is_moving, sizeof(is_moving),bytes_received);
             uint8_t is_shooting[1];
             socket.receive((char*)is_shooting, sizeof(is_shooting),bytes_received);
+            update_message->load_movement_event(player_id[0],pos_x[0],pos_y[0],angle[0],\
+            is_moving[0],is_shooting[0]);
+            recv_queue.push(std::move(update_message));
 
             break;
         }

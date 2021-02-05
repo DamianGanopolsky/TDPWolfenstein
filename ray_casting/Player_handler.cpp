@@ -80,23 +80,23 @@ bool Player_handler::handle() {
 			case SDL_KEYDOWN:
 				switch(event.key.keysym.sym){
 					case SDLK_LEFT:
-						this->player.left_rotation();
+						//this->player.left_rotation();
 						break;
 					case SDLK_RIGHT:
-						this->player.right_rotation();
+						//this->player.right_rotation();
 						break;
 					case SDLK_w:
-						this->player.move_up();
+						//this->player.move_up();
 						//std::cout << "Notifico al server que me EMPECE a  mover" << std::endl;
 						break;
 					case SDLK_s:
-						this->player.move_down();
+						//this->player.move_down();
 						break;
 					case SDLK_a:
-						this->player.move_left();
+						//this->player.move_left();
 						break;
 					case SDLK_d:
-						this->player.move_right();
+						//this->player.move_right();
 						break; 
 					case SDLK_e:{
 						//Notifico al server que quiero disparar
