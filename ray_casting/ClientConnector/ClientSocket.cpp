@@ -32,8 +32,8 @@ int ClientSocket::recv(char* recv_buff,int len){
             std::cout << "recibi el map:" << unsigned(map[0])<< std::endl;
             uint32_t pos_x[1];
             uint32_t pos_y[1];
-            //float angle;
-            uint32_t angle[1];
+            float angle[1];
+            //uint32_t angle[1];
             uint32_t life[1];
             uint8_t resurrected[1];
             uint32_t treasure[1];
