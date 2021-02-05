@@ -5,7 +5,7 @@
 class Player_info {
 	friend class Player;
 public:
-	Player_info();
+	Player_info(int life,int resurrected,int score,int bullets);
 	~Player_info();
 
 	int get_lives() const;
@@ -20,13 +20,16 @@ public:
 	void set_initial_status(int health,int lives,int score,int ammo);
 
 private:
-	int lives = 8;
+	int health;
+	int lives ;
+	int scores;
+	int ammo;
 	//int scores = 0;
 	//int health = 100;
 	//int ammo = 100;
-	int scores;
-	int health;
-	int ammo;
+	
+	
+	
 	int weapon = 1;
 	int weapon_status = 0;  
 	int level=1;

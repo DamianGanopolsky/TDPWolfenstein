@@ -4,10 +4,11 @@
 #include <vector>
 #include "Player_info.h"
 #include "SdlClasses/SoundManager.h"
+#include "../Common/protocol.h"
 
 class Player {
 public:
-	Player(int pos_x, int pos_y, float angle,int Player_Id);
+	Player(New_Player_Event player_initial_info);
 	~Player();
 	
 	float get_angle() const ;

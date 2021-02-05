@@ -1,7 +1,8 @@
 #include "Player_info.h"
 #include <iostream>
 
-Player_info::Player_info(){
+Player_info::Player_info(int life,int resurrected,int score,int bullets):health(life),\
+	lives(resurrected),scores(score),ammo(bullets){
 }
 
 Player_info::~Player_info(){

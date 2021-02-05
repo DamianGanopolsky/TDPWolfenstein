@@ -9,8 +9,11 @@
 #define DISPLACEMENT 8
 #define PI 3.14159265
 
-Player::Player(int pos_x, int pos_y, float angle,int Player_Id) :
-				pos_x(pos_x), pos_y(pos_y), vision_angle(angle),player_id(Player_Id) {
+Player::Player(New_Player_Event player_initial_info) :
+				pos_x(player_initial_info.pos_x), pos_y(player_initial_info.pos_y),\
+				 vision_angle(player_initial_info.angle),player_id(player_initial_info.player_id)\
+				 ,info(player_initial_info.life,player_initial_info.resurrected,player_initial_info.score,\
+				 player_initial_info.bullets) {
 	
 }
 
