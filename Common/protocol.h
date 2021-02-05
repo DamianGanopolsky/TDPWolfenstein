@@ -11,6 +11,18 @@ struct Movement_event {
     uint8_t is_shooting;
 };
 
+struct New_Player_Event{
+    uint8_t player_id;
+    uint8_t map;
+    uint32_t pos_x;
+    uint32_t pos_y;
+    float angle;
+    uint32_t life;
+    uint8_t resurrected;
+    uint32_t score;
+    uint32_t bullets;
+};
+
 enum Opcode {
     EVENT_OPCODE = 0,
     ITEM_CHANGED_OPCODE,

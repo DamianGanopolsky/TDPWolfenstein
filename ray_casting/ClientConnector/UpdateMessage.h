@@ -13,6 +13,9 @@ public:
     void load_movement_event(uint8_t player_id,uint8_t pos_x,uint8_t pos_y,\
     float angle,uint8_t is_moving,uint8_t is_shooting);
 
+    void load_new_player_event(uint8_t player_id,uint8_t map,uint32_t pos_x,uint32_t pos_y,\
+    float angle,uint32_t life,uint8_t resurrected,uint32_t score,uint32_t bullets);
+
     uint8_t get_opcode();
 
     uint8_t get_event_type();
@@ -24,6 +27,8 @@ private:
     uint8_t Type_Of_Event;
 
     Movement_event MovEvent;
+
+    New_Player_Event NewEvent;
 
     /*uint8_t Player_Id;
     uint8_t Pos_X;
