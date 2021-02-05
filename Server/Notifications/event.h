@@ -21,6 +21,7 @@ class Event : public Notification {
     uint32_t value;
 
     public:
+        Event(const Id map, EventOpcode event_type, Id player_id);
         Event(const Id map, EventOpcode event_type, Id player_id,
             uint32_t pos_x, uint32_t pos_y, float angle, int is_moving, int is_shoting);
         Event(const Id map, EventOpcode event_type, Id player_id,

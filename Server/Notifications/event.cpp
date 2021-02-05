@@ -1,5 +1,8 @@
 #include "event.h"
 
+Event::Event(const Id map, EventOpcode event_type, Id player_id) : 
+            map(map), event_type(event_type), player_id(player_id) {}
+
 Event::Event(const Id map, EventOpcode event_type, Id player_id,
             uint32_t pos_x, uint32_t pos_y, float angle, int is_moving, int is_shoting) : 
             map(map), event_type(event_type), player_id(player_id), pos_x(pos_x),
@@ -78,48 +81,6 @@ bool Event::send(const ConnectionId sender, const Socket& peer) {
             }
             case NEW_PLAYER_EV:
             case RESURRECT_EV: { //id del jugador, id del mapa a abrir, coordenada x, coordenada y, angulo del jugador,vida , las vidas, puntaje, balas
-                /*uint32_t buff_player_id[1];
-                uint32_t buff_map[1];
-                uint32_t buff_pos_x[1];
-                uint32_t buff_pos_y[1];
-                float buff_angle[1];
-                uint32_t buff_life[1];
-                uint8_t buff_resurrected[1];
-                uint32_t buff_treasure[1];
-                uint32_t buff_bullets[1];
-                this->player_id = htole32(this->player_id);
-                buff_player_id[0] = player_id;
-                peer.send((char *)buff_player_id, sizeof(buff_player_id));
-                std::cout << "player_id es: " << player_id <<std::endl;
-                this->map = htole32(this->map);
-                buff_map[0] = map;
-                peer.send((char *)buff_map, sizeof(buff_map));
-                std::cout << "map es: " << map <<std::endl;
-                this->pos_x = htole32(this->pos_x);
-                buff_pos_x[0] = pos_x;
-                peer.send((char *)buff_pos_x, sizeof(buff_pos_x));
-                std::cout << "posx es: " << pos_x <<std::endl;
-                this->pos_y = htole32(this->pos_y);
-                buff_pos_y[0] = pos_y;
-                peer.send((char *)buff_pos_y, sizeof(buff_pos_y));
-                std::cout << "posy es: " << pos_y <<std::endl;
-                buff_angle[0] = angle;
-                peer.send((char *)buff_angle, sizeof(buff_angle));
-                buff_life[0] = life;
-                this->life = htole32(this->life);
-                peer.send((char *)buff_life, sizeof(buff_life));
-                std::cout << "life es: " << life <<std::endl;
-                buff_resurrected[0] = resurrected;
-                peer.send((char *)buff_resurrected, sizeof(buff_resurrected));
-                std::cout << "resurrected es: " << (unsigned)resurrected <<std::endl;
-                this->treasure = htole32(this->treasure);
-                buff_treasure[0] = treasure;
-                peer.send((char *)buff_treasure, sizeof(buff_treasure));
-                std::cout << "treasure es: " << treasure <<std::endl;
-                this->bullets = htole32(this->bullets);
-                buff_bullets[0] = bullets;
-                peer.send((char *)buff_bullets, sizeof(buff_bullets));
-                std::cout << "bullets es: " << bullets <<std::endl;*/
                 this->player_id = htole32(this->player_id);
                 peer.send((char *)&player_id, sizeof(player_id));
                 std::cout << "player_id es: " << player_id <<std::endl;

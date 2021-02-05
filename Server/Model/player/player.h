@@ -2,6 +2,7 @@
 #define PLAYER_H
 
 #include <string>
+#include <iostream>
 
 #include "./player_info.h"
 #include "./player_position.h"
@@ -38,9 +39,9 @@ class Player {
     bool isMoving();
     bool isRotating();
     bool isShooting();
-    Response update(int iteration);
-    Response _updateMovement();
-    Response _updateRotation();
+    void update();
+    //Response _updateMovement();
+    //Response _updateRotation();
     Response useWeapon(Id id, Id id_target, Player* target, int& damage);
     Response receiveAttack(int& damage);
     Response resurrect();

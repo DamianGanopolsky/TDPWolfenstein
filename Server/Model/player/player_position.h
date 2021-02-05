@@ -20,12 +20,14 @@ class PlayerPosition {
     PlayerPosition(int width, int height);
     explicit PlayerPosition(int inicial_x, int inicial_y, int width, int height);
     ~PlayerPosition();
-    void moveUp();
+    void move(Direction direction);
+    void rotate(Rotation rotation);
+    /*void moveUp();
     void moveLeft();
     void moveDown();
     void moveRight();
     void rotateLeft();
-    void rotateRight();
+    void rotateRight();*/
     std::pair<int, int> getNextPos(Direction direction);
     void changeDirection(Direction direction);
     void changeRotation(Rotation rotation);

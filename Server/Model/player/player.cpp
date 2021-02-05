@@ -1,6 +1,5 @@
 #include "player.h"
 
-
 Player::Player(int width, int height, 
                 std::string& nickname, Id id_player) :  
                 player_id(id_player), 
@@ -43,23 +42,6 @@ void Player::_die() {
         //map.addItem(posx, posy, corpse);
     }*/
 }
-Response Player::_updateMovement() {
-    /*std::pair<int, int> next_pos = this->getPos().getNextPos(this->getPos().getDirection());
-    Response can_move = _canMove(map, player, next_pos);
-    if (can_move.success && ((can_move.message) !=  NO_ITEM_PICKED_UP_MSG)) {
-        _notifyMovementEvent(id, player.update(iteration));
-         _notifyItemChanged(id, can_move, _getItemOpcode(can_move.message));
-    } else if (can_move.success) {
-        _notifyMovementEvent(id, player.update(iteration));
-    } else {
-        _notifyMovementEvent(id, Response(false, CANT_MOVE_UP_ERROR_MSG));
-    }*/
-    return Response(true, SUCCESS_MSG);
-}
-
-Response Player::_updateRotation() {
-    return Response(true, SUCCESS_MSG);
-}
 
 PlayerPosition Player::getPos() {
     return this->pos;
@@ -89,19 +71,23 @@ bool Player::isMoving() {
     return this->moving;
 }
 
+bool Player::isRotating() {
+    return this->rotating;
+}
+
 bool Player::isShooting() {
     return this->shooting;
 }
-Response Player::update(int iteration) {
-    //cosas de cooldown
+void Player::update() {
+    std::cout <<"Player: update()"<< std::endl;
     if (this->moving) {
-        return (_updateMovement());
+        std::cout <<"Player: is moving"<< std::endl;
+        this->pos.move(this->pos.getDirection());
+        std::cout <<"Player: updated"<< std::endl;
     }
     if (this->rotating) {
-        return (_updateRotation());
+        this->pos.rotate(this->pos.getRotation());
     }
-    //sacar esto:
-    return Response(SUCCESS_MSG, SUCCESS_MSG);
 }
 
 Response Player::startMovingUp() {

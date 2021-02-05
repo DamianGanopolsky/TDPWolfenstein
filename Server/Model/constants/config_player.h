@@ -41,6 +41,7 @@ enum Rotation {
 #define STATE_CANT_RESURRECT_ERROR_MSG "ERROR: Player has a state that doesn't allow him to resurrect."
 #define MAX_RESURRECTIONS_REACHED_ERROR_MSG "ERROR: Player has already resurrected as many times as possible."
 #define NO_KEY_TO_OPEN_CLOSED_DOOR "ERROR: Player hasn't a key to open this locked door."
+#define CANT_MOVE_ERROR_MSG "ERROR: Player can't move."
 #define CANT_MOVE_UP_ERROR_MSG "ERROR: Player can't move up."
 #define CANT_MOVE_DOWN_ERROR_MSG "ERROR: Player can't move down."
 #define CANT_MOVE_RIGHT_ERROR_MSG "ERROR: Player can't move right."

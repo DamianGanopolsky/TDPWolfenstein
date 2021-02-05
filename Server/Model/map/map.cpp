@@ -1,13 +1,19 @@
 #include "map.h"
 #include "../constants/const_object_map.h"
 #define CUADRICULA 64
-/*
-Map::Map(int width, int height) {
-    int map[width][height];
-    *this->map = *map;
-}*/
 
-void Map::LoadMatrix(std::map <std::pair<int,int>,int> initial_map){
+Map::Map(std::string YamlPathToMap){
+    YamlParser yamlparser(YamlPathToMap);
+    std::map <std::pair<int,int>,int> initial_map =yamlparser.load_map(YamlPathToMap);
+    rows=yamlparser.Map_Height();
+    columns=yamlparser.Map_Width();
+    _loadMatrix(initial_map);
+}
+
+//HACERLE FREE A LA MATRIZ
+Map::~Map() {}
+
+void Map::_loadMatrix(std::map <std::pair<int,int>,int> initial_map){
     map= new int*[rows];
     for(int i = 0; i < rows; ++i){
         map[i] = new int[columns];
@@ -25,15 +31,17 @@ void Map::LoadMatrix(std::map <std::pair<int,int>,int> initial_map){
     }
 }
 
-Map::Map(std::string YamlPathToMap){
-    YamlParser yamlparser(YamlPathToMap);
-    std::map <std::pair<int,int>,int> initial_map =yamlparser.load_map(YamlPathToMap);
-    rows=yamlparser.Map_Height();
-    columns=yamlparser.Map_Width();
-    LoadMatrix(initial_map);
+int Map::getObjectPos(int x, int y) {
+    int cell_x = (x/POINTS_PER_CELL);
+    int cell_y = (y/POINTS_PER_CELL);
+    return map[cell_x][cell_y];
 }
-//HACERLE FREE A LA MATRIZ
-Map::~Map() {}
+
+void Map::setObjectPos(int x, int y, ObjectsInMap object) {
+    int cell_x = (x/POINTS_PER_CELL);
+    int cell_y = (y/POINTS_PER_CELL);
+    map[cell_x][cell_y] = object;
+}
 
 /*void Map::update_player(int command, Id player_id, Id target_id) {
     Player player = this->players[player_id];

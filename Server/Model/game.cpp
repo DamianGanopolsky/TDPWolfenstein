@@ -5,18 +5,22 @@
 Game::Game(ClientsConnected& clients_connected, Id map_id) : 
                             new_connection_id(0),
                             clients_connected(clients_connected), 
-                            map_id(map_id), objMap() {}
+                            map_id(map_id), map("../Maps/Basic.yaml"),
+                            objMap() {}
 Game::~Game() {}
 
 //_getPlayerPosition deberia chequear si el yaml establece la posicion en la que el player deberia aparecer o no.
 
 void Game::_notifyMovementEvent(const ConnectionId id, const Response& response) {
+    std::cout <<"Game: _notifyMovementEvent()"<< std::endl;
     Notification* notification;
     Player& player = this->players.at(id);
     if (response.success) {
+        std::cout <<"Game: succes response"<< std::endl;
         notification = new Event(map_id, MOVEMENT_EV, id, player.getPos().getX(),
                                  player.getPos().getY(), player.getPos().getAngle(),
                                  player.isMoving(), player.isShooting());
+        std::cout <<"Game: send event to all"<< std::endl;
         this->clients_connected.sendEventToAll(notification);
     } else {
         notification = new Message(ERROR_MSSG, response.message);
@@ -47,7 +51,10 @@ void Game::_notifyEvent(const ConnectionId id, const Response& response, EventOp
                 break;
             }
             case MOVEMENT_EV:
-            case DELETE_PLAYER_EV:
+            case DELETE_PLAYER_EV: {
+                std::cout<<"Game: _notifyEvent, delete_player"<<std::endl;
+                notification = new Event(map_id, event_type, id);
+            }
             case ATTACK_EV:
             case BE_ATTACKED_EV:
             case RESURRECT_EV:
@@ -114,15 +121,15 @@ void Game::_notifyItemChanged(const ConnectionId id, const Response& response, I
     } 
 }
 
-Response Game::_canMove(int** map, Player& player, std::pair<int, int> next_pos) {
+Response Game::_canMove(Map& map, Player& player, std::pair<int, int> next_pos) {
     PlayerPosition pos = player.getPos();
     bool changeCell = _changeCell(pos, next_pos);
     if (changeCell) {
-        /*int object_code = map[next_pos.first][next_pos.second];
+        int object_code = map.getObjectPos(next_pos.first, next_pos.second);
         Object obj = objMap.getObject(object_code);
         Interact interactor;
         Response not_blocking = interactor.interactWith(player, map, obj);
-        return not_blocking;*/
+        return not_blocking;
     } else { //se mueve dentro de la misma celda
         return Response(true, NO_ITEM_PICKED_UP_MSG);
     }
@@ -192,12 +199,41 @@ void Game::deletePlayer(const ConnectionId id) {
 }
 
 void Game::updatePlayers(const int iteration) {
+    std::cout <<"Game: enter updatePlayers()"<< std::endl;
     std::unordered_map<ConnectionId, Player>::iterator 
         player_it = this->players.begin();
     while (player_it != this->players.end()) {
         ConnectionId id = player_it->first;
         Player& player = player_it->second;
-        _notifyResponse(id, player.update(iteration));
+        
+        if (player.isMoving()) {
+            std::cout <<"Game: player is moving"<< std::endl;
+            std::pair<int, int> next_pos = player.getPos().getNextPos(player.getPos().getDirection());
+            Response can_move = _canMove(map, player, next_pos);
+            if (can_move.success && ((can_move.message) !=  NO_ITEM_PICKED_UP_MSG)) {
+                std::cout <<"Game: player can move and picked up"<< std::endl;
+                player.update();
+                _notifyMovementEvent(id, Response(true, SUCCESS_MSG));
+                _notifyItemChanged(id, can_move, _getItemOpcode(can_move.message));
+            } else if (can_move.success) {
+                std::cout <<"Game: player can move"<< std::endl;
+                player.update();
+                std::cout <<"Game: player updated"<< std::endl;
+                _notifyMovementEvent(id, Response(true, SUCCESS_MSG));
+                std::cout <<"Game: players notified"<< std::endl;
+            } else {
+                std::cout <<"Game: player cant move"<< std::endl;
+                player.stopMoving();
+                _notifyMovementEvent(id, Response(false, CANT_MOVE_ERROR_MSG));
+            }
+        }
+        
+        if (player.isRotating()) {
+            std::cout <<"Game: player can rotate"<< std::endl;
+            player.update();
+            _notifyMovementEvent(id, Response(true, SUCCESS_MSG));
+        }
+
         ++player_it;
     }
 }

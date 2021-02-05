@@ -10,6 +10,7 @@ class ClientsConnected;
 #include "./../Notifications/item_changed.h"
 #include "./../Notifications/message.h"
 #include "../../Common/defs.h"
+#include "./map/map.h"
 #include "./map/object_map.h"
 #include "./constants/const_object_map.h"
 #include "./player/player.h"
@@ -23,14 +24,14 @@ class Game {
     std::unordered_map<std::string, ConnectionId> players_by_name;
     ClientsConnected& clients_connected;
     Id map_id;
-    int** map;
+    Map map;
     ObjectMap objMap;
 
     void _notifyEvent(const ConnectionId id, const Response& response, EventOpcode event_type);
     void _notifyResponse(const ConnectionId id, const Response& response);
     void _notifyItemChanged(const ConnectionId id, const Response& response, ItemOpcode item_type);
     void _notifyMovementEvent(const ConnectionId id, const Response& response);
-    Response _canMove(int** map, Player& player, std::pair<int, int> next_pos);
+    Response _canMove(Map& map, Player& player, std::pair<int, int> next_pos);
     bool _changeCell(PlayerPosition &pos, std::pair<int, int> &next_pos);
     ItemOpcode _getItemOpcode(std::string message); ///falta implmentar
     bool _interactWith(Player& player, int** map, Object obj);///falta implmentar

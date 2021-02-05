@@ -69,7 +69,8 @@ void Loop::run() {
     while (is_running) {
         _newConnections();
         _newCommands();
-        //game.updatePlayers(it);
+        std::cout <<"Loop: update game"<< std::endl;
+        game.updatePlayers(it);
         _finishedConnections();
         
         it = 0;

@@ -3,7 +3,7 @@
 
 #define POINTS_PER_CELL 64
 
-enum objectMap {
+enum ObjectsInMap {
     MAP_NONE            = 0,
     MAP_BULLET          = 1,
     MAP_BLOOD           = 2,
