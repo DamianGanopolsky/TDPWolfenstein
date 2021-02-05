@@ -199,7 +199,7 @@ void Game::deletePlayer(const ConnectionId id) {
 }
 
 void Game::updatePlayers(const int iteration) {
-    std::cout <<"Game: enter updatePlayers()"<< std::endl;
+    //std::cout <<"Game: enter updatePlayers()"<< std::endl;
     std::unordered_map<ConnectionId, Player>::iterator 
         player_it = this->players.begin();
     while (player_it != this->players.end()) {
@@ -242,42 +242,51 @@ void Game::updateOpenDoorsLifetime(const int iteration) {}
 
 void Game::startMovingUp(const ConnectionId id) {
     Player& player = this->players.at(id);
-    _notifyResponse(id, player.startMovingUp());
+    player.startMovingUp();
+    //_notifyResponse(id, player.startMovingUp());
 }
 
 void Game::startMovingDown(const ConnectionId id) {
+    std::cout <<"Game: startMovingDown()"<< std::endl;
     Player& player = this->players.at(id);
-    _notifyResponse(id, player.startMovingDown());
+    player.startMovingDown();
+    //_notifyResponse(id, player.startMovingDown());
 }
 
 void Game::startMovingLeft(const ConnectionId id) {
     Player& player = this->players.at(id);
-    _notifyResponse(id, player.startMovingLeft());
+    player.startMovingLeft();
+    //_notifyResponse(id, player.startMovingLeft());
 }
 
 void Game::startMovingRight(const ConnectionId id) {
     Player& player = this->players.at(id);
-    _notifyResponse(id, player.startMovingRight());
+    player.startMovingRight();
+    //_notifyResponse(id, player.startMovingRight());
 }
 
 void Game::stopMoving(const ConnectionId id) {
     Player& player = this->players.at(id);
-    _notifyResponse(id, player.stopMoving());
+    player.stopMoving();
+    //_notifyResponse(id, player.stopMoving());
 }
 
 void Game::startRotatingLeft(const ConnectionId id) {
     Player& player = this->players.at(id);
-    _notifyResponse(id, player.startRotatingLeft());
+    player.startRotatingLeft();
+    //_notifyResponse(id, player.startRotatingLeft());
 }
 
 void Game::startRotatingRight(const ConnectionId id) {
     Player& player = this->players.at(id);
-    _notifyResponse(id, player.startRotatingRight());
+    player.startRotatingRight();
+    //_notifyResponse(id, player.startRotatingRight());
 }
 
 void Game::stopRotating(const ConnectionId id) {
     Player& player = this->players.at(id);
-    _notifyResponse(id, player.stopRotating());
+    player.stopRotating();
+    //_notifyResponse(id, player.stopRotating());
 }
 
 void Game::openDoor(const ConnectionId id) {

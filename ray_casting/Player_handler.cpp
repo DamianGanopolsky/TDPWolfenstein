@@ -26,27 +26,27 @@ bool Player_handler::handle() {
 			//sender.send(1);
 			//printf("W ON\n");
 			//
-			Command* command = new Command(1);
+			Command* command = new Command(START_MOVING_UP_CMD);
 			//std::cout << "Opcode:" << command->get_opcode() << std::endl;
 			SendQueue.push(std::move(command));
 			moving=true;
 		}
 		if ((state[SDL_SCANCODE_S])&&(moving==false)) {
 			//printf("S ON.\n");
-			Command* command = new Command(2);
+			Command* command = new Command(START_MOVING_DOWN_CMD);
 			SendQueue.push(std::move(command));
 			moving=true;
 			
 		}
 		if ((state[SDL_SCANCODE_A])&&(moving==false)) {
 			//printf("A ON.\n");
-			Command* command = new Command(3);
+			Command* command = new Command(START_MOVING_LEFT_CMD);
 			SendQueue.push(std::move(command));
 			moving=true;
 		}
 		if ((state[SDL_SCANCODE_D])&&(moving==false)) {
 			//printf("D ON\n");
-			Command* command = new Command(4);
+			Command* command = new Command(START_MOVING_RIGHT_CMD);
 			SendQueue.push(std::move(command));
 			moving=true;
 		}
@@ -65,7 +65,7 @@ bool Player_handler::handle() {
 		if (((state[SDL_SCANCODE_W]==0)&&(state[SDL_SCANCODE_A]==0)&&\
 		(state[SDL_SCANCODE_S]==0)&&(state[SDL_SCANCODE_D]==0))&&(moving)){
 			//printf("STOP MOVING\n");
-			Command* command = new Command(5);
+			Command* command = new Command(STOP_MOVING_CMD);
 			SendQueue.push(std::move(command));
 			moving=false;
 		}

@@ -7,6 +7,8 @@ PlayerPosition::PlayerPosition(int width, int height){
     this->_setInitialPos(100, 100);
     //cambiar el angulo segun lo que llega??
     this->vision_angle = 270;
+    this->direction = UP_DIR; //default
+    this->rotation = RIGHT_ROTATION_DIR; //default
 }
 
 PlayerPosition::PlayerPosition(int inicial_x, int inicial_y, int width, int height) {
@@ -15,6 +17,8 @@ PlayerPosition::PlayerPosition(int inicial_x, int inicial_y, int width, int heig
     this->_setInitialPos(inicial_x, inicial_y);
     //cambiar el angulo segun lo que llega??
     this->vision_angle = 270;
+    this->direction = UP_DIR; //default
+    this->rotation = RIGHT_ROTATION_DIR; //default
 }
 
 PlayerPosition::~PlayerPosition() {}
@@ -63,22 +67,32 @@ std::pair<int, int> PlayerPosition::getNextPos(Direction direction) {
 }
 
 void PlayerPosition::move(Direction direction) {
+    std::cout <<"PlayerPosition: move()"<< std::endl;
+    std::cout <<"PlayerPosition: direction"<< (unsigned)direction <<std::endl;
     switch (direction) {
         case UP_DIR: {
+            std::cout <<"PlayerPosition: moveUp"<< std::endl;
             this->x += (int) (DISPLACEMENT * cos(this->vision_angle * PI / 180.0));
 	        this->y -= (int) (DISPLACEMENT * sin(this->vision_angle * PI / 180.0));
+            break;
         }
         case DOWN_DIR: {
+            std::cout <<"PlayerPosition: moveDown"<< std::endl;
             this->x -= (int) (DISPLACEMENT * cos(this->vision_angle * PI / 180.0));
 	        this->y += (int) (DISPLACEMENT * sin(this->vision_angle * PI / 180.0));
+            break;
         }
         case LEFT_DIR: {
+            std::cout <<"PlayerPosition: moveLeft"<< std::endl;
             this->x -= (int) (DISPLACEMENT * sin(this->vision_angle * PI / 180.0));
-	        this->y -= (int) (DISPLACEMENT * cos(this->vision_angle * PI / 180.0));	
+	        this->y -= (int) (DISPLACEMENT * cos(this->vision_angle * PI / 180.0));
+            break;	
         }
         case RIGHT_DIR: {
+            std::cout <<"PlayerPosition: moveRight"<< std::endl;
             this->x += (int) (DISPLACEMENT * sin(this->vision_angle * PI / 180.0));
 	        this->y += (int) (DISPLACEMENT * cos(this->vision_angle * PI / 180.0));
+            break;
         }
         default: {
             throw Exception("Unknown position");
@@ -92,10 +106,12 @@ void PlayerPosition::rotate(Rotation rotation) {
         case LEFT_ROTATION_DIR: {
             float new_vision_angle = this->vision_angle + ROTATION_SIZE;
 	        this->vision_angle = new_vision_angle >= 360.0 ? new_vision_angle - 360.0 : new_vision_angle;
+            break;
         }
         case RIGHT_ROTATION_DIR: {
             float new_vision_angle = this->vision_angle - ROTATION_SIZE;
 	        this->vision_angle = new_vision_angle < 0.0 ? 360.0 + new_vision_angle : new_vision_angle;
+            break;
         }
         default: {
             throw Exception("Unknown rotation");

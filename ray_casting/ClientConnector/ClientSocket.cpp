@@ -60,11 +60,13 @@ int ClientSocket::recv(char* recv_buff,int len){
     buffer[0]=*recv_buff;
     buffer[1]=*(recv_buff+1);
     UpdateMessage* update_message = new UpdateMessage(buffer[0],buffer[1]);
+    std::cout << "opcode type" << unsigned(buffer[1]) <<std::endl;
     switch(buffer[1]){
 
         case MOVEMENT_EV:{
             uint8_t player_id[1];
             socket.receive((char*)player_id, sizeof(player_id),bytes_received);
+            std::cout << "HOLa " <<std::endl;
             //uint32_t pos_x[1];
             //uint32_t pos_y[1];
             //float angle[1];
@@ -79,7 +81,7 @@ int ClientSocket::recv(char* recv_buff,int len){
             socket.receive((char*)player_id, sizeof(player_id),bytes_received);
             uint32_t map[1];
 
-            std::cout << "recibi el id:" << unsigned(player_id[0])<< std::endl;
+            //std::cout << "recibi el id:" << unsigned(player_id[0])<< std::endl;
            // uint8_t buffer2[1];
             socket.receive((char*)map, sizeof(map),bytes_received);
             //std::cout << "recibi el map:" << unsigned(map[0])<< std::endl;
@@ -93,26 +95,26 @@ int ClientSocket::recv(char* recv_buff,int len){
             uint32_t bullets[1];
            // uint8_t buffer2[1];
             socket.receive((char*)pos_x,sizeof(pos_x),bytes_received);
-            std::cout << "recibi posx:" << unsigned(pos_x[0])<< std::endl;
+            //std::cout << "recibi posx:" << unsigned(pos_x[0])<< std::endl;
            // uint8_t buffer2[1];
             socket.receive((char*)pos_y,sizeof(pos_y),bytes_received);
-            std::cout << "recibi posy:" << unsigned(pos_y[0])<< std::endl;
+            //std::cout << "recibi posy:" << unsigned(pos_y[0])<< std::endl;
             //uint8_t buffer2[1];
             socket.receive((char*)angle,sizeof(angle),bytes_received);
-            std::cout << "recibi angle:" << unsigned(angle[0])<< std::endl;
+            //std::cout << "recibi angle:" << unsigned(angle[0])<< std::endl;
             //uint8_t buffer2[1];
             socket.receive((char*)life,sizeof(life),bytes_received);
-            std::cout << "recibi life:" << unsigned(life[0])<< std::endl;
-            std::cout << "life aca es" << unsigned(life[0]) << std::endl;
+            //std::cout << "recibi life:" << unsigned(life[0])<< std::endl;
+            //std::cout << "life aca es" << unsigned(life[0]) << std::endl;
             //printf("%" PRIu32 "\n",life[0]);
             //uint8_t buffer2[1];
             socket.receive((char*)resurrected,sizeof(resurrected),bytes_received);
-            std::cout << "recibi resurrected:" << unsigned(resurrected[0])<< std::endl;
+            //std::cout << "recibi resurrected:" << unsigned(resurrected[0])<< std::endl;
             //uint8_t buffer2[1];
             socket.receive((char*)treasure,sizeof(treasure),bytes_received);
-            std::cout << "recibi treasure:" << unsigned(treasure[0])<< std::endl;
+            //std::cout << "recibi treasure:" << unsigned(treasure[0])<< std::endl;
             socket.receive((char*)bullets,sizeof(bullets),bytes_received);
-            std::cout << "recibi bullets:" << unsigned(bullets[0])<< std::endl;
+            //std::cout << "recibi bullets:" << unsigned(bullets[0])<< std::endl;
             update_message->load_new_player_event(player_id[0],map[0],pos_x[0],pos_y[0],angle[0],life[0]\
             ,resurrected[0],treasure[0],bullets[0]);
             recv_queue.push(std::move(update_message));

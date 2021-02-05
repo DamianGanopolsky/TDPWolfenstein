@@ -66,17 +66,25 @@ bool Event::send(const ConnectionId sender, const Socket& peer) {
         buffer[0] = EVENT_OPCODE;
         buffer[1] = event_type;
         peer.send((char *)buffer, 2);
+        std::cout << "event type es: " << unsigned(event_type) <<std::endl;
         switch (event_type) {
             case MOVEMENT_EV: { //id del jugador, coordenada x, coordenada y, angulo del jugador, moviendo (1-si o 0-no), disparando (si o no)
                 this->player_id = htole32(this->player_id);
+                std::cout << "id es: " << player_id <<std::endl;
                 peer.send((char *)&player_id, sizeof(player_id));
+                std::cout << "posx es: " << pos_x <<std::endl;
                 this->pos_x = htole32(this->pos_x);
                 this->pos_y = htole32(this->pos_y);
                 peer.send((char *)&pos_x, sizeof(pos_x));
+                std::cout << "posx es: " << pos_x <<std::endl;
                 peer.send((char *)&pos_y, sizeof(pos_y));
+                std::cout << "posy es: " << pos_y <<std::endl;
                 peer.send((char *)&angle, sizeof(angle));
+                std::cout << "angle es: " << angle <<std::endl;
                 peer.send((char *)&is_moving, sizeof(is_moving));
+                std::cout << "isMoving es: " << angle <<std::endl;
                 peer.send((char *)&is_shoting, sizeof(is_shoting));
+                std::cout << "isShooting es: " << angle <<std::endl;
                 break;
             }
             case NEW_PLAYER_EV:

@@ -104,6 +104,7 @@ Response Player::startMovingDown() {
         return Response(false, CANT_MOVE_DOWN_ERROR_MSG);
     }
     this->pos.changeDirection(DOWN_DIR);
+    std::cout <<"Player: changed direction"<< std::endl;
     this->moving = true;
     return Response(true, SUCCESS_MSG);
 }
