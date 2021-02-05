@@ -2,14 +2,9 @@
 #include "../constants/config.h"
 #include <algorithm>
 
-PlayerInfo::PlayerInfo() {
-    
-    this->bullets = 0;
-    this->life = MAX_LIFE;
-    this->keys = 0;
-    this->treasure = 0;
-    this->resurrected = 0;
-}
+PlayerInfo::PlayerInfo() : life(MAX_LIFE), bullets(0),
+                            keys(0), treasure(0), 
+                            resurrected(0), equiped(/*poner un knife*/) {}
 
 PlayerInfo::~PlayerInfo(){}
 

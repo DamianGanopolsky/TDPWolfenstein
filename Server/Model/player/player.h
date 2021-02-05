@@ -23,9 +23,11 @@ class Player {
   void _die();
 
   public:
-    Player(int pos_x, int pos_y, std::string& nickname, 
-            Id id_player);
-    Player(std::string& nickname, Id id_player);
+    Player(int pos_x, int pos_y, int width, 
+          int height, std::string& nickname, 
+          Id id_player);
+    Player(int width, int height, 
+          std::string& nickname, Id id_player);
     ~Player();
     PlayerPosition getPos();
     PlayerInfo getInfo();

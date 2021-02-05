@@ -167,7 +167,8 @@ const ConnectionId Game::newPlayer() {
     std::cout <<"Game: adding a new player"<< std::endl;
     this->players.emplace(std::piecewise_construct, 
                 std::forward_as_tuple(new_player_id),
-                std::forward_as_tuple(nickname, new_player_id));
+                std::forward_as_tuple(100, 100, 2240, 
+                                    2240, nickname, new_player_id));
     std::cout <<"Game: new player added"<< std::endl;
     //de alguna manera me tienen que pasar el nickname
     //this->players_by_name[nickname] = new_player_id;

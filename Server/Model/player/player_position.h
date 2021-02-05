@@ -15,9 +15,9 @@ class PlayerPosition {
     Rotation rotation;
     int width;
     int height;
-    void setInitialPos(int inicial_x, int inicial_y);
+    void _setInitialPos(int inicial_x, int inicial_y);
  public:
-    PlayerPosition();
+    PlayerPosition(int width, int height);
     explicit PlayerPosition(int inicial_x, int inicial_y, int width, int height);
     ~PlayerPosition();
     void moveUp();

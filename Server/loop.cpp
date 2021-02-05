@@ -2,13 +2,13 @@
 #include <chrono>
 
 Loop::Loop(NonBlockingQueue<ConnectionElement*>& new_connections) : 
-                game(clients_connected,map), 
+                map(12), game(clients_connected,map), 
                 clients_connected(commands, finished_connections),
                 commands(), 
                 finished_connections(), 
                 new_connections(new_connections),
                 is_running(true),
-                map(), rate(1000/30) {}
+                rate(1000/30) {}
 
 Loop::~Loop() {}
 

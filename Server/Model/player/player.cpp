@@ -1,16 +1,18 @@
 #include "player.h"
 
 
-Player::Player(std::string& nickname, Id id_player) :  
-                player_id(id_player), pos(), 
+Player::Player(int width, int height, 
+                std::string& nickname, Id id_player) :  
+                player_id(id_player), 
+                pos(width, height), 
                 info(), state(new Alive(id_player)),
                 nickname(nickname), alive(true), 
                 moving(false), rotating(false), 
                 shooting(false) {}
 
-Player::Player(int pos_x, int pos_y, std::string& nickname, 
-                Id id_player) : 
-                player_id(id_player), pos(), 
+Player::Player(int pos_x, int pos_y, int width, int height,
+                std::string& nickname, Id id_player) : 
+                player_id(id_player), pos(pos_x, pos_y, width, height), 
                 info(), state(new Alive(id_player)),
                 nickname(nickname), alive(true), 
                 moving(false), rotating(false), 
