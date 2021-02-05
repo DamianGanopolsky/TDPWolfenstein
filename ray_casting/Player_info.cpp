@@ -14,6 +14,14 @@ int Player_info::get_scores() const {
 	return this->scores;
 }
 
+void Player_info::set_initial_status(int health,int lives,int score,int ammo){
+	//lives = 8;
+	scores = score;
+	health = health;
+	ammo = ammo;
+
+}
+
 int Player_info::get_health() const {
 	return this->health;
 }

@@ -87,6 +87,7 @@ bool Event::send(const ConnectionId sender, const Socket& peer) {
                 peer.send((char *)&pos_y, sizeof(pos_y));
                 peer.send((char *)&angle, sizeof(angle));
                 peer.send((char *)&life, sizeof(life));
+                std::cout << "life es" << life <<std::endl;
                 peer.send((char *)&resurrected, sizeof(resurrected));
                 peer.send((char *)&treasure, sizeof(treasure));
                 peer.send((char *)&bullets, sizeof(bullets));

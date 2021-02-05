@@ -17,11 +17,16 @@ public:
 	int get_weapon_status() const;
 	void change_weapon_status();
 
+	void set_initial_status(int health,int lives,int score,int ammo);
+
 private:
 	int lives = 8;
-	int scores = 0;
-	int health = 100;
-	int ammo = 100;
+	//int scores = 0;
+	//int health = 100;
+	//int ammo = 100;
+	int scores;
+	int health;
+	int ammo;
 	int weapon = 1;
 	int weapon_status = 0;  
 	int level=1;

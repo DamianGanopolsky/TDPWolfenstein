@@ -27,16 +27,21 @@ bool ReceiveController::start(){
                         mov_event.pos_y,mov_event.angle);
                     }
                     else{
-                        map.update_player_pos(mov_event.player_id,\
-                        mov_event.pos_x,mov_event.pos_y,mov_event.angle);
+                        
                     }
                     break;
                 }
                 case NEW_PLAYER_EV:{
                     New_Player_Event new_ev=updatemessage->get_new_player_info();
-                    /*if(new_ev.life==1){
-                        player.get_info.
-                    }*/
+                    
+                    if(new_ev.player_id==1){
+                        player.get_info().set_initial_status(new_ev.life,new_ev.resurrected,\
+                    new_ev.score,new_ev.bullets);
+                    }
+                    else{
+                        map.update_player_pos(new_ev.player_id,\
+                        new_ev.pos_x,new_ev.pos_y,new_ev.angle);
+                    }
                     std::cout << "lives es" << unsigned(new_ev.life) << std::endl;
                     break;
                 }
