@@ -24,10 +24,7 @@ void ClientManager::start(){
 	New_Player_Event player_info=clientsock.recv_player();
 	std::cout << "id:" << player_info.player_id << std::endl;
 	Player player(player_info);
-	/*player.get_info()->set_initial_status(player_info.life,player_info.resurrected,\
-	player_info.score,player_info.bullets);*/
-	std::cout << "Deberia ser 20: " << player.get_info().get_health() << std::endl;
-	Map_2d map(player);
+	Map_2d map(player,"../Maps/Basic.yaml");
 	Panel_window panel(map);
 	BlockingQueue<Command*> send_queue;
 	

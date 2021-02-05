@@ -18,7 +18,7 @@ int Player_info::get_scores() const {
 
 void Player_info::set_initial_status(int health,int lives,int score,int ammo){
 	//lives = 8;
-	std::cout << "Seteo health a " << health << std::endl;
+	//std::cout << "Seteo health a " << health << std::endl;
 	scores = score;
 	health = health;
 	ammo = ammo;

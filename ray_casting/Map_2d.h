@@ -11,6 +11,7 @@
 #include <list>
 #include "const.h"
 #include "Yaml/MapYamlParser.h"
+#include <string>
 
 struct state{
     int pos_x;
@@ -21,7 +22,7 @@ struct state{
 
 class Map_2d {
 public:
-	explicit Map_2d(Player& player);
+	explicit Map_2d(Player& player,std::string YamlPathToMap);
 	Map_2d(const Map_2d& other) = delete;
 	~Map_2d();
 

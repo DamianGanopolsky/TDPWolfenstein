@@ -20,6 +20,10 @@ Player::Player(New_Player_Event player_initial_info) :
 Player::~Player() {
 }
 
+int Player::get_id(){
+	return player_id;
+}
+
 float Player::get_angle() const {
 	return this->vision_angle;
 }

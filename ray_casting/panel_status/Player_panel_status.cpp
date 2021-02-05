@@ -107,7 +107,7 @@ void Player_panel_status::copy_to_rederer(Player_info& player_info) {
 	SrcR.y = PANEL_HEIGHT - SrcR.h;
     SDL_RenderCopy(this->renderer, this->status_tex, NULL, &SrcR);
 
-	std::cout << "Health aca es" << player_info.get_health() <<std::endl;
+	//std::cout << "Health aca es" << player_info.get_health() <<std::endl;
     
 	this->copy_to_rederer_weapon(player_info);
 	this->copy_to_rederer_face(player_info.get_health());
