@@ -30,6 +30,7 @@ Map::Map(std::string YamlPathToMap){
     std::map <std::pair<int,int>,int> initial_map =yamlparser.load_map(YamlPathToMap);
     rows=yamlparser.Map_Height();
     columns=yamlparser.Map_Width();
+    LoadMatrix(initial_map);
 }
 //HACERLE FREE A LA MATRIZ
 Map::~Map() {}
