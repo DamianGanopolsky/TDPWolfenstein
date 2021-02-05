@@ -34,14 +34,10 @@ void ClientManager::start(){
 	ReceiveController receivecontroller(player,map,recv_queue,client);
 	Receiver receiver(&clientsock,recv_queue,receivecontroller);
 	Sender sender(&clientsock,send_queue);
+	receiver.start();
 	sender.start();
 
 	//Pruebas de concepto
-	
-	receiver.start();
-	
-	
-
 	
 	MusicSoundtrack music;
 	music.play_editor();
