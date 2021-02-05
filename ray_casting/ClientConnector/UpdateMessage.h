@@ -20,7 +20,9 @@ public:
 
     uint8_t get_event_type();
 
-    Movement_event get_event_info();
+    Movement_event get_mov_event_info();
+
+    New_Player_Event get_new_player_info();
 
 private:
     uint8_t Opcode;
@@ -28,7 +30,7 @@ private:
 
     Movement_event MovEvent;
 
-    New_Player_Event NewEvent;
+    New_Player_Event NewPEvent;
 
     /*uint8_t Player_Id;
     uint8_t Pos_X;

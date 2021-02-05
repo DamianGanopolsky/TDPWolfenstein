@@ -1,6 +1,21 @@
 #include "UpdateMessage.h"
 
 
+UpdateMessage::UpdateMessage(const UpdateMessage& other) {
+    this->Opcode = other.Opcode;
+    this->Type_Of_Event=other.Type_Of_Event;
+    this->MovEvent=other.MovEvent;
+    this->NewPEvent=other.NewPEvent;
+}
+UpdateMessage& UpdateMessage::operator=(const UpdateMessage& other) {
+    this->Opcode = other.Opcode;
+    this->Type_Of_Event=other.Type_Of_Event;
+    this->MovEvent=other.MovEvent;
+    this->NewPEvent=other.NewPEvent;
+    return *this;
+}
+
+
 UpdateMessage::UpdateMessage(uint8_t opcode,uint8_t type_of_event):\
     Opcode(opcode),Type_Of_Event(type_of_event){
 
@@ -18,19 +33,23 @@ void UpdateMessage::load_movement_event(uint8_t player_id,uint8_t pos_x,uint8_t 
 
 void UpdateMessage::load_new_player_event(uint8_t player_id,uint8_t map,uint32_t pos_x,uint32_t pos_y,\
     float angle,uint32_t life,uint8_t resurrected,uint32_t score,uint32_t bullets){
-        NewEvent.player_id=player_id;
-        NewEvent.map=map;
-        NewEvent.pos_x=pos_x;
-        NewEvent.pos_y=pos_y;
-        NewEvent.angle=angle;
-        NewEvent.life=life;
-        NewEvent.resurrected=resurrected;
-        NewEvent.score=score;
-        NewEvent.bullets=bullets;
+        NewPEvent.player_id=player_id;
+        NewPEvent.map=map;
+        NewPEvent.pos_x=pos_x;
+        NewPEvent.pos_y=pos_y;
+        NewPEvent.angle=angle;
+        NewPEvent.life=life;
+        NewPEvent.resurrected=resurrected;
+        NewPEvent.score=score;
+        NewPEvent.bullets=bullets;
 
 }
-Movement_event UpdateMessage::get_event_info(){
+Movement_event UpdateMessage::get_mov_event_info(){
     return MovEvent;
+}
+
+New_Player_Event UpdateMessage::get_new_player_info(){
+    return NewPEvent;
 }
 
 

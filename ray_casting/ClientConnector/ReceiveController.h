@@ -22,6 +22,7 @@ public:
 
 private:
     Player& player;
+    //Player& player_;
     Map_2d& map;
     NonBlockingQueue<UpdateMessage*>& recv_queue;
     Client& client;

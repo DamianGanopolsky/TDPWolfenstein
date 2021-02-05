@@ -17,9 +17,10 @@ ClientManager::ClientManager(){
 
 
 void ClientManager::start(){
-	ClientSocket clientsock;
+	
 	BlockingQueue<Command*> send_queue;
 	NonBlockingQueue<UpdateMessage*> recv_queue;
+	ClientSocket clientsock(recv_queue);
 	Receiver receiver(&clientsock,recv_queue);
 	Sender sender(&clientsock,send_queue);
 	sender.start();
