@@ -6,14 +6,7 @@
 
 #define PI 3.1415
 #define TOTAL_SECTIONS 8
-/*
-Game_element& Game_element::operator=(const Game_element& other) {
-    this->pos_ray = other.pos_ray;
-	this->texture_section=other.texture_section;
-	this->type_id=other.type_id;
-    return *this;
-}
-*/
+
 //Type id -> No se esta usando ahora, podria servir para discriminar entre distintos 
 
 Game_element::Game_element(int pos_x, int pos_y, int type_id, int vision_angle, Player& player) :
@@ -131,6 +124,11 @@ int Game_element::get_texture_section(int element_angle, int player_angle) {
 	int player_section = this->get_angle_section(player_angle);
 
 	int diff = player_section - element_section + 4;
+	//std::cout << "Element angle es " << element_angle << std::endl;
+	//std::cout << "Texture section es" << element_angle/360 << std::endl;
+	//return element_angle/360;
+
+	
 
 	return diff < 0 ? TOTAL_SECTIONS + diff : diff;     
 }

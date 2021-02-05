@@ -98,27 +98,43 @@ bool Player_handler::handle() {
 					case SDLK_d:
 						this->player.move_right();
 						break; 
-					case SDLK_e:
+					case SDLK_e:{
 						//Notifico al server que quiero disparar
+						Command* command = new Command(USE_WEAPON_CMD);
+						SendQueue.push(std::move(command));
 						this->player.shoot();
 						break; 
-					case SDLK_1:
+					}
+					case SDLK_1:{
+
+						Command* command = new Command(CHANGE_WEAPON_TO_KNIFE_CMD);
+						SendQueue.push(std::move(command));
 						
 						this->player.change_weapon(0);
 						//std::cout << "Notifico al server que quiero cambiar a cuchillo" << std::endl;
 						break;
-					case SDLK_2:
+					}
+					case SDLK_2:{
+						Command* command = new Command(CHANGE_WEAPON_TO_GUN_CMD);
+						SendQueue.push(std::move(command));
 						this->player.change_weapon(1);
 						//std::cout << "Notifico al server que quiero cambiar a pistola" << std::endl;
 						break;
-					case SDLK_3:
+					}
+					case SDLK_3:{
+						Command* command = new Command(CHANGE_WEAPON_TO_MACHINE_GUN_CMD);
+						SendQueue.push(std::move(command));
 						this->player.change_weapon(2);
 						//std::cout << "Notifico al server que quiero cambiar a automatic_gun" << std::endl;
 						break;
-					case SDLK_4:
+					}
+					case SDLK_4:{
+						Command* command = new Command(CHANGE_WEAPON_TO_CHAIN_CANNON_CMD);
+						SendQueue.push(std::move(command));
 						this->player.change_weapon(3);
 						//std::cout << "Notifico al server que quiero cambiar a chain_cannon" << std::endl;
 						break;
+					}
 					case SDLK_5:
 						//PRUEBA
 						this->player.update_position_and_angle(300,300,300);
