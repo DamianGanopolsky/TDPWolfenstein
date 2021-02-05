@@ -7,6 +7,9 @@ void Receiver::stop(){
 
 
 void Receiver::run(){
+    uint8_t buffer[2];
+    New_Player_Event my_player=clientsocket->recv_player((char*)buffer);
+    recv_controller.InitializeClient(my_player);
     while(receiving){
         //int bytes_received = 0; //DESCOMENTAR
 		uint8_t buffer[2];  //DESCOMENTAR

@@ -16,6 +16,8 @@ public:
      RECV_QUEUE,Client& CLIENT):player(PLAYER),map(MAP),recv_queue(RECV_QUEUE),client(CLIENT){
     }
 
+    void InitializeClient(New_Player_Event& my_player);
+
     void ExecuteEvent();
 
     bool start();

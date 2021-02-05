@@ -12,8 +12,8 @@ struct Movement_event {
 };
 
 struct New_Player_Event{
-    uint8_t player_id;
-    uint8_t map;
+    uint32_t player_id;
+    uint32_t map;
     uint32_t pos_x;
     uint32_t pos_y;
     float angle;

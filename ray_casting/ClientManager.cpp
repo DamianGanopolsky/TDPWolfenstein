@@ -17,22 +17,26 @@ ClientManager::ClientManager(){
 
 
 void ClientManager::start(){
-	
-	BlockingQueue<Command*> send_queue;
-	NonBlockingQueue<UpdateMessage*> recv_queue;
-	ClientSocket clientsock(recv_queue);
-	Receiver receiver(&clientsock,recv_queue);
-	Sender sender(&clientsock,send_queue);
-	sender.start();
 	Player player(100, 100, 270);
 	Map_2d map(player);
+	Panel_window panel(map);
+	BlockingQueue<Command*> send_queue;
+	NonBlockingQueue<UpdateMessage*> recv_queue;
+	Player_handler handler(player,map,send_queue);
+	Client client(panel,player,map);
+	ClientSocket clientsock(recv_queue);
+	ReceiveController receivecontroller(player,map,recv_queue,client);
+	Receiver receiver(&clientsock,recv_queue,receivecontroller);
+	Sender sender(&clientsock,send_queue);
+	sender.start();
+
 	//Pruebas de concepto
 	
 	receiver.start();
-	Panel_window panel(map);
-	Player_handler handler(player,map,send_queue);
-	Client client(panel,player,map);
-	ReceiveController receivecontroller(player,map,recv_queue,client);
+	
+	
+
+	
 	MusicSoundtrack music;
 	music.play_editor();
 	client.render();
