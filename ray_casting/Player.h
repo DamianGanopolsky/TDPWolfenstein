@@ -7,7 +7,7 @@
 
 class Player {
 public:
-	Player(int pos_x, int pos_y, float angle);
+	Player(int pos_x, int pos_y, float angle,int Player_Id);
 	~Player();
 	
 	float get_angle() const ;
@@ -29,6 +29,7 @@ private:
 	int pos_x;
 	int pos_y;
 	float vision_angle;
+	int player_id;
 	Player_info info; 
 };
 

@@ -23,7 +23,9 @@ void ClientManager::start(){
 	ClientSocket clientsock(recv_queue);
 	New_Player_Event player_info=clientsock.recv_player();
 	std::cout << "id:" << player_info.player_id << std::endl;
-	Player player(100, 100, 270);
+	Player player(player_info.pos_x, player_info.pos_y, player_info.angle,player_info.player_id);
+	player.get_info().set_initial_status(player_info.life,player_info.resurrected,\
+	player_info.score,player_info.bullets);
 	Map_2d map(player);
 	Panel_window panel(map);
 	BlockingQueue<Command*> send_queue;

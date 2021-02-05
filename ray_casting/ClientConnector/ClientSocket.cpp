@@ -28,12 +28,17 @@ New_Player_Event ClientSocket::recv_player(){
     socket.receive((char*)player_id, sizeof(player_id),bytes_received);
     socket.receive((char*)map, sizeof(map),bytes_received);
     socket.receive((char*)pos_x,sizeof(pos_x),bytes_received);
+    std::cout << "recibi posx:" << unsigned(pos_x[0])<< std::endl;
     socket.receive((char*)pos_y,sizeof(pos_y),bytes_received);
+    std::cout << "recibi posy:" << unsigned(pos_y[0])<< std::endl;
     socket.receive((char*)angle,sizeof(angle),bytes_received);
+    std::cout << "recibi angle:" << unsigned(angle[0])<< std::endl;
     socket.receive((char*)life,sizeof(life),bytes_received);
+    std::cout << "recibi life:" << unsigned(life[0])<< std::endl;
     socket.receive((char*)resurrected,sizeof(resurrected),bytes_received);
     socket.receive((char*)treasure,sizeof(treasure),bytes_received);
     socket.receive((char*)bullets,sizeof(bullets),bytes_received);
+    std::cout << "recibi bullets:" << unsigned(bullets[0])<< std::endl;
     my_player.player_id=player_id[0];
     my_player.map=map[0];
     my_player.pos_x=pos_x[0];

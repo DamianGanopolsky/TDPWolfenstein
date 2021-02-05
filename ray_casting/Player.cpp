@@ -9,8 +9,8 @@
 #define DISPLACEMENT 8
 #define PI 3.14159265
 
-Player::Player(int pos_x, int pos_y, float angle) :
-				pos_x(pos_x), pos_y(pos_y), vision_angle(angle) {
+Player::Player(int pos_x, int pos_y, float angle,int Player_Id) :
+				pos_x(pos_x), pos_y(pos_y), vision_angle(angle),player_id(Player_Id) {
 	
 }
 
