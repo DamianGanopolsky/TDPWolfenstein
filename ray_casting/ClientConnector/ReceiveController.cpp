@@ -8,7 +8,7 @@
  }
 
  void ReceiveController::InitializeClient(New_Player_Event& my_player){
-
+     std::cout << "El id de mi  player es" << my_player.player_id << std::endl;
  }
 
 
