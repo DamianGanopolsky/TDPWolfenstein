@@ -11,6 +11,8 @@
 
 class Client {
 public:
+    void update();
+
     void render();
 
     Client(Panel_window& Panel,Player& Player,Map_2d& Map);
