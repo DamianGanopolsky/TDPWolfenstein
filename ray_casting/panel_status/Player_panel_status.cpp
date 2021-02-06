@@ -278,6 +278,7 @@ SDL_Texture* Player_panel_status::get_texture(int tex_section, int id) {
 //Si el id es 2, se deberia llamar a oficial status. Hacer un switch posiblemente
 	SDL_Texture* texture;
 	switch(id){
+		case 0:
 		case 1:
 			texture=this->guardia_status.get_texture(tex_section);
 			break;

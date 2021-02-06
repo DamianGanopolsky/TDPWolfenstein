@@ -58,13 +58,19 @@ void Map_2d::update_player_pos(int id,int pos_x,int pos_y,int angle,int status){
 	players_state[id].pos_x=pos_x;
 	players_state[id].pos_y=pos_y;
 	players_state[id].vision_angle=angle;
-	switch(status){
-		case 0:
-			players_state[id].type_id=2;
-			break;
-		case 1:
-			players_state[id].type_id=12;
-			break;
+	players_state[id].type_id=2;
+}
+
+void Map_2d::update_player_texture(int id,int weapon){
+	players_state[id].weapon=weapon;
+}
+
+int Map_2d::get_type_id(int weapon,int is_shooting){
+	if(is_shooting==0){
+		return weapon;
+	}
+	else{
+		return (is_shooting*10)+weapon;
 	}
 }
 
@@ -81,8 +87,9 @@ std::list<Game_element> Map_2d::get_game_elements() {
 	}
 	/* ACA RENDERIZO LOS DISTINTOS JUGADORES CON SUS POSICIONES ACTUALIZADAS */
 	for (auto const& object : players_state){
-		
-		Game_element element(object.second.pos_x,object.second.pos_y,object.second.type_id,\
+		std::cout << "Get type id es" << get_type_id(object.second.weapon,object.second.is_shooting) << std::endl;
+		Game_element element(object.second.pos_x,object.second.pos_y,\
+		get_type_id(object.second.weapon,object.second.is_shooting),\
 		object.second.vision_angle,this->player);
 		elements.push_back(std::move(element));
 	}

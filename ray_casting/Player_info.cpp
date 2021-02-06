@@ -2,7 +2,7 @@
 #include <iostream>
 
 Player_info::Player_info(int life,int resurrected,int score,int bullets):health(life),\
-	lives(resurrected),scores(score),ammo(bullets){
+	lives(resurrected),scores(score),ammo(bullets),weapon(0){
 }
 
 Player_info::~Player_info(){

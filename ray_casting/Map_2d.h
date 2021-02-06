@@ -19,6 +19,7 @@ struct state{
     int type_id;
     int vision_angle;
 	int weapon;
+	int is_shooting;
 };
 
 class Map_2d {
@@ -52,6 +53,8 @@ private:
 	//POSICION DEL PLAYER
 	//Cada cuadricula tiene 64x64 posiciones
 	Player& player; 
+
+	int get_type_id(int weapon,int is_shooting);
 };
 
 #endif
