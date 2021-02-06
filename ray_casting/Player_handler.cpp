@@ -148,6 +148,8 @@ bool Player_handler::handle() {
 					case SDLK_ESCAPE:  
 						//sender.stop();
 						//sender.join();
+						//Command* command=new Command(13);
+						SendQueue.close();
 						quit=true;
 						break;   
 				}

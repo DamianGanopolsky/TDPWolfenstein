@@ -34,7 +34,7 @@ void ClientManager::start(){
 	ReceiveController receivecontroller(player,map,recv_queue,client);
 	Receiver receiver(&clientsock,recv_queue,receivecontroller);
 	Sender sender(&clientsock,send_queue);
-	receiver.start();
+	//receiver.start();
 	sender.start();
 
 	//Pruebas de concepto
@@ -50,10 +50,12 @@ void ClientManager::start(){
 		quit=receivecontroller.start();    //Recibo eventos y actualizo
 		quit=handler.handle();   //Capturo eventos del cliente y envio
 		//receivecontroller.ExecuteEvent();
+		
 	}
+	std::cout << "salio de aca " << std::endl;
 	sender.stop();
-	//sender.join();
-    receiver.stop();
+	sender.join();
+   // receiver.stop();
 	//receiver.join();  
 }
 
