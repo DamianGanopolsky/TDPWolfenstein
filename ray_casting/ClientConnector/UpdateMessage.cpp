@@ -6,12 +6,14 @@ UpdateMessage::UpdateMessage(const UpdateMessage& other) {
     this->Type_Of_Event=other.Type_Of_Event;
     this->MovEvent=other.MovEvent;
     this->NewPEvent=other.NewPEvent;
+    this->ChWeaponEvent=other.ChWeaponEvent;
 }
 UpdateMessage& UpdateMessage::operator=(const UpdateMessage& other) {
     this->Opcode = other.Opcode;
     this->Type_Of_Event=other.Type_Of_Event;
     this->MovEvent=other.MovEvent;
     this->NewPEvent=other.NewPEvent;
+    this->ChWeaponEvent=other.ChWeaponEvent;
     return *this;
 }
 
@@ -19,6 +21,11 @@ UpdateMessage& UpdateMessage::operator=(const UpdateMessage& other) {
 UpdateMessage::UpdateMessage(uint8_t opcode,uint8_t type_of_event):\
     Opcode(opcode),Type_Of_Event(type_of_event){
 
+}
+
+void UpdateMessage::load_changed_weapon(uint32_t player_id,uint8_t weapon){
+    ChWeaponEvent.player_id=player_id;
+    ChWeaponEvent.weapon=weapon;
 }
 
 void UpdateMessage::load_movement_event(uint32_t player_id,uint32_t pos_x,uint32_t pos_y,\
@@ -50,6 +57,10 @@ Movement_event UpdateMessage::get_mov_event_info(){
 
 New_Player_Event UpdateMessage::get_new_player_info(){
     return NewPEvent;
+}
+
+Change_Weapon_Event UpdateMessage::get_changed_weapon(){
+    return ChWeaponEvent;
 }
 
 

@@ -19,9 +19,6 @@ New_Player_Event ClientSocket::recv_player(){
     int bytes_received=0;
     uint8_t buffer[2];
     socket.receive((char*)buffer,sizeof(buffer),bytes_received);
-   // uint8_t buffer[2];
-   // buffer[0]=*recv_buff;
-   // buffer[1]=*(recv_buff+1);
     uint32_t player_id[1];
     uint32_t map[1];
     uint32_t pos_x[1];
@@ -133,6 +130,16 @@ void ClientSocket::recv(char* recv_buff,int len){
                 recv_queue.push(std::move(update_message));
                 break;
             }
+            case CHANGE_WEAPON_EV:{
+                uint32_t player_id[1];
+                uint32_t weapon[1];
+                socket.receive((char*)player_id, sizeof(player_id),bytes_received);
+                socket.receive((char*)weapon, sizeof(weapon),bytes_received);
+                update_message->load_changed_weapon(player_id[0],weapon[0]);
+                recv_queue.push(std::move(update_message));
+                break;
+            }
+
         }
         std::cout << "Termine de recibir" << std::endl;
     }
@@ -144,22 +151,9 @@ void ClientSocket::recv(char* recv_buff,int len){
 
 void ClientSocket::send(uint8_t msg){
     uint8_t opcode=128;
-    //uint8_t opcode=START_MOVING_UP_CMD;
-    std::cout << "awsd"  << std::endl;
     uint8_t buffer[2];
     buffer[0] = opcode;
     buffer[1] = msg;
-    //char opcode_enviar=(char) opcode;    
-   // char buff1[2]="1";
-   // char* opcode=1;
     std::cout << "Envio por socket: Comando:" << unsigned(opcode) << "Tipo de comando:" << unsigned(msg) << std::endl;
-    //std::cout << "Envio" << msg << std::endl;
-    //const char* opcode_char= (char*) opcode;
-    //const char* command_type= (char*) msg;
-    //socket.send(opcode_char, 1);
-    //socket.send(command_type, 1);
-    //socket.send((char*)opcode, 1);
-    //socket.send(&opcode_enviar,1); 
-    //socket.send(command_type, 1);
     socket.send((char*)buffer, 2);
 }

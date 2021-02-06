@@ -55,9 +55,6 @@ void Map_2d::open_door(int cuadricula){
 
 void Map_2d::update_player_pos(int id,int pos_x,int pos_y,int angle,int status){
 	//2 va a hacer que muestre a un officer
-	/*if(players_state.find(id)==players_state.end()){
-
-	}*/
 	players_state[id].pos_x=pos_x;
 	players_state[id].pos_y=pos_y;
 	players_state[id].vision_angle=angle;
@@ -69,17 +66,6 @@ void Map_2d::update_player_pos(int id,int pos_x,int pos_y,int angle,int status){
 			players_state[id].type_id=12;
 			break;
 	}
-	
-	/*if(players_in_map.find(id)==players_in_map.end()){
-		Game_element element(pos_x,pos_y,2,angle,this->player);
-		//players_in_map.insert(std::make_pair(id,std::move(element)));
-	}
-	else{
-		//players_in_map[id].update(pos_x,pos_y,2,angle,this->player);
-	}
-	Game_element element(pos_x,pos_y,2,angle,this->player);
-	//players_in_map.insert
-	players_in_map[id]=Game_element(element);*/
 }
 
 

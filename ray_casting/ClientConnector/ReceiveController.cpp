@@ -48,6 +48,9 @@ bool ReceiveController::start(){
                     //std::cout << "lives es" << unsigned(new_ev.life) << std::endl;
                     break;
                 }
+                case CHANGE_WEAPON_EV:{
+                    
+                }
                 default:
                     break;
 

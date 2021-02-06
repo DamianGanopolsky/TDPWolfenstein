@@ -23,6 +23,11 @@ struct New_Player_Event{
     uint32_t bullets;
 };
 
+struct Change_Weapon_Event{
+    uint32_t player_id;
+    uint8_t weapon;
+};
+
 
 enum Opcode {
     EVENT_OPCODE = 0,

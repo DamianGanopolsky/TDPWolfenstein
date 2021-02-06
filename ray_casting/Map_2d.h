@@ -18,6 +18,7 @@ struct state{
     int pos_y;
     int type_id;
     int vision_angle;
+	int weapon;
 };
 
 class Map_2d {
@@ -31,6 +32,7 @@ public:
 	int get_wall_texture(int cuadricula);
 	void open_door(int cuadricula);
 	void update_player_pos(int id,int pos_x,int pos_y,int angle,int status);
+	void update_player_texture(int id,int weapon);
 private:
 //PARED O NO
 	std::map<int, bool> boxes;

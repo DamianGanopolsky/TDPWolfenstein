@@ -52,7 +52,6 @@ void ClientManager::start(){
 		//receivecontroller.ExecuteEvent();
 		
 	}
-	std::cout << "salio de aca " << std::endl;
 	sender.stop();
 	sender.join();
     receiver.stop();
