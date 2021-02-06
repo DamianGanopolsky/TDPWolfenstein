@@ -19,6 +19,8 @@
 #define FOV 90.0
 #define TOTAL_BOX 256
 
+
+
 //para panel status
 #define TOTAL_FACES 8
 #define IMAGE_FACES_PATH "../ray_casting/panel_status/images/face"
@@ -32,6 +34,9 @@
 
 #define TOTAL_GUARDIAS 8
 #define IMAGE_GUARDIAS_PATH "../ray_casting/panel_status/images/guardia"
+
+#define TOTAL_GUARDIAS_SHOOTING 1
+#define IMAGE_GUARDIAS_SHOOTING_PATH "../ray_casting/panel_status/images/GuardiaShooting"
 
 #define TOTAL_KNIFES 3
 #define IMAGE_KNIFE_PATH "../ray_casting/panel_status/images/Knife"
@@ -48,8 +53,14 @@
 #define TOTAL_ELITE_GUARDIAS 8
 #define IMAGE_ELITE_GUARDIAS_PATH "../ray_casting/panel_status/images/Elite_guard/EGuard"
 
+#define TOTAL_EGUARDIAS_SHOOTING 1
+#define IMAGE_EGUARDIAS_SHOOTING_PATH "../ray_casting/panel_status/images/Elite_guard/EGuardShooting"
+
 #define TOTAL_OFFICER_GUARDIAS 8
 #define IMAGE_OFFICER_GUARDIAS_PATH "../ray_casting/panel_status/images/Oficial/Officer"
+
+#define TOTAL_OFFICER_SHOOTING 1
+#define IMAGE_OFFICER_SHOOTING_PATH "../ray_casting/panel_status/images/Oficial/OfficerShooting"
 
 #define TOTAL_BULLETS 1
 #define IMAGE_BULLETS_PATH "../ray_casting/panel_status/images/BulletsOriginal"

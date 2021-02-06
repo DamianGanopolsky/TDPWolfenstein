@@ -140,10 +140,10 @@ bool Player_handler::handle() {
 						this->player.update_position_and_angle(300,300,300);
 						break;
 					case SDLK_6:
-						this->map.update_player_pos(2,600,600,200);
+						this->map.update_player_pos(2,600,600,200,0);
 						break;
 					case SDLK_7:
-						this->map.update_player_pos(2,400,400,200);
+						this->map.update_player_pos(2,400,400,200,0);
 						break;
 					case SDLK_ESCAPE:  
 						//sender.stop();
@@ -151,25 +151,10 @@ bool Player_handler::handle() {
 						quit=true;
 						break;   
 				}
-			case SDL_KEYUP:
-				switch(event.key.keysym.sym){
-					case SDLK_w:
-						//std::cout << "Notifico al server que me deje de mover" << std::endl;
-						break;
-					/*case SDLK_a:
-					case SDLK_s:
-					case SDLK_d:
-						std::cout << "Notifico al server que me deje de mover" << std::endl;
-						break;*/
-					case SDLK_RIGHT:
-					case SDLK_LEFT:
-						//std::cout << "Notifico al  server que deje de rotar" << std::endl;
-						break;
-					
-
-				}
 			case SDL_MOUSEBUTTONUP:
 				if(event.button.button==SDL_BUTTON_RIGHT){
+					Command* command = new Command(OPEN_DOOR_CMD);
+					SendQueue.push(std::move(command));
 					map.open_door(171);
                     //std::cout << "Notifico al server que intente abrir una puerta en x:
 					//<< event.button.x << "en y:" << event.button.y << std::endl;

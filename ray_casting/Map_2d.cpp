@@ -53,7 +53,7 @@ void Map_2d::open_door(int cuadricula){
 	boxes[cuadricula]=true;
 }
 
-void Map_2d::update_player_pos(int id,int pos_x,int pos_y,int angle){
+void Map_2d::update_player_pos(int id,int pos_x,int pos_y,int angle,int status){
 	//2 va a hacer que muestre a un officer
 	/*if(players_state.find(id)==players_state.end()){
 
@@ -61,7 +61,15 @@ void Map_2d::update_player_pos(int id,int pos_x,int pos_y,int angle){
 	players_state[id].pos_x=pos_x;
 	players_state[id].pos_y=pos_y;
 	players_state[id].vision_angle=angle;
-	players_state[id].type_id=2;
+	switch(status){
+		case 0:
+			players_state[id].type_id=2;
+			break;
+		case 1:
+			players_state[id].type_id=12;
+			break;
+	}
+	
 	/*if(players_in_map.find(id)==players_in_map.end()){
 		Game_element element(pos_x,pos_y,2,angle,this->player);
 		//players_in_map.insert(std::make_pair(id,std::move(element)));
@@ -92,9 +100,9 @@ std::list<Game_element> Map_2d::get_game_elements() {
 		object.second.vision_angle,this->player);
 		elements.push_back(std::move(element));
 	}
-	Game_element element(150,250, 1, 270, this->player);
-	Game_element element2(170,250, 2, 270, this->player);
-	Game_element element3(120,250,3, 270, this->player);
+	Game_element element(150,250, 11, 270, this->player);
+	Game_element element2(170,250, 12, 270, this->player);
+	Game_element element3(120,250,13, 270, this->player);
 	elements.push_back(std::move(element));
 	elements.push_back(std::move(element2));
 	elements.push_back(std::move(element3));

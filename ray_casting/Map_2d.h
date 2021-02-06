@@ -30,7 +30,7 @@ public:
 	std::list<Game_element> get_game_elements(); 
 	int get_wall_texture(int cuadricula);
 	void open_door(int cuadricula);
-	void update_player_pos(int id,int pos_x,int pos_y,int angle);
+	void update_player_pos(int id,int pos_x,int pos_y,int angle,int status);
 private:
 //PARED O NO
 	std::map<int, bool> boxes;

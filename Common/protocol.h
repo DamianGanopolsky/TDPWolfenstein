@@ -23,6 +23,7 @@ struct New_Player_Event{
     uint32_t bullets;
 };
 
+
 enum Opcode {
     EVENT_OPCODE = 0,
     ITEM_CHANGED_OPCODE,

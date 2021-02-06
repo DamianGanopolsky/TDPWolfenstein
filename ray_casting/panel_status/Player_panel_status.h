@@ -38,6 +38,9 @@ private:
 	Element_panel_status automatic_gun;
 	Element_panel_status treasure;
 	Element_panel_status chain_cannon;
+	Element_panel_status officer_shooting_status;
+	Element_panel_status eguard_shooting_status;
+	Element_panel_status guard_shooting_status;
 	//SdlText numero;
 	
 	

@@ -24,7 +24,10 @@ Player_panel_status::Player_panel_status(SDL_Renderer*& renderer) :
 										key(renderer,IMAGE_KEY_PATH,TOTAL_KEYS),
 										automatic_gun(renderer,IMAGE_AUTOMATIC_GUN_PATH,TOTAL_AUTOMATIC_GUNS),
 										treasure(renderer,IMAGE_TREASURE_PATH,TOTAL_TREASURES),
-										chain_cannon(renderer,IMAGE_CHAIN_CANNON_PATH,TOTAL_CHAIN_CANNONS){
+										chain_cannon(renderer,IMAGE_CHAIN_CANNON_PATH,TOTAL_CHAIN_CANNONS),
+										officer_shooting_status(renderer,IMAGE_OFFICER_SHOOTING_PATH,TOTAL_OFFICER_SHOOTING),
+										eguard_shooting_status(renderer,IMAGE_EGUARDIAS_SHOOTING_PATH,TOTAL_EGUARDIAS_SHOOTING),
+										guard_shooting_status(renderer,IMAGE_GUARDIAS_SHOOTING_PATH,TOTAL_GUARDIAS_SHOOTING){
 										//numero(renderer,255,255,255) 
 										
 	SDL_Surface *status_img = IMG_Load("../ray_casting/sprites/hud.png");
@@ -52,7 +55,10 @@ Player_panel_status::Player_panel_status(Player_panel_status&& other) :
 										key(std::move(other.key)),
 										automatic_gun(std::move(other.automatic_gun)),
 										treasure(std::move(other.treasure)),
-										chain_cannon(std::move(other.chain_cannon)){	
+										chain_cannon(std::move(other.chain_cannon)),
+										officer_shooting_status(std::move(other.officer_shooting_status)),
+										eguard_shooting_status(std::move(other.eguard_shooting_status)),
+										guard_shooting_status(std::move(other.guard_shooting_status)){	
 										//numero(std::move(other.numero)) 
 										
 	this->status_tex = other.status_tex;
@@ -89,6 +95,9 @@ Player_panel_status& Player_panel_status::operator=(Player_panel_status&& other)
 	this->chain_cannon=std::move(other.chain_cannon);
 	this->treasure=std::move(other.treasure);
 	this->key=std::move(other.key);
+	this->officer_shooting_status=std::move(other.officer_shooting_status);
+	this->eguard_shooting_status=std::move(other.eguard_shooting_status);
+	this->guard_shooting_status=std::move(other.guard_shooting_status);
 	other.status_tex = nullptr;
 	return *this;	
 }
@@ -298,6 +307,15 @@ SDL_Texture* Player_panel_status::get_texture(int tex_section, int id) {
 			break;
 		case 10:
 			texture=this->chain_cannon.get_texture(tex_section);
+			break;
+		case 11:
+			texture=this->guard_shooting_status.get_texture(tex_section);
+			break;
+		case 12:
+			texture=this->officer_shooting_status.get_texture(tex_section);
+			break;
+		case 13:
+			texture=this->eguard_shooting_status.get_texture(tex_section);
 			break;
 		default:
 			texture=this->bullets.get_texture(tex_section);

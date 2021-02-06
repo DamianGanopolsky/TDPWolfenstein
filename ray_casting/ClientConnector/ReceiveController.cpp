@@ -34,7 +34,7 @@ bool ReceiveController::start(){
                     }
                     else{
                         map.update_player_pos(mov_event.player_id,mov_event.pos_x\
-                        ,mov_event.pos_y,mov_event.angle);
+                        ,mov_event.pos_y,mov_event.angle,mov_event.is_shooting);
                     }
                     break;
                 }
@@ -43,7 +43,7 @@ bool ReceiveController::start(){
                     
                     if(int(new_ev.player_id)!=player.get_id()){
                         map.update_player_pos(new_ev.player_id,\
-                        new_ev.pos_x,new_ev.pos_y,new_ev.angle);
+                        new_ev.pos_x,new_ev.pos_y,new_ev.angle,0);
                     }
                     //std::cout << "lives es" << unsigned(new_ev.life) << std::endl;
                     break;
