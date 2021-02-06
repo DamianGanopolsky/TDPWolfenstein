@@ -34,7 +34,7 @@ class Game {
     Response _canMove(Map& map, Player& player, std::pair<int, int> next_pos);
     bool _changeCell(PlayerPosition &pos, std::pair<int, int> &next_pos);
     ItemOpcode _getItemOpcode(std::string message); ///falta implmentar
-    bool _interactWith(Player& player, int** map, Object obj);///falta implmentar
+    bool _interactWith(Player& player, int** map, Object* obj);///falta implmentar
     bool _getPlayerPosition(Id map_id, int init_x, int init_y, Id new_player_id);///falta implmentar
 
     public:

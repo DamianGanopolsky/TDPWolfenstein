@@ -1,9 +1,11 @@
 #ifndef MACHINE_GUN_H_
 #define MACHINE_GUN_H_
 
-#include "ranged_weapon.h"
+#include "weapon.h"
 
-class MachineGun: public RangedWeapon {
+class MachineGun: public Weapon {
+    int bullets_blast;
+    float period_blast;
  public:
     MachineGun();
     void attack(int& damage) override;

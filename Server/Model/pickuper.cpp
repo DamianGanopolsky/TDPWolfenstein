@@ -4,7 +4,7 @@ PickUp::PickUp() {}
 
 PickUp::~PickUp () {}
 
-Response PickUp::pickUp(PlayerInfo &info, Item &item) {
+Response PickUp::pickUp(PlayerInfo &info, Object* item) {
     return Response(true, ITEM_PICKED_UP_MSG);
 }
 Response PickUp::pickUp(PlayerInfo &info, Bullet &item) {

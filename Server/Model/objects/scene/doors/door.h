@@ -5,9 +5,11 @@
 class Door: public Object {
 public:
     Door();
+    ~Door();
     bool isOpened();
     void open();
-    ~Door();
+    bool isItem() override;
+    bool isBlocking() override;
 private:
     int is_opened;
 };

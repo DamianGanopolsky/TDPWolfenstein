@@ -4,7 +4,8 @@ Event::Event(const Id map, EventOpcode event_type, Id player_id) :
             map(map), event_type(event_type), player_id(player_id) {}
 
 Event::Event(const Id map, EventOpcode event_type, Id player_id,
-            uint32_t pos_x, uint32_t pos_y, float angle, int is_moving, int is_shoting) : 
+            uint32_t pos_x, uint32_t pos_y, float angle, int is_moving,
+            int is_shoting) : 
             map(map), event_type(event_type), player_id(player_id), pos_x(pos_x),
             pos_y(pos_y), angle(angle), is_moving((uint8_t)is_moving),
             is_shoting((uint8_t)is_shoting) {}
@@ -70,9 +71,8 @@ bool Event::send(const ConnectionId sender, const Socket& peer) {
         switch (event_type) {
             case MOVEMENT_EV: { //id del jugador, coordenada x, coordenada y, angulo del jugador, moviendo (1-si o 0-no), disparando (si o no)
                 this->player_id = htole32(this->player_id);
-                std::cout << "id es: " << player_id <<std::endl;
                 peer.send((char *)&player_id, sizeof(player_id));
-                std::cout << "posx es: " << pos_x <<std::endl;
+                std::cout << "id es: " << player_id <<std::endl;
                 this->pos_x = htole32(this->pos_x);
                 this->pos_y = htole32(this->pos_y);
                 peer.send((char *)&pos_x, sizeof(pos_x));
@@ -82,9 +82,11 @@ bool Event::send(const ConnectionId sender, const Socket& peer) {
                 peer.send((char *)&angle, sizeof(angle));
                 std::cout << "angle es: " << angle <<std::endl;
                 peer.send((char *)&is_moving, sizeof(is_moving));
-                std::cout << "isMoving es: " << angle <<std::endl;
+                std::cout << "isMoving es: " << is_moving <<std::endl;
                 peer.send((char *)&is_shoting, sizeof(is_shoting));
-                std::cout << "isShooting es: " << angle <<std::endl;
+                std::cout << "isShooting es: " << is_shoting <<std::endl;
+                /*peer.send((char *)&gun_type, sizeof(gun_type));
+                std::cout << "gun_type es: " << gun_type <<std::endl;*/
                 break;
             }
             case NEW_PLAYER_EV:

@@ -19,11 +19,13 @@ class Event : public Notification {
     uint32_t treasure;
     uint32_t bullets;
     uint32_t value;
+    uint8_t gun_type;
 
     public:
         Event(const Id map, EventOpcode event_type, Id player_id);
         Event(const Id map, EventOpcode event_type, Id player_id,
-            uint32_t pos_x, uint32_t pos_y, float angle, int is_moving, int is_shoting);
+            uint32_t pos_x, uint32_t pos_y, float angle, int is_moving,
+            int is_shoting);
         Event(const Id map, EventOpcode event_type, Id player_id,
             uint32_t pos_x, uint32_t pos_y, float angle, int life, int resurrected,
             int treasure, int bullets);

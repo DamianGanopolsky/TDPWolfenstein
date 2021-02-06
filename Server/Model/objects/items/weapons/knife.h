@@ -1,9 +1,12 @@
 #ifndef KNIFE_H_
 #define KNIFE_H_
 
-#include "contact_weapon.h"
+#include "weapon.h"
 
-class Knife: public ContactWeapon {
+class Knife: public Weapon {
+    int bullets_blast;
+    float period_blast;
+    static bool inRange();
  public:
     Knife();
     void attack(int& damage) override;

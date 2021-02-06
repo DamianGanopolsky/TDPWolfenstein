@@ -3,6 +3,9 @@
 Door::Door() {
     this->is_opened = false;
 }
+
+Door::~Door() {}
+
 bool Door::isOpened() {
     return is_opened;
 }
@@ -10,6 +13,14 @@ bool Door::isOpened() {
 void Door::open() {
     this->is_opened = true;
 }
-    
-Door::~Door() {
+
+bool Door::isItem() {
+    return false;
+}
+
+bool Door::isBlocking() {
+    if (is_opened) {
+        return false;
+    }
+    return true;
 }

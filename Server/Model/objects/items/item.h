@@ -7,6 +7,9 @@
 class Item: public Object {
 public:
    Item();
+   virtual ~Item();
+   bool isItem() override;
+   bool isBlocking() override;
 };
 
 #endif   // ITEM_H_

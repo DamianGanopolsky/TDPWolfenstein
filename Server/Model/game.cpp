@@ -19,6 +19,13 @@ void Game::_notifyMovementEvent(const ConnectionId id, const Response& response)
     Player& player = this->players.at(id);
     if (response.success) {
         std::cout <<"Game: succes response"<< std::endl;
+        /*Weapon* weapon = player.getInfo().getWeaponEquiped();
+        if(!weapon){
+            std::cout <<"Game: null weapon"<< std::endl;
+        }
+        std::cout <<"Game: weapon"<< std::endl;
+        int gun_type = weapon->getType();*/
+        std::cout <<"Game: gun_type"<< std::endl;
         notification = new Event(map_id, MOVEMENT_EV, id, player.getPos().getX(),
                                  player.getPos().getY(), player.getPos().getAngle(),
                                  player.isMoving(), player.isShooting());
@@ -124,13 +131,22 @@ void Game::_notifyItemChanged(const ConnectionId id, const Response& response, I
 }
 
 Response Game::_canMove(Map& map, Player& player, std::pair<int, int> next_pos) {
+    std::cout <<"Game: _canMove()"<< std::endl;
     PlayerPosition pos = player.getPos();
     bool changeCell = _changeCell(pos, next_pos);
     if (changeCell) {
+        std::cout <<"Game: get obj pos"<< std::endl;
         int object_code = map.getObjectPos(next_pos.first, next_pos.second);
-        Object obj = objMap.getObject(object_code);
+        std::cout <<"Game: get obj"<< std::endl;
+        Object* obj = objMap.getObject(object_code);
+        std::cout <<"Game: got obj"<< std::endl;
+        if (obj == nullptr) {
+            std::cout <<"Game: null obj"<< std::endl;
+        }
         Interact interactor;
+        std::cout <<"Game: got bject"<< std::endl;
         Response not_blocking = interactor.interactWith(player, map, obj);
+        std::cout <<"Game: interact"<< std::endl;
         return not_blocking;
     } else { //se mueve dentro de la misma celda
         return Response(true, NO_ITEM_PICKED_UP_MSG);
@@ -155,7 +171,7 @@ ItemOpcode Game::_getItemOpcode(std::string message) {
     return CLOSE_DOOR_ITM;
 }
 
-bool Game::_interactWith(Player& player, int** map, Object obj) {
+bool Game::_interactWith(Player& player, int** map, Object* obj) {
     return true;
 }
 

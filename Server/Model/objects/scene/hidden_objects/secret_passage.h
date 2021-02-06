@@ -1,4 +1,4 @@
-#ifndef SECRET_PASSAGE_H_
+/*#ifndef SECRET_PASSAGE_H_
 #define SECRET_PASSAGE_H_
 
 #include "./../../object.h"
@@ -9,4 +9,4 @@ class SecretPassage: public Object {
     ~SecretPassage();
 };
 
-#endif    // SECRET_PASSAGE_H_
+#endif    // SECRET_PASSAGE_H_*/

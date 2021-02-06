@@ -6,6 +6,7 @@
 class ContactWeapon: public Weapon {
  public:
     ContactWeapon() {};
+    virtual int getType() = 0;
     static bool inRange() {
         /*establezco si el oponente esta en el radio del jugador*/
         return true;

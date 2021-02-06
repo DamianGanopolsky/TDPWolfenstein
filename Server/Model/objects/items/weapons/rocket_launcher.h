@@ -1,9 +1,11 @@
 #ifndef ROCKET_LAUNCHER_H_
 #define ROCKET_LAUNCHER_H_
 
-#include "ranged_weapon.h"
+#include "weapon.h"
 
-class RocketLauncher: public RangedWeapon {
+class RocketLauncher: public Weapon {
+    int bullets_blast;
+    float period_blast;
  public:
     RocketLauncher();
     void attack(int& damage) override;

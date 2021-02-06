@@ -6,9 +6,11 @@
 class LockedDoor: public Object {
 public:
     LockedDoor();
+    ~LockedDoor();
     bool isOpened();
     void open();
-    ~LockedDoor();
+    bool isItem() override;
+    bool isBlocking() override;
 private:
     int is_opened;
 };

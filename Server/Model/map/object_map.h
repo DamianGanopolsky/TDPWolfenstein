@@ -26,39 +26,41 @@
 
 #include "./../objects/scene/non_blocking_objects/stain_blood.h"
 #include "./../objects/scene/non_blocking_objects/stain_water.h"
+#include "./../objects/scene/non_blocking_objects/floor.h"
 
 #include "./../objects/scene/doors/door.h"
 #include "./../objects/scene/doors/locked_door.h"
 
-#include "./../objects/scene/hidden_objects/secret_passage.h"
+//#include "./../objects/scene/hidden_objects/secret_passage.h"
 
 class ObjectMap {
-   std::unordered_map <int,Object> map;
-    void setMap();
-    Bullet bullet;
-    Blood blood;
-    Food food;
-    Kit kit;
-    Chest chest;
-    Crown crown;
-    Cup cup;
-    Cross cross;
-    ChainCannon chain_cannon;
-    RocketLauncher rocket_launcher;
-    Gun gun;
-    Knife knife;
-    MachineGun machine_gun;
-    Barrel barrel;
-    Table table;
-    Wall wall;
-    StainBlood stain_blood;
-    StainWater stain_water;
-    Door door;
-    LockedDoor locked_door;
+   std::unordered_map <int, Object*> map;
+   Bullet bullet;
+   Blood blood;
+   Food food;
+   Kit kit;
+   Chest chest;
+   Crown crown;
+   Cup cup;
+   Cross cross;
+   ChainCannon chain_cannon;
+   RocketLauncher rocket_launcher;
+   Gun gun;
+   Knife knife;
+   MachineGun machine_gun;
+   Barrel barrel;
+   Table table;
+   Wall wall;
+   StainBlood stain_blood;
+   StainWater stain_water;
+   Floor floor;
+   Door door;
+   LockedDoor locked_door;
+   void setMap();
    public:
       ObjectMap();
       ~ObjectMap();
-      Object getObject(int code);
+      Object* getObject(int code);
 
 };
 

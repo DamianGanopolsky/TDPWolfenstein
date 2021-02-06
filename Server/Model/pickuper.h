@@ -15,7 +15,7 @@ class PickUp {
  public:
     PickUp();
     ~PickUp();
-    Response pickUp(PlayerInfo &info, Item &item);
+    Response pickUp(PlayerInfo &info, Object* item);
     // bullets:
     Response pickUp(PlayerInfo &info, Bullet &item);
     // healers:

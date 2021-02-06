@@ -1,9 +1,11 @@
 #ifndef CHAIN_CANNON_H_
 #define CHAIN_CANNON_H_
 
-#include "ranged_weapon.h"
+#include "weapon.h"
 
-class ChainCannon: public RangedWeapon {
+class ChainCannon: public Weapon {
+    int bullets_blast;
+    float period_blast;
  public:
     ChainCannon();
     void attack(int& damage) override;

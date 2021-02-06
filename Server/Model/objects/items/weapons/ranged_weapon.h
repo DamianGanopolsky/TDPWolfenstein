@@ -6,6 +6,7 @@
 class RangedWeapon: public Weapon {
  public:
     RangedWeapon() {}
+    virtual int getType() = 0;
  protected:
     int bullets_blast;
     float period_blast;

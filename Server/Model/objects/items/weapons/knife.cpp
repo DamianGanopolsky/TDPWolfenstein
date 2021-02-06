@@ -1,4 +1,5 @@
 #include "knife.h"
+#include <iostream>
 
 Knife::Knife() {}
 
@@ -11,5 +12,11 @@ void Knife::attack(int& damage) {
 }
 
 int Knife::getType() {
+    std::cout<<"Knife: gett_type"<< std::endl;
     return KNIFE_TYPE;
+}
+
+bool Knife::inRange() {
+    /*establezco si el oponente esta en el radio del jugador*/
+    return true;
 }

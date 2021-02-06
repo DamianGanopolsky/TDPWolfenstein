@@ -1,10 +1,15 @@
 #include "./player_info.h"
 #include "../constants/config.h"
+#include "../objects/items/weapons/knife.h"
 #include <algorithm>
 
 PlayerInfo::PlayerInfo() : life(MAX_LIFE), bullets(0),
                             keys(0), treasure(0), 
-                            resurrected(10), equiped(/*poner un knife*/) {}
+                            resurrected(10) {
+                                Knife knife;
+                                this->equiped = &knife;
+                                this->inventory.push_back(&knife);
+                            }
 
 PlayerInfo::~PlayerInfo(){}
 

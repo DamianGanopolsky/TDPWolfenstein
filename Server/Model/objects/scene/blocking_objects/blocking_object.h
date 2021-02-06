@@ -5,6 +5,10 @@
 class BlockingObject: public Object {
  public:
     BlockingObject();
+    virtual ~BlockingObject();
+    bool isItem() override;
+    bool isBlocking() override;
+
 };
 
 #endif    // BLOCKING_OBJECT_H_
