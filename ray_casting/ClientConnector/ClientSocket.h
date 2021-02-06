@@ -8,8 +8,9 @@
 class ClientSocket {
 public:
     ClientSocket(NonBlockingQueue<UpdateMessage*>& non_bloq_queue);
-    int recv(char* recv_buff,int len);
+    void recv(char* recv_buff,int len);
     void send(uint8_t msg);
+    void close();
 
     New_Player_Event recv_player();
 
