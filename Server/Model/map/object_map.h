@@ -3,6 +3,9 @@
 
 #include <unordered_map>
 #include "./../objects/object.h"
+
+//#include "./../player/player.h"
+
 #include "./../objects/items/bullets/bullet.h"
 
 #include "./../objects/items/healers/blood.h"
@@ -37,6 +40,7 @@
 
 class ObjectMap {
    std::unordered_map <int, Object*> map;
+   //Player player;
    Bullet bullet;
    Blood blood;
    Food food;

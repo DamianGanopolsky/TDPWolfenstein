@@ -37,7 +37,7 @@ void Map::LoadMatrix(std::map <std::pair<int,int>,int> initial_map){
     }
     for (auto const& x : initial_map){
         matrix[x.first.first/cuadricula][x.first.second/cuadricula]=x.second;
-        if(x.second==MAP_PLAYER_EDITOR){
+        if(x.second==MAP_PLAYER){
             player_count++;
             std::pair<int,int> pair_key;
             pair_key.first=x.first.first/cuadricula;
@@ -177,14 +177,14 @@ void Map::draw(position initial_position,position draw_position){
         return;
     }
     if((initial_position.x>=(0.0073*window.getWidth()))&&(initial_position.x<=0.1292*window.getWidth())){
-        if(matrix[matrix_x][matrix_y]!=MAP_PLAYER_EDITOR){
+        if(matrix[matrix_x][matrix_y]!=MAP_PLAYER){
             player_count++;
             std::pair<int,int> pair_key;
             pair_key.first=matrix_x;
             pair_key.second=matrix_y;
             player_map.insert({pair_key,player_count});
         }
-        matrix[matrix_x][matrix_y]=MAP_PLAYER_EDITOR;
+        matrix[matrix_x][matrix_y]=MAP_PLAYER;
         
     }
     else if((initial_position.x>=(0.1396*window.getWidth()))&&(initial_position.x<=0.1906*window.getWidth())){
@@ -209,7 +209,7 @@ void Map::draw(position initial_position,position draw_position){
         matrix[matrix_x][matrix_y]=MAP_BULLET;
     }
     else if((initial_position.x>=(0.5385*window.getWidth()))&&(initial_position.x<=0.6093*window.getWidth())){
-        if(matrix[matrix_x][matrix_y]==MAP_PLAYER_EDITOR){
+        if(matrix[matrix_x][matrix_y]==MAP_PLAYER){
             player_count--;
         }
         matrix[matrix_x][matrix_y]=MAP_NONE;
@@ -243,7 +243,7 @@ void Map::render(){
             switch(matrix[i][j]){
                 case MAP_NONE:
                     break;
-                case MAP_PLAYER_EDITOR:
+                case MAP_PLAYER:
                 {
                     
                     key.first=(pos_x*TILE_PIXELS+camera.x*TILE_PIXELS)/TILE_PIXELS;

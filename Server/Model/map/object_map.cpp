@@ -19,6 +19,8 @@ Object* ObjectMap::getObject(int code) {
 }
 
 void ObjectMap::setMap() {
+    //this->map[MAP_PLAYER] = &player;
+    
     this->map[MAP_BULLET] = &bullet;
 
     this->map[MAP_BLOOD] = &blood;

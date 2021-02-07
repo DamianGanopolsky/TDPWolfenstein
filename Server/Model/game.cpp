@@ -7,7 +7,7 @@ Game::Game(ClientsConnected& clients_connected, Id map_id) :
                             clients_connected(clients_connected), 
                             map_id(map_id), map("../Maps/Basic.yaml"),
                             objMap() {
-                                map.printMatrix();
+                                //map.printMatrix();
                             }
 Game::~Game() {}
 
@@ -173,12 +173,12 @@ bool Game::_getPlayerPosition(Id map_id, int init_x, int init_y, Id new_player_i
 void Game::_attack(const ConnectionId id) {
     int damage = 0;
     Player& player = this->players.at(id);
-    Id target_id = NULL;
+    Id target_id = -1;
     Response response = player.useWeapon(target_id, damage);
     Player& target = this->players.at(target_id);
     if (id == target_id) {
         _notifyEvent(id, Response(false, CANT_ATTACK_ITSELF_ERROR_MSG), ATTACK_EV);
-    } else if (target_id == NULL) {
+    } else if ((int)target_id == -1) {
         _notifyEvent(id, Response(false, CANT_ATTACK_UNKNOWN_ID_ERROR_MSG), ATTACK_EV);
     } else {
         _notifyEvent(id, response, ATTACK_EV);
@@ -265,9 +265,9 @@ void Game::updatePlayers(const int iteration) {
             _notifyMovementEvent(id, Response(true, SUCCESS_MSG));
         }
 
-        if (player.isShooting()) {
+        /*if (player.isShooting()) {
             _attack(id);
-        }
+        }*/
 
         ++player_it;
     }

@@ -29,7 +29,7 @@ void Map::_loadMatrix(std::map <std::pair<int,int>,int> initial_map){
             std::cout << "Hay pared en x:" << x.first.first <<"y:" << x.first.second << std::endl;
             std::cout << "Cargo pared en cuadricula x:" << x.first.first/CUADRICULA <<"y:" << x.first.second/CUADRICULA << std::endl;
         }
-        if(x.second==MAP_PLAYER_EDITOR){
+        if(x.second==MAP_PLAYER){
             continue;
         }
         map[x.first.first/CUADRICULA][x.first.second/CUADRICULA]=x.second;
