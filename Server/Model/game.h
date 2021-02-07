@@ -36,6 +36,8 @@ class Game {
     ItemOpcode _getItemOpcode(std::string message); ///falta implmentar
     bool _interactWith(Player& player, int** map, Object* obj);///falta implmentar
     bool _getPlayerPosition(Id map_id, int init_x, int init_y, Id new_player_id);///falta implmentar
+    void _attack(const ConnectionId id);
+    void _move(const ConnectionId id);
 
     public:
         Game(ClientsConnected& clients_connected, Id map_id);
@@ -61,9 +63,10 @@ class Game {
         void startRotatingLeft(const ConnectionId id);
         void startRotatingRight(const ConnectionId id);
         void stopRotating(const ConnectionId id);
+        void startShooting(const ConnectionId id);
+        void stopShooting(const ConnectionId id);
         void openDoor(const ConnectionId id);
         void changeWeapon(const ConnectionId id, Weapon* weapon);
-        void attack(const ConnectionId id, const ConnectionId id_target);
         void receiveAttack(const ConnectionId, int& damage);
 
 

@@ -20,7 +20,7 @@ void Game::_notifyMovementEvent(const ConnectionId id, const Response& response)
     if (response.success) {
         std::cout <<"Game: succes response"<< std::endl;
         /*Weapon* weapon = player.getInfo().getWeaponEquiped();
-        if(!weapon){
+        if (weapon == nullptr) {
             std::cout <<"Game: null weapon"<< std::endl;
         }
         std::cout <<"Game: weapon"<< std::endl;
@@ -131,22 +131,13 @@ void Game::_notifyItemChanged(const ConnectionId id, const Response& response, I
 }
 
 Response Game::_canMove(Map& map, Player& player, std::pair<int, int> next_pos) {
-    std::cout <<"Game: _canMove()"<< std::endl;
     PlayerPosition pos = player.getPos();
     bool changeCell = _changeCell(pos, next_pos);
     if (changeCell) {
-        std::cout <<"Game: get obj pos"<< std::endl;
         int object_code = map.getObjectPos(next_pos.first, next_pos.second);
-        std::cout <<"Game: get obj"<< std::endl;
         Object* obj = objMap.getObject(object_code);
-        std::cout <<"Game: got obj"<< std::endl;
-        if (obj == nullptr) {
-            std::cout <<"Game: null obj"<< std::endl;
-        }
         Interact interactor;
-        std::cout <<"Game: got bject"<< std::endl;
         Response not_blocking = interactor.interactWith(player, map, obj);
-        std::cout <<"Game: interact"<< std::endl;
         return not_blocking;
     } else { //se mueve dentro de la misma celda
         return Response(true, NO_ITEM_PICKED_UP_MSG);
@@ -177,6 +168,47 @@ bool Game::_interactWith(Player& player, int** map, Object* obj) {
 
 bool Game::_getPlayerPosition(Id map_id, int init_x, int init_y, Id new_player_id) {
     return true;
+}
+
+void Game::_attack(const ConnectionId id) {
+    int damage = 0;
+    Player& player = this->players.at(id);
+    Id target_id = NULL;
+    Response response = player.useWeapon(target_id, damage);
+    Player& target = this->players.at(target_id);
+    if (id == target_id) {
+        _notifyEvent(id, Response(false, CANT_ATTACK_ITSELF_ERROR_MSG), ATTACK_EV);
+    } else if (target_id == NULL) {
+        _notifyEvent(id, Response(false, CANT_ATTACK_UNKNOWN_ID_ERROR_MSG), ATTACK_EV);
+    } else {
+        _notifyEvent(id, response, ATTACK_EV);
+        if(response.success && target.getState()->canBeAttacked()){
+            _notifyEvent(target_id, target.receiveAttack(damage), BE_ATTACKED_EV);
+        }
+    }
+}
+
+void Game::_move(const ConnectionId id) {
+    std::cout <<"Game: player is moving"<< std::endl;
+    Player& player = this->players.at(id);
+    std::pair<int, int> next_pos = player.getPos().getNextPos(player.getPos().getDirection());
+    Response can_move = _canMove(map, player, next_pos);
+    if (can_move.success && ((can_move.message) !=  NO_ITEM_PICKED_UP_MSG)) {
+        std::cout <<"Game: player can move and picked up"<< std::endl;
+        player.update();
+        _notifyMovementEvent(id, Response(true, SUCCESS_MSG));
+        _notifyItemChanged(id, can_move, _getItemOpcode(can_move.message));
+    } else if (can_move.success) {
+        std::cout <<"Game: player can move"<< std::endl;
+        player.update();
+        std::cout <<"Game: player updated"<< std::endl;
+        _notifyMovementEvent(id, Response(true, SUCCESS_MSG));
+        std::cout <<"Game: players notified"<< std::endl;
+    } else {
+        std::cout <<"Game: player cant move"<< std::endl;
+        player.stopMoving();
+        _notifyMovementEvent(id, Response(false, CANT_MOVE_ERROR_MSG));
+    }
 }
 
 const ConnectionId Game::newPlayer() {
@@ -212,7 +244,6 @@ void Game::deletePlayer(const ConnectionId id) {
     Player& player = players.at(id);
     this->players_by_name.erase(player.getNickname());
     _notifyEvent(id, Response(true, SUCCESS_MSG), DELETE_PLAYER_EV);
-    //this->clients_connected.sendEventToAll(new Event()?????????);
     this->players.erase(id);
 }
 
@@ -225,31 +256,17 @@ void Game::updatePlayers(const int iteration) {
         Player& player = player_it->second;
         
         if (player.isMoving()) {
-            std::cout <<"Game: player is moving"<< std::endl;
-            std::pair<int, int> next_pos = player.getPos().getNextPos(player.getPos().getDirection());
-            Response can_move = _canMove(map, player, next_pos);
-            if (can_move.success && ((can_move.message) !=  NO_ITEM_PICKED_UP_MSG)) {
-                std::cout <<"Game: player can move and picked up"<< std::endl;
-                player.update();
-                _notifyMovementEvent(id, Response(true, SUCCESS_MSG));
-                _notifyItemChanged(id, can_move, _getItemOpcode(can_move.message));
-            } else if (can_move.success) {
-                std::cout <<"Game: player can move"<< std::endl;
-                player.update();
-                std::cout <<"Game: player updated"<< std::endl;
-                _notifyMovementEvent(id, Response(true, SUCCESS_MSG));
-                std::cout <<"Game: players notified"<< std::endl;
-            } else {
-                std::cout <<"Game: player cant move"<< std::endl;
-                player.stopMoving();
-                _notifyMovementEvent(id, Response(false, CANT_MOVE_ERROR_MSG));
-            }
+            _move(id);
         }
         
         if (player.isRotating()) {
             std::cout <<"Game: player can rotate"<< std::endl;
             player.update();
             _notifyMovementEvent(id, Response(true, SUCCESS_MSG));
+        }
+
+        if (player.isShooting()) {
+            _attack(id);
         }
 
         ++player_it;
@@ -307,6 +324,16 @@ void Game::stopRotating(const ConnectionId id) {
     //_notifyResponse(id, player.stopRotating());
 }
 
+void Game::startShooting(const ConnectionId id) {
+    Player& player = this->players.at(id);
+    player.startShooting();
+}
+
+void Game::stopShooting(const ConnectionId id) {
+    Player& player = this->players.at(id);
+    player.stopShooting();
+}
+
 void Game::openDoor(const ConnectionId id) {
     Player& player = this->players.at(id);
     PlayerPosition pos = player.getPos();
@@ -333,17 +360,6 @@ void Game::changeWeapon(const ConnectionId id, Weapon* weapon) {
     } else {
         player.changeWeapon(*it);
         _notifyEvent(id, Response(true, SUCCESS_MSG), CHANGE_WEAPON_EV);
-    }
-}
-
-void Game::attack(const ConnectionId id, const ConnectionId id_target) {
-    int damage = 0;
-    Player& player = this->players.at(id);
-    Player& target = this->players.at(id_target);
-    if (!player.getState()->attack()) {
-        _notifyEvent(id, Response(false, STATE_CANT_ATTACK_ERROR_MSG), ATTACK_EV);
-    } else {
-        _notifyEvent(id, player.useWeapon(id, id_target, &target, damage), ATTACK_EV);
     }
 }
 

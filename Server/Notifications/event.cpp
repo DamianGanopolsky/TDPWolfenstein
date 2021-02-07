@@ -74,8 +74,8 @@ bool Event::send(const ConnectionId sender, const Socket& peer) {
                 std::cout << "posx es: " << pos_x <<std::endl;
                 std::cout << "posy es: " << pos_y <<std::endl;
                 std::cout << "angle es: " << angle <<std::endl;
-                std::cout << "isMoving es: " << is_moving <<std::endl;
-                std::cout << "isShooting es: " << is_shoting <<std::endl;
+                std::cout << "isMoving es: " << unsigned(is_moving) <<std::endl;
+                std::cout << "isShooting es: " << unsigned(is_shoting) <<std::endl;
                 this->player_id = htonl(this->player_id);
                 peer.send((char *)&player_id, sizeof(player_id));
                 this->pos_x = htonl(this->pos_x);

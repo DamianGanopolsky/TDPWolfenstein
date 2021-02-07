@@ -47,7 +47,9 @@ enum CommandOpcode {
     START_ROTATING_RIGHT,
     STOP_ROTATING,
 
-    USE_WEAPON_CMD, // "Boton e"  OK
+    //USE_WEAPON_CMD, // "Boton e"  OK
+    START_SHOOTING_CMD,
+    STOP_SHOOTING_CMD,
     //RECIEVE_ATTACK_CMD, 
     OPEN_DOOR_CMD, //CLick derecho: posx,posy (de donde clickie)   OK
     CHANGE_WEAPON_TO_KNIFE_CMD, // Cliente selecciono el 1   OK
@@ -62,7 +64,7 @@ enum EventOpcode {
     NEW_PLAYER_EV,  //id del jugador, id del mapa a abrir, coordenada x, coordenada y, angulo del jugador,vida , cant de resurrecciones 
                     //(la cant de vidas se puede obtener restando a la cte de vidas la cant de veces que resucito), puntaje, balas
     DELETE_PLAYER_EV, //id del jugador
-    ATTACK_EV,      //id del jugador, disparando (si o no)
+    ATTACK_EV,      //id del jugador, disparando (si o no), CANT DE BALAS
     BE_ATTACKED_EV, //id del jugador, entero con la vida que tengo( la que voy a mostrar)
     DEATH_EV,       //id del jugador, coordenada x, coordenada y (la llegada de este evento tambien implica que se dropean los objetos a la hora de la muerte)
     RESURRECT_EV,   //id del jugador, id del mapa a abrir, coordenada x, coordenada y, angulo del jugador,vida , las vidas, puntaje, balas

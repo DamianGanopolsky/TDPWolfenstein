@@ -5,11 +5,11 @@
 
 ObjectMap::ObjectMap() : map(), bullet(), blood(), food(),
                         kit(), chest(), crown(), cup(), cross(),
-                        chain_cannon(), rocket_launcher(), gun(),
-                        knife(), machine_gun(), barrel(), table(),
-                        wall(), stain_blood(), stain_water(),
-                        floor(), door(), locked_door()
-                        { this->setMap(); }
+                        key(), chain_cannon(), rocket_launcher(),
+                        gun(), knife(), machine_gun(), barrel(),
+                        table(), wall(), stain_blood(),
+                        stain_water(), floor(), door(),
+                        locked_door() { this->setMap(); }
 
 ObjectMap::~ObjectMap() {}
 
@@ -29,6 +29,8 @@ void ObjectMap::setMap() {
     this->map[MAP_CROWN] = &crown;
     this->map[MAP_CUP] = &cup;
     this->map[MAP_CROSS] = &cross;
+
+    this->map[MAP_KEY] = &key;
 
     this->map[MAP_CHAIN_CANNON] = &chain_cannon;
     this->map[MAP_ROCKET_LAUNCHER] = &rocket_launcher;

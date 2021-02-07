@@ -19,7 +19,6 @@ class Event : public Notification {
     uint32_t treasure;
     uint32_t bullets;
     uint32_t value;
-    uint8_t gun_type;
 
     public:
         Event(const Id map, EventOpcode event_type, Id player_id);

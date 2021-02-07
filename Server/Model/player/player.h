@@ -40,9 +40,7 @@ class Player {
     bool isRotating();
     bool isShooting();
     void update();
-    //Response _updateMovement();
-    //Response _updateRotation();
-    Response useWeapon(Id id, Id id_target, Player* target, int& damage);
+    Response useWeapon(Id& id_target, int& damage);
     Response receiveAttack(int& damage);
     Response resurrect();
     Response changeWeapon(Weapon* weapon);
@@ -54,6 +52,8 @@ class Player {
     Response startRotatingLeft();
     Response startRotatingRight();
     Response stopRotating();
+    Response startShooting();
+    Response stopShooting();
 };
 
 #endif   // PLAYER_H

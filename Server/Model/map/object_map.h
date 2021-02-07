@@ -9,6 +9,8 @@
 #include "./../objects/items/healers/food.h"
 #include "./../objects/items/healers/kit.h"
 
+#include "./../objects/items/keys/key.h"
+
 #include "./../objects/items/treasures/chest.h"
 #include "./../objects/items/treasures/crown.h"
 #include "./../objects/items/treasures/cup.h"
@@ -43,6 +45,7 @@ class ObjectMap {
    Crown crown;
    Cup cup;
    Cross cross;
+   Key key;
    ChainCannon chain_cannon;
    RocketLauncher rocket_launcher;
    Gun gun;

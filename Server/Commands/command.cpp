@@ -8,7 +8,8 @@
 #include "./command_rotate_right.h"
 #include "./command_rotate_left.h"
 #include "./command_stop_rotating.h"
-#include "./command_attack.h"
+#include "./command_start_shooting.h"
+#include "./command_stop_shooting.h"
 #include "./command_receive_attack.h"
 #include "./command_open_door.h"
 #include "./command_change_weapon.h"
@@ -48,10 +49,11 @@ Command* Command::newCommand(ConnectionId id_caller, uint8_t opcode, Socket& soc
         case STOP_ROTATING: {
             return new CommandStopRotating(id_caller);
         }
-        case USE_WEAPON_CMD: {
-            //socket >> id_target;??????????
-            ConnectionId id_target = 0;
-            return new CommandAttack(id_caller, id_target);
+        case START_SHOOTING_CMD: {
+            return new CommandStartShooting(id_caller);
+        }
+        case STOP_SHOOTING_CMD: {
+            return new CommandStopShooting(id_caller);
         }
         /*case RECIEVE_ATTACK_CMD: {
             //socket >> damage;

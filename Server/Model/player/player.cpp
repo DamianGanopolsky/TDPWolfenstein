@@ -149,16 +149,22 @@ Response Player::stopRotating() {
     return Response(true, SUCCESS_MSG);
 }
 
-Response Player::useWeapon(Id id, Id id_target, Player* target, int& damage) {
-    if (this == target) {
-        Response(false, CANT_ATTACK_ITSELF_ERROR_MSG);
+Response Player::startShooting() {
+    if (!this->getState()->attack()) {
+        return Response(false, STATE_CANT_ATTACK_ERROR_MSG);
     }
-    if (!target->getState()->canBeAttacked()) {
-        Response(false, CANT_BE_ATTACKED_ERROR_MSG);
-    }
+    this->shooting = true;
+    return Response(true, SUCCESS_MSG);
+}
+
+Response Player::stopShooting() {
+    this->shooting = false;
+    return Response(true, SUCCESS_MSG);
+}
+
+Response Player::useWeapon(Id& id_target, int& damage) {
     Weapon* weapon = this->getInfo().getWeaponEquiped();
-    weapon->attack(damage);
-    target->receiveAttack(damage);
+    id_target = weapon->attack(damage);
     return Response(true, SUCCESS_MSG);
 }
 
