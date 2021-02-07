@@ -23,6 +23,7 @@ private:
 	bool quit;
 	bool moving;
 	bool rotating;
+	bool shooting;
 	BlockingQueue<Command*>& SendQueue;
 
 	//ClientSocket& clisocket;

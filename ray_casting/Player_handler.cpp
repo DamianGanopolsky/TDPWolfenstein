@@ -6,7 +6,7 @@
 
 
 Player_handler::Player_handler(Player& player,Map_2d& MAP,BlockingQueue<Command*>& send_queue): 
-								player(player),map(MAP),moving(false),rotating(false),\
+								player(player),map(MAP),moving(false),rotating(false),shooting(false),\
 								SendQueue(send_queue) {
 	//sender.start();
 }
@@ -22,6 +22,12 @@ bool Player_handler::handle() {
 	//bool moving=false;
 	while(SDL_PollEvent(&event)!=0){
 		state = SDL_GetKeyboardState(NULL);
+		if((state[SDL_SCANCODE_E])&&(shooting==false)){
+			//std::cout << "Empece a  disparar" << std::endl;
+			Command* command=new Command(START_SHOOTING_CMD);
+			SendQueue.push(std::move(command));
+			shooting=true;
+		}
 		if ((state[SDL_SCANCODE_W])&&(moving==false)) {
 			//sender.send(1);
 			//printf("W ON\n");
@@ -75,6 +81,12 @@ bool Player_handler::handle() {
 			SendQueue.push(std::move(command));
 			rotating=false;
 		}
+		if((state[SDL_SCANCODE_E]==0)&&(shooting)){
+			//std::cout << "Pare de disparar" << std::endl;
+			Command* command= new Command(STOP_SHOOTING_CMD);
+			SendQueue.push(std::move(command));
+			shooting=false;
+		}
 		switch(event.type){
 
 			case SDL_KEYDOWN:
@@ -98,13 +110,13 @@ bool Player_handler::handle() {
 					case SDLK_d:
 						//this->player.move_right();
 						break; 
-					case SDLK_e:{
+					/*case SDLK_e:{
 						//Notifico al server que quiero disparar
 						Command* command = new Command(USE_WEAPON_CMD);
 						SendQueue.push(std::move(command));
 						this->player.shoot();
 						break; 
-					}
+					}*/
 					case SDLK_1:{
 
 						Command* command = new Command(CHANGE_WEAPON_TO_KNIFE_CMD);

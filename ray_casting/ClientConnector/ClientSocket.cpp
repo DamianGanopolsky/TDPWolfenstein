@@ -151,15 +151,29 @@ void ClientSocket::recv(char* recv_buff,int len){
                     recv_queue.push(std::move(update_message));
                     break;
                 }
-
             }
+        }
+        if(buffer[0]==ITEM_CHANGED_OPCODE){
+            switch(buffer[1]){
+                case CLOSE_DOOR_ITM:
+                case OPEN_DOOR_ITM:
+                case MEDICAL_KIT_TAKEN_ITM:
+                case FOOD_TAKEN_ITM:
+                case BLOOD_TAKEN_ITM:
+                case KEY_TAKEN_ITM:
+                case TREASURE_TAKEN_ITM:
+                case BULLETS_TAKEN_ITM:
+                case WEAPON_TAKEN_ITM:
+                default:
+                    throw Exception("Unknown item type.");
+                    break;
+            }
+
+            std::cout << "ITEM CHANGED OPCODE " << std::endl;
         }
         std::cout << "Termine de recibir" << std::endl;
     }
-    catch(...){
-        //recv_queue.close();
-        std::cout << "Termine" << std::endl;
-    }
+    catch(...){}
 }
 
 void ClientSocket::send(uint8_t msg){
