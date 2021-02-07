@@ -70,11 +70,12 @@ bool Event::send(const ConnectionId sender, const Socket& peer) {
         std::cout << "event type es: " << unsigned(event_type) <<std::endl;
         switch (event_type) {
             case MOVEMENT_EV: { //id del jugador, coordenada x, coordenada y, angulo del jugador, moviendo (1-si o 0-no), disparando (si o no)
-                this->player_id = htole32(this->player_id);
+                this->player_id = htonl(this->player_id);
                 peer.send((char *)&player_id, sizeof(player_id));
                 std::cout << "id es: " << player_id <<std::endl;
-                this->pos_x = htole32(this->pos_x);
-                this->pos_y = htole32(this->pos_y);
+                this->pos_x = htonl(this->pos_x);
+                this->pos_y = htonl(this->pos_y);
+                this->angle= htonl(this->angle);
                 peer.send((char *)&pos_x, sizeof(pos_x));
                 std::cout << "posx es: " << pos_x <<std::endl;
                 peer.send((char *)&pos_y, sizeof(pos_y));
@@ -91,29 +92,30 @@ bool Event::send(const ConnectionId sender, const Socket& peer) {
             }
             case NEW_PLAYER_EV:
             case RESURRECT_EV: { //id del jugador, id del mapa a abrir, coordenada x, coordenada y, angulo del jugador,vida , las vidas, puntaje, balas
-                this->player_id = htole32(this->player_id);
+                this->player_id = htonl(this->player_id);
                 peer.send((char *)&player_id, sizeof(player_id));
                 std::cout << "player_id es: " << player_id <<std::endl;
-                this->map = htole32(this->map);
+                this->map = htonl(this->map);
                 peer.send((char *)&map, sizeof(map));
                 std::cout << "map es: " << map <<std::endl;
-                this->pos_x = htole32(this->pos_x);
-                this->pos_y = htole32(this->pos_y);
+                this->pos_x = htonl(this->pos_x);
+                this->pos_y = htonl(this->pos_y);
                 peer.send((char *)&pos_x, sizeof(pos_x));
                 std::cout << "posx es: " << pos_x <<std::endl;
                 peer.send((char *)&pos_y, sizeof(pos_y));
                 std::cout << "posy es: " << pos_y <<std::endl;
+                this->angle = htonl(this->angle);
                 peer.send((char *)&angle, sizeof(angle));
                 std::cout << "angle es: " << angle <<std::endl;
-                this->life = htole32(this->life);
+                this->life = htonl(this->life);
                 peer.send((char *)&life, sizeof(life));
                 std::cout << "life es" << life <<std::endl;
                 peer.send((char *)&resurrected, sizeof(resurrected));
                 std::cout << "resurrected es: " << (unsigned)resurrected <<std::endl;
-                this->treasure = htole32(this->treasure);
+                this->treasure = htonl(this->treasure);
                 peer.send((char *)&treasure, sizeof(treasure));
                 std::cout << "treasure es: " << treasure <<std::endl;
-                this->bullets = htole32(this->bullets);
+                this->bullets = htonl(this->bullets);
                 peer.send((char *)&bullets, sizeof(bullets));
                 std::cout << "bullets es: " << bullets <<std::endl;
                 break;
@@ -126,9 +128,9 @@ bool Event::send(const ConnectionId sender, const Socket& peer) {
             case ATTACK_EV:
             case BE_ATTACKED_EV:
             case CHANGE_WEAPON_EV: { //id del jugador, disparando (si o no)
-                this->player_id = htole32(this->player_id);
+                this->player_id = htonl(this->player_id);
                 peer.send((char *)&player_id, sizeof(player_id));
-                this->value = htole32(this->value);
+                this->value = htonl(this->value);
                 peer.send((char *)&value, sizeof(value));
                 break;
             }

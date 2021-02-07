@@ -31,6 +31,9 @@ bool ReceiveController::start(){
                     if(mov_event.player_id==player.get_id()){   // 1 SERIA YO
                         player.update_position_and_angle(mov_event.pos_x,\
                         mov_event.pos_y,mov_event.angle);
+                        if(mov_event.is_shooting==1){
+                            player.shoot();
+                        }
                     }
                     else{
                         map.update_player_pos(mov_event.player_id,mov_event.pos_x\
@@ -57,6 +60,7 @@ bool ReceiveController::start(){
                     else{
                         player.change_weapon(weapon_ev.player_id);
                     }
+                    break;
                 }
                 default:
                     break;

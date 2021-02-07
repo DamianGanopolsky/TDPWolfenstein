@@ -31,16 +31,29 @@ New_Player_Event ClientSocket::recv_player(){
     socket.receive((char*)player_id, sizeof(player_id),bytes_received);
     socket.receive((char*)map, sizeof(map),bytes_received);
     socket.receive((char*)pos_x,sizeof(pos_x),bytes_received);
-    std::cout << "recibi posx:" << unsigned(pos_x[0])<< std::endl;
+
     socket.receive((char*)pos_y,sizeof(pos_y),bytes_received);
-    std::cout << "recibi posy:" << unsigned(pos_y[0])<< std::endl;
+    
     socket.receive((char*)angle,sizeof(angle),bytes_received);
-    std::cout << "recibi angle:" << unsigned(angle[0])<< std::endl;
+    
     socket.receive((char*)life,sizeof(life),bytes_received);
-    std::cout << "recibi life:" << unsigned(life[0])<< std::endl;
+    
     socket.receive((char*)resurrected,sizeof(resurrected),bytes_received);
     socket.receive((char*)treasure,sizeof(treasure),bytes_received);
     socket.receive((char*)bullets,sizeof(bullets),bytes_received);
+    
+    player_id[0]=ntohl(player_id[0]);
+    map[0]=ntohl(map[0]);
+    pos_x[0]=ntohl(pos_x[0]);
+    pos_y[0]=ntohl(pos_y[0]);
+    angle[0]=ntohl(angle[0]);
+    life[0]=ntohl(life[0]);
+    treasure[0]=ntohl(treasure[0]);
+    bullets[0]=ntohl(bullets[0]);
+    std::cout << "recibi posx:" << unsigned(pos_x[0])<< std::endl;
+    std::cout << "recibi posy:" << unsigned(pos_y[0])<< std::endl;
+    std::cout << "recibi angle:" << unsigned(angle[0])<< std::endl;
+    std::cout << "recibi life:" << unsigned(life[0])<< std::endl;
     std::cout << "recibi bullets:" << unsigned(bullets[0])<< std::endl;
     my_player.player_id=player_id[0];
     my_player.map=map[0];
@@ -75,10 +88,22 @@ void ClientSocket::recv(char* recv_buff,int len){
                 socket.receive((char*)pos_y, sizeof(pos_y),bytes_received);
                 float angle[1];
                 socket.receive((char*)angle, sizeof(angle),bytes_received);
+                
+                
                 uint8_t is_moving[1];
                 socket.receive((char*)is_moving, sizeof(is_moving),bytes_received);
                 uint8_t is_shooting[1];
                 socket.receive((char*)is_shooting, sizeof(is_shooting),bytes_received);
+
+                player_id[0]=ntohl(player_id[0]);
+                pos_x[0]=ntohl(pos_x[0]);
+                pos_y[0]=ntohl(pos_y[0]);
+                angle[0]=ntohl(angle[0]);
+                
+                std::cout << "REcibi player id:" << player_id[0] << std::endl;
+                std::cout << "REcibi pos x:" << pos_x[0] << std::endl;
+                std::cout << "REcibi pos y:" << pos_y[0] << std::endl;
+                std::cout << "REcibi angulo:" << angle[0] << std::endl;
                 update_message->load_movement_event(player_id[0],pos_x[0],pos_y[0],angle[0],\
                 is_moving[0],is_shooting[0]);
                 recv_queue.push(std::move(update_message));
@@ -89,42 +114,41 @@ void ClientSocket::recv(char* recv_buff,int len){
             case NEW_PLAYER_EV: {         
                 uint32_t player_id[1];
                 socket.receive((char*)player_id, sizeof(player_id),bytes_received);
+                //player_id[0]=ntohl(player_id[0]);
                 uint32_t map[1];
-
                 std::cout << "recibi el id:" << unsigned(player_id[0])<< std::endl;
-            // uint8_t buffer2[1];
                 socket.receive((char*)map, sizeof(map),bytes_received);
                 //std::cout << "recibi el map:" << unsigned(map[0])<< std::endl;
                 uint32_t pos_x[1];
                 uint32_t pos_y[1];
                 float angle[1];
-                //uint32_t angle[1];
                 uint32_t life[1];
                 uint8_t resurrected[1];
                 uint32_t treasure[1];
                 uint32_t bullets[1];
-            // uint8_t buffer2[1];
                 socket.receive((char*)pos_x,sizeof(pos_x),bytes_received);
                 std::cout << "recibi posx:" << unsigned(pos_x[0])<< std::endl;
-            // uint8_t buffer2[1];
                 socket.receive((char*)pos_y,sizeof(pos_y),bytes_received);
                 std::cout << "recibi posy:" << unsigned(pos_y[0])<< std::endl;
-                //uint8_t buffer2[1];
                 socket.receive((char*)angle,sizeof(angle),bytes_received);
                 std::cout << "recibi angle:" << unsigned(angle[0])<< std::endl;
-                //uint8_t buffer2[1];
                 socket.receive((char*)life,sizeof(life),bytes_received);
                 std::cout << "recibi life:" << unsigned(life[0])<< std::endl;
                 std::cout << "life aca es" << unsigned(life[0]) << std::endl;
-                //printf("%" PRIu32 "\n",life[0]);
-                //uint8_t buffer2[1];
                 socket.receive((char*)resurrected,sizeof(resurrected),bytes_received);
                 std::cout << "recibi resurrected:" << unsigned(resurrected[0])<< std::endl;
-                //uint8_t buffer2[1];
                 socket.receive((char*)treasure,sizeof(treasure),bytes_received);
                 std::cout << "recibi treasure:" << unsigned(treasure[0])<< std::endl;
                 socket.receive((char*)bullets,sizeof(bullets),bytes_received);
                 std::cout << "recibi bullets:" << unsigned(bullets[0])<< std::endl;
+                player_id[0]=ntohl(player_id[0]);
+                map[0]=ntohl(map[0]);
+                pos_x[0]=ntohl(pos_x[0]);
+                pos_y[0]=ntohl(pos_y[0]);
+                angle[0]=ntohl(angle[0]);
+                life[0]=ntohl(life[0]);
+                treasure[0]=ntohl(treasure[0]);
+                bullets[0]=ntohl(bullets[0]);
                 update_message->load_new_player_event(player_id[0],map[0],pos_x[0],pos_y[0],angle[0],life[0]\
                 ,resurrected[0],treasure[0],bullets[0]);
                 recv_queue.push(std::move(update_message));
