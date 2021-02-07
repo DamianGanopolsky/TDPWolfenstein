@@ -138,7 +138,7 @@ std::map <std::pair<int,int>,int> YamlParser::load_map(std::string YamlPath){
         const YAML::Node& pos = *it;
         map_position.first=pos['x'].as<int>();;
         map_position.second=pos['y'].as<int>();;
-        objects_map[map_position]=MAP_PLAYER_EDITOR;
+        objects_map[map_position]=MAP_PLAYER;
        // objects_map.insert({map_position,PLAYER});
         /*for(std::size_t i=0;i<sizeof(jugadores)/sizeof(jugadores[0]);i++){
              //std::cout << jugadores[i] << std::endl;
@@ -183,7 +183,7 @@ std::vector<std::pair<int,int>>> map,int height,int width){
        // out << YAML::Key << x.first;
 
         switch(x.first){
-            case MAP_PLAYER_EDITOR:
+            case MAP_PLAYER:
                 out << YAML::Key << "Players";
                 break;
             case MAP_CUP:

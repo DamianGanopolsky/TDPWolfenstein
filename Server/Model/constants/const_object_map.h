@@ -26,7 +26,7 @@ enum ObjectsInMap {
     MAP_STAIN_WATER     = 262144,
     MAP_DOOR            = 524288,
     MAP_LOCKED_DOOR     = 1048576,
-    MAP_PLAYER_EDITOR  = 2097152,
+    MAP_PLAYER          = 2097152,
 
 };
 /*
