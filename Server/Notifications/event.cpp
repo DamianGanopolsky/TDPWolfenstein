@@ -135,10 +135,10 @@ bool Event::send(const ConnectionId sender, const Socket& peer) {
                 break;
             }
             case DEATH_EV: { //id del jugador, coordenada x, coordenada y (la llegada de este evento tambien implica que se dropean los objetos a la hora de la muerte)
-                this->player_id = htole32(this->player_id);
+                this->player_id = htonl(this->player_id);
                 peer.send((char *)&player_id, sizeof(player_id));
-                this->pos_x = htole32(this->pos_x);
-                this->pos_y = htole32(this->pos_y);
+                this->pos_x = htonl(this->pos_x);
+                this->pos_y = htonl(this->pos_y);
                 peer.send((char *)&pos_x, sizeof(pos_x));
                 peer.send((char *)&pos_y, sizeof(pos_y));
                 break;
