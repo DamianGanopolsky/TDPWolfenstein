@@ -10,8 +10,7 @@ Map::Map(std::string YamlPathToMap){
     _loadMatrix(initial_map);
 }
 
-//HACERLE FREE A LA MATRIZ
-Map::~Map() {}
+
 
 void Map::_loadMatrix(std::map <std::pair<int,int>,int> initial_map){
     map= new int*[rows];
@@ -37,14 +36,6 @@ void Map::_loadMatrix(std::map <std::pair<int,int>,int> initial_map){
 }
 
 void Map::printMatrix(){
-    for(int i=0;i<rows;i++){
-        for(int j=0;j<columns;j++){
-            if(map[i][j]==MAP_WALL){
-                std::cout << "En x:" << i << "En y;" << j << std::endl;
-            }
-            
-        }
-    }
 }
 
 int Map::getObjectPos(int x, int y) {
@@ -64,3 +55,11 @@ void Map::setObjectPos(int x, int y, ObjectsInMap object) {
     Player target = this->players[target_id];
     cmd.applyCommand(command, this->map, player, target);
 }*/
+
+//HACERLE FREE A LA MATRIZ
+Map::~Map() {
+    for(int i=0;i<columns;i++){
+        delete [] map[i];
+    }
+    delete[] map;
+}
