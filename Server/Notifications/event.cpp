@@ -70,54 +70,54 @@ bool Event::send(const ConnectionId sender, const Socket& peer) {
         std::cout << "event type es: " << unsigned(event_type) <<std::endl;
         switch (event_type) {
             case MOVEMENT_EV: { //id del jugador, coordenada x, coordenada y, angulo del jugador, moviendo (1-si o 0-no), disparando (si o no)
+                std::cout << "id es: " << player_id <<std::endl;
+                std::cout << "posx es: " << pos_x <<std::endl;
+                std::cout << "posy es: " << pos_y <<std::endl;
+                std::cout << "angle es: " << angle <<std::endl;
+                std::cout << "isMoving es: " << is_moving <<std::endl;
+                std::cout << "isShooting es: " << is_shoting <<std::endl;
                 this->player_id = htonl(this->player_id);
                 peer.send((char *)&player_id, sizeof(player_id));
-                std::cout << "id es: " << player_id <<std::endl;
                 this->pos_x = htonl(this->pos_x);
                 this->pos_y = htonl(this->pos_y);
                 this->angle= htonl(this->angle);
                 peer.send((char *)&pos_x, sizeof(pos_x));
-                std::cout << "posx es: " << pos_x <<std::endl;
                 peer.send((char *)&pos_y, sizeof(pos_y));
-                std::cout << "posy es: " << pos_y <<std::endl;
                 peer.send((char *)&angle, sizeof(angle));
-                std::cout << "angle es: " << angle <<std::endl;
                 peer.send((char *)&is_moving, sizeof(is_moving));
-                std::cout << "isMoving es: " << is_moving <<std::endl;
                 peer.send((char *)&is_shoting, sizeof(is_shoting));
-                std::cout << "isShooting es: " << is_shoting <<std::endl;
                 /*peer.send((char *)&gun_type, sizeof(gun_type));
                 std::cout << "gun_type es: " << gun_type <<std::endl;*/
                 break;
             }
             case NEW_PLAYER_EV:
             case RESURRECT_EV: { //id del jugador, id del mapa a abrir, coordenada x, coordenada y, angulo del jugador,vida , las vidas, puntaje, balas
+                std::cout << "player_id es: " << player_id <<std::endl;
+                std::cout << "map es: " << map <<std::endl;
+                std::cout << "posx es: " << pos_x <<std::endl;
+                std::cout << "posy es: " << pos_y <<std::endl;
+                std::cout << "angle es: " << angle <<std::endl;
+                std::cout << "life es" << life <<std::endl;
+                std::cout << "resurrected es: " << (unsigned)resurrected <<std::endl;
+                std::cout << "treasure es: " << treasure <<std::endl;
+                std::cout << "bullets es: " << bullets <<std::endl;
                 this->player_id = htonl(this->player_id);
                 peer.send((char *)&player_id, sizeof(player_id));
-                std::cout << "player_id es: " << player_id <<std::endl;
                 this->map = htonl(this->map);
                 peer.send((char *)&map, sizeof(map));
-                std::cout << "map es: " << map <<std::endl;
                 this->pos_x = htonl(this->pos_x);
                 this->pos_y = htonl(this->pos_y);
                 peer.send((char *)&pos_x, sizeof(pos_x));
-                std::cout << "posx es: " << pos_x <<std::endl;
                 peer.send((char *)&pos_y, sizeof(pos_y));
-                std::cout << "posy es: " << pos_y <<std::endl;
                 this->angle = htonl(this->angle);
                 peer.send((char *)&angle, sizeof(angle));
-                std::cout << "angle es: " << angle <<std::endl;
                 this->life = htonl(this->life);
                 peer.send((char *)&life, sizeof(life));
-                std::cout << "life es" << life <<std::endl;
                 peer.send((char *)&resurrected, sizeof(resurrected));
-                std::cout << "resurrected es: " << (unsigned)resurrected <<std::endl;
                 this->treasure = htonl(this->treasure);
                 peer.send((char *)&treasure, sizeof(treasure));
-                std::cout << "treasure es: " << treasure <<std::endl;
                 this->bullets = htonl(this->bullets);
                 peer.send((char *)&bullets, sizeof(bullets));
-                std::cout << "bullets es: " << bullets <<std::endl;
                 break;
             }
             case DELETE_PLAYER_EV: { //id del jugador
