@@ -28,6 +28,11 @@ struct Change_Weapon_Event{
     uint8_t weapon;
 };
 
+struct Change_door_event{
+    uint32_t pos_x;
+    uint32_t pos_y;
+};
+
 
 enum Opcode {
     EVENT_OPCODE = 0,

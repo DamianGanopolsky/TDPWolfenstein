@@ -169,7 +169,7 @@ bool Player_handler::handle() {
 				if(event.button.button==SDL_BUTTON_RIGHT){
 					Command* command = new Command(OPEN_DOOR_CMD);
 					SendQueue.push(std::move(command));
-					map.open_door(171);
+					//map.open_door(171);
                     //std::cout << "Notifico al server que intente abrir una puerta en x:
 					//<< event.button.x << "en y:" << event.button.y << std::endl;
                 }

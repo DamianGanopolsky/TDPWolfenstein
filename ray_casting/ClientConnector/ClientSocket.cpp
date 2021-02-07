@@ -140,14 +140,16 @@ void ClientSocket::recv(char* recv_buff,int len){
                     recv_queue.push(std::move(update_message));
                     break;
                 }
+                case ATTACK_EV:
+                case BE_ATTACKED_EV:
                 case CHANGE_WEAPON_EV:{
                     uint32_t player_id[1];
-                    uint32_t weapon[1];
-                    socket.receive((char*)player_id, sizeof(player_id),bytes_received);
-                    socket.receive((char*)weapon, sizeof(weapon),bytes_received);
+                    uint32_t value[1];
+                    socket.receive((char*)player_id,sizeof(player_id),bytes_received);
+                    socket.receive((char*)value,sizeof(value),bytes_received);
                     player_id[0]=ntohl(player_id[0]);
-                    weapon[0]=ntohl(weapon[0]);
-                    update_message->load_changed_weapon(player_id[0],weapon[0]);
+                    value[0]=ntohl(value[0]);
+                    update_message->load_changed_stat(player_id[0],value[0]);
                     recv_queue.push(std::move(update_message));
                     break;
                 }
@@ -157,6 +159,15 @@ void ClientSocket::recv(char* recv_buff,int len){
             switch(buffer[1]){
                 case CLOSE_DOOR_ITM:
                 case OPEN_DOOR_ITM:
+                    uint32_t pos_x[1];
+                    uint32_t pos_y[1];
+                    socket.receive((char*)pos_x, sizeof(pos_x),bytes_received);
+                    socket.receive((char*)pos_y, sizeof(pos_y),bytes_received);
+                    pos_x[0]=ntohl(pos_x[0]);
+                    pos_y[0]=ntohl(pos_y[0]);
+                    update_message->load_door_changed(pos_x[0],pos_y[0]);
+                    recv_queue.push(std::move(update_message));
+                    break;
                 case MEDICAL_KIT_TAKEN_ITM:
                 case FOOD_TAKEN_ITM:
                 case BLOOD_TAKEN_ITM:

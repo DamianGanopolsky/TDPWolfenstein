@@ -48,9 +48,14 @@ std::set<Ray> Map_2d::get_player_rays() {
 	return rays;
 }
 
-void Map_2d::open_door(int cuadricula){
-	walls[cuadricula]=2;
-	boxes[cuadricula]=true;
+void Map_2d::open_door(int x,int y){
+	walls[map_width*y+x]=1;
+	boxes[map_width*y+x]=true;
+}
+
+void Map_2d::close_door(int x,int y){
+	walls[map_width*y+x]=2;
+	boxes[map_width*y+x]=false;
 }
 
 void Map_2d::update_player_pos(int id,int pos_x,int pos_y,int angle,int status){

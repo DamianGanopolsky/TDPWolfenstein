@@ -52,7 +52,7 @@ bool ReceiveController::start(){
                     break;
                 }
                 case CHANGE_WEAPON_EV:{
-                    Change_Weapon_Event weapon_ev=updatemessage->get_changed_weapon();
+                    Change_Weapon_Event weapon_ev=updatemessage->get_changed_stat();
                     //Chequear si el casteo esta bien
                     if(int(weapon_ev.player_id)!=player.get_id()){
                         map.update_player_texture(weapon_ev.player_id,weapon_ev.weapon);
@@ -62,9 +62,28 @@ bool ReceiveController::start(){
                     }
                     break;
                 }
+                case ATTACK_EV:{
+                    Change_Weapon_Event attack_ev=updatemessage->get_changed_stat();
+                    if(int(attack_ev.player_id)==player.get_id()){
+                        player.shoot();
+                    }
+                    break;
+                }
                 default:
                     break;
-
+             }
+         }
+         if(updatemessage->get_opcode()==1){
+             std::cout << "CHANGE ITEM EVENT" << std::endl;
+             switch(updatemessage->get_event_type()){
+                case CLOSE_DOOR_ITM:
+                    Change_door_event change_door=updatemessage->get_changed_door();
+                    map.close_door(change_door.pos_x,change_door.pos_y);
+                    break;
+                case OPEN_DOOR_ITM:
+                    Change_door_event change_door=updatemessage->get_changed_door();
+                    map.open_door(change_door.pos_x,change_door.pos_y);
+                    break;
              }
          }
      }

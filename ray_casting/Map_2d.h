@@ -31,7 +31,8 @@ public:
 	std::set<Ray> get_player_rays(); 
 	std::list<Game_element> get_game_elements(); 
 	int get_wall_texture(int cuadricula);
-	void open_door(int cuadricula);
+	void open_door(int x,int y);
+	void close_door(int x,int y);
 	void update_player_pos(int id,int pos_x,int pos_y,int angle,int status);
 	void update_player_texture(int id,int weapon);
 private:

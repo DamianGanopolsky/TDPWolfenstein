@@ -16,7 +16,9 @@ public:
     void load_new_player_event(uint8_t player_id,uint8_t map,uint32_t pos_x,uint32_t pos_y,\
     float angle,uint32_t life,uint8_t resurrected,uint32_t score,uint32_t bullets);
 
-    void load_changed_weapon(uint32_t player_id,uint8_t weapon);
+    void load_changed_stat(uint32_t player_id,uint32_t weapon);
+
+    void load_door_changed(uint32_t x,uint32_t y);
 
     uint8_t get_opcode();
 
@@ -26,7 +28,9 @@ public:
 
     New_Player_Event get_new_player_info();
 
-    Change_Weapon_Event get_changed_weapon();
+    Change_Weapon_Event get_changed_stat();
+
+    Change_door_event get_changed_door();
 
 private:
     uint8_t Opcode;
@@ -37,6 +41,8 @@ private:
     New_Player_Event NewPEvent;
 
     Change_Weapon_Event ChWeaponEvent;
+
+    Change_door_event ChDoorEvent;
 
     /*uint8_t Player_Id;
     uint8_t Pos_X;
