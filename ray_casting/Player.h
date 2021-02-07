@@ -23,6 +23,7 @@ public:
 	void move_right();
 	void shoot();
 	int get_id();
+	void add_bullets(int bullets);
 	void change_weapon(int weapon);
 	void update_position_and_angle(int x,int y,float ANGLE);
 

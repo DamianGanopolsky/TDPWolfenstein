@@ -20,6 +20,8 @@ public:
 
     void load_door_changed(uint32_t x,uint32_t y);
 
+    void load_item_taken(uint32_t player_id,uint32_t pos_x,uint32_t pos_y,uint32_t value);
+
     uint8_t get_opcode();
 
     uint8_t get_event_type();
@@ -32,6 +34,8 @@ public:
 
     Change_door_event get_changed_door();
 
+    Item_taken_event get_item_taken();
+
 private:
     uint8_t Opcode;
     uint8_t Type_Of_Event;
@@ -43,6 +47,8 @@ private:
     Change_Weapon_Event ChWeaponEvent;
 
     Change_door_event ChDoorEvent;
+
+    Item_taken_event ItTakenEvent;
 
     /*uint8_t Player_Id;
     uint8_t Pos_X;

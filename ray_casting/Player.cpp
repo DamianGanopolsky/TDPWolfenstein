@@ -41,6 +41,10 @@ Player_info& Player::get_info() {
 	return this->info;
 }
 
+void Player::add_bullets(int bullets){
+	this->info.ammo += bullets;
+}
+
 void Player::update_position_and_angle(int X,int Y,float ANGLE){
 	this->pos_x=X;
 	this->pos_y=Y;

@@ -76,14 +76,23 @@ bool ReceiveController::start(){
          if(updatemessage->get_opcode()==1){
              std::cout << "CHANGE ITEM EVENT" << std::endl;
              switch(updatemessage->get_event_type()){
-                case CLOSE_DOOR_ITM:
+                case CLOSE_DOOR_ITM:{
                     Change_door_event change_door=updatemessage->get_changed_door();
                     map.close_door(change_door.pos_x,change_door.pos_y);
                     break;
-                case OPEN_DOOR_ITM:
+                }
+                case OPEN_DOOR_ITM:{
                     Change_door_event change_door=updatemessage->get_changed_door();
                     map.open_door(change_door.pos_x,change_door.pos_y);
                     break;
+                }
+                case BULLETS_TAKEN_ITM:{
+                    Item_taken_event it_taken=updatemessage->get_item_taken();
+                    map.delete_item(it_taken.pos_x,it_taken.pos_y);
+                    if(int(it_taken.player_id)==player.get_id()){
+                        player.add_bullets(it_taken.value);
+                    }
+                }
              }
          }
      }

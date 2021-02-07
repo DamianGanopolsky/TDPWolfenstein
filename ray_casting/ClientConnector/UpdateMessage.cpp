@@ -8,6 +8,7 @@ UpdateMessage::UpdateMessage(const UpdateMessage& other) {
     this->NewPEvent=other.NewPEvent;
     this->ChWeaponEvent=other.ChWeaponEvent;
     this->ChDoorEvent=other.ChDoorEvent;
+    this->ItTakenEvent=other.ItTakenEvent;
 }
 UpdateMessage& UpdateMessage::operator=(const UpdateMessage& other) {
     this->Opcode = other.Opcode;
@@ -16,6 +17,7 @@ UpdateMessage& UpdateMessage::operator=(const UpdateMessage& other) {
     this->NewPEvent=other.NewPEvent;
     this->ChWeaponEvent=other.ChWeaponEvent;
     this->ChDoorEvent=other.ChDoorEvent;
+    this->ItTakenEvent=other.ItTakenEvent;
     return *this;
 }
 
@@ -57,6 +59,14 @@ void UpdateMessage::load_door_changed(uint32_t pos_x,uint32_t pos_y){
     ChDoorEvent.pos_x=pos_x;
     ChDoorEvent.pos_y=pos_y;
 }
+
+void UpdateMessage::load_item_taken(uint32_t player_id,uint32_t pos_x,uint32_t pos_y,uint32_t value){
+    ItTakenEvent.player_id=player_id;
+    ItTakenEvent.pos_x=pos_x;
+    ItTakenEvent.pos_y=pos_y;
+    ItTakenEvent.value=value;
+
+}
 Movement_event UpdateMessage::get_mov_event_info(){
     return MovEvent;
 }
@@ -71,6 +81,10 @@ Change_Weapon_Event UpdateMessage::get_changed_stat(){
 
 Change_door_event UpdateMessage::get_changed_door(){
     return ChDoorEvent;
+}
+
+Item_taken_event UpdateMessage::get_item_taken(){
+    return ItTakenEvent;
 }
 
 

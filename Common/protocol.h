@@ -33,6 +33,13 @@ struct Change_door_event{
     uint32_t pos_y;
 };
 
+struct Item_taken_event{
+    uint32_t pos_x;
+    uint32_t pos_y;
+    uint32_t value;
+    uint32_t player_id;
+};
+
 
 enum Opcode {
     EVENT_OPCODE = 0,

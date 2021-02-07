@@ -173,8 +173,23 @@ void ClientSocket::recv(char* recv_buff,int len){
                 case BLOOD_TAKEN_ITM:
                 case KEY_TAKEN_ITM:
                 case TREASURE_TAKEN_ITM:
-                case BULLETS_TAKEN_ITM:
-                case WEAPON_TAKEN_ITM:
+                case BULLETS_TAKEN_ITM:{
+                    uint32_t player_id[1];
+                    uint32_t pos_x[1];
+                    uint32_t pos_y[1];
+                    uint32_t value[1];
+                    socket.receive((char*)player_id,sizeof(player_id),bytes_received);
+                    socket.receive((char*)pos_x, sizeof(pos_x),bytes_received);
+                    socket.receive((char*)pos_y, sizeof(pos_y),bytes_received);
+                    socket.receive((char*)value, sizeof(value),bytes_received);
+                    player_id[0]=ntohl(player_id[0]);
+                    pos_x[0]=ntohl(pos_x[0]);
+                    pos_y[0]=ntohl(pos_y[0]);
+                    value[0]=ntohl(value[0]);
+                    update_message->load_item_taken(player_id[0],pos_x[0],pos_y[0],value[0]);
+                    recv_queue.push(std::move(update_message));
+                    break;
+                }
                 default:
                     throw Exception("Unknown item type.");
                     break;

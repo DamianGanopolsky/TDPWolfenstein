@@ -79,6 +79,10 @@ int Map_2d::get_type_id(int weapon,int is_shooting){
 	}
 }
 
+void Map_2d::delete_item(int x,int y){
+	elements_map.erase(std::make_pair(x,y));
+}
+
 
 
 std::list<Game_element> Map_2d::get_game_elements() {
