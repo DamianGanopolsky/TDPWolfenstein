@@ -122,8 +122,8 @@ int Game_element::get_texture_section(int element_angle, int player_angle) {
 	}
 	int element_section = this->get_angle_section(element_angle);  
 	int player_section = this->get_angle_section(player_angle);
-	std::cout << "Element section es" << element_section << std::endl;
-	std::cout << "player section es" << player_section << std::endl;
+	//std::cout << "Element section es" << element_section << std::endl;
+	//std::cout << "player section es" << player_section << std::endl;
 
 	int diff = player_section - element_section + 4;
 	//std::cout << "Element angle es " << element_angle << std::endl;

@@ -96,7 +96,7 @@ std::list<Game_element> Map_2d::get_game_elements() {
 	}
 	/* ACA RENDERIZO LOS DISTINTOS JUGADORES CON SUS POSICIONES ACTUALIZADAS */
 	for (auto const& object : players_state){
-		std::cout << "Get type id es" << get_type_id(object.second.weapon,object.second.is_shooting) << std::endl;
+		//std::cout << "Get type id es" << get_type_id(object.second.weapon,object.second.is_shooting) << std::endl;
 		Game_element element(object.second.pos_x,object.second.pos_y,\
 		get_type_id(object.second.weapon,object.second.is_shooting),\
 		object.second.vision_angle,this->player);

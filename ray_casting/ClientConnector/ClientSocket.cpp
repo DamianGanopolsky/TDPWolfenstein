@@ -45,11 +45,16 @@ New_Player_Event ClientSocket::recv_player(){
     angle[0]=le32toh(angle[0]);
     life[0]=le32toh(life[0]);
     treasure[0]=le32toh(treasure[0]);
+    resurrected[0]=le32toh(resurrected[0]);
     bullets[0]=le32toh(bullets[0]);
+    std::cout << "recibi player id:" << unsigned(player_id[0])<< std::endl;
+    std::cout << "recibi map:" << unsigned(map[0])<< std::endl;
     std::cout << "recibi posx:" << unsigned(pos_x[0])<< std::endl;
     std::cout << "recibi posy:" << unsigned(pos_y[0])<< std::endl;
     std::cout << "recibi angle:" << unsigned(angle[0])<< std::endl;
     std::cout << "recibi life:" << unsigned(life[0])<< std::endl;
+    std::cout << "recibi treasure:" << unsigned(treasure[0])<< std::endl;
+    std::cout << "recibi resurrected:" << unsigned(resurrected[0])<< std::endl;
     std::cout << "recibi bullets:" << unsigned(bullets[0])<< std::endl;
     my_player.player_id=player_id[0];
     my_player.map=map[0];
@@ -69,8 +74,11 @@ void ClientSocket::recv(char* recv_buff,int len){
     try{
         socket.receive(recv_buff,2,bytes_received);
         uint8_t buffer[2];
-        buffer[0]=*recv_buff;
-        buffer[1]=*(recv_buff+1);
+       // buffer[0]=*recv_buff;
+       // buffer[1]=*(recv_buff+1);
+        socket.receive((char*)buffer,sizeof(buffer),bytes_received);
+        std::cout << "OPcode es" << unsigned(buffer[0]) << std::endl;
+        std::cout << "Tipo de opcode es" << unsigned(buffer[1]) << std::endl;
         UpdateMessage* update_message = new UpdateMessage(buffer[0],buffer[1]);
         if(buffer[0]==EVENT_OPCODE){
             std::cout << "EVENT OPCODE" << std::endl;
@@ -101,7 +109,6 @@ void ClientSocket::recv(char* recv_buff,int len){
                     update_message->load_movement_event(player_id[0],pos_x[0],pos_y[0],angle[0],\
                     is_moving[0],is_shooting[0]);
                     recv_queue.push(std::move(update_message));
-
                     break;
                 }
 
@@ -143,11 +150,12 @@ void ClientSocket::recv(char* recv_buff,int len){
                 case ATTACK_EV:{
                     uint32_t player_id[1];
                     uint32_t value[1];
-                    //uint32_t 
                     socket.receive((char*)player_id,sizeof(player_id),bytes_received);
                     socket.receive((char*)value,sizeof(value),bytes_received);
                     player_id[0]=le32toh(player_id[0]);
                     value[0]=le32toh(value[0]);
+                    std::cout << "Recibi player id:" << player_id[0] << std::endl;
+                    std::cout << "Recibi value:" << value[0] << std::endl;
                     update_message->load_changed_stat(player_id[0],value[0]);
                     recv_queue.push(std::move(update_message));
                     break;

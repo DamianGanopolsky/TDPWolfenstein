@@ -74,7 +74,7 @@ bool ReceiveController::start(){
              }
          }
          if(updatemessage->get_opcode()==1){
-             std::cout << "CHANGE ITEM EVENT" << std::endl;
+             //std::cout << "CHANGE ITEM EVENT" << std::endl;
              switch(updatemessage->get_event_type()){
                 case CLOSE_DOOR_ITM:{
                     Change_door_event change_door=updatemessage->get_changed_door();
