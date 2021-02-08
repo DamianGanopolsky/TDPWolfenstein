@@ -140,7 +140,18 @@ void ClientSocket::recv(char* recv_buff,int len){
                     recv_queue.push(std::move(update_message));
                     break;
                 }
-                case ATTACK_EV:
+                case ATTACK_EV:{
+                    uint32_t player_id[1];
+                    uint32_t value[1];
+                    //uint32_t 
+                    socket.receive((char*)player_id,sizeof(player_id),bytes_received);
+                    socket.receive((char*)value,sizeof(value),bytes_received);
+                    player_id[0]=le32toh(player_id[0]);
+                    value[0]=le32toh(value[0]);
+                    update_message->load_changed_stat(player_id[0],value[0]);
+                    recv_queue.push(std::move(update_message));
+                    break;
+                }
                 case BE_ATTACKED_EV:
                 case CHANGE_WEAPON_EV:{
                     uint32_t player_id[1];

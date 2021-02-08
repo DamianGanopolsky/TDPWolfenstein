@@ -131,10 +131,11 @@ bool Event::send(const ConnectionId sender, const Socket& peer) {
                 peer.send((char *)&player_id, sizeof(player_id));
                 break;
             }
-            case ATTACK_EV: {
+            case ATTACK_EV:
+             {
                 this->player_id = htole32(this->player_id);
                 peer.send((char *)&player_id, sizeof(player_id));
-                peer.send((char *)&is_shoting, sizeof(is_shoting));
+                //peer.send((char *)&is_shoting, sizeof(is_shoting));
                 this->bullets = htole32(this->bullets);
                 peer.send((char *)&bullets, sizeof(bullets));
             }
