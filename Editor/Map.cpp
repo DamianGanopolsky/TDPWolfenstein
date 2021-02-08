@@ -4,19 +4,7 @@
 #include "../Editor/SdlClasses/SdlText.h"
 #include "YamlParser.h"
 #include "../Server/Model/constants/const_object_map.h"
-/*
-#define FLOOR_TILE 0
-#define PLAYER 1
-#define TREASURE 2
-#define MEDICAL_KIT 3
-#define KEY 4
-#define AUTOMATIC_GUN 5
-#define CHAIN_CANON 6
-#define FOOD 7
-#define BULLETS 8
-#define WALL 9
-#define DOOR 10 
-*/
+
 #define TILE_PIXELS 32
 //#define SCREEN_HEIGTH 19
 #define SCREEN_HEIGTH 50
@@ -173,6 +161,9 @@ void Map::click(position final_pos){
 void Map::draw(position initial_position,position draw_position){
     int matrix_x=(draw_position.x+camera.x*TILE_PIXELS)/TILE_PIXELS;
     int matrix_y=(draw_position.y+camera.y*TILE_PIXELS)/TILE_PIXELS;
+    if((matrix_x>=rows)||(matrix_y>=columns)){
+        return;
+    }
     if(initial_position.y<0.815625*window.getHeight()){
         return;
     }
@@ -258,26 +249,6 @@ void Map::render(){
                     SDL_FreeSurface(surfaceMessage);
                     SDL_DestroyTexture(texture_of_text);
                     TTF_CloseFont(Sans);
-                    /*switch(player_number){
-                        case 1:
-                            SDL_RenderCopy(window.getRenderer(), textures.at(11), NULL, &rect_text); 
-                            break;
-                        case 2:
-                            SDL_RenderCopy(window.getRenderer(), textures.at(12), NULL, &rect_text); 
-                            break;
-                        case 3:
-                            SDL_RenderCopy(window.getRenderer(), textures.at(13), NULL, &rect_text); 
-                            break;
-                        case 4:
-                            SDL_RenderCopy(window.getRenderer(), textures.at(14), NULL, &rect_text); 
-                            break;
-                        case 5:
-                            SDL_RenderCopy(window.getRenderer(), textures.at(15), NULL, &rect_text); 
-                            break;
-                        case 6:
-                            SDL_RenderCopy(window.getRenderer(), textures.at(16), NULL, &rect_text); 
-                            break;
-                    }*/
                 }
                     break;
                 case MAP_CUP:
@@ -304,7 +275,7 @@ void Map::render(){
                 case MAP_WALL:
                     SDL_RenderCopy(window.getRenderer(),textures.at(9),NULL,&rect);
                     break;
-                case MAP_DOOR:
+                case MAP_LOCKED_DOOR:
                     SDL_RenderCopy(window.getRenderer(),textures.at(10),NULL,&rect);
                     break;
                 default:

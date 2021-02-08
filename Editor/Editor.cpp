@@ -44,7 +44,6 @@ void Editor::HandleRightClickRelease(SDL_Event* event){
         initial_position.y=int(event->button.y);
         is_clicked_correctly=true;
     }
-
 }
 
 void Editor::HandleLeftClickRelease(SDL_Event* event){
