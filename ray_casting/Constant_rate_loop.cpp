@@ -17,7 +17,6 @@ void Constant_rate_loop::task_finished() {
 	this->end_t = std::chrono::steady_clock::now();
 	std::chrono::duration<double> diff = this->end_t - this->init_t;
 	double rest = ((double) this->rate) / 1000 - diff.count();
-	//std::cout << rest << std::endl; 
 
 	if (rest < 0) {
 		int behind = - rest * 1000;

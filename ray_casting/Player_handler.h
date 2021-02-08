@@ -17,7 +17,6 @@ public:
 	bool handle();
 
 private:
-	// Es necesario protegerlos de race condition?
 	Player& player;
 	Map_2d& map;
 	bool quit;
@@ -25,9 +24,6 @@ private:
 	bool rotating;
 	bool shooting;
 	BlockingQueue<Command*>& SendQueue;
-
-	//ClientSocket& clisocket;
-	//Sender sender;
 	
 };
 

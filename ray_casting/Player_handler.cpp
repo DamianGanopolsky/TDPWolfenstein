@@ -147,20 +147,10 @@ bool Player_handler::handle() {
 						//std::cout << "Notifico al server que quiero cambiar a chain_cannon" << std::endl;
 						break;
 					}
-					case SDLK_5:
-						//PRUEBA
-						this->player.update_position_and_angle(300,300,300);
-						break;
-					case SDLK_6:
-						this->map.update_player_pos(2,600,600,200,0);
-						break;
 					case SDLK_7:
 						this->map.update_player_pos(2,400,400,200,0);
 						break;
 					case SDLK_ESCAPE:  
-						//sender.stop();
-						//sender.join();
-						//Command* command=new Command(13);
 						SendQueue.close();
 						quit=true;
 						break;   
