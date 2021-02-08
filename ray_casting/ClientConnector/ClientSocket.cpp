@@ -38,14 +38,14 @@ New_Player_Event ClientSocket::recv_player(){
     socket.receive((char*)treasure,sizeof(treasure),bytes_received);
     socket.receive((char*)bullets,sizeof(bullets),bytes_received);
     
-    player_id[0]=ntohl(player_id[0]);
-    map[0]=ntohl(map[0]);
-    pos_x[0]=ntohl(pos_x[0]);
-    pos_y[0]=ntohl(pos_y[0]);
-    angle[0]=ntohl(angle[0]);
-    life[0]=ntohl(life[0]);
-    treasure[0]=ntohl(treasure[0]);
-    bullets[0]=ntohl(bullets[0]);
+    player_id[0]=le32toh(player_id[0]);
+    map[0]=le32toh(map[0]);
+    pos_x[0]=le32toh(pos_x[0]);
+    pos_y[0]=le32toh(pos_y[0]);
+    angle[0]=le32toh(angle[0]);
+    life[0]=le32toh(life[0]);
+    treasure[0]=le32toh(treasure[0]);
+    bullets[0]=le32toh(bullets[0]);
     std::cout << "recibi posx:" << unsigned(pos_x[0])<< std::endl;
     std::cout << "recibi posy:" << unsigned(pos_y[0])<< std::endl;
     std::cout << "recibi angle:" << unsigned(angle[0])<< std::endl;
@@ -90,10 +90,10 @@ void ClientSocket::recv(char* recv_buff,int len){
                     socket.receive((char*)is_moving, sizeof(is_moving),bytes_received);
                     uint8_t is_shooting[1];
                     socket.receive((char*)is_shooting, sizeof(is_shooting),bytes_received);
-                    player_id[0]=ntohl(player_id[0]);
-                    pos_x[0]=ntohl(pos_x[0]);
-                    pos_y[0]=ntohl(pos_y[0]);
-                    angle[0]=ntohl(angle[0]);
+                    player_id[0]=le32toh(player_id[0]);
+                    pos_x[0]=le32toh(pos_x[0]);
+                    pos_y[0]=le32toh(pos_y[0]);
+                    angle[0]=le32toh(angle[0]);
                     std::cout << "REcibi player id:" << player_id[0] << std::endl;
                     std::cout << "REcibi pos x:" << pos_x[0] << std::endl;
                     std::cout << "REcibi pos y:" << pos_y[0] << std::endl;
@@ -108,7 +108,7 @@ void ClientSocket::recv(char* recv_buff,int len){
                 case NEW_PLAYER_EV: {         
                     uint32_t player_id[1];
                     socket.receive((char*)player_id, sizeof(player_id),bytes_received);
-                    //player_id[0]=ntohl(player_id[0]);
+                    //player_id[0]=le32toh(player_id[0]);
                     uint32_t map[1];
                     std::cout << "recibi el id:" << unsigned(player_id[0])<< std::endl;
                     socket.receive((char*)map, sizeof(map),bytes_received);
@@ -127,14 +127,14 @@ void ClientSocket::recv(char* recv_buff,int len){
                     socket.receive((char*)resurrected,sizeof(resurrected),bytes_received);
                     socket.receive((char*)treasure,sizeof(treasure),bytes_received);
                     socket.receive((char*)bullets,sizeof(bullets),bytes_received);
-                    player_id[0]=ntohl(player_id[0]);
-                    map[0]=ntohl(map[0]);
-                    pos_x[0]=ntohl(pos_x[0]);
-                    pos_y[0]=ntohl(pos_y[0]);
-                    angle[0]=ntohl(angle[0]);
-                    life[0]=ntohl(life[0]);
-                    treasure[0]=ntohl(treasure[0]);
-                    bullets[0]=ntohl(bullets[0]);
+                    player_id[0]=le32toh(player_id[0]);
+                    map[0]=le32toh(map[0]);
+                    pos_x[0]=le32toh(pos_x[0]);
+                    pos_y[0]=le32toh(pos_y[0]);
+                    angle[0]=le32toh(angle[0]);
+                    life[0]=le32toh(life[0]);
+                    treasure[0]=le32toh(treasure[0]);
+                    bullets[0]=le32toh(bullets[0]);
                     update_message->load_new_player_event(player_id[0],map[0],pos_x[0],pos_y[0],angle[0],life[0]\
                     ,resurrected[0],treasure[0],bullets[0]);
                     recv_queue.push(std::move(update_message));
@@ -147,8 +147,8 @@ void ClientSocket::recv(char* recv_buff,int len){
                     uint32_t value[1];
                     socket.receive((char*)player_id,sizeof(player_id),bytes_received);
                     socket.receive((char*)value,sizeof(value),bytes_received);
-                    player_id[0]=ntohl(player_id[0]);
-                    value[0]=ntohl(value[0]);
+                    player_id[0]=le32toh(player_id[0]);
+                    value[0]=le32toh(value[0]);
                     update_message->load_changed_stat(player_id[0],value[0]);
                     recv_queue.push(std::move(update_message));
                     break;
@@ -163,8 +163,8 @@ void ClientSocket::recv(char* recv_buff,int len){
                     uint32_t pos_y[1];
                     socket.receive((char*)pos_x, sizeof(pos_x),bytes_received);
                     socket.receive((char*)pos_y, sizeof(pos_y),bytes_received);
-                    pos_x[0]=ntohl(pos_x[0]);
-                    pos_y[0]=ntohl(pos_y[0]);
+                    pos_x[0]=le32toh(pos_x[0]);
+                    pos_y[0]=le32toh(pos_y[0]);
                     update_message->load_door_changed(pos_x[0],pos_y[0]);
                     recv_queue.push(std::move(update_message));
                     break;
@@ -182,10 +182,10 @@ void ClientSocket::recv(char* recv_buff,int len){
                     socket.receive((char*)pos_x, sizeof(pos_x),bytes_received);
                     socket.receive((char*)pos_y, sizeof(pos_y),bytes_received);
                     socket.receive((char*)value, sizeof(value),bytes_received);
-                    player_id[0]=ntohl(player_id[0]);
-                    pos_x[0]=ntohl(pos_x[0]);
-                    pos_y[0]=ntohl(pos_y[0]);
-                    value[0]=ntohl(value[0]);
+                    player_id[0]=le32toh(player_id[0]);
+                    pos_x[0]=le32toh(pos_x[0]);
+                    pos_y[0]=le32toh(pos_y[0]);
+                    value[0]=le32toh(value[0]);
                     update_message->load_item_taken(player_id[0],pos_x[0],pos_y[0],value[0]);
                     recv_queue.push(std::move(update_message));
                     break;

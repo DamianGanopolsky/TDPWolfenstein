@@ -76,11 +76,11 @@ bool Event::send(const ConnectionId sender, const Socket& peer) {
                 std::cout << "angle es: " << angle <<std::endl;
                 std::cout << "isMoving es: " << unsigned(is_moving) <<std::endl;
                 std::cout << "isShooting es: " << unsigned(is_shoting) <<std::endl;
-                this->player_id = htonl(this->player_id);
+                this->player_id = htole32(this->player_id);
                 peer.send((char *)&player_id, sizeof(player_id));
-                this->pos_x = htonl(this->pos_x);
-                this->pos_y = htonl(this->pos_y);
-                this->angle= htonl(this->angle);
+                this->pos_x = htole32(this->pos_x);
+                this->pos_y = htole32(this->pos_y);
+                this->angle= htole32(this->angle);
                 peer.send((char *)&pos_x, sizeof(pos_x));
                 peer.send((char *)&pos_y, sizeof(pos_y));
                 peer.send((char *)&angle, sizeof(angle));
@@ -101,22 +101,23 @@ bool Event::send(const ConnectionId sender, const Socket& peer) {
                 std::cout << "resurrected es: " << (unsigned)resurrected <<std::endl;
                 std::cout << "treasure es: " << treasure <<std::endl;
                 std::cout << "bullets es: " << bullets <<std::endl;
-                this->player_id = htonl(this->player_id);
+                this->player_id = htole32(this->player_id);
+                std::cout << "player_id aca es: " << player_id <<std::endl;
                 peer.send((char *)&player_id, sizeof(player_id));
-                this->map = htonl(this->map);
+                this->map = htole32(this->map);
                 peer.send((char *)&map, sizeof(map));
-                this->pos_x = htonl(this->pos_x);
-                this->pos_y = htonl(this->pos_y);
+                this->pos_x = htole32(this->pos_x);
+                this->pos_y = htole32(this->pos_y);
                 peer.send((char *)&pos_x, sizeof(pos_x));
                 peer.send((char *)&pos_y, sizeof(pos_y));
-                this->angle = htonl(this->angle);
+                this->angle = htole32(this->angle);
                 peer.send((char *)&angle, sizeof(angle));
-                this->life = htonl(this->life);
+                this->life = htole32(this->life);
                 peer.send((char *)&life, sizeof(life));
                 peer.send((char *)&resurrected, sizeof(resurrected));
-                this->treasure = htonl(this->treasure);
+                this->treasure = htole32(this->treasure);
                 peer.send((char *)&treasure, sizeof(treasure));
-                this->bullets = htonl(this->bullets);
+                this->bullets = htole32(this->bullets);
                 peer.send((char *)&bullets, sizeof(bullets));
                 break;
             }
@@ -128,17 +129,17 @@ bool Event::send(const ConnectionId sender, const Socket& peer) {
             case ATTACK_EV:
             case BE_ATTACKED_EV:
             case CHANGE_WEAPON_EV: { //id del jugador, disparando (si o no)
-                this->player_id = htonl(this->player_id);
+                this->player_id = htole32(this->player_id);
                 peer.send((char *)&player_id, sizeof(player_id));
-                this->value = htonl(this->value);
+                this->value = htole32(this->value);
                 peer.send((char *)&value, sizeof(value));
                 break;
             }
             case DEATH_EV: { //id del jugador, coordenada x, coordenada y (la llegada de este evento tambien implica que se dropean los objetos a la hora de la muerte)
-                this->player_id = htonl(this->player_id);
+                this->player_id = htole32(this->player_id);
                 peer.send((char *)&player_id, sizeof(player_id));
-                this->pos_x = htonl(this->pos_x);
-                this->pos_y = htonl(this->pos_y);
+                this->pos_x = htole32(this->pos_x);
+                this->pos_y = htole32(this->pos_y);
                 peer.send((char *)&pos_x, sizeof(pos_x));
                 peer.send((char *)&pos_y, sizeof(pos_y));
                 break;
