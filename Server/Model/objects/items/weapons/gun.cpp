@@ -5,7 +5,7 @@ Gun::Gun() {
     this->period_blast = GUN_PERIOD_BLAST;
 }
 
-void Gun::attack(int& damage) {
+void Gun::attack(double& distance, int& damage) {
     //segun la distancia y el angulo establezco una proba de precision
     float rd_num = getRandomNumber();
     int precision = 0 ;

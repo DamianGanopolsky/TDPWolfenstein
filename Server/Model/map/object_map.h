@@ -2,9 +2,11 @@
 #define OBJECT_MAP_H_
 
 #include <unordered_map>
+#include <string>
+
 #include "./../objects/object.h"
 
-//#include "./../player/player.h"
+#include "./../player/player.h"
 
 #include "./../objects/items/bullets/bullet.h"
 
@@ -39,8 +41,9 @@
 //#include "./../objects/scene/hidden_objects/secret_passage.h"
 
 class ObjectMap {
+   std::string str = "null";
    std::unordered_map <int, Object*> map;
-   //Player player;
+   Player player;
    Bullet bullet;
    Blood blood;
    Food food;

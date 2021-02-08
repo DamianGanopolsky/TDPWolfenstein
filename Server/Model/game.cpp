@@ -1,10 +1,13 @@
 #include "game.h"
 #include "./../clients_connected.h"
 
+#define MAX_NUM 999999999
 
 Game::Game(ClientsConnected& clients_connected, Id map_id) : 
-                            new_connection_id(0),
-                            clients_connected(clients_connected), 
+                            new_connection_id(1),
+                            players(), players_by_name(),
+                            players_in_map(),
+                            clients_connected(clients_connected),
                             map_id(map_id), map("../Maps/Basic.yaml"),
                             objMap() {
                                 //map.printMatrix();
@@ -64,7 +67,12 @@ void Game::_notifyEvent(const ConnectionId id, const Response& response, EventOp
                 std::cout<<"Game: _notifyEvent, delete_player"<<std::endl;
                 notification = new Event(map_id, event_type, id);
             }
-            case ATTACK_EV:
+            case ATTACK_EV: {
+                std::cout<<"Game: _notifyEvent, attack_ev"<<std::endl;
+                player.getInfo().reduceBullets(2);
+                notification = new Event(map_id, event_type, id, player.isShooting(),
+                                            player.getInfo().getNumBullets());
+            }
             case BE_ATTACKED_EV:
             case RESURRECT_EV:
             case DEATH_EV:
@@ -162,7 +170,7 @@ ItemOpcode Game::_getItemOpcode(std::string message) {
     return CLOSE_DOOR_ITM;
 }
 
-bool Game::_interactWith(Player& player, int** map, Object* obj) {
+bool Game::_interactWith(Player& player, Map map, Object* obj) {
     return true;
 }
 
@@ -173,19 +181,42 @@ bool Game::_getPlayerPosition(Id map_id, int init_x, int init_y, Id new_player_i
 void Game::_attack(const ConnectionId id) {
     int damage = 0;
     Player& player = this->players.at(id);
-    Id target_id = -1;
-    Response response = player.useWeapon(target_id, damage);
+    ConnectionId target_id = 0;
+    std::pair<ConnectionId, double> result = _getTargetAttacked(id);
+    target_id = result.first;
+    double distance = result.second;
+    Response response = player.useWeapon(distance, damage);
     Player& target = this->players.at(target_id);
     if (id == target_id) {
         _notifyEvent(id, Response(false, CANT_ATTACK_ITSELF_ERROR_MSG), ATTACK_EV);
-    } else if ((int)target_id == -1) {
+    } else if (target_id == 0) {
+        //deberian bajarse las balas pero no golpear a nadie????
         _notifyEvent(id, Response(false, CANT_ATTACK_UNKNOWN_ID_ERROR_MSG), ATTACK_EV);
+    } else if (player.getInfo().getNumBullets() == 0) {
+        _notifyEvent(id, Response(false, CANT_ATTACK_WITHOUT_BULLETS_ERROR_MSG), ATTACK_EV);
     } else {
-        _notifyEvent(id, response, ATTACK_EV);
+        _notifyEvent(id, response, ATTACK_EV); 
         if(response.success && target.getState()->canBeAttacked()){
             _notifyEvent(target_id, target.receiveAttack(damage), BE_ATTACKED_EV);
         }
     }
+}
+
+std::pair<ConnectionId, double> Game::_getTargetAttacked(ConnectionId attacker_id) {
+    std::unordered_map<ConnectionId, std::pair<int, int>>::iterator it;
+    std::pair<ConnectionId, double>closer_player =  std::make_pair(0, MAX_NUM);
+    for (it = players_in_map.begin(); it != players_in_map.end(); it++) {
+        if (it->first != attacker_id) {
+            int x = (players_in_map.at(attacker_id).first - it->second.first);
+            int y = (players_in_map.at(attacker_id).second - it->second.second);
+            double distance = sqrt( pow(x, 2) + pow(y, 2) ); 
+            if (distance < closer_player.second) {
+                closer_player.first = it->first;
+                closer_player.second = distance;
+            }
+        }
+    }
+    return closer_player;
 }
 
 void Game::_move(const ConnectionId id) {
@@ -196,11 +227,13 @@ void Game::_move(const ConnectionId id) {
     if (can_move.success && ((can_move.message) !=  NO_ITEM_PICKED_UP_MSG)) {
         std::cout <<"Game: player can move and picked up"<< std::endl;
         player.update();
+        players_in_map.at(id) = std::make_pair(player.getPos().getX(), player.getPos().getY());
         _notifyMovementEvent(id, Response(true, SUCCESS_MSG));
         _notifyItemChanged(id, can_move, _getItemOpcode(can_move.message));
     } else if (can_move.success) {
         std::cout <<"Game: player can move"<< std::endl;
         player.update();
+        players_in_map.at(id) = std::make_pair(player.getPos().getX(), player.getPos().getY());
         std::cout <<"Game: player updated"<< std::endl;
         _notifyMovementEvent(id, Response(true, SUCCESS_MSG));
         std::cout <<"Game: players notified"<< std::endl;
@@ -218,7 +251,9 @@ const ConnectionId Game::newPlayer() {
     //int init_x, init_y;
     //bool has_assigned_position = _getPlayerPosition(map_id, init_x, init_y, new_player_id);
     //if (!has_assigned_position) {
-        //this->maps.setPlayerPosition(map_id, init_x, init_y, new_player_id);
+        //this->map.setPlayerPosition(map_id, init_x, init_y, new_player_id);
+    //} else {
+        //map.setObjectPos(init_x, init_y, MAP_PLAYER);
     //}
     std::string nickname = "hola";
     std::cout <<"Game: adding a new player"<< std::endl;
@@ -227,8 +262,10 @@ const ConnectionId Game::newPlayer() {
                 std::forward_as_tuple(100, 100, 2240, 
                                     2240, nickname, new_player_id));
     std::cout <<"Game: new player added"<< std::endl;
+    map.setObjectPos(100, 100, MAP_PLAYER);
     //de alguna manera me tienen que pasar el nickname
     //this->players_by_name[nickname] = new_player_id;
+    this->players_in_map.emplace(new_player_id, std::make_pair(100, 100));
     return new_player_id;
 
 }

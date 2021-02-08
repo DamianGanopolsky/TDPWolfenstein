@@ -4,6 +4,7 @@
 #include <string>
 #include <iostream>
 
+#include "./../objects/scene/blocking_objects/blocking_object.h"
 #include "./player_info.h"
 #include "./player_position.h"
 #include "./player_state.h"
@@ -11,7 +12,7 @@
 #include "../response.h"
 #include "../constants/config_player.h"
 
-class Player {
+class Player : public BlockingObject {
   Id player_id;
   PlayerPosition pos;
   PlayerInfo info;
@@ -40,7 +41,7 @@ class Player {
     bool isRotating();
     bool isShooting();
     void update();
-    Response useWeapon(Id& id_target, int& damage);
+    Response useWeapon(double& distance, int& damage);
     Response receiveAttack(int& damage);
     Response resurrect();
     Response changeWeapon(Weapon* weapon);

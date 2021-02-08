@@ -37,6 +37,7 @@ enum Rotation {
 #define PLAYER_DIED_MSG "Success: Player died."
 #define CANT_ATTACK_ITSELF_ERROR_MSG "ERROR: Player can't attack itself."
 #define CANT_ATTACK_UNKNOWN_ID_ERROR_MSG "ERROR: Player can't attack an unknown player id."
+#define CANT_ATTACK_WITHOUT_BULLETS_ERROR_MSG "ERROR: Player can't attack without bullets."
 #define CANT_BE_ATTACKED_ERROR_MSG "ERROR: Player can't attack other player."
 #define STATE_CANT_ATTACK_ERROR_MSG "ERROR: Player has a state that doesn't allow him to attack."
 #define STATE_CANT_RESURRECT_ERROR_MSG "ERROR: Player has a state that doesn't allow him to resurrect."

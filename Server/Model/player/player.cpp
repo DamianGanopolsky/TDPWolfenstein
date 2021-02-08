@@ -162,9 +162,9 @@ Response Player::stopShooting() {
     return Response(true, SUCCESS_MSG);
 }
 
-Response Player::useWeapon(Id& id_target, int& damage) {
+Response Player::useWeapon(double& distance, int& damage) {
     //Weapon* weapon = this->getInfo().getWeaponEquiped();
-    //id_target = weapon->attack(damage);
+    //id_target = weapon->attack(distance, damage);
     return Response(true, SUCCESS_MSG);
 }
 

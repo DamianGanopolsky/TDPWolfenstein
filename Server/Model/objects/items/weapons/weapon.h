@@ -9,7 +9,7 @@ class Weapon: public Item {
  public:
    Weapon();
    virtual ~Weapon();
-   virtual void attack(int& damage) = 0;
+   virtual void attack(double& distance, int& damage) = 0;
    virtual int getType() = 0;
    static float getRandomNumber();
 };
