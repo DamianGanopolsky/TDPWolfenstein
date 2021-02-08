@@ -14,6 +14,8 @@ public:
 
     New_Player_Event recv_player();
 
+    New_Player_Event recv_player_func();
+
     
 
 private:
