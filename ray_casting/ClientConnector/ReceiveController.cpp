@@ -17,10 +17,12 @@
 void ReceiveController::update(){
      //POP
      UpdateMessage* updatemessage=recv_queue.pop();
+     //client.render();
      if(!updatemessage){
          //Aca dibujo lo actualizado
          client.render();
      }
+     
      
      //UPDATe
      else{
@@ -73,7 +75,7 @@ void ReceiveController::update(){
                     break;
              }
          }
-         if(updatemessage->get_opcode()==1){
+         if(updatemessage->get_opcode()==ITEM_CHANGED_OPCODE){
              //std::cout << "CHANGE ITEM EVENT" << std::endl;
              switch(updatemessage->get_event_type()){
                 case CLOSE_DOOR_ITM:{
@@ -92,6 +94,38 @@ void ReceiveController::update(){
                     if(int(it_taken.player_id)==player.get_id()){
                         player.add_bullets(it_taken.value);
                     }
+                }
+                case MEDICAL_KIT_TAKEN_ITM:{
+                    Item_taken_event it_taken=updatemessage->get_item_taken();
+                    map.delete_item(it_taken.pos_x,it_taken.pos_y);
+                    if(int(it_taken.player_id)==player.get_id()){
+                        player.change_health(it_taken.value);
+                    }
+                    break;
+                }
+                case FOOD_TAKEN_ITM:{
+                    Item_taken_event it_taken=updatemessage->get_item_taken();
+                    map.delete_item(it_taken.pos_x,it_taken.pos_y);
+                    if(int(it_taken.player_id)==player.get_id()){
+                        player.change_health(it_taken.value);
+                    }
+                    break;
+                }
+                case WEAPON_TAKEN_ITM:{
+                    Item_taken_event it_taken=updatemessage->get_item_taken();
+                    map.delete_item(it_taken.pos_x,it_taken.pos_y);
+                    if(int(it_taken.player_id)==player.get_id()){
+
+                    }
+                    break;
+                }
+                case TREASURE_TAKEN_ITM:{
+                    Item_taken_event it_taken=updatemessage->get_item_taken();
+                    map.delete_item(it_taken.pos_x,it_taken.pos_y);
+                    if(int(it_taken.player_id)==player.get_id()){
+                        player.change_score(it_taken.value);
+                    }
+                    break;
                 }
              }
          }

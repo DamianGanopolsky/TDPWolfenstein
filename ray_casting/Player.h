@@ -25,6 +25,8 @@ public:
 	int get_id();
 	void add_bullets(int bullets);
 	void change_weapon(int weapon);
+	void change_health(int new_health);
+	void change_score(int new_score);
 	void update_position_and_angle(int x,int y,float ANGLE);
 
 private:

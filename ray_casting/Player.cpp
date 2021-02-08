@@ -45,6 +45,14 @@ void Player::add_bullets(int bullets){
 	this->info.ammo = bullets;
 }
 
+void Player::change_health(int new_health){
+	this->info.health=new_health;
+}
+
+void Player::change_score(int new_score){
+	this->info.scores=new_score;
+}
+
 void Player::update_position_and_angle(int X,int Y,float ANGLE){
 	this->pos_x=X;
 	this->pos_y=Y;
