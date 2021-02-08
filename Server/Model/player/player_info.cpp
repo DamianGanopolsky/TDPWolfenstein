@@ -1,14 +1,14 @@
 #include "./player_info.h"
 #include "../constants/config.h"
-#include "../objects/items/weapons/knife.h"
+#include "../objects/items/weapons/gun.h"
 #include <algorithm>
 
-PlayerInfo::PlayerInfo() : life(MAX_LIFE), bullets(0),
+PlayerInfo::PlayerInfo() : life(MAX_LIFE), bullets(8),
                             keys(0), treasure(0), 
                             resurrected(10) {
-                                Knife knife;
-                                this->equiped = &knife;
-                                this->inventory.push_back(&knife);
+                                Gun gun;
+                                this->equiped = &gun;
+                                this->inventory.push_back(&gun);
                             }
 
 PlayerInfo::~PlayerInfo(){}

@@ -49,11 +49,8 @@ void Game::_notifyResponse(const ConnectionId id, const Response& response) {
 }
 void Game::_notifyEvent(const ConnectionId id, const Response& response, EventOpcode event_type) {
     Notification* notification;
-    std::cout<<"Game: _notifyEvent"<<std::endl;
     Player& player = this->players.at(id);
-    std::cout<<"Game: _notifyEvent 1"<<std::endl;
     if (response.success) {
-        std::cout<<"Game: _notifyEvent 2"<<std::endl;
         switch (event_type) {
             case NEW_PLAYER_EV: {
                 std::cout<<"Game: _notifyEvent, new event"<<std::endl;
@@ -179,23 +176,27 @@ bool Game::_getPlayerPosition(Id map_id, int init_x, int init_y, Id new_player_i
 }
 
 void Game::_attack(const ConnectionId id) {
+    std::cout <<"Game: _attack()"<< std::endl;
     int damage = 0;
     Player& player = this->players.at(id);
     ConnectionId target_id = 0;
+    std::cout <<"Game: start _getTargetAttacked"<< std::endl;
     std::pair<ConnectionId, double> result = _getTargetAttacked(id);
+    std::cout <<"Game: end _getTargetAttacked"<< std::endl;
     target_id = result.first;
     double distance = result.second;
+    std::cout <<"Game: start useWeapon"<< std::endl;
     Response response = player.useWeapon(distance, damage);
-    Player& target = this->players.at(target_id);
     if (id == target_id) {
         _notifyEvent(id, Response(false, CANT_ATTACK_ITSELF_ERROR_MSG), ATTACK_EV);
     } else if (target_id == 0) {
         //deberian bajarse las balas pero no golpear a nadie????
-        _notifyEvent(id, Response(false, CANT_ATTACK_UNKNOWN_ID_ERROR_MSG), ATTACK_EV);
+        _notifyEvent(id, Response(true, CANT_ATTACK_UNKNOWN_ID_ERROR_MSG), ATTACK_EV);
     } else if (player.getInfo().getNumBullets() == 0) {
         _notifyEvent(id, Response(false, CANT_ATTACK_WITHOUT_BULLETS_ERROR_MSG), ATTACK_EV);
     } else {
         _notifyEvent(id, response, ATTACK_EV); 
+        Player& target = this->players.at(target_id);
         if(response.success && target.getState()->canBeAttacked()){
             _notifyEvent(target_id, target.receiveAttack(damage), BE_ATTACKED_EV);
         }
@@ -203,10 +204,13 @@ void Game::_attack(const ConnectionId id) {
 }
 
 std::pair<ConnectionId, double> Game::_getTargetAttacked(ConnectionId attacker_id) {
+    std::cout <<"Game: _getTargetAttacked"<< std::endl;
     std::unordered_map<ConnectionId, std::pair<int, int>>::iterator it;
     std::pair<ConnectionId, double>closer_player =  std::make_pair(0, MAX_NUM);
     for (it = players_in_map.begin(); it != players_in_map.end(); it++) {
+        std::cout <<"Game: enter for"<< std::endl;
         if (it->first != attacker_id) {
+            std::cout <<"Game: enter if"<< std::endl;
             int x = (players_in_map.at(attacker_id).first - it->second.first);
             int y = (players_in_map.at(attacker_id).second - it->second.second);
             double distance = sqrt( pow(x, 2) + pow(y, 2) ); 
@@ -302,9 +306,10 @@ void Game::updatePlayers(const int iteration) {
             _notifyMovementEvent(id, Response(true, SUCCESS_MSG));
         }
 
-        /*if (player.isShooting()) {
+        if (player.isShooting()) {
+            std::cout <<"Game: player shoot"<< std::endl;
             _attack(id);
-        }*/
+        }
 
         ++player_it;
     }
