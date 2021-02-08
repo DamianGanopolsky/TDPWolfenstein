@@ -42,7 +42,7 @@ Player_info& Player::get_info() {
 }
 
 void Player::add_bullets(int bullets){
-	this->info.ammo += bullets;
+	this->info.ammo = bullets;
 }
 
 void Player::update_position_and_angle(int X,int Y,float ANGLE){

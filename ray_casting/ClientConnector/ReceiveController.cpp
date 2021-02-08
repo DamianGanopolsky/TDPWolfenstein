@@ -14,11 +14,11 @@
 */
 
 
-bool ReceiveController::start(){
+void ReceiveController::update(){
      //POP
      UpdateMessage* updatemessage=recv_queue.pop();
      if(!updatemessage){
-         //std::cout << "No se popeo nada" << std::endl;
+         //Aca dibujo lo actualizado
          client.render();
      }
      
@@ -95,8 +95,7 @@ bool ReceiveController::start(){
                 }
              }
          }
-     }
-     return false;
-     
+         //client.render();
+     }  
      //DIBUJAR
  }

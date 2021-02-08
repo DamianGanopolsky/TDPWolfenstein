@@ -20,7 +20,7 @@ public:
 
     void ExecuteEvent();
 
-    bool start();
+    void update();
 
 private:
     Player& player;

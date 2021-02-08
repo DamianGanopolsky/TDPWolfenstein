@@ -17,7 +17,7 @@ Player_handler::~Player_handler(){
 
 bool Player_handler::handle() {
 	SDL_Event event;
-	quit=false;
+	quit=true;
 	const Uint8 *state;
 	//bool moving=false;
 	while(SDL_PollEvent(&event)!=0){
@@ -152,7 +152,7 @@ bool Player_handler::handle() {
 						break;
 					case SDLK_ESCAPE:  
 						SendQueue.close();
-						quit=true;
+						quit=false;
 						break;   
 				}
 			case SDL_MOUSEBUTTONUP:

@@ -4,6 +4,7 @@
 #include "ClientConnector/UpdateMessage.h"
 #include "ClientConnector/Command.h"
 #include "../Common/protocol.h"
+#include "ConstantRateLoop_.h"
 
 ClientManager::ClientManager(){
 	if(Mix_OpenAudio(44100,MIX_DEFAULT_FORMAT,2,1024)<0){
@@ -41,15 +42,18 @@ void ClientManager::start(){
 	
 	MusicSoundtrack music;
 	music.play_editor();
-	client.render();
-	receivecontroller.start();
-	bool quit=false;
+	std::cout << "Paso por aca" << std::endl;
+	//client.render();
+	//receivecontroller.update();
+	//ConstantRateLoop_ crl(handler,client,receivecontroller);
+	//crl.run();
 
-    while (!quit) {
+	bool is_running=true;
+
+    while (is_running) {
 		//client.render();
-		quit=receivecontroller.start();    //Recibo eventos y actualizo
-		quit=handler.handle();   //Capturo eventos del cliente y envio
-		//receivecontroller.ExecuteEvent();
+		receivecontroller.update();    //Recibo eventos y actualizo
+		is_running=handler.handle();   //Capturo eventos del cliente y envio
 		
 	}
 	sender.stop();

@@ -71,18 +71,18 @@ New_Player_Event ClientSocket::recv_player(){
 
 void ClientSocket::recv(char* recv_buff,int len){
     int bytes_received=0;
+    
     try{
-        socket.receive(recv_buff,2,bytes_received);
+        //socket.receive(recv_buff,2,bytes_received);
         uint8_t buffer[2];
        // buffer[0]=*recv_buff;
        // buffer[1]=*(recv_buff+1);
         socket.receive((char*)buffer,sizeof(buffer),bytes_received);
+        std::cout << "Empece a recibir" << std::endl;
         std::cout << "OPcode es" << unsigned(buffer[0]) << std::endl;
         std::cout << "Tipo de opcode es" << unsigned(buffer[1]) << std::endl;
         UpdateMessage* update_message = new UpdateMessage(buffer[0],buffer[1]);
-        if(buffer[0]==EVENT_OPCODE){
-            std::cout << "EVENT OPCODE" << std::endl;
-            
+        if(buffer[0]==EVENT_OPCODE){  
             switch(buffer[1]){
 
                 case MOVEMENT_EV:{
@@ -213,10 +213,8 @@ void ClientSocket::recv(char* recv_buff,int len){
                     throw Exception("Unknown item type.");
                     break;
             }
-
-            std::cout << "ITEM CHANGED OPCODE " << std::endl;
         }
-        std::cout << "Termine de recibir" << std::endl;
+        //std::cout << "Termine de recibir" << std::endl;
     }
     catch(...){}
 }
