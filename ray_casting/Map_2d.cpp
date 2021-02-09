@@ -90,8 +90,8 @@ std::list<Game_element> Map_2d::get_game_elements() {
 
 	for (auto const& object : elements_map){
 		
-		Game_element element(object.first.first,\
-		object.first.second,object.second,270,this->player);
+		Game_element element(object.first.first*64,\
+		object.first.second*64,object.second,270,this->player);
 		elements.push_back(std::move(element));
 	}
 	/* ACA RENDERIZO LOS DISTINTOS JUGADORES CON SUS POSICIONES ACTUALIZADAS */

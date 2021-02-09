@@ -12,7 +12,7 @@ Para clonar el repositorio, ejecutar el comando: git clone https://github.com/Da
 Para compilar el codigo y poder obtener los tres ejecutables, es necesario pararse en la raiz del repositorio en la terminal, y ejecutar:  
 - "mkdir build"
 - "cd build"
-- "cmake.."
+- "cmake .."
 - "make"
 
 

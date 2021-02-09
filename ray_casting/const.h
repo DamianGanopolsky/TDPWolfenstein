@@ -10,6 +10,7 @@
 #define ENEMY_WIDTH 64
 
 
+#define CUADRICULA 64
 
 #define SIZE_BOX 64 //Este valor debe ser una potencia de base 2
 #define BIT_OFFSET 6 //Este valor debe ser el Log de base 2 de SIZE_BOX

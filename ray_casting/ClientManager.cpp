@@ -23,7 +23,6 @@ void ClientManager::start(){
 	NonBlockingQueue<UpdateMessage*> recv_queue;
 	ClientSocket clientsock(recv_queue);
 	New_Player_Event player_info=clientsock.recv_player();
-	std::cout << "id:" << player_info.player_id << std::endl;
 	Player player(player_info);
 	Map_2d map(player,"../Maps/Fortified_6.yaml");
 	Panel_window panel(map);
@@ -40,8 +39,6 @@ void ClientManager::start(){
 	
 	MusicSoundtrack music;
 	music.play_editor();
-	//client.render();
-	//receivecontroller.update();
 	//ConstantRateLoop_ crl(handler,client,receivecontroller);
 	//crl.run();
 

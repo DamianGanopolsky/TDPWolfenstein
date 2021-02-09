@@ -7,6 +7,7 @@
 #define AUTOMATIC_GUN 8
 #define BULLETS 9
 #define CHAIN_CANNON 10
+#define CUADRICULA 64
 
 
 MapYamlParser::MapYamlParser(std::string YamlPath):yamlpath(YamlPath){
@@ -31,6 +32,8 @@ std::map<std::pair<int,int>,int> MapYamlParser::load_objects(){
         const YAML::Node& pos = *it;
         map_position.first=pos['x'].as<int>();;
         map_position.second=pos['y'].as<int>();;
+        map_position.first=map_position.first/CUADRICULA;
+        map_position.second=map_position.second/CUADRICULA;
         objects_map.insert({map_position,CHAIN_CANNON});
        /* int num_transformed=Map_Width()*map_position.second+map_position.first;
         objects_map.insert({num_transformed,CHAIN_CANNON});*/
@@ -44,6 +47,8 @@ std::map<std::pair<int,int>,int> MapYamlParser::load_objects(){
         const YAML::Node& pos = *it;
         map_position.first=pos['x'].as<int>();;
         map_position.second=pos['y'].as<int>();;
+        map_position.first=map_position.first/CUADRICULA;
+        map_position.second=map_position.second/CUADRICULA;
         //std::cout << "x de obj a cargar es" << map_position.first << "y es" << map_position.second << std::endl;
         objects_map.insert({map_position,FOOD});
         /*int num_transformed=Map_Width()*map_position.second+map_position.first;
@@ -58,6 +63,8 @@ std::map<std::pair<int,int>,int> MapYamlParser::load_objects(){
         const YAML::Node& pos = *it;
         map_position.first=pos['x'].as<int>();;
         map_position.second=pos['y'].as<int>();;
+        map_position.first=map_position.first/CUADRICULA;
+        map_position.second=map_position.second/CUADRICULA;
         objects_map.insert({map_position,MEDICAL_KIT});
     }
     
@@ -72,6 +79,8 @@ std::map<std::pair<int,int>,int> MapYamlParser::load_objects(){
         const YAML::Node& pos = *it;
         map_position.first=pos['x'].as<int>();;
         map_position.second=pos['y'].as<int>();;
+        map_position.first=map_position.first/CUADRICULA;
+        map_position.second=map_position.second/CUADRICULA;
         objects_map.insert({map_position,AUTOMATIC_GUN});
     }
 
@@ -84,6 +93,8 @@ std::map<std::pair<int,int>,int> MapYamlParser::load_objects(){
         const YAML::Node& pos = *it;
         map_position.first=pos['x'].as<int>();;
         map_position.second=pos['y'].as<int>();;
+        map_position.first=map_position.first/CUADRICULA;
+        map_position.second=map_position.second/CUADRICULA;
         objects_map.insert({map_position,TREASURE});
     }
 
@@ -93,6 +104,8 @@ std::map<std::pair<int,int>,int> MapYamlParser::load_objects(){
         const YAML::Node& pos = *it;
         map_position.first=pos['x'].as<int>();;
         map_position.second=pos['y'].as<int>();;
+        map_position.first=map_position.first/CUADRICULA;
+        map_position.second=map_position.second/CUADRICULA;
         objects_map.insert({map_position,BULLETS});
     }
 
@@ -103,6 +116,8 @@ std::map<std::pair<int,int>,int> MapYamlParser::load_objects(){
         const YAML::Node& pos = *it;
         map_position.first=pos['x'].as<int>();;
         map_position.second=pos['y'].as<int>();;
+        map_position.first=map_position.first/CUADRICULA;
+        map_position.second=map_position.second/CUADRICULA;
         objects_map.insert({map_position,KEY});
     }
     return objects_map;
