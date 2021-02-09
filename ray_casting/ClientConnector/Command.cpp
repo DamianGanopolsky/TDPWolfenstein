@@ -2,9 +2,6 @@
 #include <iostream>
 
 Command::Command(uint8_t event_to_command):opcode(1),command_opcode(event_to_command){
-    //opcode=event_to_command;
-    //std::cout << "Event to command es" << unsigned(event_to_command) << std::endl;
-    //std::cout << "OPcode aca es" << opcode << std::endl;
 }
 
 Command::Command(const Command& other) {

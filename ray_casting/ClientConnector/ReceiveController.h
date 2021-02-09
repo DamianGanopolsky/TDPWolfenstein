@@ -16,15 +16,10 @@ public:
      RECV_QUEUE,Client& CLIENT):player(Player),map(MAP),recv_queue(RECV_QUEUE),client(CLIENT){
     }
 
-    //void InitializeClient(New_Player_Event& my_player);
-
-    void ExecuteEvent();
-
     void update();
 
 private:
     Player& player;
-    //Player& player_;
     Map_2d& map;
     NonBlockingQueue<UpdateMessage*>& recv_queue;
     Client& client;

@@ -147,9 +147,6 @@ bool Player_handler::handle() {
 						//std::cout << "Notifico al server que quiero cambiar a chain_cannon" << std::endl;
 						break;
 					}
-					case SDLK_7:
-						this->map.update_player_pos(2,400,400,200,0);
-						break;
 					case SDLK_ESCAPE:  
 						SendQueue.close();
 						quit=false;
@@ -159,9 +156,6 @@ bool Player_handler::handle() {
 				if(event.button.button==SDL_BUTTON_RIGHT){
 					Command* command = new Command(OPEN_DOOR_CMD);
 					SendQueue.push(std::move(command));
-					//map.open_door(171);
-                    //std::cout << "Notifico al server que intente abrir una puerta en x:
-					//<< event.button.x << "en y:" << event.button.y << std::endl;
                 }
 				break;
 

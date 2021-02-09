@@ -4,7 +4,7 @@
 #include <stdint.h>
 
 void Sender::stop(){
-    std::cout << "Stopie" << std::endl;
+    //std::cout << "Stopie" << std::endl;
     sending=false;
 }
 
@@ -14,7 +14,7 @@ void Sender::run(){
             Command* command=SendQueue.pop();
             if(command){
                 clientsocket->send(command->get_opcode());
-                std::cout << "Opcode popeado:" << unsigned(command->get_opcode()) << std::endl;
+                //std::cout << "Opcode popeado:" << unsigned(command->get_opcode()) << std::endl;
             }
         }
         catch(...){}

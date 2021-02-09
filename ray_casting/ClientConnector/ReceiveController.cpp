@@ -1,19 +1,6 @@
  #include "ReceiveController.h"
 
 
-
-
- void ReceiveController::ExecuteEvent(){
-     //player.move_right();
- }
-/*
- void ReceiveController::InitializeClient(New_Player_Event& my_player){
-     std::cout << "El id de mi  player es" << my_player.player_id << std::endl;
-     player(my_player.pos_x,my_player.pos_y,my_player.angle);
- }
-*/
-
-
 void ReceiveController::update(){
      //POP
      UpdateMessage* updatemessage=recv_queue.pop();
@@ -89,11 +76,16 @@ void ReceiveController::update(){
                     break;
                 }
                 case BULLETS_TAKEN_ITM:{
+                    std::cout << "BULLETS TAKEN" << std::endl;
+                    
                     Item_taken_event it_taken=updatemessage->get_item_taken();
+                    std::cout << "Value es" << it_taken.value << std::endl;
+                    std::cout << "Pos x es :" << it_taken.pos_x << "Pos y es: " << it_taken.pos_y << std::endl;
                     map.delete_item(it_taken.pos_x,it_taken.pos_y);
                     if(int(it_taken.player_id)==player.get_id()){
                         player.add_bullets(it_taken.value);
                     }
+                    break;
                 }
                 case MEDICAL_KIT_TAKEN_ITM:{
                     Item_taken_event it_taken=updatemessage->get_item_taken();
