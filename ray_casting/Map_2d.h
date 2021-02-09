@@ -55,6 +55,7 @@ private:
 	//POSICION DEL PLAYER
 	//Cada cuadricula tiene 64x64 posiciones
 	Player& player; 
+	std::string YamlMap;
 
 	int get_type_id(int weapon,int is_shooting);
 };

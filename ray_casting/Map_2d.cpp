@@ -4,7 +4,7 @@
 #include <string>
 
 
-Map_2d::Map_2d(Player& player,std::string YamlPathToMap) : player(player) {
+Map_2d::Map_2d(Player& player,std::string YamlPathToMap) : player(player),YamlMap(YamlPathToMap) {
 
 	MapYamlParser mapyamlparser(YamlPathToMap);
 	map_width=mapyamlparser.Map_Width();
@@ -38,7 +38,7 @@ std::set<Ray> Map_2d::get_player_rays() {
 	for (int i = 0; i < PANEL_WIDTH; i++) {
 		float shotter_angle = angle < 0.0 ? 360 + angle : angle;
 		shotter_angle = shotter_angle >= 360.0 ? shotter_angle - 360.0 : shotter_angle;
-		Ray_shotter shotter(this->boxes, shotter_angle, i);
+		Ray_shotter shotter(this->boxes, shotter_angle, i,map_height,map_width);
 		int pos_x = this->player.get_pos_x();
 		int pos_y = this->player.get_pos_y();
 		Ray ray = shotter.shoot(pos_x, pos_y);

@@ -2,15 +2,20 @@
 #include <utility>
 #include <math.h>
 #include <iostream>
+#include "Yaml/MapYamlParser.h"
 
 #define PI 3.14159265
 #define RAY_NO_VALID -1
 
 
-Ray_shotter::Ray_shotter(std::map<int, bool>& game_map, const float angle, const int number) :
-						game_map(game_map), angle(angle), number(number) {
+Ray_shotter::Ray_shotter(std::map<int, bool>& game_map, const float angle,\
+ const int number,int height,int width) : game_map(game_map), angle(angle), number(number),\
+  map_height(height),map_width(width){
 	//std::cout << "---------------"  << std::endl; 
-	//std::cout << "Ray Number: " << number << std::endl; 
+	//std::cout << "Ray Number: " << number << std::endl;
+	//MapYamlParser mapyamlparser(Yaml);
+	//map_width=mapyamlparser.Map_Width();
+	//map_height=mapyamlparser.Map_Height(); 
 }
 
 Ray_shotter::~Ray_shotter() {
@@ -95,9 +100,9 @@ int Ray_shotter::get_point(const int point_x, const int point_y) {
 	if (point_x < 0 || point_y < 0) {
 		return RAY_NO_VALID;
 	}
-	return (point_y >> BIT_OFFSET) * WIDTH_GAME_MAP + (point_x >> BIT_OFFSET);
+	return (point_y >> BIT_OFFSET) * map_width + (point_x >> BIT_OFFSET);
 }
 
 bool Ray_shotter::valid_point(int point) const {
-	return point < WIDTH_GAME_MAP * HEIGTH_GAME_MAP && point >= 0;
+	return point < map_width * map_height && point >= 0;
 }

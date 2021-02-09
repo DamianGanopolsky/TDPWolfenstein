@@ -14,7 +14,7 @@ public:
 	64x64 (pueden ser cambiados). También supone que si una cuadricula 
 	está asociada con false, entonces está bloqueda. 
 	*/
-	Ray_shotter(std::map<int, bool>& game_map, const float angle, const int number);
+	Ray_shotter(std::map<int, bool>& game_map, const float angle, const int number,int height,int width);
 	~Ray_shotter();
 
 	/*
@@ -27,6 +27,8 @@ private:
 	std::map<int, bool>& game_map;
 	const float angle;
 	const int number;
+	int map_height;
+	int map_width;
 
 	//Análogo a Ray_shotter::shoot pero solo impacta de forma vertical
 	Ray shoot_by_y(const int pos_x, const int pos_y);
