@@ -1,7 +1,7 @@
 # Manual de Usuario
 
 ## Instalación
-
+Se deben instalar las siguientes librerias para que pueda funcionar el juego:  
 - SDL2: sudo apt-get install libsdl2-dev  
 - SDL MIXER: sudo apt-get install libsdl2-mixer-dev  
 - SDL TTF: sudo apt-get install libsdl2-ttf-dev  

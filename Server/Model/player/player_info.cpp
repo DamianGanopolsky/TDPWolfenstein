@@ -5,7 +5,7 @@
 #include <algorithm>
 #include <iostream>
 
-PlayerInfo::PlayerInfo() : life(MAX_LIFE), bullets(8),
+PlayerInfo::PlayerInfo() : life(50), bullets(8),
                             keys(0), treasure(0), 
                             resurrected(10) {
                                 Gun gun;
@@ -41,23 +41,23 @@ Weapon* PlayerInfo::getWeaponEquiped() {
     return this->equiped;
 }
 
-void PlayerInfo::reduceLife(int life) {
-    this->life -= life;
+void PlayerInfo::reduceLife(int item_life) {
+    this->life -= item_life;
     this->life = (this->life < 0) ? 0 : this->life;
 }
 
-void PlayerInfo::reduceBullets(int bullets) {
-    this->bullets -= bullets;
+void PlayerInfo::reduceBullets(int item_bullets) {
+    this->bullets -= item_bullets;
     this->bullets = (this->bullets < 0) ? 0 : this->bullets;
 }
 
-void PlayerInfo::reduceNumKeys(int key) {
-    this->keys -= key;
+void PlayerInfo::reduceNumKeys(int item_key) {
+    this->keys -= item_key;
     this->keys = (this->keys < 0) ? 0 : this->keys;
 }
 
-void PlayerInfo::reduceTreasure(int treasure) {
-    this->treasure -= treasure;
+void PlayerInfo::reduceTreasure(int item_treasure) {
+    this->treasure -= item_treasure;
     this->treasure = (this->treasure < 0) ? 0 : this->treasure;
 }
 
@@ -65,22 +65,22 @@ void PlayerInfo::changeWeaponEquiped(Weapon* &weapon) {
     this->equiped = weapon;
 }
 
-void PlayerInfo::addLife(int life) {
-    this->life += life;
+void PlayerInfo::addLife(int item_life) {
+    this->life += item_life;
     this->life = (this->life > MAX_LIFE) ? MAX_LIFE : this->life;
 }
 
-void PlayerInfo::addBullets(int bullets) {
-    this->bullets += bullets;
+void PlayerInfo::addBullets(int item_bullets) {
+    this->bullets += item_bullets;
     this->bullets = (this->bullets > MAX_BULLETS) ? MAX_BULLETS : this->bullets;
 }
 
-void PlayerInfo::addNumKeys(int key) {
-    this->keys += key;
+void PlayerInfo::addNumKeys(int item_key) {
+    this->keys += item_key;
 }
 
-void PlayerInfo::addTreasure(int treasure) {
-    this->treasure = this->treasure + treasure;
+void PlayerInfo::addTreasure(int item_treasure) {
+    this->treasure += item_treasure;
 }
 
 void PlayerInfo::addNumResurrection() {
