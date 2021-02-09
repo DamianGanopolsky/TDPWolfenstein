@@ -32,6 +32,7 @@ class Game {
     void _notifyResponse(const ConnectionId id, const Response& response);
     void _notifyItemChanged(const ConnectionId id, const Response& response, ItemOpcode item_type);
     void _notifyMovementEvent(const ConnectionId id, const Response& response);
+    void _notifyChangeWeaponEvent(const ConnectionId id, const Response& response, int weapon);
     Response _canMove(Map& map, Player& player, std::pair<int, int> next_pos);
     bool _changeCell(PlayerPosition &pos, std::pair<int, int> &next_pos);
     //ItemOpcode _getItemOpcode(const char* message); ///falta implmentar
@@ -68,7 +69,7 @@ class Game {
         void startShooting(const ConnectionId id);
         void stopShooting(const ConnectionId id);
         void openDoor(const ConnectionId id);
-        void changeWeapon(const ConnectionId id, Weapon* weapon);
+        void changeWeapon(const ConnectionId id, int& weapon);
         void receiveAttack(const ConnectionId, int& damage);
 
 

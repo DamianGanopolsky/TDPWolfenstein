@@ -11,6 +11,10 @@
 #include "../../../Common/defs.h"
 #include "../response.h"
 #include "../constants/config_player.h"
+#include "./../objects/items/weapons/knife.h"
+#include "./../objects/items/weapons/gun.h"
+#include "./../objects/items/weapons/machine_gun.h"
+#include "./../objects/items/weapons/chain_cannon.h"
 
 class Player : public BlockingObject {
   Id player_id;
@@ -22,6 +26,10 @@ class Player : public BlockingObject {
   bool moving;
   bool rotating;
   bool shooting;
+  Knife* knife;
+  Gun* gun;
+  MachineGun* machine_gun;
+  ChainCannon* chain_cannon;
   void _die();
 
 public:
@@ -44,7 +52,7 @@ public:
     Response useWeapon(double& distance, int& damage);
     Response receiveAttack(int& damage);
     Response resurrect();
-    Response changeWeapon(Weapon* weapon);
+    Response changeWeapon(int& weapon);
     Response startMovingUp();
     Response startMovingDown();
     Response startMovingLeft();

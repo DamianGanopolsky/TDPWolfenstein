@@ -5,9 +5,9 @@
 #include "../Model/objects/items/weapons/weapon.h"
 
 class CommandChangeWeapon : public Command {
-    Weapon* weapon;
+    int weapon;
     public:
-        CommandChangeWeapon(ConnectionId id_caller, Weapon& weapon);
+        CommandChangeWeapon(ConnectionId id_caller, int weapon);
         ~CommandChangeWeapon();
         void run(Game& game) override;
 };

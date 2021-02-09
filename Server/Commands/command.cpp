@@ -14,11 +14,6 @@
 #include "./command_open_door.h"
 #include "./command_change_weapon.h"
 
-#include "./../Model/objects/items/weapons/knife.h"
-#include "./../Model/objects/items/weapons/gun.h"
-#include "./../Model/objects/items/weapons/machine_gun.h"
-#include "./../Model/objects/items/weapons/chain_cannon.h"
-
 Command::Command(const ConnectionId id_caller) : id_caller(id_caller) {}
 
 Command::~Command() {}
@@ -63,20 +58,17 @@ Command* Command::newCommand(ConnectionId id_caller, uint8_t opcode, Socket& soc
             return new CommandOpenDoor(id_caller);
         }
         case CHANGE_WEAPON_TO_KNIFE_CMD: {
-            Knife weapon;
-            return new CommandChangeWeapon(id_caller, weapon);
+            return new CommandChangeWeapon(id_caller, KNIFE_TYPE);
         }
         case CHANGE_WEAPON_TO_GUN_CMD: {
-            Gun weapon;
-            return new CommandChangeWeapon(id_caller, weapon);
+            return new CommandChangeWeapon(id_caller, GUN_TYPE);
         }
         case CHANGE_WEAPON_TO_MACHINE_GUN_CMD: {
             MachineGun weapon;
-            return new CommandChangeWeapon(id_caller, weapon);
+            return new CommandChangeWeapon(id_caller, MACHINE_GUN_TYPE);
         }
         case CHANGE_WEAPON_TO_CHAIN_CANNON_CMD: {
-            ChainCannon weapon;
-            return new CommandChangeWeapon(id_caller, weapon);
+            return new CommandChangeWeapon(id_caller, CHAIN_CANNON_TYPE);
         }
         default: {
             throw Exception("Error: Server received an unknown command.");

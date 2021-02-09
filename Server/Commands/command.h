@@ -7,6 +7,10 @@
 #include "../../Common/protocol.h"
 
 class Command {
+    Knife knife;
+    Gun gun;
+    MachineGun machine_gun;
+    ChainCannon chain_cannon;
     protected:
         const ConnectionId id_caller;
     

@@ -32,6 +32,21 @@ void Game::_notifyMovementEvent(const ConnectionId id, const Response& response)
     } 
 }
 
+void Game::_notifyChangeWeaponEvent(const ConnectionId id, const Response& response, int weapon) {
+    std::cout <<"Game: _notifyChangeWeaponEvent()"<< std::endl;
+    Notification* notification;
+    Player& player = this->players.at(id);
+    if (response.success) {
+        notification = new Event(map_id, CHANGE_WEAPON_EV, id, 
+                                player.isShooting(), weapon);
+        //std::cout <<"Game: send event to all"<< std::endl;
+        this->clients_connected.sendEventToAll(notification);
+    } else {
+        notification = new Message(ERROR_MSSG, response.message);
+        this->clients_connected.sendMessageToAll(notification);
+    } 
+}
+
 void Game::_notifyResponse(const ConnectionId id, const Response& response) {
     if(response.success){
         this->clients_connected.sendMessageToAll(new Message(SUCCESS_MSSG, response.message));
@@ -67,18 +82,12 @@ void Game::_notifyEvent(const ConnectionId id, const Response& response, EventOp
                 notification = new Event(map_id, event_type, id, player.getInfo().getLife());
                 break;
             }
-            case CHANGE_WEAPON_EV:{
-                std::cout<<"Game: _notifyEvent, change_weapon_ev"<<std::endl;
-                notification = new Event(map_id, event_type, id, player.isShooting(),
-                                            player.getInfo().getWeaponEquiped()->getType());
-                std::cout<<"Game: change_weapon_ev end"<<std::endl;
-                break;
-            }
             case DEATH_EV: {
                 std::cout<<"Game: _notifyEvent, death_event"<<std::endl;
                 notification = new Event(map_id, event_type, id, player.getPos().getX(), player.getPos().getY());
                 break;
             }
+            case CHANGE_WEAPON_EV:
             case MOVEMENT_EV:{
                 break;
             }
@@ -90,7 +99,7 @@ void Game::_notifyEvent(const ConnectionId id, const Response& response, EventOp
         notification = new Message(ERROR_MSSG, response.message);
         this->clients_connected.sendMessageToAll(notification);
     } 
-    player.getInfo();
+    //player.getInfo();
 }
 
 void Game::_notifyItemChanged(const ConnectionId id, const Response& response, ItemOpcode item_type) {
@@ -404,18 +413,18 @@ void Game::openDoor(const ConnectionId id) {
     }*/
 }
 
-void Game::changeWeapon(const ConnectionId id, Weapon* weapon) {
-    /*std::cout <<"Game:change_weapon"<< std::endl;
+void Game::changeWeapon(const ConnectionId id, int& weapon) {
+    std::cout <<"Game:change_weapon"<< std::endl;
     Player& player = this->players.at(id);
     if (!player.getInfo().hasWeapon(weapon)) {
         std::cout <<"Game: not in inventory"<< std::endl;
-        _notifyEvent(id, Response(false, NO_WEAPON_IN_INVENTORY_ERROR_MSG), CHANGE_WEAPON_EV);
+        _notifyChangeWeaponEvent(id, Response(false, NO_WEAPON_IN_INVENTORY_ERROR_MSG), weapon);
     } else {
         std::cout <<"Game: in inventory"<< std::endl;
         player.changeWeapon(weapon);
         std::cout <<"Game: changed weapon"<< std::endl;
-        _notifyEvent(id, Response(true, SUCCESS_MSG), CHANGE_WEAPON_EV);
-    }*/
+        _notifyChangeWeaponEvent(id, Response(true, SUCCESS_MSG), weapon);
+    }
 }
 
 void Game::receiveAttack(const ConnectionId id, int& damage) {

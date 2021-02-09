@@ -1,6 +1,6 @@
 #include "command_change_weapon.h"
 
-CommandChangeWeapon::CommandChangeWeapon(ConnectionId id_caller, Weapon& weapon) : Command(id_caller), weapon(&weapon) {}
+CommandChangeWeapon::CommandChangeWeapon(ConnectionId id_caller,int weapon) : Command(id_caller), weapon(weapon) {}
 
 CommandChangeWeapon::~CommandChangeWeapon() {}
 

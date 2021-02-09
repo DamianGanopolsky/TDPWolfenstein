@@ -14,7 +14,7 @@ class PlayerInfo {
       int treasure;
       int resurrected;
       Weapon* equiped;
-      std::unordered_map <int, Weapon*> inventory;
+      std::list <int> inventory;
    
    public:
       explicit PlayerInfo();
@@ -34,11 +34,11 @@ class PlayerInfo {
       void reduceBullets(int bullets);
       void reduceNumKeys(int key);
       void reduceTreasure(int treasure);*/
-      void changeWeaponEquiped(Weapon* &weapon);
+      //void changeWeaponEquiped(Weapon* &weapon);
       
-      std::unordered_map <int, Weapon*>getInventory();
-      void addInventory(Weapon* &weapon);
-      bool hasWeapon(Weapon* &weapon);
+      std::list <int>getInventory();
+      void addInventory(int& weapon);
+      bool hasWeapon(int& weapon);
 };
 
 #endif    // PLAYER_INFO_H_

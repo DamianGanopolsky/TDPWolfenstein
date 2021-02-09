@@ -131,8 +131,7 @@ bool Event::send(const ConnectionId sender, const Socket& peer) {
                 peer.send((char *)&player_id, sizeof(player_id));
                 break;
             }
-            case ATTACK_EV:
-             {
+            case ATTACK_EV: {
                 this->player_id = htole32(this->player_id);
                 peer.send((char *)&player_id, sizeof(player_id));
                 //peer.send((char *)&is_shoting, sizeof(is_shoting));
@@ -142,6 +141,8 @@ bool Event::send(const ConnectionId sender, const Socket& peer) {
             }
             case BE_ATTACKED_EV:
             case CHANGE_WEAPON_EV: { //id del jugador, value
+                std::cout << "player_id es: " << player_id <<std::endl;
+                std::cout << "value es: " << value <<std::endl;
                 this->player_id = htole32(this->player_id);
                 peer.send((char *)&player_id, sizeof(player_id));
                 this->value = htole32(this->value);

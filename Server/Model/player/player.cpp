@@ -189,9 +189,28 @@ Response Player::resurrect() {
     //poner todos los valores iniciales de vida, balas, etc
 }
 
-Response Player::changeWeapon(Weapon* weapon) {
+Response Player::changeWeapon(int& weapon) {
     if(this->info.hasWeapon(weapon)){
-        this->info.changeWeaponEquiped(weapon);
+        switch (weapon) {
+        case KNIFE_TYPE: {
+            this->info.equiped = this->knife;
+            break;
+        }
+        case GUN_TYPE: {
+            this->info.equiped = this->gun;
+            break;
+        }
+        case MACHINE_GUN_TYPE: {
+            this->info.equiped = this->machine_gun;
+            break;
+        }
+        case CHAIN_CANNON_TYPE: {
+            this->info.equiped = this->chain_cannon;
+            break;
+        }
+        default:
+            break;
+        }
         return Response(true, SUCCESS_MSG);
     }
     return Response(false, NO_WEAPON_IN_INVENTORY_ERROR_MSG);
