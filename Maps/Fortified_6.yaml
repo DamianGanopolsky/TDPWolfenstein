@@ -214,10 +214,6 @@ Map:
         y: 1920
       - x: 1088
         y: 768
-  Key:
-    position:
-      - x: 768
-        y: 448
   Red_Wall:
     position:
       - x: 0

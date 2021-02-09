@@ -77,8 +77,8 @@ void ReceiveController::update(){
                 }
                 case BULLETS_TAKEN_ITM:{
                     Item_taken_event it_taken=updatemessage->get_item_taken();
-                    std::cout << "Pos x es :" << it_taken.pos_x << "Pos y es: " << it_taken.pos_y << std::endl;
-                    map.delete_item(it_taken.pos_x/64,it_taken.pos_y/64);
+                    //std::cout << "Pos x es :" << it_taken.pos_x << "Pos y es: " << it_taken.pos_y << std::endl;
+                    map.delete_item(it_taken.pos_x,it_taken.pos_y);
                     if(int(it_taken.player_id)==player.get_id()){
                         player.add_bullets(it_taken.value);
                     }
@@ -86,7 +86,7 @@ void ReceiveController::update(){
                 }
                 case MEDICAL_KIT_TAKEN_ITM:{
                     Item_taken_event it_taken=updatemessage->get_item_taken();
-                    map.delete_item(it_taken.pos_x/64,it_taken.pos_y/64);
+                    map.delete_item(it_taken.pos_x,it_taken.pos_y);
                     if(int(it_taken.player_id)==player.get_id()){
                         player.change_health(it_taken.value);
                     }
@@ -102,7 +102,7 @@ void ReceiveController::update(){
                 }
                 case WEAPON_TAKEN_ITM:{
                     Item_taken_event it_taken=updatemessage->get_item_taken();
-                    map.delete_item(it_taken.pos_x/64,it_taken.pos_y/64);
+                    map.delete_item(it_taken.pos_x,it_taken.pos_y);
                     if(int(it_taken.player_id)==player.get_id()){
 
                     }
@@ -113,8 +113,8 @@ void ReceiveController::update(){
                     
                     Item_taken_event it_taken=updatemessage->get_item_taken();
                     
-                    std::cout << "Cuadricula x es" << it_taken.pos_x/64 << "Cuadricula y es" << it_taken.pos_y/64 << std::endl;
-                    map.delete_item(it_taken.pos_x/64,it_taken.pos_y/64);
+                    std::cout << "Cuadricula x es" << it_taken.pos_x << "Cuadricula y es" << it_taken.pos_y << std::endl;
+                    map.delete_item(it_taken.pos_x,it_taken.pos_y);
                     if(int(it_taken.player_id)==player.get_id()){
                         player.change_score(it_taken.value);
                     }
