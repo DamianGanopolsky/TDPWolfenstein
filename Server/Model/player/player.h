@@ -8,7 +8,7 @@
 #include "./player_info.h"
 #include "./player_position.h"
 #include "./player_state.h"
-#include "./def.h"
+#include "../../../Common/defs.h"
 #include "../response.h"
 #include "../constants/config_player.h"
 

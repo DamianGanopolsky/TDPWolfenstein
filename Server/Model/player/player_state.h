@@ -3,7 +3,7 @@
 
 #include "./player_info.h"
 #include "../constants/config.h"
-#include "./def.h"
+#include "../../../Common/defs.h"
 #include "../constants/config_player.h"
 
 class State {

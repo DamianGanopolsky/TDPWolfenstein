@@ -20,7 +20,7 @@ enum Items {
 #define BLOOD_POINTS 1
 #define BLOOD_MINIMUN_TO_HEAL 11
 #define FOOD_POINTS 10
-#define MAX_LIFE 20
+#define MAX_LIFE 100
 
 // weapons:
 
@@ -65,7 +65,7 @@ enum Items {
 
 // bullets
 #define NUM_BULLETS_PICKED_UP 5
-#define MAX_BULLETS 10 // config
+#define MAX_BULLETS 100 // config
 
 // Inition pos
 #define PLAYER_INITIAL_POS_X 0 // config

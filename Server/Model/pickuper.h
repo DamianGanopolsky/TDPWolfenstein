@@ -17,7 +17,7 @@ class PickUp {
  public:
     PickUp();
     ~PickUp();
-    int pickUp(PlayerInfo &info, Item* item);
+    int pickUp(Player& player, Item* item);
     // bullets:
     /*int pickUp(PlayerInfo &info, Bullet &item);
     // healers:

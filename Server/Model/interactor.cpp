@@ -36,9 +36,8 @@ Response Interact::interactWith(Player &player, Map& map, Object* object) {
         return Response(false, NO_ITEM_PICKED_UP_MSG);
     } else if (object->isItem()) {
         std::cout <<"Interact: is item"<< std::endl;
-        PlayerInfo pi = player.getInfo();
         PickUp pickuper;
-        int is_picked_up = pickuper.pickUp(pi, object->getItem());
+        int is_picked_up = pickuper.pickUp(player, object->getItem());
         if (is_picked_up != NO_ITEM_PICKED_UP) {
             std::cout <<"Interact: success picking up"<< std::endl;
             PlayerPosition pos = player.getPos();
