@@ -58,7 +58,7 @@ void Game::_notifyEvent(const ConnectionId id, const Response& response, EventOp
             }
             case ATTACK_EV: {
                 std::cout<<"Game: _notifyEvent, attack_ev"<<std::endl;
-                player.getInfo().reduceBullets(2);
+                player.reduceBullets(1);
                 notification = new Event(map_id, event_type, id, player.isShooting(),
                                             player.getInfo().getNumBullets());
             }

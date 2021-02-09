@@ -15,7 +15,7 @@ ItemChanged::ItemChanged(const Id map, ItemOpcode item_type, Id player_id,
                         player_id(player_id),
                         pos_x(pos_x),
                         pos_y(pos_y), 
-                        value(value) {}
+                        value((uint32_t)value) {}
 
 ItemChanged::~ItemChanged() {}
         
@@ -65,11 +65,12 @@ bool ItemChanged::send(const ConnectionId sender, const Socket& peer) {
                 std::cout<<"player_id: "<<player_id<<std::endl;
                 std::cout<<"pos x: "<<pos_x<<std::endl;
                 std::cout<<"pos y: "<<pos_y<<std::endl;
-                std::cout<<"value: "<<unsigned(value)<<std::endl;
+                std::cout<<"value: "<<value<<std::endl;
                 this->player_id = htole32(this->player_id);
                 peer.send((char *)&player_id, sizeof(player_id));
                 this->pos_x = htole32(this->pos_x);
                 this->pos_y = htole32(this->pos_y);
+                this->value = htole32(this->value);
                 peer.send((char *)&pos_x, sizeof(pos_x));
                 peer.send((char *)&pos_y, sizeof(pos_y));
                 peer.send((char *)&value, sizeof(value));

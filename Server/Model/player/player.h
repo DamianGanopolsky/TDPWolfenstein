@@ -24,8 +24,8 @@ class Player : public BlockingObject {
   bool shooting;
   void _die();
 
-  public:
-    Player(int pos_x, int pos_y, int width, 
+public:
+      Player(int pos_x, int pos_y, int width, 
           int height, std::string& nickname, 
           Id id_player);
     Player(int width, int height, 
@@ -55,6 +55,16 @@ class Player : public BlockingObject {
     Response stopRotating();
     Response startShooting();
     Response stopShooting();
+    void addLife(int life);
+    void addBullets(int bullets);
+    void addNumKeys(int key);
+    void addTreasure(int treasure);
+    void addNumResurrection();
+    void reduceLife(int life);
+    void reduceBullets(int bullets);
+    void reduceNumKeys(int key);
+    void reduceTreasure(int treasure);
+    //void changeWeaponEquiped(Weapon* &weapon);
 };
 
 #endif   // PLAYER_H

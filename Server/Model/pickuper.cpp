@@ -10,8 +10,8 @@ int PickUp::pickUp(Player& player, Item* item) {
         case BULLETS: {
             std::cout <<"BULLETS!"<<std::endl;
             if (player.getInfo().getNumBullets() < MAX_BULLETS) {
-                player.getInfo().addBullets(item->getBullets());
-                std::cout <<"cant bullets: "<<player.getInfo().getNumBullets()<<std::endl;
+                player.addBullets(item->getBullets());
+                std::cout <<player.getInfo().getNumBullets()<<std::endl;
                 return BULLETS_TAKEN_ITM;
             }
             return NO_ITEM_PICKED_UP;
@@ -19,7 +19,7 @@ int PickUp::pickUp(Player& player, Item* item) {
         case FOOD: {
             std::cout <<"FOOD!"<<std::endl;
             if (player.getInfo().getLife() < MAX_LIFE) {
-                player.getInfo().addLife(item->heal());
+                player.addLife(item->heal());
                 return FOOD_TAKEN_ITM;
             }
             return NO_ITEM_PICKED_UP;
@@ -27,7 +27,7 @@ int PickUp::pickUp(Player& player, Item* item) {
         case KIT: {
             std::cout <<"KIT!"<<std::endl;
             if (player.getInfo().getLife() < MAX_LIFE) {
-                player.getInfo().addLife(item->heal());
+                player.addLife(item->heal());
                 return MEDICAL_KIT_TAKEN_ITM;
             }
             return NO_ITEM_PICKED_UP;
@@ -35,20 +35,20 @@ int PickUp::pickUp(Player& player, Item* item) {
         case BLOOD: {
             std::cout <<"BLOOD!"<<std::endl;
             if (player.getInfo().getLife() < BLOOD_MINIMUN_TO_HEAL) {
-                player.getInfo().addLife(item->heal());
+                player.addLife(item->heal());
                 return BLOOD_TAKEN_ITM;
             }
             return NO_ITEM_PICKED_UP;
         }
         case KEY: {
             std::cout <<"KEY!"<<std::endl;
-            player.getInfo().addNumKeys(1);
+            player.addNumKeys(1);
             return KEY_TAKEN_ITM;
         }
         case TREASURE: {
             std::cout <<"TREASURE!"<<std::endl;
             std::cout <<"Points: "<< item->getPoints() <<std::endl;
-            player.getInfo().addTreasure(item->getPoints());
+            player.addTreasure(item->getPoints());
             return TREASURE_TAKEN_ITM;
         }
         case WEAPON: {

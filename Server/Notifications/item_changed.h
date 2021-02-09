@@ -11,7 +11,7 @@ class ItemChanged : public Notification {
     Id player_id;
     uint32_t pos_x;
     uint32_t pos_y;
-    int value;
+    uint32_t value;
 
     public:
         ItemChanged(const Id map, ItemOpcode item_type, Id player_id, 

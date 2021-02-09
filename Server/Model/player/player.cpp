@@ -169,7 +169,7 @@ Response Player::useWeapon(double& distance, int& damage) {
 }
 
 Response Player::receiveAttack(int& damage) {
-    this->info.reduceLife(damage);
+    this->reduceLife(damage);
     if (this->info.getLife() == 0) {
         this->_die();
         return Response(true, PLAYER_DIED_MSG);
@@ -195,4 +195,40 @@ Response Player::changeWeapon(Weapon* weapon) {
         return Response(true, SUCCESS_MSG);
     }
     return Response(false, NO_WEAPON_IN_INVENTORY_ERROR_MSG);
+}
+
+void Player::addLife(int life) {
+    this->info.life += life;
+}
+
+void Player::addBullets(int bullets) {
+    this->info.bullets += bullets;
+}
+
+void Player::addNumKeys(int key) {
+    this->info.keys += key;
+}
+
+void Player::addTreasure(int treasure) {
+    this->info.treasure += treasure;
+}
+
+void Player::addNumResurrection() {
+    this->info.resurrected += 1;
+}
+
+void Player::reduceLife(int life) {
+    this->info.life -= life;
+}
+
+void Player::reduceBullets(int bullets) {
+    this->info.bullets -= bullets;
+}
+
+void Player::reduceNumKeys(int key) {
+    this->info.keys -= key;
+}
+
+void Player::reduceTreasure(int treasure) {
+    this->info.treasure -= treasure;
 }

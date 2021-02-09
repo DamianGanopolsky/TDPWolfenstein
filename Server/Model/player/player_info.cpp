@@ -5,9 +5,10 @@
 #include <algorithm>
 #include <iostream>
 
-PlayerInfo::PlayerInfo() : life(50), bullets(8),
+PlayerInfo::PlayerInfo() : life(50),
                             keys(0), treasure(0), 
                             resurrected(10) {
+                                this->bullets = 8;
                                 Gun gun;
                                 this->equiped = &gun;
                                 this->inventory.emplace(gun.getType(), &gun);
@@ -22,6 +23,7 @@ int PlayerInfo::getLife() {
 }
 
 int PlayerInfo::getNumBullets() {
+    std::cout <<"GET bullets: "<<this->bullets<<std::endl;
     return this->bullets;
 }
 
@@ -41,7 +43,7 @@ Weapon* PlayerInfo::getWeaponEquiped() {
     return this->equiped;
 }
 
-void PlayerInfo::reduceLife(int item_life) {
+/*void PlayerInfo::reduceLife(int item_life) {
     this->life -= item_life;
     this->life = (this->life < 0) ? 0 : this->life;
 }
@@ -71,8 +73,11 @@ void PlayerInfo::addLife(int item_life) {
 }
 
 void PlayerInfo::addBullets(int item_bullets) {
+    std::cout <<"agrego bullets: "<<item_bullets<<std::endl;
     this->bullets += item_bullets;
+    std::cout <<"bullets: "<<this->bullets<<std::endl;
     this->bullets = (this->bullets > MAX_BULLETS) ? MAX_BULLETS : this->bullets;
+    std::cout <<"bullets: "<<this->bullets<<std::endl;
 }
 
 void PlayerInfo::addNumKeys(int item_key) {
@@ -85,6 +90,11 @@ void PlayerInfo::addTreasure(int item_treasure) {
 
 void PlayerInfo::addNumResurrection() {
     this->resurrected += 1;
+}
+*/
+
+void PlayerInfo::changeWeaponEquiped(Weapon* &weapon) {
+    this->equiped = weapon;
 }
 
 std::unordered_map <int, Weapon*> PlayerInfo::getInventory() {

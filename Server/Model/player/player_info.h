@@ -6,13 +6,15 @@
 #include "../objects/items/weapons/weapon.h"
 
 class PlayerInfo {
-   int life;
-   int bullets;
-   int keys;
-   int treasure;
-   int resurrected;
-   Weapon* equiped;
-   std::unordered_map <int, Weapon*> inventory;
+   friend class Player;
+   private:
+      int life;
+      int bullets;
+      int keys;
+      int treasure;
+      int resurrected;
+      Weapon* equiped;
+      std::unordered_map <int, Weapon*> inventory;
    
    public:
       explicit PlayerInfo();
@@ -23,7 +25,7 @@ class PlayerInfo {
       int getTreasure();
       int getNumResurrection();
       Weapon* getWeaponEquiped();
-      void addLife(int life);
+      /*void addLife(int life);
       void addBullets(int bullets);
       void addNumKeys(int key);
       void addTreasure(int treasure);
@@ -31,7 +33,7 @@ class PlayerInfo {
       void reduceLife(int life);
       void reduceBullets(int bullets);
       void reduceNumKeys(int key);
-      void reduceTreasure(int treasure);
+      void reduceTreasure(int treasure);*/
       void changeWeaponEquiped(Weapon* &weapon);
       
       std::unordered_map <int, Weapon*>getInventory();
