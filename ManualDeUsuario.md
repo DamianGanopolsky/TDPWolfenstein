@@ -7,6 +7,14 @@
 - SDL TTF: sudo apt-get install libsdl2-ttf-dev  
 - YAML: sudo apt-get install libyaml-cpp-dev  
 
+Para clonar el repositorio, ejecutar el comando: git clone https://github.com/DamianGanopolsky/TDPWolfenstein.git  
+
+Para compilar el codigo y poder obtener los tres ejecutables, es necesario pararse en la raiz del repositorio en la terminal, y ejecutar:  
+- "mkdir build"
+- "cd build"
+- "cmake.."
+- "make"
+
 
 ## Modo de uso
 
