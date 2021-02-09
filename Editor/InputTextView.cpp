@@ -14,12 +14,15 @@ InputTextView::InputTextView(SdlWindow& Window):texto(Window.getRenderer()\
     textbox.active=false;
     //textbox.box.x=0.3156*window.getWidth();
     textbox.box.x=0.28*window.getWidth();
-    //textbox.box.y=0.4359*window.getHeight();
+
     textbox.box.y=0.4359*window.getHeight();
-    //textbox.box.w=0;
-    textbox.box.w=40;
-    //textbox.box.w=500;
-    textbox.box.h=45;
+    //textbox.box.y=0.41*window.getHeight();
+
+    //textbox.box.w=40;
+    textbox.box.w=int(0.04166*window.getWidth());
+    textbox.box.h=int(0.0703*window.getHeight());
+
+    //textbox.box.h=45;
     SDL_Surface* save_menu=IMG_Load("../Editor/Editor_Assets/MenuGuardar.png");
     save_menu_texture=SDL_CreateTextureFromSurface(window.getRenderer(),save_menu);
 }

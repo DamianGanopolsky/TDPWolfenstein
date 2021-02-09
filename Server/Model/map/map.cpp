@@ -31,9 +31,6 @@ void Map::_loadMatrix(std::map <std::pair<int,int>,int> initial_map){
         if(x.second==MAP_PLAYER){
             continue;
         }
-        if(x.second==MAP_BULLET){
-            std::cout << "Cargo bullets server en x:" << x.first.first <<" en y:" << x.first.second << std::endl;
-        }
 
         map[x.first.first/CUADRICULA][x.first.second/CUADRICULA]=x.second;
     }

@@ -17,6 +17,7 @@ void ConstantRateLoop_::run(){
     std::chrono::duration<float, std::milli> diff;
     int rest = 0, behind = 0, lost = 0;
     int it = 1;
+    client.render();
 
     while (is_running) {
        // _newConnections();
@@ -24,10 +25,11 @@ void ConstantRateLoop_::run(){
         //game.updatePlayers(it);
         //_finishedConnections();
         std::cout << "Capturo eventos del cliente y envio" << std::endl;
-		client.render();
+		//client.render();
         is_running=player_handler.handle(); //Capturo eventos del cliente y envio
         std::cout << "Recibo eventos del server, updateo y dibujo" << std::endl;
 		receive_controller.update();    //Recibo eventos y actualizo
+        client.render();
         //client.render();
         //HANDLER
         //UPDATE Va a tener el hilo recv adentro
