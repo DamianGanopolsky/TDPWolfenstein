@@ -3,15 +3,16 @@
 
 #include "./../../object.h"
 class Door: public Object {
-public:
-    Door();
-    ~Door();
-    bool isOpened();
-    void open();
-    bool isItem() override;
-    bool isBlocking() override;
-private:
-    int is_opened;
+    public:
+        Door();
+        ~Door();
+        bool isOpened();
+        void open();
+        bool isItem() override;
+        bool isBlocking() override;
+        Item* getItem() override;
+    private:
+        int is_opened;
 };
 
 #endif    // DOOR_H_

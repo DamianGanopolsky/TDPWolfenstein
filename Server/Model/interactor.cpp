@@ -38,12 +38,12 @@ Response Interact::interactWith(Player &player, Map& map, Object* object) {
         std::cout <<"Interact: is item"<< std::endl;
         PlayerInfo pi = player.getInfo();
         PickUp pickuper;
-        Response is_picked_up = pickuper.pickUp(pi, object);
-        if (is_picked_up.success) {
+        int is_picked_up = pickuper.pickUp(pi, object->getItem());
+        if (is_picked_up != NO_ITEM_PICKED_UP) {
             std::cout <<"Interact: success picking up"<< std::endl;
             PlayerPosition pos = player.getPos();
             map.setObjectPos(pos.getX(), pos.getY(), MAP_NONE);
-            Response(true, is_picked_up.message);
+            return Response(true, is_picked_up);
         }
         return Response(true, NO_ITEM_PICKED_UP_MSG);
     } else {

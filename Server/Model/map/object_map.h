@@ -66,6 +66,7 @@ class ObjectMap {
    Floor floor;
    Door door;
    LockedDoor locked_door;
+   //Corpse corpse
    void setMap();
    public:
       ObjectMap();

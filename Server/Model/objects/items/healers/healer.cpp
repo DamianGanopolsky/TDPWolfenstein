@@ -9,3 +9,17 @@ Healer::Healer() {
 int Healer::heal() {
     return this->points;
 }
+
+int Healer::getPoints() {
+    return -1;
+}
+
+void Healer::attack(double& distance, int& damage) {}
+
+int Healer::getType() {
+    return -1;
+}
+
+int Healer::getBullets() {
+    return -1;
+}

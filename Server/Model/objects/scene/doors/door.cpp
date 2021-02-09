@@ -24,3 +24,7 @@ bool Door::isBlocking() {
     }
     return true;
 }
+
+Item* Door::getItem() {
+    return nullptr;
+}

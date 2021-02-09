@@ -1,7 +1,8 @@
 #include "weapon.h"
 
-Weapon::Weapon() {
-}
+Weapon::Weapon() {}
+
+Weapon::~Weapon() {}
 
 float Weapon::getRandomNumber() {
     std::random_device rd;
@@ -10,5 +11,18 @@ float Weapon::getRandomNumber() {
     return distribution(gen);
 }
 
-Weapon::~Weapon() {
+int Weapon::getItemType() {
+    return WEAPON;
+}
+
+int Weapon::getPoints() {
+    return -1;
+}
+
+int Weapon::heal() {
+    return -1;
+}
+
+int Weapon::getBullets() {
+    return -1;
 }

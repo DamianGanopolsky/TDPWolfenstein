@@ -5,6 +5,7 @@
 
 struct Response{
     Response(const bool success, const std::string& message);
+    Response(const bool success, const int& value);
     ~Response();
     
     Response(const Response&) = delete;
@@ -14,6 +15,7 @@ struct Response{
 
     bool success;
     std::string message;
+    int value;
 };
 
 #endif

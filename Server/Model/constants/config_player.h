@@ -22,9 +22,22 @@ enum Rotation {
     RIGHT_ROTATION_DIR
 };
 
+enum ItemPickedUp {
+    NO_ITEM_PICKED_UP = 0,
+    BULLETS_PICKED_UP,
+    FOOD_PICKED_UP,
+    KIT_PICKED_UP,
+    BLOOD_PICKED_UP,
+    KEY_PICKED_UP,
+    TREASURE_PICKED_UP,
+    WEAPON_PICKED_UP
+};
+
 #define SUCCESS_MSG "Success."
 //picked up items success
 #define ITEM_PICKED_UP_MSG "Success: Item picked up."
+#define NO_ITEM_PICKED_UP_MSG "Success: No item picked up."
+/*
 #define BULLETS_PICKED_UP_MSG "Success: Bullets picked up."
 #define FOOD_PICKED_UP_MSG "Success: Food picked up."
 #define KIT_PICKED_UP_MSG "Success: Kit picked up."
@@ -32,7 +45,7 @@ enum Rotation {
 #define KEY_PICKED_UP_MSG "Success: Key picked up."
 #define TREASURE_PICKED_UP_MSG "Success: Treasure picked up."
 #define WEAPON_PICKED_UP_MSG "Success: Weapon picked up."
-#define NO_ITEM_PICKED_UP_MSG "Success: No item picked up."
+*/
 //player death succes
 #define PLAYER_DIED_MSG "Success: Player died."
 #define CANT_ATTACK_ITSELF_ERROR_MSG "ERROR: Player can't attack itself."
@@ -49,4 +62,5 @@ enum Rotation {
 #define CANT_MOVE_RIGHT_ERROR_MSG "ERROR: Player can't move right."
 #define CANT_MOVE_LEFT_ERROR_MSG "ERROR: Player can't move left."
 #define NO_WEAPON_IN_INVENTORY_ERROR_MSG "ERROR: Weapon not found in inventory."
+
 #endif

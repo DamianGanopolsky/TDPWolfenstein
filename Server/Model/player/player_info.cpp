@@ -1,14 +1,18 @@
 #include "./player_info.h"
 #include "../constants/config.h"
 #include "../objects/items/weapons/gun.h"
+#include "../objects/items/weapons/knife.h"
 #include <algorithm>
+#include <iostream>
 
 PlayerInfo::PlayerInfo() : life(MAX_LIFE), bullets(8),
                             keys(0), treasure(0), 
                             resurrected(10) {
                                 Gun gun;
                                 this->equiped = &gun;
-                                this->inventory.push_back(&gun);
+                                this->inventory.emplace(gun.getType(), &gun);
+                                Knife knife;
+                                this->inventory.emplace(knife.getType(), &knife);
                             }
 
 PlayerInfo::~PlayerInfo(){}
@@ -76,21 +80,35 @@ void PlayerInfo::addNumKeys(int key) {
 }
 
 void PlayerInfo::addTreasure(int treasure) {
-    this->treasure += treasure;
+    this->treasure = this->treasure + treasure;
 }
 
 void PlayerInfo::addNumResurrection() {
     this->resurrected += 1;
 }
 
-std::list <Weapon*> PlayerInfo::getInventory() {
+std::unordered_map <int, Weapon*> PlayerInfo::getInventory() {
     return this->inventory;
 }
 
 void PlayerInfo::addInventory(Weapon* &weapon) {
-    this->inventory.push_back(weapon);
+    this->inventory.emplace(weapon->getType(), weapon);
 }
 
 bool PlayerInfo::hasWeapon(Weapon* &weapon) {
-    return (std::find(this->inventory.begin(), this->inventory.end(), weapon) != this->inventory.end());
+    if (weapon == nullptr) {std::cout << "PlayerInfo: null weapon" <<std::endl;}
+    std::cout << "PlayerInfo: has weapon" <<std::endl;
+    std::unordered_map<int, Weapon*>::iterator it;
+    std::cout << "PlayerInfo: iterator" <<std::endl;
+    int type = weapon->getType();
+    std::cout << "PlayerInfo: type" <<std::endl;
+    it = this->inventory.find(type);
+    std::cout << "PlayerInfo: find weapon" <<std::endl;
+    if (it == inventory.end()) {
+        std::cout << "PlayerInfo: no weapon" <<std::endl;
+        return false;
+    } else {
+        std::cout << "PlayerInfo: weapon" <<std::endl;
+        return true;
+    }
 }

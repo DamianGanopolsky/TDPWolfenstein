@@ -4,8 +4,9 @@
 #include "healer.h"
 
 class Food: public Healer {
- public:
-    Food();
+    public:
+        Food();
+        int getItemType() override;
 };
 
 #endif // FOOD_H_

@@ -11,3 +11,7 @@ bool NonBlockingObject::isItem() {
 bool NonBlockingObject::isBlocking() {
     return false;
 }
+
+Item* NonBlockingObject::getItem() {
+    return nullptr;
+}

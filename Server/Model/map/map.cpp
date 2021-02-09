@@ -25,8 +25,8 @@ void Map::_loadMatrix(std::map <std::pair<int,int>,int> initial_map){
     for (auto const& x : initial_map){
         //std::cout << "En x:" << x.first.first << "en y:" << x.first.second << "obj:" << x.second << std::endl;
         if(x.second==MAP_WALL){
-            std::cout << "Hay pared en x:" << x.first.first <<"y:" << x.first.second << std::endl;
-            std::cout << "Cargo pared en cuadricula x:" << x.first.first/CUADRICULA <<"y:" << x.first.second/CUADRICULA << std::endl;
+            //std::cout << "Hay pared en x:" << x.first.first <<"y:" << x.first.second << std::endl;
+            //std::cout << "Cargo pared en cuadricula x:" << x.first.first/CUADRICULA <<"y:" << x.first.second/CUADRICULA << std::endl;
         }
         if(x.second==MAP_PLAYER){
             continue;
@@ -41,6 +41,7 @@ void Map::printMatrix(){
 int Map::getObjectPos(int x, int y) {
     int cell_x = (x/POINTS_PER_CELL);
     int cell_y = (y/POINTS_PER_CELL);
+    std::cout << "cell: " << cell_x << ", " << cell_y << std::endl;
     return map[cell_x][cell_y];
 }
 
@@ -56,7 +57,6 @@ void Map::setObjectPos(int x, int y, ObjectsInMap object) {
     cmd.applyCommand(command, this->map, player, target);
 }*/
 
-//HACERLE FREE A LA MATRIZ
 Map::~Map() {
     for(int i=0;i<columns;i++){
         delete [] map[i];

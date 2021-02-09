@@ -4,11 +4,17 @@
 #include "./../item.h"
 
 class Bullet: public Item {
- public:
-    explicit Bullet();
-    int getBullets();
- private:
-    int num_bullet;
+   public:
+      explicit Bullet();
+      int getBullets() override;
+      int getItemType() override;
+      int getPoints() override; //treaure
+      void attack(double& distance, int& damage) override; //weapon
+      int getType() override; //weapon
+      int heal() override;//healer
+
+   private:
+      int num_bullet;
 };
 
 #endif    // BULLET_H_

@@ -2,6 +2,7 @@
 #define PLAYER_INFO_H_
 
 #include <list>
+#include <unordered_map>
 #include "../objects/items/weapons/weapon.h"
 
 class PlayerInfo {
@@ -11,7 +12,7 @@ class PlayerInfo {
    int treasure;
    int resurrected;
    Weapon* equiped;
-   std::list <Weapon*> inventory;
+   std::unordered_map <int, Weapon*> inventory;
    
    public:
       explicit PlayerInfo();
@@ -33,7 +34,7 @@ class PlayerInfo {
       void reduceTreasure(int treasure);
       void changeWeaponEquiped(Weapon* &weapon);
       
-      std::list <Weapon*> getInventory();
+      std::unordered_map <int, Weapon*>getInventory();
       void addInventory(Weapon* &weapon);
       bool hasWeapon(Weapon* &weapon);
 };

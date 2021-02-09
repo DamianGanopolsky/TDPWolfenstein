@@ -11,3 +11,7 @@ bool Item::isItem() {
 bool Item::isBlocking() {
     return false;
 }
+
+Item* Item::getItem() {
+    return this;
+}

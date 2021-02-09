@@ -4,8 +4,9 @@
 #include "healer.h"
 
 class Blood: public Healer {
- public:
-    Blood();
+    public:
+        Blood();
+        int getItemType() override;
 };
 
 #endif    // BLOOD_H_

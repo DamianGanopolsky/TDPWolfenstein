@@ -11,3 +11,7 @@ bool BlockingObject::isItem() {
 bool BlockingObject::isBlocking() {
     return true;
 }
+
+Item* BlockingObject::getItem() {
+    return nullptr;
+}

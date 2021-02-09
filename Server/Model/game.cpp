@@ -21,18 +21,10 @@ void Game::_notifyMovementEvent(const ConnectionId id, const Response& response)
     Notification* notification;
     Player& player = this->players.at(id);
     if (response.success) {
-        std::cout <<"Game: succes response"<< std::endl;
-        /*Weapon* weapon = player.getInfo().getWeaponEquiped();
-        if (weapon == nullptr) {
-            std::cout <<"Game: null weapon"<< std::endl;
-        }
-        std::cout <<"Game: weapon"<< std::endl;
-        int gun_type = weapon->getType();*/
-        std::cout <<"Game: gun_type"<< std::endl;
         notification = new Event(map_id, MOVEMENT_EV, id, player.getPos().getX(),
                                  player.getPos().getY(), player.getPos().getAngle(),
                                  player.isMoving(), player.isShooting());
-        std::cout <<"Game: send event to all"<< std::endl;
+        //std::cout <<"Game: send event to all"<< std::endl;
         this->clients_connected.sendEventToAll(notification);
     } else {
         notification = new Message(ERROR_MSSG, response.message);
@@ -52,6 +44,7 @@ void Game::_notifyEvent(const ConnectionId id, const Response& response, EventOp
     Player& player = this->players.at(id);
     if (response.success) {
         switch (event_type) {
+            case RESURRECT_EV:
             case NEW_PLAYER_EV: {
                 std::cout<<"Game: _notifyEvent, new event"<<std::endl;
                 notification = new Event(map_id, event_type, id, player.getPos().getX(), player.getPos().getY(),
@@ -59,7 +52,6 @@ void Game::_notifyEvent(const ConnectionId id, const Response& response, EventOp
                                             player.getInfo().getTreasure(), player.getInfo().getNumBullets());
                 break;
             }
-            case MOVEMENT_EV:
             case DELETE_PLAYER_EV: {
                 std::cout<<"Game: _notifyEvent, delete_player"<<std::endl;
                 notification = new Event(map_id, event_type, id);
@@ -70,10 +62,24 @@ void Game::_notifyEvent(const ConnectionId id, const Response& response, EventOp
                 notification = new Event(map_id, event_type, id, player.isShooting(),
                                             player.getInfo().getNumBullets());
             }
-            case BE_ATTACKED_EV:
-            case RESURRECT_EV:
-            case DEATH_EV:
+            case BE_ATTACKED_EV: {
+                std::cout<<"Game: _notifyEvent, be_attack_ev"<<std::endl;
+                notification = new Event(map_id, event_type, id, player.getInfo().getLife());
+                break;
+            }
             case CHANGE_WEAPON_EV:{
+                std::cout<<"Game: _notifyEvent, change_weapon_ev"<<std::endl;
+                notification = new Event(map_id, event_type, id, player.isShooting(),
+                                            player.getInfo().getWeaponEquiped()->getType());
+                std::cout<<"Game: change_weapon_ev end"<<std::endl;
+                break;
+            }
+            case DEATH_EV: {
+                std::cout<<"Game: _notifyEvent, death_event"<<std::endl;
+                notification = new Event(map_id, event_type, id, player.getPos().getX(), player.getPos().getY());
+                break;
+            }
+            case MOVEMENT_EV:{
                 break;
             }
 
@@ -90,81 +96,79 @@ void Game::_notifyEvent(const ConnectionId id, const Response& response, EventOp
 void Game::_notifyItemChanged(const ConnectionId id, const Response& response, ItemOpcode item_type) {
     Notification* notification;
     Player& player = this->players.at(id);
-    if (response.success) {
-        switch (item_type) {
-            case CLOSE_DOOR_ITM:
-            case OPEN_DOOR_ITM:
-            case WEAPON_TAKEN_ITM:
-                notification = new ItemChanged(map_id, item_type, id,
+    switch (item_type) {
+        case CLOSE_DOOR_ITM:
+        case OPEN_DOOR_ITM:
+        case WEAPON_TAKEN_ITM: { 
+            notification = new ItemChanged(map_id, item_type, id,
                                 player.getPos().getX(), player.getPos().getY());
-                break;
-            case MEDICAL_KIT_TAKEN_ITM:
-            case FOOD_TAKEN_ITM:
-            case BLOOD_TAKEN_ITM: { 
-                notification = new ItemChanged(map_id, item_type, id,
-                                player.getPos().getX(), player.getPos().getY(),
-                                player.getInfo().getLife());
-                break;
-            }
-            case KEY_TAKEN_ITM: { 
-                notification = new ItemChanged(map_id, item_type, id,
-                                player.getPos().getX(), player.getPos().getY(),
-                                player.getInfo().getKey());
-                break;
-            }
-            case TREASURE_TAKEN_ITM: { 
-                notification = new ItemChanged(map_id, item_type, id,
-                                player.getPos().getX(), player.getPos().getY(),
-                                player.getInfo().getTreasure());
-                break;
-            }
-            case BULLETS_TAKEN_ITM: { 
-                notification = new ItemChanged(map_id, item_type, id,
-                                player.getPos().getX(), player.getPos().getY(),
-                                player.getInfo().getNumBullets());
-                break;
-            }
-            default:
-                throw Exception("Unknown item type.");
-                break;
+            break;
+        }
+        case MEDICAL_KIT_TAKEN_ITM:
+        case FOOD_TAKEN_ITM:
+        case BLOOD_TAKEN_ITM: { 
+            notification = new ItemChanged(map_id, item_type, id,
+                            player.getPos().getX(), player.getPos().getY(),
+                            player.getInfo().getLife());
+            break;
+        }
+        case KEY_TAKEN_ITM: { 
+            notification = new ItemChanged(map_id, item_type, id,
+                            player.getPos().getX(), player.getPos().getY(),
+                            player.getInfo().getKey());
+            break;
+        }
+        case TREASURE_TAKEN_ITM: { 
+            std::cout<<"TREASURE_TAKEN_ITM: treasure "<< player.getInfo().getTreasure() <<std::endl;
+            notification = new ItemChanged(map_id, item_type, id,
+                            player.getPos().getX(), player.getPos().getY(),
+                            player.getInfo().getTreasure());
+            break;
+        }
+        case BULLETS_TAKEN_ITM: { 
+            notification = new ItemChanged(map_id, item_type, id,
+                            player.getPos().getX(), player.getPos().getY(),
+                            player.getInfo().getNumBullets());
+            break;
+        }
+        default:
+            throw Exception("Unknown item type.");
+            break;
         }
         this->clients_connected.sendEventToAll(notification);
-    } else {
-        notification = new Message(ERROR_MSSG, response.message);
-        this->clients_connected.sendMessageToAll(notification);
-    } 
 }
 
 Response Game::_canMove(Map& map, Player& player, std::pair<int, int> next_pos) {
     PlayerPosition pos = player.getPos();
     bool changeCell = _changeCell(pos, next_pos);
+    std::cout<<"Game: changed cell is "<<changeCell<<std::endl;
     if (changeCell) {
+        std::cout<<"Game: changed cell"<<std::endl;
         int object_code = map.getObjectPos(next_pos.first, next_pos.second);
+        std::cout<<"Game: object_code"<<object_code<<std::endl;
         Object* obj = objMap.getObject(object_code);
+        if (obj == nullptr) {std::cout<<"Game: object null"<<std::endl;}
         Interact interactor;
+        std::cout<<"Game: interactor"<<std::endl;
         Response not_blocking = interactor.interactWith(player, map, obj);
+        std::cout<<"Game: cnot_boking"<< not_blocking.success <<std::endl;
         return not_blocking;
     } else { //se mueve dentro de la misma celda
         return Response(true, NO_ITEM_PICKED_UP_MSG);
     }
     //esto no va
-    return Response(true, NO_ITEM_PICKED_UP_MSG);
+    //return Response(true, NO_ITEM_PICKED_UP_MSG);
 }
 
 bool Game::_changeCell(PlayerPosition &pos, std::pair<int, int> &next_pos) {
-    int current_x = pos.getX();
-    int current_y = pos.getY();
-    int next_x = next_pos.first;
-    int next_y = next_pos.second;
-    float value_x = abs((current_x/POINTS_PER_CELL)-(next_x/POINTS_PER_CELL));
-    float value_y = abs((current_y/POINTS_PER_CELL)-(next_y/POINTS_PER_CELL));
-    if (value_x >= 1 || value_y >= 1) {
+    int current_x = (pos.getX())/POINTS_PER_CELL;
+    int current_y = (pos.getY())/POINTS_PER_CELL;
+    int next_x = (next_pos.first)/POINTS_PER_CELL;
+    int next_y = (next_pos.second)/POINTS_PER_CELL;
+    if ((current_x != next_x) || (current_y != next_y)) {
         return true;
     }
     return false;
-}
-ItemOpcode Game::_getItemOpcode(std::string message) {
-    return CLOSE_DOOR_ITM;
 }
 
 bool Game::_interactWith(Player& player, Map map, Object* obj) {
@@ -228,16 +232,21 @@ void Game::_move(const ConnectionId id) {
     Player& player = this->players.at(id);
     std::pair<int, int> next_pos = player.getPos().getNextPos(player.getPos().getDirection());
     Response can_move = _canMove(map, player, next_pos);
+    std::cout <<"Game: can_move message"<< can_move.message <<std::endl;
     if (can_move.success && ((can_move.message) !=  NO_ITEM_PICKED_UP_MSG)) {
         std::cout <<"Game: player can move and picked up"<< std::endl;
+        map.setObjectPos(player.getPos().getX(), player.getPos().getY(), MAP_NONE);
         player.update();
         players_in_map.at(id) = std::make_pair(player.getPos().getX(), player.getPos().getY());
+        map.setObjectPos(player.getPos().getX(), player.getPos().getY(), MAP_PLAYER);
         _notifyMovementEvent(id, Response(true, SUCCESS_MSG));
-        _notifyItemChanged(id, can_move, _getItemOpcode(can_move.message));
+        _notifyItemChanged(id, can_move, (ItemOpcode)can_move.value);
     } else if (can_move.success) {
         std::cout <<"Game: player can move"<< std::endl;
+        map.setObjectPos(player.getPos().getX(), player.getPos().getY(), MAP_NONE);
         player.update();
         players_in_map.at(id) = std::make_pair(player.getPos().getX(), player.getPos().getY());
+        map.setObjectPos(player.getPos().getX(), player.getPos().getY(), MAP_PLAYER);
         std::cout <<"Game: player updated"<< std::endl;
         _notifyMovementEvent(id, Response(true, SUCCESS_MSG));
         std::cout <<"Game: players notified"<< std::endl;
@@ -260,12 +269,12 @@ const ConnectionId Game::newPlayer() {
         //map.setObjectPos(init_x, init_y, MAP_PLAYER);
     //}
     std::string nickname = "hola";
-    std::cout <<"Game: adding a new player"<< std::endl;
+    //std::cout <<"Game: adding a new player"<< std::endl;
     this->players.emplace(std::piecewise_construct, 
                 std::forward_as_tuple(new_player_id),
                 std::forward_as_tuple(100, 100, 2240, 
                                     2240, nickname, new_player_id));
-    std::cout <<"Game: new player added"<< std::endl;
+    //std::cout <<"Game: new player added"<< std::endl;
     map.setObjectPos(100, 100, MAP_PLAYER);
     //de alguna manera me tienen que pasar el nickname
     //this->players_by_name[nickname] = new_player_id;
@@ -274,7 +283,7 @@ const ConnectionId Game::newPlayer() {
 
 }
 void Game::notifyNewPlayer(const ConnectionId id) {
-    std::cout <<"Game: new player notified"<< std::endl;
+    //std::cout <<"Game: new player notified"<< std::endl;
     _notifyEvent(id, Response(true, SUCCESS_MSG), NEW_PLAYER_EV);
 }
 
@@ -301,7 +310,7 @@ void Game::updatePlayers(const int iteration) {
         }
         
         if (player.isRotating()) {
-            std::cout <<"Game: player can rotate"<< std::endl;
+            //std::cout <<"Game: player can rotate"<< std::endl;
             player.update();
             _notifyMovementEvent(id, Response(true, SUCCESS_MSG));
         }
@@ -324,7 +333,6 @@ void Game::startMovingUp(const ConnectionId id) {
 }
 
 void Game::startMovingDown(const ConnectionId id) {
-    std::cout <<"Game: startMovingDown()"<< std::endl;
     Player& player = this->players.at(id);
     player.startMovingDown();
     //_notifyResponse(id, player.startMovingDown());
@@ -392,17 +400,17 @@ void Game::openDoor(const ConnectionId id) {
 }
 
 void Game::changeWeapon(const ConnectionId id, Weapon* weapon) {
+    /*std::cout <<"Game:change_weapon"<< std::endl;
     Player& player = this->players.at(id);
-    std::list<Weapon*> inventory = player.getInfo().getInventory();
-    std::list<Weapon*>::iterator it;
-
-    it = find(inventory.begin(), inventory.end(), weapon);
-    if (it == inventory.end()) {
+    if (!player.getInfo().hasWeapon(weapon)) {
+        std::cout <<"Game: not in inventory"<< std::endl;
         _notifyEvent(id, Response(false, NO_WEAPON_IN_INVENTORY_ERROR_MSG), CHANGE_WEAPON_EV);
     } else {
-        player.changeWeapon(*it);
+        std::cout <<"Game: in inventory"<< std::endl;
+        player.changeWeapon(weapon);
+        std::cout <<"Game: changed weapon"<< std::endl;
         _notifyEvent(id, Response(true, SUCCESS_MSG), CHANGE_WEAPON_EV);
-    }
+    }*/
 }
 
 void Game::receiveAttack(const ConnectionId id, int& damage) {

@@ -7,3 +7,21 @@ Bullet::Bullet() {
 int Bullet::getBullets() {
     return this->num_bullet;
 }
+
+int Bullet::getItemType() {
+    return BULLETS;
+}
+
+int Bullet::getPoints() {
+    return -1;
+}
+
+void Bullet::attack(double& distance, int& damage) {}
+
+int Bullet::getType()  {
+    return -1;
+}
+
+int Bullet::heal()  {
+    return -1;
+}

@@ -3,6 +3,17 @@
 #ifndef CONFIG_H_
 #define CONFIG_H_
 
+enum Items {
+    BULLETS = 0,
+    KIT,
+    BLOOD,
+    FOOD,
+    KEY,
+    TREASURE,
+    WEAPON,
+    CORPSE
+
+};
 // healers:
 
 #define KIT_POINTS 20

@@ -3,11 +3,12 @@
 
 #include "./../../object.h"
 class NonBlockingObject: public Object {
- public:
-    NonBlockingObject();
-    virtual ~NonBlockingObject();
-    bool isItem() override;
-    bool isBlocking() override;
+    public:
+        NonBlockingObject();
+        virtual ~NonBlockingObject();
+        bool isItem() override;
+        bool isBlocking() override;
+        Item* getItem() override;
 };
 
 #endif    // NON_BLOCKING_OBJECT_H_

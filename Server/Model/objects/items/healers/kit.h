@@ -4,8 +4,9 @@
 #include "healer.h"
 
 class Kit: public Healer {
- public:
-    Kit();
+    public:
+        Kit();
+        int getItemType() override;
 };
 
 #endif    // KIT_H_

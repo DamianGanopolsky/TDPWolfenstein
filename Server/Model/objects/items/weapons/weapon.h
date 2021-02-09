@@ -6,12 +6,16 @@
 #include "./../item.h"
 
 class Weapon: public Item {
- public:
-   Weapon();
-   virtual ~Weapon();
-   virtual void attack(double& distance, int& damage) = 0;
-   virtual int getType() = 0;
-   static float getRandomNumber();
+  public:
+    Weapon();
+    virtual ~Weapon();
+    virtual void attack(double& distance, int& damage) = 0;
+    virtual int getType() = 0;
+    static float getRandomNumber();
+    int getItemType() override;
+    int getPoints() override; //treaure
+    int heal() override;//healer
+    int getBullets() override;//bullets
 };
 
 #endif   // WEAPON_H_

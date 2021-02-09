@@ -67,29 +67,23 @@ std::pair<int, int> PlayerPosition::getNextPos(Direction direction) {
 }
 
 void PlayerPosition::move(Direction direction) {
-    std::cout <<"PlayerPosition: move()"<< std::endl;
-    std::cout <<"PlayerPosition: direction"<< (unsigned)direction <<std::endl;
     switch (direction) {
         case UP_DIR: {
-            std::cout <<"PlayerPosition: moveUp"<< std::endl;
             this->x += (int) (DISPLACEMENT * cos(this->vision_angle * PI / 180.0));
 	        this->y -= (int) (DISPLACEMENT * sin(this->vision_angle * PI / 180.0));
             break;
         }
         case DOWN_DIR: {
-            std::cout <<"PlayerPosition: moveDown"<< std::endl;
             this->x -= (int) (DISPLACEMENT * cos(this->vision_angle * PI / 180.0));
 	        this->y += (int) (DISPLACEMENT * sin(this->vision_angle * PI / 180.0));
             break;
         }
         case LEFT_DIR: {
-            std::cout <<"PlayerPosition: moveLeft"<< std::endl;
             this->x -= (int) (DISPLACEMENT * sin(this->vision_angle * PI / 180.0));
 	        this->y -= (int) (DISPLACEMENT * cos(this->vision_angle * PI / 180.0));
             break;	
         }
         case RIGHT_DIR: {
-            std::cout <<"PlayerPosition: moveRight"<< std::endl;
             this->x += (int) (DISPLACEMENT * sin(this->vision_angle * PI / 180.0));
 	        this->y += (int) (DISPLACEMENT * cos(this->vision_angle * PI / 180.0));
             break;

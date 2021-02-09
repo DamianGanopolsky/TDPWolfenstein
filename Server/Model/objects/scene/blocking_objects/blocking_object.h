@@ -3,11 +3,12 @@
 
 #include "./../../object.h"
 class BlockingObject: public Object {
- public:
-    BlockingObject();
-    virtual ~BlockingObject();
-    bool isItem() override;
-    bool isBlocking() override;
+    public:
+        BlockingObject();
+        virtual ~BlockingObject();
+        bool isItem() override;
+        bool isBlocking() override;
+        Item* getItem() override;
 
 };
 
