@@ -35,11 +35,10 @@ void Game::_notifyMovementEvent(const ConnectionId id, const Response& response)
 void Game::_notifyChangeWeaponEvent(const ConnectionId id, const Response& response, int weapon) {
     std::cout <<"Game: _notifyChangeWeaponEvent()"<< std::endl;
     Notification* notification;
-    Player& player = this->players.at(id);
+    //Player& player = this->players.at(id);
     if (response.success) {
-        notification = new Event(map_id, CHANGE_WEAPON_EV, id, 
-                                player.isShooting(), weapon);
-        //std::cout <<"Game: send event to all"<< std::endl;
+        std::cout <<"Game: weapon"<< weapon <<std::endl;
+        notification = new Event(map_id, CHANGE_WEAPON_EV, id, weapon);
         this->clients_connected.sendEventToAll(notification);
     } else {
         notification = new Message(ERROR_MSSG, response.message);

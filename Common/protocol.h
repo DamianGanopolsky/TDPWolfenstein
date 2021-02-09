@@ -25,7 +25,7 @@ struct New_Player_Event{
 
 struct Change_Weapon_Event{
     uint32_t player_id;
-    uint8_t weapon;
+    uint32_t weapon;
 };
 
 struct Change_door_event{
