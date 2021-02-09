@@ -101,33 +101,38 @@ void Game::_notifyItemChanged(const ConnectionId id, const Response& response, I
         case OPEN_DOOR_ITM:
         case WEAPON_TAKEN_ITM: { 
             notification = new ItemChanged(map_id, item_type, id,
-                                player.getPos().getX(), player.getPos().getY());
+                                (player.getPos().getX())/POINTS_PER_CELL, 
+                                (player.getPos().getY())/POINTS_PER_CELL);
             break;
         }
         case MEDICAL_KIT_TAKEN_ITM:
         case FOOD_TAKEN_ITM:
         case BLOOD_TAKEN_ITM: { 
             notification = new ItemChanged(map_id, item_type, id,
-                            player.getPos().getX(), player.getPos().getY(),
+                            (player.getPos().getX())/POINTS_PER_CELL, 
+                            (player.getPos().getY())/POINTS_PER_CELL,
                             player.getInfo().getLife());
             break;
         }
         case KEY_TAKEN_ITM: { 
             notification = new ItemChanged(map_id, item_type, id,
-                            player.getPos().getX(), player.getPos().getY(),
+                            (player.getPos().getX())/POINTS_PER_CELL, 
+                            (player.getPos().getY())/POINTS_PER_CELL,
                             player.getInfo().getKey());
             break;
         }
         case TREASURE_TAKEN_ITM: { 
             std::cout<<"TREASURE_TAKEN_ITM: treasure "<< player.getInfo().getTreasure() <<std::endl;
             notification = new ItemChanged(map_id, item_type, id,
-                            player.getPos().getX(), player.getPos().getY(),
+                            (player.getPos().getX())/POINTS_PER_CELL, 
+                            (player.getPos().getY())/POINTS_PER_CELL,
                             player.getInfo().getTreasure());
             break;
         }
         case BULLETS_TAKEN_ITM: { 
             notification = new ItemChanged(map_id, item_type, id,
-                            player.getPos().getX(), player.getPos().getY(),
+                            (player.getPos().getX())/POINTS_PER_CELL, 
+                            (player.getPos().getY())/POINTS_PER_CELL,
                             player.getInfo().getNumBullets());
             break;
         }
