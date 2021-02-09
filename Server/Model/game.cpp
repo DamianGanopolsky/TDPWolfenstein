@@ -241,17 +241,17 @@ void Game::_move(const ConnectionId id) {
     if (can_move.success && ((can_move.message) !=  NO_ITEM_PICKED_UP_MSG)) {
         std::cout <<"Game: player can move and picked up"<< std::endl;
         map.setObjectPos(player.getPos().getX(), player.getPos().getY(), MAP_NONE);
+        map.setObjectPos(next_pos.first, next_pos.second, MAP_PLAYER);
         player.update();
         players_in_map.at(id) = std::make_pair(player.getPos().getX(), player.getPos().getY());
-        map.setObjectPos(player.getPos().getX(), player.getPos().getY(), MAP_PLAYER);
         _notifyMovementEvent(id, Response(true, SUCCESS_MSG));
         _notifyItemChanged(id, can_move, (ItemOpcode)can_move.value);
     } else if (can_move.success) {
         std::cout <<"Game: player can move"<< std::endl;
         map.setObjectPos(player.getPos().getX(), player.getPos().getY(), MAP_NONE);
+        map.setObjectPos(next_pos.first, next_pos.second, MAP_PLAYER);
         player.update();
         players_in_map.at(id) = std::make_pair(player.getPos().getX(), player.getPos().getY());
-        map.setObjectPos(player.getPos().getX(), player.getPos().getY(), MAP_PLAYER);
         std::cout <<"Game: player updated"<< std::endl;
         _notifyMovementEvent(id, Response(true, SUCCESS_MSG));
         std::cout <<"Game: players notified"<< std::endl;
