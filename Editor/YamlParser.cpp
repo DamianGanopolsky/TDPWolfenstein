@@ -48,7 +48,7 @@ std::map <std::pair<int,int>,int> YamlParser::load_map(std::string YamlPath){
         //std::cout << "x es" << map_position.first << "y es" << map_position.second << std::endl;
         map_position.first=pos['x'].as<int>();;
         map_position.second=pos['y'].as<int>();;
-        objects_map.insert({map_position,MAP_DOOR});
+        objects_map.insert({map_position,MAP_LOCKED_DOOR});
     }
 
     const YAML::Node& food= map["Map"]["Food"];
@@ -210,7 +210,7 @@ std::vector<std::pair<int,int>>> map,int height,int width){
             case MAP_WALL:
                 out << YAML::Key << "Red_Wall";
                 break;
-            case MAP_DOOR:
+            case MAP_LOCKED_DOOR:
                 out << YAML::Key << "Door";
                 break;
             default:

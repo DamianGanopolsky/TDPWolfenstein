@@ -9,7 +9,7 @@ Map_2d::Map_2d(Player& player,std::string YamlPathToMap) : player(player),YamlMa
 	MapYamlParser mapyamlparser(YamlPathToMap);
 	map_width=mapyamlparser.Map_Width();
 	map_height=mapyamlparser.Map_Height();
-	//std::cout << "map width "<< mapyamlparser.Map_Width() << "map height" << mapyamlparser.Map_Height() <<std::endl;
+	std::cout << "map width "<< mapyamlparser.Map_Width() << "map height" << mapyamlparser.Map_Height() <<std::endl;
 	total_boxes=mapyamlparser.Map_Height()*mapyamlparser.Map_Width();
 	/*std::cout << "total boxes es" << total_boxes << "height:" << mapyamlparser.Map_Height() << "width;\
 	" << mapyamlparser.Map_Width() << std::endl;*/
@@ -102,11 +102,11 @@ std::list<Game_element> Map_2d::get_game_elements() {
 		object.second.vision_angle,this->player);
 		elements.push_back(std::move(element));
 	}
-	Game_element element(150,250, 11, 270, this->player);
+	/*Game_element element(150,250, 11, 270, this->player);
 	Game_element element2(170,250, 12, 270, this->player);
 	Game_element element3(120,250,13, 270, this->player);
 	elements.push_back(std::move(element));
 	elements.push_back(std::move(element2));
-	elements.push_back(std::move(element3));
+	elements.push_back(std::move(element3));*/
 	return elements; 
 }

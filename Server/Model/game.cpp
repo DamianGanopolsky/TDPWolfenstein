@@ -8,7 +8,7 @@ Game::Game(ClientsConnected& clients_connected, Id map_id) :
                             players(), players_by_name(),
                             players_in_map(),
                             clients_connected(clients_connected),
-                            map_id(map_id), map("../Maps/Basic.yaml"),
+                            map_id(map_id), map("../Maps/Fortified_6.yaml"),
                             objMap() {
                                 //map.printMatrix();
                             }

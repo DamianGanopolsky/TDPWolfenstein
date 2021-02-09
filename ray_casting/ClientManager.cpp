@@ -25,7 +25,7 @@ void ClientManager::start(){
 	New_Player_Event player_info=clientsock.recv_player();
 	std::cout << "id:" << player_info.player_id << std::endl;
 	Player player(player_info);
-	Map_2d map(player,"../Maps/Basic.yaml");
+	Map_2d map(player,"../Maps/Fortified_6.yaml");
 	Panel_window panel(map);
 	BlockingQueue<Command*> send_queue;
 	
@@ -37,12 +37,9 @@ void ClientManager::start(){
 	Sender sender(&clientsock,send_queue);
 	receiver.start();
 	sender.start();
-
-	//Pruebas de concepto
 	
 	MusicSoundtrack music;
 	music.play_editor();
-	std::cout << "Paso por aca" << std::endl;
 	//client.render();
 	//receivecontroller.update();
 	//ConstantRateLoop_ crl(handler,client,receivecontroller);
