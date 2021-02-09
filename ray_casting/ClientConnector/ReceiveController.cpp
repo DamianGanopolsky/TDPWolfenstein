@@ -76,10 +76,7 @@ void ReceiveController::update(){
                     break;
                 }
                 case BULLETS_TAKEN_ITM:{
-                    std::cout << "BULLETS TAKEN" << std::endl;
-                    
                     Item_taken_event it_taken=updatemessage->get_item_taken();
-                    std::cout << "Value es" << it_taken.value << std::endl;
                     std::cout << "Pos x es :" << it_taken.pos_x << "Pos y es: " << it_taken.pos_y << std::endl;
                     map.delete_item(it_taken.pos_x/64,it_taken.pos_y/64);
                     if(int(it_taken.player_id)==player.get_id()){
@@ -96,9 +93,8 @@ void ReceiveController::update(){
                     break;
                 }
                 case FOOD_TAKEN_ITM:{
-                    std::cout << "Recibi food" << std::endl;
                     Item_taken_event it_taken=updatemessage->get_item_taken();
-                    map.delete_item(it_taken.pos_x/64,it_taken.pos_y/64);
+                    map.delete_item(it_taken.pos_x,it_taken.pos_y);
                     if(int(it_taken.player_id)==player.get_id()){
                         player.change_health(it_taken.value);
                     }
@@ -113,7 +109,11 @@ void ReceiveController::update(){
                     break;
                 }
                 case TREASURE_TAKEN_ITM:{
+                    std::cout << "Recibi tesoro" << std::endl;
+                    
                     Item_taken_event it_taken=updatemessage->get_item_taken();
+                    
+                    std::cout << "Cuadricula x es" << it_taken.pos_x/64 << "Cuadricula y es" << it_taken.pos_y/64 << std::endl;
                     map.delete_item(it_taken.pos_x/64,it_taken.pos_y/64);
                     if(int(it_taken.player_id)==player.get_id()){
                         player.change_score(it_taken.value);

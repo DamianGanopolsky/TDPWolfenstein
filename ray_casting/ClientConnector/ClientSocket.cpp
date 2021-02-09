@@ -262,6 +262,7 @@ void ClientSocket::recv(char* recv_buff,int len){
                     pos_x[0]=le32toh(pos_x[0]);
                     pos_y[0]=le32toh(pos_y[0]);
                     value[0]=le32toh(value[0]);
+                    std::cout << "Pos x es" << pos_x[0] << "Pos y es" << pos_y[0] << std::endl;
                     update_message->load_item_taken(player_id[0],pos_x[0],pos_y[0],value[0]);
                     recv_queue.push(std::move(update_message));
                     break;
