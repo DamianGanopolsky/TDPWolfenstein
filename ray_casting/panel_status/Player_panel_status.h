@@ -41,12 +41,11 @@ private:
 	Element_panel_status officer_shooting_status;
 	Element_panel_status eguard_shooting_status;
 	Element_panel_status guard_shooting_status;
+	Element_panel_status officer_dead_status;
+	Element_panel_status eguard_dead_status;
+	Element_panel_status guard_dead_status;
 	//SdlText numero;
 	
-	
-	
-	
-
 	void copy_to_rederer_weapon(Player_info& info);
 	void copy_to_rederer_face(int health);
 	void copy_to_rederer_lives(int lives);

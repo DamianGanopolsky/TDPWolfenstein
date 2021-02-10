@@ -66,6 +66,24 @@ void Map_2d::update_player_pos(int id,int pos_x,int pos_y,int angle,int status){
 	players_state[id].type_id=2;
 }
 
+void Map_2d::add_dead_body(int id,int pos_x,int pos_y){
+	//bodies_in_map[std::pair<pos_x,pos_y>]=players_state.
+	switch(int(players_state[id].type_id)){
+		case 1:{
+			bodies_in_map[std::make_pair(pos_x,pos_y)]=14;
+			break;
+		}
+		case 2:{
+			bodies_in_map[std::make_pair(pos_x,pos_y)]=15;
+			break;
+		}
+		case 3:{
+			bodies_in_map[std::make_pair(pos_x,pos_y)]=16;
+			break;
+		}
+	}
+}
+
 void Map_2d::update_player_texture(int id,int weapon){
 	players_state[id].weapon=weapon;
 }

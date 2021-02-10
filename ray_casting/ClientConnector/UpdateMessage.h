@@ -38,6 +38,8 @@ public:
 
     Item_taken_event get_item_taken();
 
+    Death_event get_death_event();
+
 private:
     uint8_t Opcode;
     uint8_t Type_Of_Event;

@@ -98,6 +98,10 @@ Item_taken_event UpdateMessage::get_item_taken(){
     return ItTakenEvent;
 }
 
+Death_event UpdateMessage::get_death_event(){
+    return death_event;
+}
+
 
 uint8_t UpdateMessage::get_opcode(){
     return Opcode;

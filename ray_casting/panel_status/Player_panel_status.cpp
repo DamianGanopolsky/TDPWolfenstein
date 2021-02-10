@@ -27,7 +27,10 @@ Player_panel_status::Player_panel_status(SDL_Renderer*& renderer) :
 										chain_cannon(renderer,IMAGE_CHAIN_CANNON_PATH,TOTAL_CHAIN_CANNONS),
 										officer_shooting_status(renderer,IMAGE_OFFICER_SHOOTING_PATH,TOTAL_OFFICER_SHOOTING),
 										eguard_shooting_status(renderer,IMAGE_EGUARDIAS_SHOOTING_PATH,TOTAL_EGUARDIAS_SHOOTING),
-										guard_shooting_status(renderer,IMAGE_GUARDIAS_SHOOTING_PATH,TOTAL_GUARDIAS_SHOOTING){
+										guard_shooting_status(renderer,IMAGE_GUARDIAS_SHOOTING_PATH,TOTAL_GUARDIAS_SHOOTING),
+										officer_dead_status(renderer,IMAGE_OFFICER_GUARDIAS_DEAD_PATH,TOTAL_OFFICER_GUARDIAS_DEAD),
+										eguard_dead_status(renderer,IMAGE_EGUARDS_DEAD_PATH,TOTAL_EGUARDS_DEAD),
+										guard_dead_status(renderer,IMAGE_DEATH_GUARDIAS_PATH,TOTAL_GUARDIAS_DEATH){
 										//numero(renderer,255,255,255) 
 										
 	SDL_Surface *status_img = IMG_Load("../ray_casting/sprites/hud.png");
@@ -58,7 +61,10 @@ Player_panel_status::Player_panel_status(Player_panel_status&& other) :
 										chain_cannon(std::move(other.chain_cannon)),
 										officer_shooting_status(std::move(other.officer_shooting_status)),
 										eguard_shooting_status(std::move(other.eguard_shooting_status)),
-										guard_shooting_status(std::move(other.guard_shooting_status)){	
+										guard_shooting_status(std::move(other.guard_shooting_status)),
+										officer_dead_status(std::move(other.officer_dead_status)),
+										eguard_dead_status(std::move(other.eguard_dead_status)),
+										guard_dead_status(std::move(other.guard_dead_status)){	
 										//numero(std::move(other.numero)) 
 										
 	this->status_tex = other.status_tex;
@@ -98,6 +104,9 @@ Player_panel_status& Player_panel_status::operator=(Player_panel_status&& other)
 	this->officer_shooting_status=std::move(other.officer_shooting_status);
 	this->eguard_shooting_status=std::move(other.eguard_shooting_status);
 	this->guard_shooting_status=std::move(other.guard_shooting_status);
+	this->officer_dead_status=std::move(other.officer_dead_status);
+	this->eguard_dead_status=std::move(other.eguard_dead_status);
+	this->guard_dead_status=std::move(other.guard_dead_status);
 	other.status_tex = nullptr;
 	return *this;	
 }
@@ -317,6 +326,15 @@ SDL_Texture* Player_panel_status::get_texture(int tex_section, int id) {
 			break;
 		case 13:
 			texture=this->eguard_shooting_status.get_texture(tex_section);
+			break;
+		case 14:
+			texture=this->guard_dead_status.get_texture(tex_section);
+			break;
+		case 15:
+			texture=this->officer_dead_status.get_texture(tex_section);
+			break;
+		case 16:
+			texture=this->eguard_dead_status.get_texture(tex_section);
 			break;
 		default:
 			texture=this->bullets.get_texture(tex_section);

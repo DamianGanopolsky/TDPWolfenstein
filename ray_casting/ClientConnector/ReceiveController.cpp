@@ -58,7 +58,8 @@ void ReceiveController::update(){
                     break;
                 }
                 case DEATH_EV:{
-
+                    Death_event death_ev=updatemessage->get_death_event();
+                    map.add_dead_body(death_ev.id_player,death_ev.pos_x,death_ev.pos_y);
                     break;
                 }
                 default:

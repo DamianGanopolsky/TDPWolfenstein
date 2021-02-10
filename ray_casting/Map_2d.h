@@ -36,6 +36,7 @@ public:
 	void delete_item(int x,int y);
 	void update_player_pos(int id,int pos_x,int pos_y,int angle,int status);
 	void update_player_texture(int id,int weapon);
+	void add_dead_body(int player_id,int pos_x,int pos_y);
 private:
 //PARED O NO
 	std::map<int, bool> boxes;
@@ -52,6 +53,8 @@ private:
 	std::unordered_map<int,Game_element> players_in_map;
 	//std::unordered_map<int,int> elements_map;
 	std::unordered_map<int,state> players_state;
+
+	std::map <std::pair<int,int>,int> bodies_in_map;
 	//POSICION DEL PLAYER
 	//Cada cuadricula tiene 64x64 posiciones
 	Player& player; 
