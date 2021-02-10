@@ -24,7 +24,7 @@ Computadora 1
 - Placa de video integrada, intel HD Graphics 520
 
 Computadora 2
-- Sistema operativo :  
+- Sistema operativo :  Ubuntu
 - 
 -
 -
@@ -62,6 +62,10 @@ arrastrando a lo largo del mapa, manteniendo nuevamente el click derecho presion
 Para eliminar un objeto personaje o estructura del mapa(o eliminar varios en simultaneo), se debe usar cualquier opcion para el editado del mapa usando el "Floor Tile" que se encuentra en la tercera
 barra inferior desde la izquierda.
 
+#### Cambio de tamaño del mapa:  
+
+Se puede aumentar el tamaño del mapa o achicar el mismo mediante los dos botones que se encuentran en la esquina inferior derecha.
+
 #### Guardado de mapas:
 
 Una vez editado el mapa se puede guardar el mismo, seleccionando el boton de Guardar que se encuentra en la esquina superior derecha de la pantalla. Una vez seleccionado,
@@ -85,5 +89,16 @@ en el archivo Yaml que se encuentra en el archivo "client_settings.yaml" dentro 
 - D: Para avanzar hacia la derecha
 - ->(Flecha hacia la derecha): Para rotar el angulo de vision hacia la derecha
 - <-(Flecha hacia la izquierda): Para rotar el angulo de vision hacia la izquierda
+
+#### Cambio de armas
+- 1: Para seleccionar el cuchillo
+- 2: Para seleccionar la pistola
+- 3: Para seleccionar el arma automatica
+- 4: Para seleccionar el Chain Cannon  
+Vale aclarar que las ultimas dos armas se tienen que lootear para que se pueda cambiar de arma a alguna de estas.
+
+#### Salir del juego  
+Se puede salir del juego en cualquier momento presionando la tecla "Esc" del lado del cliente.  
+Para cerrar el servidor hay que introducir por consola la tecla "q".
 
 
