@@ -18,12 +18,16 @@ Para compilar el codigo y poder obtener los tres ejecutables, es necesario parar
 El juego fue probado en dos computadoras con las siguientes especificaciones:
 
 Computadora 1  
+- Sistema operativo : Linux Mint 19.2
 - Procesador Intel i3-6006U
 - 6 GB de Ram
 - Placa de video integrada, intel HD Graphics 520
 
 Computadora 2
-
+- Sistema operativo :  
+- 
+-
+-
 
 ## Modo de uso
 
