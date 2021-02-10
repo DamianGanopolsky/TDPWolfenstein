@@ -10,7 +10,7 @@ int Treasure::getItemType() {
 
 void Treasure::attack(double& distance, int& damage) {}
 
-int Treasure::getType() {
+const int Treasure::getType() {
     return -1;
 }
 

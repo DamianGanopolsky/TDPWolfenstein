@@ -9,7 +9,7 @@ class ChainCannon: public Weapon {
  public:
     ChainCannon();
     void attack(double& distance, int& damage) override;
-    int getType() override;
+    const int getType() override;
 };
 
 #endif   // CHAIN_CANNON_H_

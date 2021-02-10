@@ -9,7 +9,7 @@ class MachineGun: public Weapon {
  public:
     MachineGun();
     void attack(double& distance, int& damage) override;
-    int getType() override;
+    const int getType() override;
 };
 
 #endif   // MACHINE_GUN_H_

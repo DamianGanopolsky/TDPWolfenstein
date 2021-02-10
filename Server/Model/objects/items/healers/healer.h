@@ -10,7 +10,7 @@ class Healer: public Item {
       virtual int getItemType() = 0;
       int getPoints() override; //treaure
       void attack(double& distance, int& damage) override; //weapon
-      int getType() override; //weapon
+      const int getType() override; //weapon
       int getBullets() override;//bullets
  protected:
     int points;

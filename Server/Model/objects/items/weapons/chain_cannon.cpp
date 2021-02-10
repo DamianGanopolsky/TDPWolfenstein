@@ -15,6 +15,6 @@ void ChainCannon::attack(double& distance, int& damage) {
     damage = 0;
 }
 
-int ChainCannon::getType() {
+const int ChainCannon::getType() {
     return CHAIN_CANNON_TYPE;
 }

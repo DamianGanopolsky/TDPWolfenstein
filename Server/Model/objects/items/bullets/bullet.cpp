@@ -18,7 +18,7 @@ int Bullet::getPoints() {
 
 void Bullet::attack(double& distance, int& damage) {}
 
-int Bullet::getType()  {
+const int Bullet::getType()  {
     return -1;
 }
 

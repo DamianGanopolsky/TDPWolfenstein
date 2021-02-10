@@ -14,7 +14,7 @@ class Item: public Object {
       Item* getItem() override;
       virtual int getPoints() = 0; //treaure
       virtual void attack(double& distance, int& damage) = 0; //weapon
-      virtual int getType() = 0; //weapon
+      virtual const int getType() = 0; //weapon
       virtual int heal() = 0;//healer
       virtual int getBullets() = 0;//bullets
 
