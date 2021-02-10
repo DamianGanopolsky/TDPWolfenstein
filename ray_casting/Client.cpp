@@ -2,7 +2,8 @@
 #include <iostream>
 #include <unistd.h>
 
-Client::Client(Panel_window& Panel,Player& Player,Map_2d& Map):panel(Panel),player(Player),map(Map){
+Client::Client(Panel_window& Panel,Player& Player,Map_2d& Map):panel(Panel),player(Player),map(Map),\
+game_finished(false){
     rays = std::move(map.get_player_rays());
     elements = std::move(map.get_game_elements());
     panel.update(std::move(rays), std::move(elements),  player.get_info());
@@ -19,12 +20,20 @@ void Client::update(){
 void Client::render(){
     //auto t1= std::chrono::steady_clock::now();
     //int animation_to_render=0;
-    
-    rays = std::move(map.get_player_rays());   //No tienen que ver con lo grafico
-    //Todos los elementos que no son paredes. Tienen que tener una distancia
-    elements = std::move(map.get_game_elements());   //No tienen que ver con lo grafico
-    //DIBUJAR
-    panel.update(std::move(rays), std::move(elements),  player.get_info()); 
+    if(!game_finished){
+        rays = std::move(map.get_player_rays());   //No tienen que ver con lo grafico
+        //Todos los elementos que no son paredes. Tienen que tener una distancia
+        elements = std::move(map.get_game_elements());   //No tienen que ver con lo grafico
+        //DIBUJAR
+        panel.update(std::move(rays), std::move(elements),  player.get_info()); 
+    }
+    else{
+        panel.render_ending_screen();
+    }
+}
+
+void Client::player_lost(){
+    game_finished=true;
 }
 
 Player Client::get_player(){

@@ -6,9 +6,6 @@
 
 
 Panel_window::Panel_window(Map_2d& MAP): map(MAP), running(true) {
-	/*if (SDL_Init(SDL_INIT_VIDEO) != 0) {
-		std::cout << "ERROR init video" << std::endl;
-	}*/
 	this->window = SDL_CreateWindow(PANEL_TITLE, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, PANEL_WIDTH, PANEL_HEIGHT, 0);
 	SDL_SetWindowFullscreen(window,0);
 	this->renderer = SDL_CreateRenderer(this->window, -1, 0);
@@ -55,4 +52,11 @@ void Panel_window::update(std::set<Ray>&& rays, std::list<Game_element>&& elemen
 	
 	this->player_panel_status.copy_to_rederer(player_info);
     SDL_RenderPresent(this->renderer);
+}
+
+void Panel_window::render_ending_screen(){
+	SDL_SetRenderDrawColor(this->renderer,255,0,0,255);
+	SDL_RenderClear(this->renderer);
+	SDL_RenderPresent(this->renderer);
+	std::cout << "Ending screen!" << std::endl;
 }

@@ -115,14 +115,14 @@ void ReceiveController::update(){
                 }
                 case TREASURE_TAKEN_ITM:{
                     std::cout << "Recibi tesoro" << std::endl;
-                    
-                    Item_taken_event it_taken=updatemessage->get_item_taken();
+                    client.player_lost();
+                    /*Item_taken_event it_taken=updatemessage->get_item_taken();
                     
                     std::cout << "Cuadricula x es" << it_taken.pos_x << "Cuadricula y es" << it_taken.pos_y << std::endl;
                     map.delete_item(it_taken.pos_x,it_taken.pos_y);
                     if(int(it_taken.player_id)==player.get_id()){
                         player.change_score(it_taken.value);
-                    }
+                    }*/
                     break;
                 }
              }

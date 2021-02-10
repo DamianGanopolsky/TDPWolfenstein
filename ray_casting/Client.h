@@ -17,6 +17,8 @@ public:
 
     Client(Panel_window& Panel,Player& Player,Map_2d& Map);
 
+    void player_lost();
+
     Player get_player();
 
 private: 
@@ -26,6 +28,7 @@ private:
     //Constant_rate_loop crl;
     std::set<Ray> rays;
     std::list<Game_element> elements;
+    bool game_finished;
 	
 };
 
