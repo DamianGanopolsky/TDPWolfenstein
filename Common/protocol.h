@@ -78,8 +78,9 @@ enum EventOpcode {
     DELETE_PLAYER_EV, //id del jugador
     ATTACK_EV,      //id del jugador,  CANT DE BALAS
     BE_ATTACKED_EV, //id del jugador, entero con la vida que tengo( la que voy a mostrar)
-    DEATH_EV,       //id del jugador, coordenada x, coordenada y (la llegada de este evento tambien implica que se dropean los objetos a la hora de la muerte)
+    DEATH_EV,       //id del jugador, coordenada x, coordenada y //(la llegada de este evento tambien implica que se dropean los objetos a la hora de la muerte)
     RESURRECT_EV,   //id del jugador, id del mapa a abrir, coordenada x, coordenada y, angulo del jugador,vida , las vidas, puntaje, balas
+    // Si el resultado de la cuenta es 0, muestro la pantalla
     //CHANGE_LEVEL_EV, // No hace falta aunque sea por ahora
     CHANGE_WEAPON_EV, //id del jugador, {0,1,2,3} 0=CUCHILLO, 1=pistola, ...
 };
