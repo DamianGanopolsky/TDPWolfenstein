@@ -7,6 +7,7 @@ Wall_texture::Wall_texture() {
         std::string new_root = TEXTURE_PATH;
         new_root.append(std::to_string(i));
         new_root.append(".png");
+        std::cout << "Texture path es" << new_root.c_str() << std::endl;
         SDL_Surface* wall = IMG_Load(new_root.c_str());
 
         for (int image_y = 0; image_y < TEXTURE_HEIGHT; image_y++) {
