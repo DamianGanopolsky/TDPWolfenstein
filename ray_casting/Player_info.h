@@ -15,6 +15,7 @@ public:
 	int get_weapon() const;
 	int get_level() const;
 	int get_weapon_status() const;
+	void update_info(int life,int resurrected,int score,int bullets);
 	void change_weapon_status();
 
 	void set_initial_status(int health,int lives,int score,int ammo);

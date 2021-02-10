@@ -24,6 +24,14 @@ int Player::get_id(){
 	return player_id;
 }
 
+void Player::resurrect_player(New_Player_Event player_new_info){
+	pos_x=player_new_info.pos_x;
+	pos_y=player_new_info.pos_y;
+	vision_angle=player_new_info.angle;
+	info.update_info(player_new_info.life,player_new_info.resurrected,\
+	player_new_info.score,player_new_info.bullets);
+}
+
 float Player::get_angle() const {
 	return this->vision_angle;
 }
