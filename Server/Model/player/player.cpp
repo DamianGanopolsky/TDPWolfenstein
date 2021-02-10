@@ -216,6 +216,10 @@ Response Player::changeWeapon(int& weapon) {
     return Response(false, NO_WEAPON_IN_INVENTORY_ERROR_MSG);
 }
 
+void Player::addInventory(int weapon) {
+    this->info.inventory.push_back(weapon);
+}
+
 void Player::addLife(int life) {
     this->info.life += life;
 }

@@ -99,9 +99,9 @@ std::list <int> PlayerInfo::getInventory() {
     return this->inventory;
 }
 
-void PlayerInfo::addInventory(int weapon) {
+/*void PlayerInfo::addInventory(int weapon) {
     this->inventory.push_back(weapon);
-}
+}*/
 
 bool PlayerInfo::hasWeapon(int weapon) {
     std::cout << "PlayerInfo: has weapon" <<std::endl;

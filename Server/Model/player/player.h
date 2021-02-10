@@ -72,6 +72,7 @@ public:
     void reduceBullets(int bullets);
     void reduceNumKeys(int key);
     void reduceTreasure(int treasure);
+    void addInventory(int weapon);
     //void changeWeaponEquiped(Weapon* &weapon);
 };
 

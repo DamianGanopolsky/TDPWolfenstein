@@ -59,7 +59,7 @@ int PickUp::pickUp(Player& player, Item* item) {
                 return NO_ITEM_PICKED_UP;
             }
             std::cout <<"doesnt has weapon"<<std::endl;
-            player.getInfo().addInventory(item->getType());
+            player.addInventory(item->getType());
             std::cout <<"weapon added"<<std::endl;
             return WEAPON_TAKEN_ITM;
             break;

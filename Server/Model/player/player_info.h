@@ -37,7 +37,7 @@ class PlayerInfo {
       //void changeWeaponEquiped(Weapon* &weapon);
       
       std::list <int>getInventory();
-      void addInventory(int weapon);
+      //void addInventory(int weapon);
       bool hasWeapon(int weapon);
 };
 
