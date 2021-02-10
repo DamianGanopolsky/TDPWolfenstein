@@ -40,6 +40,10 @@ void ReceiveController::update(){
                     //std::cout << "lives es" << unsigned(new_ev.life) << std::endl;
                     break;
                 }
+                case RESURRECT_EV:{
+                   // New_Player_Event resurrect_ev=updatemessage->get_new_player_info();
+                   break;
+                }
                 case CHANGE_WEAPON_EV:{
                     Change_Weapon_Event weapon_ev=updatemessage->get_changed_stat();
                     if(int(weapon_ev.player_id)!=player.get_id()){
@@ -107,9 +111,6 @@ void ReceiveController::update(){
                 case WEAPON_TAKEN_ITM:{
                     Item_taken_event it_taken=updatemessage->get_item_taken();
                     map.delete_item(it_taken.pos_x,it_taken.pos_y);
-                    if(int(it_taken.player_id)==player.get_id()){
-
-                    }
                     break;
                 }
                 case TREASURE_TAKEN_ITM:{
