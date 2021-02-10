@@ -3,8 +3,8 @@
 
 #define PANEL_DISTANCE 277
 #define WALL_HEIGHT 64.0
-#define FLOOR_COLOR 20
-#define CEILING_COLOR 500
+#define FLOOR_COLOR 6908265   // Esto es el techo
+#define CEILING_COLOR 2631720 // Esto es el piso
 #define PANEL_TITLE "WOLFENSTEIN"
 #define ENEMY_HEIGHT 64
 #define ENEMY_WIDTH 64
