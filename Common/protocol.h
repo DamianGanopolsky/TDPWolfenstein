@@ -40,6 +40,12 @@ struct Item_taken_event{
     uint32_t player_id;
 };
 
+struct Death_event{
+    uint32_t id_player;
+    uint32_t pos_x;
+    uint32_t pos_y;
+};
+
 
 enum Opcode {
     EVENT_OPCODE = 0,

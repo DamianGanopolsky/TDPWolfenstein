@@ -36,6 +36,9 @@
 #define TOTAL_GUARDIAS 8
 #define IMAGE_GUARDIAS_PATH "../ray_casting/panel_status/images/guardia"
 
+#define TOTAL_GUARDIAS_DEATH 3
+#define IMAGE_DEATH_GUARDIAS_PATH ""
+
 #define TOTAL_GUARDIAS_SHOOTING 1
 #define IMAGE_GUARDIAS_SHOOTING_PATH "../ray_casting/panel_status/images/GuardiaShooting"
 

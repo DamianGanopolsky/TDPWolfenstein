@@ -57,6 +57,10 @@ void ReceiveController::update(){
                     }
                     break;
                 }
+                case DEATH_EV:{
+
+                    break;
+                }
                 default:
                     break;
              }

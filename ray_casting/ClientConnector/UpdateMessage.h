@@ -16,6 +16,8 @@ public:
     void load_new_player_event(uint8_t player_id,uint8_t map,uint32_t pos_x,uint32_t pos_y,\
     float angle,uint32_t life,uint8_t resurrected,uint32_t score,uint32_t bullets);
 
+    void load_death_event(uint32_t player_id,uint32_t pos_x,uint32_t pos_y);
+
     void load_changed_stat(uint32_t player_id,uint32_t weapon);
 
     void load_door_changed(uint32_t x,uint32_t y);
@@ -49,6 +51,8 @@ private:
     Change_door_event ChDoorEvent;
 
     Item_taken_event ItTakenEvent;
+
+    Death_event death_event;
 
     /*uint8_t Player_Id;
     uint8_t Pos_X;

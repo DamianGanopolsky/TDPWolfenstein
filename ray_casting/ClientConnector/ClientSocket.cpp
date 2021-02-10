@@ -229,6 +229,20 @@ void ClientSocket::recv(char* recv_buff,int len){
                     recv_queue.push(std::move(update_message));
                     break;
                 }
+                case DEATH_EV:{
+                    uint32_t player_id[1];
+                    uint32_t pos_x[1];
+                    uint32_t pos_y[1];
+                    socket.receive((char*)player_id,sizeof(player_id),bytes_received);
+                    socket.receive((char*)pos_x,sizeof(pos_x),bytes_received);
+                    socket.receive((char*)pos_y,sizeof(pos_y),bytes_received);
+                    player_id[0]=le32toh(player_id[0]);
+                    pos_x[0]=le32toh(pos_x[0]);
+                    pos_y[0]=le32toh(pos_y[0]);
+                    update_message->load_death_event(player_id[0],pos_x[0],pos_y[0]);
+                    recv_queue.push(std::move(update_message));
+                    break;
+                }
             }
         }
         if(buffer[0]==ITEM_CHANGED_OPCODE){

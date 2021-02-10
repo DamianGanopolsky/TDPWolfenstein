@@ -9,6 +9,7 @@ UpdateMessage::UpdateMessage(const UpdateMessage& other) {
     this->ChWeaponEvent=other.ChWeaponEvent;
     this->ChDoorEvent=other.ChDoorEvent;
     this->ItTakenEvent=other.ItTakenEvent;
+    this->death_event=other.death_event;
 }
 UpdateMessage& UpdateMessage::operator=(const UpdateMessage& other) {
     this->Opcode = other.Opcode;
@@ -18,6 +19,7 @@ UpdateMessage& UpdateMessage::operator=(const UpdateMessage& other) {
     this->ChWeaponEvent=other.ChWeaponEvent;
     this->ChDoorEvent=other.ChDoorEvent;
     this->ItTakenEvent=other.ItTakenEvent;
+    this->death_event=other.death_event;
     return *this;
 }
 
@@ -67,6 +69,15 @@ void UpdateMessage::load_item_taken(uint32_t player_id,uint32_t pos_x,uint32_t p
     ItTakenEvent.value=value;
 
 }
+
+void UpdateMessage::load_death_event(uint32_t player_id,uint32_t pos_x,uint32_t pos_y){
+    death_event.id_player=player_id;
+    death_event.pos_x=pos_x;
+    death_event.pos_y=pos_y;
+}
+
+
+
 Movement_event UpdateMessage::get_mov_event_info(){
     return MovEvent;
 }
