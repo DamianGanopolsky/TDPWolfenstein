@@ -15,6 +15,6 @@ void MachineGun::attack(double& distance, int& damage) {
     damage = 0;
 }
 
-int MachineGun::getType() {
+const int MachineGun::getType() {
     return MACHINE_GUN_TYPE;
 }

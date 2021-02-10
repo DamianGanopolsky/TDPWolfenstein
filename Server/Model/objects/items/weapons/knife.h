@@ -10,7 +10,7 @@ class Knife: public Weapon {
  public:
     Knife();
     void attack(double& distance, int& damage) override;
-    int getType() override;
+    const int getType() override;
 };
 
 #endif   // KNIFE_H_

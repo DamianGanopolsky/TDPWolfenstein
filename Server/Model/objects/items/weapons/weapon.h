@@ -10,7 +10,7 @@ class Weapon: public Item {
     Weapon();
     virtual ~Weapon();
     virtual void attack(double& distance, int& damage) = 0;
-    virtual int getType() = 0;
+    virtual const int getType() = 0;
     static float getRandomNumber();
     int getItemType() override;
     int getPoints() override; //treaure

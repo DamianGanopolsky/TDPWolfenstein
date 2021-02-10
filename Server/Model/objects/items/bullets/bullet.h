@@ -10,7 +10,7 @@ class Bullet: public Item {
       int getItemType() override;
       int getPoints() override; //treaure
       void attack(double& distance, int& damage) override; //weapon
-      int getType() override; //weapon
+      const int getType() override; //weapon
       int heal() override;//healer
 
    private:

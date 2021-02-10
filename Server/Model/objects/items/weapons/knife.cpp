@@ -11,7 +11,7 @@ void Knife::attack(double& distance, int& damage) {
     damage = 0;
 }
 
-int Knife::getType() {
+const int Knife::getType() {
     std::cout<<"Knife: gett_type"<< std::endl;
     return KNIFE_TYPE;
 }

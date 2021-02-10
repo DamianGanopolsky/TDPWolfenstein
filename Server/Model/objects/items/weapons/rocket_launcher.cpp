@@ -15,6 +15,6 @@ void RocketLauncher::attack(double& distance, int& damage) {
     damage = 0;
 }
 
-int RocketLauncher::getType() {
+const int RocketLauncher::getType() {
     return ROCKET_LAUNCHER_TYPE;
 }

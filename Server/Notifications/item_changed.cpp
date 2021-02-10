@@ -77,6 +77,9 @@ bool ItemChanged::send(const ConnectionId sender, const Socket& peer) {
                 break;
             }
             case WEAPON_TAKEN_ITM: { // id del jugador que lo agarra, pos x, pos y
+                std::cout<<"player_id: "<<player_id<<std::endl;
+                std::cout<<"pos x: "<<pos_x<<std::endl;
+                std::cout<<"pos y: "<<pos_y<<std::endl;
                 this->player_id = htole32(this->player_id);
                 peer.send((char *)&player_id, sizeof(player_id));
                 this->pos_x = htole32(this->pos_x);

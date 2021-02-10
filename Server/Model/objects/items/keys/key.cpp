@@ -12,7 +12,7 @@ int Key::getPoints() {
 
 void Key::attack(double& distance, int& damage) {}
 
-int Key::getType() {
+const int Key::getType() {
     return -1;
 }
 

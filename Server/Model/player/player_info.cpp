@@ -99,11 +99,11 @@ std::list <int> PlayerInfo::getInventory() {
     return this->inventory;
 }
 
-void PlayerInfo::addInventory(int& weapon) {
+void PlayerInfo::addInventory(int weapon) {
     this->inventory.push_back(weapon);
 }
 
-bool PlayerInfo::hasWeapon(int& weapon) {
+bool PlayerInfo::hasWeapon(int weapon) {
     std::cout << "PlayerInfo: has weapon" <<std::endl;
     return (std::find(this->inventory.begin(), this->inventory.end(), weapon) != this->inventory.end());
     /*std::cout << "PlayerInfo: iterator" <<std::endl;

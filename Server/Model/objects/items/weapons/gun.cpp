@@ -15,6 +15,6 @@ void Gun::attack(double& distance, int& damage) {
     damage = 0;
 }
 
-int Gun::getType() {
+const int Gun::getType() {
     return GUN_TYPE;
 }

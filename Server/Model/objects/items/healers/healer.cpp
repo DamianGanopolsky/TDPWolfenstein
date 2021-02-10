@@ -16,7 +16,7 @@ int Healer::getPoints() {
 
 void Healer::attack(double& distance, int& damage) {}
 
-int Healer::getType() {
+const int Healer::getType() {
     return -1;
 }
 

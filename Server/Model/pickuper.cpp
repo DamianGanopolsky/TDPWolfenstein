@@ -52,11 +52,16 @@ int PickUp::pickUp(Player& player, Item* item) {
             return TREASURE_TAKEN_ITM;
         }
         case WEAPON: {
-            /*if(info.hasWeapon(item)) {
+            std::cout <<"WEAPON!"<<std::endl;
+            std::cout <<"wepon type: "<< item->getType() <<std::endl;
+            if(player.getInfo().hasWeapon(item->getType())) {
+                std::cout <<"has weapon"<<std::endl;
                 return NO_ITEM_PICKED_UP;
             }
-            info.addInventory(item);
-            return WEAPON_TAKEN_ITM;*/
+            std::cout <<"doesnt has weapon"<<std::endl;
+            player.getInfo().addInventory(item->getType());
+            std::cout <<"weapon added"<<std::endl;
+            return WEAPON_TAKEN_ITM;
             break;
         }
     }

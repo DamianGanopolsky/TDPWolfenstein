@@ -12,7 +12,7 @@ int Corpse::getPoints() {
 
 void Corpse::attack(double& distance, int& damage) {}
 
-int Corpse::getType()  {
+const int Corpse::getType()  {
     return -1;
 }
 

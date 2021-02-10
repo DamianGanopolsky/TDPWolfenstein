@@ -9,7 +9,7 @@ class RocketLauncher: public Weapon {
  public:
     RocketLauncher();
     void attack(double& distance, int& damage) override;
-    int getType() override;
+    const int getType() override;
 };
 
 #endif   // ROCKET_LAUNCHER_H_
