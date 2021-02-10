@@ -101,6 +101,13 @@ void Map_2d::delete_item(int x,int y){
 	elements_map.erase(std::make_pair(x,y));
 }
 
+int Map_2d::get_height(){
+	return map_height;
+}
+
+int Map_2d::get_width(){
+	return map_width;
+}
 
 
 std::list<Game_element> Map_2d::get_game_elements() {

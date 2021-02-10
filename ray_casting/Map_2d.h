@@ -37,6 +37,8 @@ public:
 	void update_player_pos(int id,int pos_x,int pos_y,int angle,int status);
 	void update_player_texture(int id,int weapon);
 	void add_dead_body(int player_id,int pos_x,int pos_y);
+	int get_width();
+	int get_height();
 private:
 //PARED O NO
 	std::map<int, bool> boxes;

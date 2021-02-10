@@ -29,8 +29,11 @@ public:
 private:
 	Map_2d& map;
 	SDL_Renderer* renderer;
+	int map_width;
+	int map_height;
 	
 	SDL_Window *window;
+	SDL_Texture* Ending_screen_base;
 	bool running;
 	Wall_texture wall_textures;
 	Player_panel_status player_panel_status;

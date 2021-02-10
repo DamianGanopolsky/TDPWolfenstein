@@ -10,6 +10,11 @@ Panel_window::Panel_window(Map_2d& MAP): map(MAP), running(true) {
 	SDL_SetWindowFullscreen(window,0);
 	this->renderer = SDL_CreateRenderer(this->window, -1, 0);
 	this->player_panel_status = Player_panel_status(this->renderer);
+	map_width=map.get_width();
+	map_height=map.get_height();
+	SDL_Surface* ending_screen_surf=IMG_Load("../ray_casting/sprites/EndingScreenBase.png");
+    Ending_screen_base=SDL_CreateTextureFromSurface(this->renderer,ending_screen_surf);
+    SDL_FreeSurface(ending_screen_surf);
 }
 
 Panel_window::~Panel_window() {
@@ -42,21 +47,20 @@ void Panel_window::update(std::set<Ray>&& rays, std::list<Game_element>&& elemen
 	}
 	SDL_RenderClear(this->renderer);
 	
-
 	while(!q.empty()) {
 		
 		Element_panel* element = q.top();
 		element->copy_to_rederer(*this->renderer);
 		q.pop();
 	}
-	
 	this->player_panel_status.copy_to_rederer(player_info);
     SDL_RenderPresent(this->renderer);
 }
 
 void Panel_window::render_ending_screen(){
-	SDL_SetRenderDrawColor(this->renderer,255,0,0,255);
+	SDL_SetRenderDrawColor(this->renderer,105,105,105,255);
 	SDL_RenderClear(this->renderer);
+	SDL_Rect main_screen_rect={0,0,PANEL_WIDTH,PANEL_HEIGHT};
+    SDL_RenderCopy(this->renderer,Ending_screen_base,NULL,&main_screen_rect);
 	SDL_RenderPresent(this->renderer);
-	std::cout << "Ending screen!" << std::endl;
 }
