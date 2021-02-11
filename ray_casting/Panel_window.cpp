@@ -62,5 +62,17 @@ void Panel_window::render_ending_screen(){
 	SDL_RenderClear(this->renderer);
 	SDL_Rect main_screen_rect={0,0,PANEL_WIDTH,PANEL_HEIGHT};
     SDL_RenderCopy(this->renderer,Ending_screen_base,NULL,&main_screen_rect);
+	TTF_Font* Sans = TTF_OpenFont("../ray_casting/panel_status/OpenSans-Bold.ttf", 35); 
+	if(!Sans){
+		printf("TTF OPENFONT: %s \n",TTF_GetError());
+	}
+	SDL_Rect text_1_Rect={0,100,350,30};
+	const char* final_score= "El score final ha sido:";
+    SDL_Surface* surfaceMessage = TTF_RenderText_Solid(Sans, final_score, {108, 0, 0});
+	SDL_Texture* texture_of_text = SDL_CreateTextureFromSurface(this->renderer,surfaceMessage); 
+	SDL_RenderCopy(this->renderer, texture_of_text, NULL, &text_1_Rect);
+	SDL_FreeSurface(surfaceMessage);
+	SDL_DestroyTexture(texture_of_text);
+	TTF_CloseFont(Sans);
 	SDL_RenderPresent(this->renderer);
 }
