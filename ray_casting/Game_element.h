@@ -29,7 +29,9 @@ private:
 	int pos_ray;
 	int type_id;
 	int texture_section;
+	
 	SDL_Texture* texture;
+	int angle_;
 
 	int get_texture_section(int element_angle, int player_angle);
 	int get_angle_section(int angle);

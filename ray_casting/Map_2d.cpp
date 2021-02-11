@@ -71,13 +71,14 @@ void Map_2d::add_dead_body(int id,int pos_x,int pos_y){
 	body_state body;
 	body.pos_x=pos_x;
 	body.pos_y=pos_y;
+	body.state=0;
 	std::cout << "Players state id es" << int(players_state[id].weapon) << std::endl;
 
 	switch(int(players_state[id].type_id)){
 		case 0:
 		case 1:{
 			//bodies_in_map[std::make_pair(pos_x,pos_y)]=13;
-			body.type_id=13;
+			body.type_id=14;
 			break;
 		}
 		case 2:{
@@ -139,10 +140,12 @@ std::list<Game_element> Map_2d::get_game_elements() {
 	}
 
 	for(auto& object: bodies){
-		if((object.type_id==13)||(object.type_id==14)){
-			object.type_id=object.type_id+1;
+		if(object.state<2){
+			std::cout << "Object state es" << object.state << std::endl;
+			std::cout << "Sumo" << std::endl;
+			object.state++;
 		}
-		Game_element element(object.pos_x,object.pos_y,object.type_id,270,this->player);
+		Game_element element(object.pos_x,object.pos_y,object.type_id,object.state,this->player);
 		elements.push_back(std::move(element));
 	}
 	/*Game_element element(150,250, 11, 270, this->player);

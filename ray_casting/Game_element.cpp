@@ -11,6 +11,7 @@
 
 Game_element::Game_element(int pos_x, int pos_y, int type_id, int vision_angle, Player& player) :
 							type_id(type_id) {
+
 	this->texture_section = this->get_texture_section(vision_angle, player.get_angle());
 
 	float x = player.get_pos_x() - pos_x;
@@ -24,7 +25,7 @@ Game_element::Game_element(int pos_x, int pos_y, int type_id, int vision_angle, 
 	} else if (x < 0 && y < 0) {
 		angle = 360 - angle; 
 	}
-
+	angle_=vision_angle;
 
 	int ply_angle = player.get_angle() - FOV / 2;
 	float  angle_min = ply_angle < 0 ? 360.0 + ply_angle : ply_angle;
@@ -95,7 +96,8 @@ Game_element::Game_element(Game_element&& other) :
 							pos_ray(other.pos_ray),
 							type_id(other.type_id),
 							texture_section(other.texture_section), 
-							texture(other.texture) {
+							texture(other.texture),
+							angle_(other.angle_) {
 	this->dist = other.dist;
 }
 
@@ -112,11 +114,18 @@ void Game_element::set_texture(SDL_Texture* tex) {
 
 int Game_element::get_texture_section() {
 	//DETERMINA CUAL DE TODAS LAS TEXTURAS DE ANGULO USAR, LO HARDCODEO A 0
+	if(get_type_id()>13){
+		std::cout << "Texture section es" << angle_ << std::endl;
+		return angle_;
+	}
 	return this->texture_section; 
 	//return 0;
 }
 
 int Game_element::get_texture_section(int element_angle, int player_angle) {
+	if(get_type_id()>13){
+		return angle_;
+	}
 	if(get_type_id()>3){
 		return 0;
 	}
