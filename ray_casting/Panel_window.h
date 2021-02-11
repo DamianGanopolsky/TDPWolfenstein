@@ -37,6 +37,7 @@ private:
 	bool running;
 	Wall_texture wall_textures;
 	Player_panel_status player_panel_status;
+
 };
 
 #endif

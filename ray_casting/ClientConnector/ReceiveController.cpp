@@ -116,6 +116,7 @@ void ReceiveController::update(){
                 case TREASURE_TAKEN_ITM:{
                     std::cout << "Recibi tesoro" << std::endl;
                     //client.player_lost();
+                    
                     Item_taken_event it_taken=updatemessage->get_item_taken();
                     
                     std::cout << "Cuadricula x es" << it_taken.pos_x << "Cuadricula y es" << it_taken.pos_y << std::endl;

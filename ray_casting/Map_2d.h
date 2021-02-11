@@ -12,6 +12,7 @@
 #include "const.h"
 #include "Yaml/MapYamlParser.h"
 #include <string>
+#include "DeadBodie.h"
 
 struct state{
     int pos_x;
@@ -20,6 +21,13 @@ struct state{
     int vision_angle;
 	int weapon;
 	int is_shooting;
+};
+
+struct body_state{
+	int pos_x;
+	int pos_y;
+	int type_id;
+	int state;
 };
 
 class Map_2d {
@@ -57,6 +65,8 @@ private:
 	std::unordered_map<int,state> players_state;
 
 	std::map <std::pair<int,int>,int> bodies_in_map;
+
+	std::list<body_state> bodies;
 	//POSICION DEL PLAYER
 	//Cada cuadricula tiene 64x64 posiciones
 	Player& player; 

@@ -68,20 +68,30 @@ void Map_2d::update_player_pos(int id,int pos_x,int pos_y,int angle,int status){
 
 void Map_2d::add_dead_body(int id,int pos_x,int pos_y){
 	//bodies_in_map[std::pair<pos_x,pos_y>]=players_state.
+	body_state body;
+	body.pos_x=pos_x;
+	body.pos_y=pos_y;
+	std::cout << "Players state id es" << int(players_state[id].weapon) << std::endl;
+
 	switch(int(players_state[id].type_id)){
+		case 0:
 		case 1:{
 			bodies_in_map[std::make_pair(pos_x,pos_y)]=14;
+			body.type_id=14;
 			break;
 		}
 		case 2:{
 			bodies_in_map[std::make_pair(pos_x,pos_y)]=15;
+			body.type_id=15;
 			break;
 		}
 		case 3:{
 			bodies_in_map[std::make_pair(pos_x,pos_y)]=16;
+			body.type_id=16;
 			break;
 		}
 	}
+	bodies.push_back(body);
 }
 
 void Map_2d::update_player_texture(int id,int weapon){
@@ -125,6 +135,11 @@ std::list<Game_element> Map_2d::get_game_elements() {
 		Game_element element(object.second.pos_x,object.second.pos_y,\
 		get_type_id(object.second.weapon,object.second.is_shooting),\
 		object.second.vision_angle,this->player);
+		elements.push_back(std::move(element));
+	}
+
+	for(auto const& object: bodies){
+		Game_element element(object.pos_x,object.pos_y,object.type_id,270,this->player);
 		elements.push_back(std::move(element));
 	}
 	/*Game_element element(150,250, 11, 270, this->player);

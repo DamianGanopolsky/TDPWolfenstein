@@ -147,6 +147,10 @@ bool Player_handler::handle() {
 						//std::cout << "Notifico al server que quiero cambiar a chain_cannon" << std::endl;
 						break;
 					}
+					case SDLK_5:{
+						map.add_dead_body(1,200,300);
+						break;
+					}
 					case SDLK_ESCAPE:  
 						SendQueue.close();
 						quit=false;
