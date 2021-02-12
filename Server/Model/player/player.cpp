@@ -151,17 +151,7 @@ Response Player::updateShooting(double& distance, int& damage, int& iteration) {
         }
         return Response(false, CANT_SHOOT_ERROR_MSG);
     }
-    std::cout <<"Player: isnt shooting"<< std::endl;
-    if (this->machine_gun_cooldown > 0) {
-        this->machine_gun_cooldown = std::max((int)(chain_cannon_cooldown - iteration *rate),0);
-    }
-    if (this->chain_cannon_cooldown > 0) {
-        this->chain_cannon_cooldown = std::max((int)(chain_cannon_cooldown - iteration *rate),0);
-    }
-    if (!this->gun_can_shoot) {
-        this->gun_can_shoot = true;
-    }
-    return Response(false, SUCCESS_MSG);
+    return Response(false, CANT_SHOOT_ERROR_MSG);
 }
 
 
@@ -297,10 +287,12 @@ void Player::addInventory(int weapon) {
 
 void Player::addLife(int life) {
     this->info.life += life;
+    this->info.life = (this->info.life > MAX_LIFE) ? MAX_LIFE : this->info.life;
 }
 
 void Player::addBullets(int bullets) {
     this->info.bullets += bullets;
+    this->info.bullets = (this->info.bullets > MAX_BULLETS) ? MAX_BULLETS : this->info.bullets;
 }
 
 void Player::addNumKeys(int key) {
@@ -317,16 +309,20 @@ void Player::addNumResurrection() {
 
 void Player::reduceLife(int life) {
     this->info.life -= life;
+    this->info.life = (this->info.life < 0) ? 0 : this->info.life;
 }
 
 void Player::reduceBullets(int bullets) {
     this->info.bullets -= bullets;
+    this->info.bullets = (this->info.bullets < 0) ? 0 : this->info.bullets;
 }
 
 void Player::reduceNumKeys(int key) {
     this->info.keys -= key;
+    this->info.keys = (this->info.keys < 0) ? 0 : this->info.keys;
 }
 
 void Player::reduceTreasure(int treasure) {
     this->info.treasure -= treasure;
+    this->info.treasure = (this->info.treasure < 0) ? 0 : this->info.treasure;
 }
