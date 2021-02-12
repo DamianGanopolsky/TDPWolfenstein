@@ -103,8 +103,18 @@ int Map_2d::get_type_id(int weapon,int is_shooting){
 		return weapon;
 	}
 	else{
-		return (is_shooting*10)+weapon;
+		if(weapon==0){
+			return (is_shooting*10)+1;
+		}
+		else{
+			return (is_shooting*10)+weapon;
+		}
+		
 	}
+}
+
+void Map_2d::player_shoot(int player_id){
+	players_state[player_id].is_shooting=1;
 }
 
 void Map_2d::delete_item(int x,int y){
@@ -130,12 +140,13 @@ std::list<Game_element> Map_2d::get_game_elements() {
 		elements.push_back(std::move(element));
 	}
 	/* ACA RENDERIZO LOS DISTINTOS JUGADORES CON SUS POSICIONES ACTUALIZADAS */
-	for (auto const& object : players_state){
+	for (auto & object : players_state){
 		//std::cout << "Get type id es" << get_type_id(object.second.weapon,object.second.is_shooting) << std::endl;
 		Game_element element(object.second.pos_x,object.second.pos_y,\
 		get_type_id(object.second.weapon,object.second.is_shooting),\
 		object.second.vision_angle,this->player);
 		elements.push_back(std::move(element));
+		object.second.is_shooting=0;
 	}
 
 	for(auto& object: bodies){

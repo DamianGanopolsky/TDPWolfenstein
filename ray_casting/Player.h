@@ -21,7 +21,7 @@ public:
 	void move_down();
 	void move_left();	
 	void move_right();
-	void shoot();
+	void shoot(int bullets);
 	int get_id();
 	void add_bullets(int bullets);
 	void change_weapon(int weapon);

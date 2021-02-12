@@ -96,10 +96,12 @@ void Player::move_right() {
 	this->pos_y += (int) (DISPLACEMENT * cos(this->vision_angle * PI / 180.0));	
 }
 
-void Player::shoot() {
+void Player::shoot(int bullets) {
 	soundmanager.play_sound(info.weapon);
 	this->info.weapon_status = 2;
-	if(info.weapon!=0) this->info.ammo--;  
+	if(info.weapon!=0){
+		this->info.ammo=bullets;
+	} 
 }
 
 void Player::change_weapon(int weapon){

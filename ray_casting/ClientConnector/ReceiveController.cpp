@@ -20,9 +20,9 @@ void ReceiveController::update(){
                     if(mov_event.player_id==player.get_id()){   // 1 SERIA YO
                         player.update_position_and_angle(mov_event.pos_x,\
                         mov_event.pos_y,mov_event.angle);
-                        if(mov_event.is_shooting==1){
+                       /* if(mov_event.is_shooting==1){
                             player.shoot();
-                        }
+                        }*/
                     }
                     else{
                         map.update_player_pos(mov_event.player_id,mov_event.pos_x\
@@ -57,7 +57,11 @@ void ReceiveController::update(){
                 case ATTACK_EV:{
                     Change_Weapon_Event attack_ev=updatemessage->get_changed_stat();
                     if(int(attack_ev.player_id)==player.get_id()){
-                        player.shoot();
+                        player.shoot(attack_ev.weapon);
+
+                    }
+                    else{
+                        map.player_shoot(attack_ev.player_id);
                     }
                     break;
                 }
