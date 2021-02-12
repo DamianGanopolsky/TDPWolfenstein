@@ -3,13 +3,13 @@
 
 #define MAX_NUM 999999999
 
-Game::Game(ClientsConnected& clients_connected, Id map_id) : 
+Game::Game(ClientsConnected& clients_connected, Id map_id, int& rate) : 
                             new_connection_id(1),
                             players(), players_by_name(),
                             players_in_map(),
                             clients_connected(clients_connected),
                             map_id(map_id), map("../Maps/Fortified_6.yaml"),
-                            objMap() {
+                            objMap(), rate(rate) {
                                 //map.printMatrix();
                             }
 Game::~Game() {}
@@ -69,12 +69,14 @@ void Game::_notifyEvent(const ConnectionId id, const Response& response, EventOp
             case DELETE_PLAYER_EV: {
                 std::cout<<"Game: _notifyEvent, delete_player"<<std::endl;
                 notification = new Event(map_id, event_type, id);
+                break;
             }
             case ATTACK_EV: {
                 std::cout<<"Game: _notifyEvent, attack_ev"<<std::endl;
                 player.reduceBullets(1);
-                notification = new Event(map_id, event_type, id, player.isShooting(),
-                                            player.getInfo().getNumBullets());
+                notification = new Event(map_id, event_type, id,
+                                        player.getInfo().getNumBullets());
+                break;
             }
             case BE_ATTACKED_EV: {
                 std::cout<<"Game: _notifyEvent, be_attack_ev"<<std::endl;
@@ -151,6 +153,36 @@ void Game::_notifyItemChanged(const ConnectionId id, const Response& response, I
         this->clients_connected.sendEventToAll(notification);
 }
 
+void Game::_move(const ConnectionId id) {
+    std::cout <<"Game: player is moving"<< std::endl;
+    Player& player = this->players.at(id);
+    std::pair<int, int> next_pos = player.getPos().getNextPos(player.getPos().getDirection());
+    Response can_move = _canMove(map, player, next_pos);
+    std::cout <<"Game: can_move message"<< can_move.message <<std::endl;
+    if (can_move.success && ((can_move.message) !=  NO_ITEM_PICKED_UP_MSG)) {
+        std::cout <<"Game: player can move and picked up"<< std::endl;
+        map.setObjectPos(player.getPos().getX(), player.getPos().getY(), MAP_NONE);
+        map.setObjectPos(next_pos.first, next_pos.second, MAP_PLAYER);
+        player.updateMovement();
+        players_in_map.at(id) = std::make_pair(player.getPos().getX(), player.getPos().getY());
+        _notifyMovementEvent(id, Response(true, SUCCESS_MSG));
+        _notifyItemChanged(id, can_move, (ItemOpcode)can_move.value);
+    } else if (can_move.success) {
+        std::cout <<"Game: player can move"<< std::endl;
+        map.setObjectPos(player.getPos().getX(), player.getPos().getY(), MAP_NONE);
+        map.setObjectPos(next_pos.first, next_pos.second, MAP_PLAYER);
+        player.updateMovement();
+        players_in_map.at(id) = std::make_pair(player.getPos().getX(), player.getPos().getY());
+        std::cout <<"Game: player updated"<< std::endl;
+        _notifyMovementEvent(id, Response(true, SUCCESS_MSG));
+        std::cout <<"Game: players notified"<< std::endl;
+    } else {
+        std::cout <<"Game: player cant move"<< std::endl;
+        player.stopMoving();
+        _notifyMovementEvent(id, Response(false, CANT_MOVE_ERROR_MSG));
+    }
+}
+
 Response Game::_canMove(Map& map, Player& player, std::pair<int, int> next_pos) {
     PlayerPosition pos = player.getPos();
     bool changeCell = _changeCell(pos, next_pos);
@@ -192,7 +224,7 @@ bool Game::_getPlayerPosition(Id map_id, int init_x, int init_y, Id new_player_i
     return true;
 }
 
-void Game::_attack(const ConnectionId id) {
+void Game::_attack(const ConnectionId id, int iteration) {
     std::cout <<"Game: _attack()"<< std::endl;
     int damage = 0;
     Player& player = this->players.at(id);
@@ -201,20 +233,30 @@ void Game::_attack(const ConnectionId id) {
     std::pair<ConnectionId, double> result = _getTargetAttacked(id);
     std::cout <<"Game: end _getTargetAttacked"<< std::endl;
     target_id = result.first;
+    std::cout <<"Game: target_id"<< target_id <<std::endl;
+    std::cout <<"Game: player_id"<< id <<std::endl;
     double distance = result.second;
     std::cout <<"Game: start useWeapon"<< std::endl;
-    Response response = player.useWeapon(distance, damage);
+    Response response = player.updateShooting(distance, damage, iteration);
     if (id == target_id) {
+        std::cout <<"Game: CANT_ATTACK_ITSELF"<< std::endl;
         _notifyEvent(id, Response(false, CANT_ATTACK_ITSELF_ERROR_MSG), ATTACK_EV);
-    } else if (target_id == 0) {
-        //deberian bajarse las balas pero no golpear a nadie????
-        _notifyEvent(id, Response(true, CANT_ATTACK_UNKNOWN_ID_ERROR_MSG), ATTACK_EV);
+    } else if (target_id == (uint32_t)0) {
+        std::cout <<"Game: JUST SHOOTS"<< std::endl;
+        //se bajan las balas pero no golpea a nadie
+        if (response.success) {
+            _notifyEvent(id, Response(true, CANT_ATTACK_UNKNOWN_ID_ERROR_MSG), ATTACK_EV);
+        } else {
+            _notifyEvent(id, Response(false, CANT_SHOOT_COOLDOWN_ERROR_MSG), ATTACK_EV);
+        }
     } else if (player.getInfo().getNumBullets() == 0) {
+        std::cout <<"Game: DOESNT HAVE BULLETS"<< std::endl;
         _notifyEvent(id, Response(false, CANT_ATTACK_WITHOUT_BULLETS_ERROR_MSG), ATTACK_EV);
     } else {
+        std::cout <<"Game: ATTACKS"<< std::endl;
         _notifyEvent(id, response, ATTACK_EV); 
         Player& target = this->players.at(target_id);
-        if(response.success && target.getState()->canBeAttacked()){
+        if((response.success) && (target.getState()->canBeAttacked())){
             _notifyEvent(target_id, target.receiveAttack(damage), BE_ATTACKED_EV);
         }
     }
@@ -240,36 +282,6 @@ std::pair<ConnectionId, double> Game::_getTargetAttacked(ConnectionId attacker_i
     return closer_player;
 }
 
-void Game::_move(const ConnectionId id) {
-    std::cout <<"Game: player is moving"<< std::endl;
-    Player& player = this->players.at(id);
-    std::pair<int, int> next_pos = player.getPos().getNextPos(player.getPos().getDirection());
-    Response can_move = _canMove(map, player, next_pos);
-    std::cout <<"Game: can_move message"<< can_move.message <<std::endl;
-    if (can_move.success && ((can_move.message) !=  NO_ITEM_PICKED_UP_MSG)) {
-        std::cout <<"Game: player can move and picked up"<< std::endl;
-        map.setObjectPos(player.getPos().getX(), player.getPos().getY(), MAP_NONE);
-        map.setObjectPos(next_pos.first, next_pos.second, MAP_PLAYER);
-        player.update();
-        players_in_map.at(id) = std::make_pair(player.getPos().getX(), player.getPos().getY());
-        _notifyMovementEvent(id, Response(true, SUCCESS_MSG));
-        _notifyItemChanged(id, can_move, (ItemOpcode)can_move.value);
-    } else if (can_move.success) {
-        std::cout <<"Game: player can move"<< std::endl;
-        map.setObjectPos(player.getPos().getX(), player.getPos().getY(), MAP_NONE);
-        map.setObjectPos(next_pos.first, next_pos.second, MAP_PLAYER);
-        player.update();
-        players_in_map.at(id) = std::make_pair(player.getPos().getX(), player.getPos().getY());
-        std::cout <<"Game: player updated"<< std::endl;
-        _notifyMovementEvent(id, Response(true, SUCCESS_MSG));
-        std::cout <<"Game: players notified"<< std::endl;
-    } else {
-        std::cout <<"Game: player cant move"<< std::endl;
-        player.stopMoving();
-        _notifyMovementEvent(id, Response(false, CANT_MOVE_ERROR_MSG));
-    }
-}
-
 const ConnectionId Game::newPlayer() {
     ConnectionId new_player_id = this->new_connection_id;
     ++(this->new_connection_id);
@@ -286,7 +298,8 @@ const ConnectionId Game::newPlayer() {
     this->players.emplace(std::piecewise_construct, 
                 std::forward_as_tuple(new_player_id),
                 std::forward_as_tuple(100, 100, 2240, 
-                                    2240, nickname, new_player_id));
+                                    2240, nickname, new_player_id,
+                                    rate));
     //std::cout <<"Game: new player added"<< std::endl;
     map.setObjectPos(100, 100, MAP_PLAYER);
     //de alguna manera me tienen que pasar el nickname
@@ -317,20 +330,29 @@ void Game::updatePlayers(const int iteration) {
     while (player_it != this->players.end()) {
         ConnectionId id = player_it->first;
         Player& player = player_it->second;
-        
         if (player.isMoving()) {
             _move(id);
         }
         
         if (player.isRotating()) {
             //std::cout <<"Game: player can rotate"<< std::endl;
-            player.update();
+            player.updateRotation();
             _notifyMovementEvent(id, Response(true, SUCCESS_MSG));
         }
 
         if (player.isShooting()) {
             std::cout <<"Game: player shoot"<< std::endl;
-            _attack(id);
+            _attack(id, iteration);
+        } else {
+            if (player.machine_gun_cooldown > 0) {
+                player.machine_gun_cooldown = std::max((int)(player.chain_cannon_cooldown - iteration *rate),0);
+            }
+            if (player.chain_cannon_cooldown > 0) {
+                player.chain_cannon_cooldown = std::max((int)(player.chain_cannon_cooldown - iteration *rate),0);
+            }
+            if (!player.gun_can_shoot) {
+                player.gun_can_shoot = true;
+            }
         }
 
         ++player_it;

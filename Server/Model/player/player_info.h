@@ -4,6 +4,10 @@
 #include <list>
 #include <unordered_map>
 #include "../objects/items/weapons/weapon.h"
+#include "../objects/items/weapons/gun.h"
+#include "../objects/items/weapons/knife.h"
+#include "../objects/items/weapons/machine_gun.h"
+#include "../objects/items/weapons/chain_cannon.h"
 
 class PlayerInfo {
    friend class Player;
@@ -14,7 +18,12 @@ class PlayerInfo {
       int treasure;
       int resurrected;
       Weapon* equiped;
+      Knife knife;
+      Gun gun;
+      MachineGun machine_gun;
+      ChainCannon chain_cannon;
       std::list <int> inventory;
+      std::unordered_map<Weapon*, int> weapon_type;
    
    public:
       explicit PlayerInfo();
@@ -25,19 +34,9 @@ class PlayerInfo {
       int getTreasure();
       int getNumResurrection();
       Weapon* getWeaponEquiped();
-      /*void addLife(int life);
-      void addBullets(int bullets);
-      void addNumKeys(int key);
-      void addTreasure(int treasure);
-      void addNumResurrection();
-      void reduceLife(int life);
-      void reduceBullets(int bullets);
-      void reduceNumKeys(int key);
-      void reduceTreasure(int treasure);*/
-      //void changeWeaponEquiped(Weapon* &weapon);
-      
+      int getWeaponTypeEquiped();
+      void changeWeaponEquiped(int& type);
       std::list <int>getInventory();
-      //void addInventory(int weapon);
       bool hasWeapon(int weapon);
 };
 

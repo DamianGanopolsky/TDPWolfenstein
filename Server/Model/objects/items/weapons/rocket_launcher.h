@@ -8,6 +8,7 @@ class RocketLauncher: public Weapon {
     float period_blast;
  public:
     RocketLauncher();
+    ~RocketLauncher();
     void attack(double& distance, int& damage) override;
     const int getType() override;
 };

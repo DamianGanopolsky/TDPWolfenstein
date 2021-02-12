@@ -8,6 +8,7 @@ class ChainCannon: public Weapon {
     float period_blast;
  public:
     ChainCannon();
+    ~ChainCannon();
     void attack(double& distance, int& damage) override;
     const int getType() override;
 };

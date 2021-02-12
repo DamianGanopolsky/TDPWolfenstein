@@ -9,6 +9,7 @@ class Knife: public Weapon {
     static bool inRange();
  public:
     Knife();
+    ~Knife();
     void attack(double& distance, int& damage) override;
     const int getType() override;
 };

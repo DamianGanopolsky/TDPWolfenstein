@@ -27,6 +27,7 @@ class Game {
     Id map_id;
     Map map;
     ObjectMap objMap;
+    int rate;
 
     void _notifyEvent(const ConnectionId id, const Response& response, EventOpcode event_type);
     void _notifyResponse(const ConnectionId id, const Response& response);
@@ -38,12 +39,12 @@ class Game {
     //ItemOpcode _getItemOpcode(const char* message); ///falta implmentar
     bool _interactWith(Player& player, Map map, Object* obj);///falta implmentar
     bool _getPlayerPosition(Id map_id, int init_x, int init_y, Id new_player_id);///falta implmentar
-    void _attack(const ConnectionId id);
+    void _attack(const ConnectionId id, int iteration);
     std::pair<ConnectionId, double> _getTargetAttacked(ConnectionId attacker_id);
     void _move(const ConnectionId id);
 
     public:
-        Game(ClientsConnected& clients_connected, Id map_id);
+        Game(ClientsConnected& clients_connected, Id map_id, int& rate);
         ~Game();
 
         Game(const Game&) = delete;

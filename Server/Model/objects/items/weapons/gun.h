@@ -8,6 +8,7 @@ class Gun: public Weapon {
     float period_blast;
  public:
     Gun();
+    ~Gun();
     void attack(double& distance, int& damage) override;
     const int getType() override;
 };

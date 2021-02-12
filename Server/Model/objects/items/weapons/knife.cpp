@@ -3,6 +3,8 @@
 
 Knife::Knife() {}
 
+Knife::~Knife() {}
+
 void Knife::attack(double& distance, int& damage) {
     //segun si esta en el rango de ataque establezco un danio
     if (inRange()) {
