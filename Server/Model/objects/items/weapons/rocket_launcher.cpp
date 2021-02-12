@@ -5,6 +5,8 @@ RocketLauncher::RocketLauncher(){
     this->period_blast = ROCKET_LAUNCHER_PERIOD_BLAST;
 }
 
+RocketLauncher::~RocketLauncher() {}
+
 void RocketLauncher::attack(double& distance, int& damage) {
     //segun la distancia y el angulo establezco una proba de precision
     float rd_num = getRandomNumber();

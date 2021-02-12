@@ -30,50 +30,58 @@ class Player : public BlockingObject {
   Gun* gun;
   MachineGun* machine_gun;
   ChainCannon* chain_cannon;
+  int rate;
+
   void _die();
 
 public:
       Player(int pos_x, int pos_y, int width, 
           int height, std::string& nickname, 
-          Id id_player);
-    Player(int width, int height, 
-          std::string& nickname, Id id_player);
-    ~Player();
-    PlayerPosition getPos();
-    PlayerInfo getInfo();
-    State* getState();
-    std::string getNickname(); 
-    Id getId(); 
-    bool isAlive();
-    bool isMoving();
-    bool isRotating();
-    bool isShooting();
-    void update();
-    Response useWeapon(double& distance, int& damage);
-    Response receiveAttack(int& damage);
-    Response resurrect();
-    Response changeWeapon(int& weapon);
-    Response startMovingUp();
-    Response startMovingDown();
-    Response startMovingLeft();
-    Response startMovingRight();
-    Response stopMoving();
-    Response startRotatingLeft();
-    Response startRotatingRight();
-    Response stopRotating();
-    Response startShooting();
-    Response stopShooting();
-    void addLife(int life);
-    void addBullets(int bullets);
-    void addNumKeys(int key);
-    void addTreasure(int treasure);
-    void addNumResurrection();
-    void reduceLife(int life);
-    void reduceBullets(int bullets);
-    void reduceNumKeys(int key);
-    void reduceTreasure(int treasure);
-    void addInventory(int weapon);
-    //void changeWeaponEquiped(Weapon* &weapon);
+          Id id_player, const int& rate);
+      Player(int width, int height, 
+          std::string& nickname, Id id_player, 
+          const int& rate);
+      ~Player();
+      int machine_gun_cooldown;
+      int chain_cannon_cooldown;
+      bool gun_can_shoot;
+      PlayerPosition getPos();
+      PlayerInfo getInfo();
+      State* getState();
+      std::string getNickname(); 
+      Id getId(); 
+      bool isAlive();
+      bool isMoving();
+      bool isRotating();
+      bool isShooting();
+      void updateMovement();
+      void updateRotation();
+      Response updateShooting(double& distance, int& damage, int& iteration);
+      //Response useWeapon(double& distance, int& damage);
+      Response receiveAttack(int& damage);
+      Response resurrect();
+      Response changeWeapon(int& weapon);
+      Response startMovingUp();
+      Response startMovingDown();
+      Response startMovingLeft();
+      Response startMovingRight();
+      Response stopMoving();
+      Response startRotatingLeft();
+      Response startRotatingRight();
+      Response stopRotating();
+      Response startShooting();
+      Response stopShooting();
+      void addLife(int life);
+      void addBullets(int bullets);
+      void addNumKeys(int key);
+      void addTreasure(int treasure);
+      void addNumResurrection();
+      void reduceLife(int life);
+      void reduceBullets(int bullets);
+      void reduceNumKeys(int key);
+      void reduceTreasure(int treasure);
+      void addInventory(int weapon);
+      //void changeWeaponEquiped(Weapon* &weapon);
 };
 
 #endif   // PLAYER_H

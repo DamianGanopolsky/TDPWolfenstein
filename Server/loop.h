@@ -8,13 +8,13 @@
 
 class Loop : public Thread {
     Id map;
+    int rate;
     Game game;
     ClientsConnected clients_connected;
     NonBlockingQueue<Command*> commands;
     NonBlockingQueue<ConnectionId*> finished_connections;
     NonBlockingQueue<ConnectionElement*>& new_connections;
     std::atomic<bool> is_running;
-    int rate;
     void _newConnections();
     void _newCommands();
     void _finishedConnections();

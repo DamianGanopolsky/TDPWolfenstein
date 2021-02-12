@@ -1,21 +1,27 @@
 #include "player.h"
 
 Player::Player(int width, int height, 
-                std::string& nickname, Id id_player) :  
+                std::string& nickname, Id id_player, const int& rate) :  
                 player_id(id_player), 
                 pos(width, height), 
                 info(), state(new Alive(id_player)),
                 nickname(nickname), alive(true), 
                 moving(false), rotating(false), 
-                shooting(false) {}
+                shooting(false), knife(),
+                gun(), machine_gun(), chain_cannon(),
+                rate(rate), machine_gun_cooldown(0),
+                chain_cannon_cooldown(0), gun_can_shoot(true) {}
 
 Player::Player(int pos_x, int pos_y, int width, int height,
-                std::string& nickname, Id id_player) : 
+                std::string& nickname, Id id_player, const int& rate) : 
                 player_id(id_player), pos(pos_x, pos_y, width, height), 
                 info(), state(new Alive(id_player)),
                 nickname(nickname), alive(true), 
                 moving(false), rotating(false), 
-                shooting(false) {}
+                shooting(false), knife(),
+                gun(), machine_gun(), chain_cannon(),
+                rate(rate), machine_gun_cooldown(0),
+                chain_cannon_cooldown(0), gun_can_shoot(true) {}
 
 Player::~Player() {
     delete this->state;
@@ -78,17 +84,86 @@ bool Player::isRotating() {
 bool Player::isShooting() {
     return this->shooting;
 }
-void Player::update() {
-    std::cout <<"Player: update()"<< std::endl;
+
+void Player::updateMovement() {
+    std::cout <<"Player: updateMovement()"<< std::endl;
     if (this->moving) {
         std::cout <<"Player: is moving"<< std::endl;
         this->pos.move(this->pos.getDirection());
         std::cout <<"Player: updated"<< std::endl;
     }
+}
+
+void Player::updateRotation() {
+    std::cout <<"Player: updateRotation()"<< std::endl;
     if (this->rotating) {
         this->pos.rotate(this->pos.getRotation());
     }
 }
+
+Response Player::updateShooting(double& distance, int& damage, int& iteration) {
+    std::cout <<"Player: updateShooting()"<< std::endl;
+    if (this->shooting) {
+        std::cout <<"Player: is shooting"<< std::endl;
+        this->machine_gun_cooldown -= iteration * rate;
+        this->chain_cannon_cooldown -= iteration * rate;
+        int type = this->info.getWeaponTypeEquiped(); 
+        Item* weapon = this->info.getWeaponEquiped();
+        if (weapon  == NULL ){std::cout <<"NULL WEAPON"<< std::endl;}
+        switch(type) {
+            case KNIFE_TYPE: {
+                std::cout <<"KNFE ATTACK!"<< std::endl;
+                weapon->attack(distance, damage);
+                return Response(true, SUCCESS_MSG);
+                break;
+            }
+            case GUN_TYPE: {
+                std::cout <<"GUN ATTACK!"<< std::endl;
+                std::cout <<"gun_can_shoot value: "<< gun_can_shoot <<std::endl;
+                if (this->gun_can_shoot) {
+                    std::cout <<"gun can shoot"<< std::endl;
+                    if (weapon  == NULL ){std::cout <<"NULL WEAPON"<< std::endl;}
+                    weapon->attack(distance, damage);
+                    std::cout <<"gun attack"<< std::endl;
+                    this->gun_can_shoot = false;
+                    return Response(true, SUCCESS_MSG);
+                }
+                break;
+            }
+            case MACHINE_GUN_TYPE: {
+                std::cout <<"MACHINE GUN ATTACK!"<< std::endl;
+                while (this->machine_gun_cooldown <= 0) {
+                    this->machine_gun_cooldown += MACHINE_GUN_TIME;
+                    weapon->attack(distance, damage);
+                    return Response(true, SUCCESS_MSG);
+                }
+                break;
+            }
+            case CHAIN_CANNON_TYPE: {
+                std::cout <<"CHAIN CANNON ATTACK!"<< std::endl;
+                while (this->chain_cannon_cooldown <= 0) {
+                    this->chain_cannon_cooldown += CHAIN_CANNON_TIME;
+                    weapon->attack(distance, damage);
+                    return Response(true, SUCCESS_MSG);
+                }
+                break;
+            }
+        }
+        return Response(false, CANT_SHOOT_ERROR_MSG);
+    }
+    std::cout <<"Player: isnt shooting"<< std::endl;
+    if (this->machine_gun_cooldown > 0) {
+        this->machine_gun_cooldown = std::max((int)(chain_cannon_cooldown - iteration *rate),0);
+    }
+    if (this->chain_cannon_cooldown > 0) {
+        this->chain_cannon_cooldown = std::max((int)(chain_cannon_cooldown - iteration *rate),0);
+    }
+    if (!this->gun_can_shoot) {
+        this->gun_can_shoot = true;
+    }
+    return Response(false, SUCCESS_MSG);
+}
+
 
 Response Player::startMovingUp() {
     if (!this->state->canMove()) {
@@ -162,11 +237,11 @@ Response Player::stopShooting() {
     return Response(true, SUCCESS_MSG);
 }
 
-Response Player::useWeapon(double& distance, int& damage) {
+/*Response Player::useWeapon(double& distance, int& damage) {
     //Weapon* weapon = this->getInfo().getWeaponEquiped();
-    //id_target = weapon->attack(distance, damage);
+    //weapon->attack(distance, damage);
     return Response(true, SUCCESS_MSG);
-}
+}*/
 
 Response Player::receiveAttack(int& damage) {
     this->reduceLife(damage);
@@ -192,24 +267,24 @@ Response Player::resurrect() {
 Response Player::changeWeapon(int& weapon) {
     if(this->info.hasWeapon(weapon)){
         switch (weapon) {
-        case KNIFE_TYPE: {
-            this->info.equiped = this->knife;
-            break;
-        }
-        case GUN_TYPE: {
-            this->info.equiped = this->gun;
-            break;
-        }
-        case MACHINE_GUN_TYPE: {
-            this->info.equiped = this->machine_gun;
-            break;
-        }
-        case CHAIN_CANNON_TYPE: {
-            this->info.equiped = this->chain_cannon;
-            break;
-        }
-        default:
-            break;
+            case KNIFE_TYPE: {
+                this->info.changeWeaponEquiped(weapon);
+                break;
+            }
+            case GUN_TYPE: {
+                this->info.changeWeaponEquiped(weapon);
+                break;
+            }
+            case MACHINE_GUN_TYPE: {
+                this->info.changeWeaponEquiped(weapon);
+                break;
+            }
+            case CHAIN_CANNON_TYPE: {
+                this->info.changeWeaponEquiped(weapon);
+                break;
+            }
+            default:
+                break;
         }
         return Response(true, SUCCESS_MSG);
     }

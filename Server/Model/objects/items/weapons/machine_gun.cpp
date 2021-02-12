@@ -5,6 +5,8 @@ MachineGun::MachineGun(){
     this->period_blast = MACHINE_GUN_PERIOD_BLAST;
 }
 
+MachineGun::~MachineGun() {}
+
 void MachineGun::attack(double& distance, int& damage) {
     //segun la distancia y el angulo establezco una proba de precision
     float rd_num = getRandomNumber();

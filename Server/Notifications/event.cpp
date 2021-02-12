@@ -21,10 +21,6 @@ Event::Event(const Id map, EventOpcode event_type, Id player_id, int value) :
             map(map), event_type(event_type), player_id(player_id), 
             value((uint32_t)value) {}
 
-Event::Event(const Id map, EventOpcode event_type, Id player_id, int is_shoting,
-            int bullets) : map(map), event_type(event_type), player_id(player_id), 
-            is_shoting((uint8_t)is_shoting), bullets((uint32_t)bullets) {}
-
 Event::Event(const Id map, EventOpcode event_type, Id player_id,
             uint32_t pos_x, uint32_t pos_y) : 
             map(map), event_type(event_type), player_id(player_id),
@@ -131,14 +127,7 @@ bool Event::send(const ConnectionId sender, const Socket& peer) {
                 peer.send((char *)&player_id, sizeof(player_id));
                 break;
             }
-            case ATTACK_EV: {
-                this->player_id = htole32(this->player_id);
-                peer.send((char *)&player_id, sizeof(player_id));
-                //peer.send((char *)&is_shoting, sizeof(is_shoting));
-                this->bullets = htole32(this->bullets);
-                peer.send((char *)&bullets, sizeof(bullets));
-                break;
-            }
+            case ATTACK_EV:
             case BE_ATTACKED_EV:
             case CHANGE_WEAPON_EV: { //id del jugador, value
                 std::cout << "player_id es: " << player_id <<std::endl;

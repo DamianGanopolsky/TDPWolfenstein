@@ -5,6 +5,8 @@ ChainCannon::ChainCannon(){
     this->period_blast = CHAIN_CANNON_PERIOD_BLAST;
 }
 
+ChainCannon::~ChainCannon() {}
+
 void ChainCannon::attack(double& distance, int& damage) {
     //segun la distancia y el angulo establezco una proba de precision
     float rd_num = getRandomNumber();

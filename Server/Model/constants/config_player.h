@@ -62,5 +62,7 @@ enum ItemPickedUp {
 #define CANT_MOVE_RIGHT_ERROR_MSG "ERROR: Player can't move right."
 #define CANT_MOVE_LEFT_ERROR_MSG "ERROR: Player can't move left."
 #define NO_WEAPON_IN_INVENTORY_ERROR_MSG "ERROR: Weapon not found in inventory."
+#define CANT_SHOOT_ERROR_MSG "ERROR: cant shoot, is shooting = false."
+#define CANT_SHOOT_COOLDOWN_ERROR_MSG "ERROR: cant shoot, is shooting HAS COOLDOWN."
 
 #endif

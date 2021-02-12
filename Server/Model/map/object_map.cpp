@@ -3,7 +3,7 @@
 
 #include "./../constants/const_object_map.h"
 
-ObjectMap::ObjectMap() : map(), player(0,0,str,0), bullet(), blood(), food(),
+ObjectMap::ObjectMap() : map(), player(0,0,str,0,0), bullet(), blood(), food(),
                         kit(), chest(), crown(), cup(), cross(),
                         key(), chain_cannon(), rocket_launcher(),
                         gun(), knife(), machine_gun(), barrel(),
