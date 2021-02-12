@@ -1,3 +1,6 @@
+#ifndef __CONST_H__
+#define __CONST_H__
+
 #define PANEL_HEIGHT 400
 #define PANEL_WIDTH 640
 
@@ -20,7 +23,14 @@
 #define FOV 90.0
 #define TOTAL_BOX 256
 
-
+enum Sounds_ {
+    KNIFE_ATTACK = 0,
+    GUNSHOT_ATTACK,
+    AUTOMATIC_GUN_ATTACK,
+    CHAIN_CANNON_ATTACK,
+    DEATH,
+    EQUIP_WEAPON
+};
 
 //para panel status
 #define TOTAL_FACES 8
@@ -96,4 +106,4 @@
 #define TEXTURE_PATH "../ray_casting/sprites/wall"
 #define TOTAL_TEXTURES_WALLS 2 
 
-
+#endif

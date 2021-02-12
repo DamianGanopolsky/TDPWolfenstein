@@ -7,6 +7,8 @@
 #include "UpdateMessage.h"
 #include "../Client.h"
 #include "../../Common/protocol.h"
+#include "../SdlClasses/SoundManager.h"
+#include "../const.h"
 
 /* ESta clase va a ir haciendo pop de la cola no bloqueante */
 
@@ -19,6 +21,7 @@ public:
     void update();
 
 private:
+    SoundManager soundmanager;
     Player& player;
     Map_2d& map;
     NonBlockingQueue<UpdateMessage*>& recv_queue;

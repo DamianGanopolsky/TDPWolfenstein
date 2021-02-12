@@ -11,6 +11,7 @@ SoundManager::SoundManager(){
     SoundHash.insert(std::make_pair(3,SdlSound("../Sounds/ChainCannon.wav")));
     SoundHash.insert(std::make_pair(4,SdlSound("../Sounds/opening_door.wav")));
     SoundHash.insert(std::make_pair(4,SdlSound("../Sounds/SS_Agent_death.wav")));
+    SoundHash.insert(std::make_pair(5,SdlSound("../Sounds/EquipWeaponSound.wav")));
     Mix_VolumeMusic(5);
 }
 

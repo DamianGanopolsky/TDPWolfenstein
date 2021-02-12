@@ -111,6 +111,9 @@ void ReceiveController::update(){
                 case WEAPON_TAKEN_ITM:{
                     Item_taken_event it_taken=updatemessage->get_item_taken();
                     map.delete_item(it_taken.pos_x,it_taken.pos_y);
+                    if(int(it_taken.player_id)==player.get_id()){
+                        soundmanager.play_sound(EQUIP_WEAPON);
+                    }
                     break;
                 }
                 case TREASURE_TAKEN_ITM:{
