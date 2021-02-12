@@ -41,6 +41,7 @@ class Game {
     bool _getPlayerPosition(Id map_id, int init_x, int init_y, Id new_player_id);///falta implmentar
     void _attack(const ConnectionId id, int iteration);
     std::pair<ConnectionId, double> _getTargetAttacked(ConnectionId attacker_id);
+    void _reduceBullets(const ConnectionId id);
     void _move(const ConnectionId id);
 
     public:

@@ -25,7 +25,6 @@ int PlayerInfo::getLife() {
 }
 
 int PlayerInfo::getNumBullets() {
-    std::cout <<"GET bullets: "<<this->bullets<<std::endl;
     return this->bullets;
 }
 

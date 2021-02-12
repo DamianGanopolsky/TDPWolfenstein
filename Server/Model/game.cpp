@@ -73,7 +73,6 @@ void Game::_notifyEvent(const ConnectionId id, const Response& response, EventOp
             }
             case ATTACK_EV: {
                 std::cout<<"Game: _notifyEvent, attack_ev"<<std::endl;
-                player.reduceBullets(1);
                 notification = new Event(map_id, event_type, id,
                                         player.getInfo().getNumBullets());
                 break;
@@ -238,26 +237,48 @@ void Game::_attack(const ConnectionId id, int iteration) {
     double distance = result.second;
     std::cout <<"Game: start useWeapon"<< std::endl;
     Response response = player.updateShooting(distance, damage, iteration);
+    std::cout <<"Game: num of bullets"<< player.getInfo().getNumBullets()<< std::endl;
     if (id == target_id) {
         std::cout <<"Game: CANT_ATTACK_ITSELF"<< std::endl;
         _notifyEvent(id, Response(false, CANT_ATTACK_ITSELF_ERROR_MSG), ATTACK_EV);
+    } else if (player.getInfo().getNumBullets() == 0) {
+        std::cout <<"Game: DOESNT HAVE BULLETS"<< std::endl;
+        _notifyEvent(id, Response(false, CANT_ATTACK_WITHOUT_BULLETS_ERROR_MSG), ATTACK_EV);
     } else if (target_id == (uint32_t)0) {
         std::cout <<"Game: JUST SHOOTS"<< std::endl;
         //se bajan las balas pero no golpea a nadie
         if (response.success) {
             _notifyEvent(id, Response(true, CANT_ATTACK_UNKNOWN_ID_ERROR_MSG), ATTACK_EV);
+            _reduceBullets(id);
         } else {
             _notifyEvent(id, Response(false, CANT_SHOOT_COOLDOWN_ERROR_MSG), ATTACK_EV);
         }
-    } else if (player.getInfo().getNumBullets() == 0) {
-        std::cout <<"Game: DOESNT HAVE BULLETS"<< std::endl;
-        _notifyEvent(id, Response(false, CANT_ATTACK_WITHOUT_BULLETS_ERROR_MSG), ATTACK_EV);
     } else {
         std::cout <<"Game: ATTACKS"<< std::endl;
         _notifyEvent(id, response, ATTACK_EV); 
         Player& target = this->players.at(target_id);
         if((response.success) && (target.getState()->canBeAttacked())){
             _notifyEvent(target_id, target.receiveAttack(damage), BE_ATTACKED_EV);
+        } else if (response.success) {
+            _reduceBullets(id);
+        }
+    }
+}
+
+void Game::_reduceBullets(const ConnectionId id) {
+    Player& player = this->players.at(id);
+    switch(player.getInfo().getWeaponTypeEquiped()) {
+        case KNIFE_TYPE: {
+            break;
+        }
+        case CHAIN_CANNON_TYPE:
+        case GUN_TYPE: {
+            player.reduceBullets(1);
+            break;
+        }
+        case MACHINE_GUN_TYPE: {
+            player.reduceBullets(5);
+            break;
         }
     }
 }
