@@ -36,7 +36,7 @@
 #define TOTAL_GUARDIAS 8
 #define IMAGE_GUARDIAS_PATH "../ray_casting/panel_status/images/guardia"
 
-#define TOTAL_GUARDIAS_DEATH 3
+#define TOTAL_GUARDIAS_DEATH 4
 #define IMAGE_DEATH_GUARDIAS_PATH "../ray_casting/panel_status/images/DeadGuard"
 
 #define TOTAL_GUARDIAS_SHOOTING 1
@@ -57,7 +57,7 @@
 #define TOTAL_ELITE_GUARDIAS 8
 #define IMAGE_ELITE_GUARDIAS_PATH "../ray_casting/panel_status/images/Elite_guard/EGuard"
 
-#define TOTAL_EGUARDS_DEAD 3
+#define TOTAL_EGUARDS_DEAD 4
 #define IMAGE_EGUARDS_DEAD_PATH "../ray_casting/panel_status/images/Elite_guard/DeadEGuard"
 
 #define TOTAL_EGUARDIAS_SHOOTING 1
@@ -66,7 +66,7 @@
 #define TOTAL_OFFICER_GUARDIAS 8
 #define IMAGE_OFFICER_GUARDIAS_PATH "../ray_casting/panel_status/images/Oficial/Officer"
 
-#define TOTAL_OFFICER_GUARDIAS_DEAD 3
+#define TOTAL_OFFICER_GUARDIAS_DEAD 4
 #define IMAGE_OFFICER_GUARDIAS_DEAD_PATH "../ray_casting/panel_status/images/Oficial/DeadOfficer"
 
 #define TOTAL_OFFICER_SHOOTING 1
