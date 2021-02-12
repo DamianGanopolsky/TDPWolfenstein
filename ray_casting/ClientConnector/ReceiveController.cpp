@@ -47,7 +47,7 @@ void ReceiveController::update(){
                 case CHANGE_WEAPON_EV:{
                     Change_Weapon_Event weapon_ev=updatemessage->get_changed_stat();
                     if(int(weapon_ev.player_id)!=player.get_id()){
-                        map.update_player_texture(weapon_ev.player_id,weapon_ev.weapon);
+                        map.update_player_texture(weapon_ev.player_id,weapon_ev.weapon-1);
                     }
                     else{
                         player.change_weapon(weapon_ev.weapon-1);
