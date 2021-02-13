@@ -2,6 +2,7 @@
 #define KIT_H_
 
 #include "healer.h"
+#include "../../../constants/YamlConfig.h"
 
 class Kit: public Healer {
     public:

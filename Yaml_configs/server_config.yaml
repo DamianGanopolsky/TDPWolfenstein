@@ -1,6 +1,11 @@
-kit_points: 20
-food_points: 10
-max_life: 100
-cup_points: 50
-num_bullets_picked_up: 5
-max_bullets: 100
+kit_points: 10
+food_points: 20
+max_life: 200
+cup_points: 70
+num_bullets_picked_up: 50
+max_bullets: 150
+knife_damage: 1
+gun_damage: 1
+machine_gun_damage: 1
+chain_cannon_damage: 1
+

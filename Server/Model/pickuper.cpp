@@ -9,7 +9,8 @@ int PickUp::pickUp(Player& player, Item* item) {
     switch (item->getItemType()) {
         case BULLETS: {
             std::cout <<"BULLETS!"<<std::endl;
-            if (player.getInfo().getNumBullets() < MAX_BULLETS) {
+            //if (player.getInfo().getNumBullets() < MAX_BULLETS) {
+            if (player.getInfo().getNumBullets() < GameConfig.max_bullets) {
                 player.addBullets(item->getBullets());
                 std::cout <<player.getInfo().getNumBullets()<<std::endl;
                 return BULLETS_TAKEN_ITM;
@@ -18,7 +19,8 @@ int PickUp::pickUp(Player& player, Item* item) {
         }
         case FOOD: {
             std::cout <<"FOOD!"<<std::endl;
-            if (player.getInfo().getLife() < MAX_LIFE) {
+            //if (player.getInfo().getLife() < MAX_LIFE) {
+            if (player.getInfo().getLife() < GameConfig.max_life) {
                 player.addLife(item->heal());
                 return FOOD_TAKEN_ITM;
             }
@@ -26,7 +28,8 @@ int PickUp::pickUp(Player& player, Item* item) {
         }
         case KIT: {
             std::cout <<"KIT!"<<std::endl;
-            if (player.getInfo().getLife() < MAX_LIFE) {
+            //if (player.getInfo().getLife() < MAX_LIFE) {
+            if (player.getInfo().getLife() < GameConfig.max_life) {
                 player.addLife(item->heal());
                 return MEDICAL_KIT_TAKEN_ITM;
             }

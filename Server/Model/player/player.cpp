@@ -287,12 +287,14 @@ void Player::addInventory(int weapon) {
 
 void Player::addLife(int life) {
     this->info.life += life;
-    this->info.life = (this->info.life > MAX_LIFE) ? MAX_LIFE : this->info.life;
+    //this->info.life = (this->info.life > MAX_LIFE) ? MAX_LIFE : this->info.life;
+    this->info.life = (this->info.life > GameConfig.max_life) ? GameConfig.max_life : this->info.life;
 }
 
 void Player::addBullets(int bullets) {
     this->info.bullets += bullets;
-    this->info.bullets = (this->info.bullets > MAX_BULLETS) ? MAX_BULLETS : this->info.bullets;
+    //this->info.bullets = (this->info.bullets > MAX_BULLETS) ? MAX_BULLETS : this->info.bullets;
+    this->info.bullets = (this->info.bullets > GameConfig.max_bullets) ? GameConfig.max_bullets : this->info.bullets;
 }
 
 void Player::addNumKeys(int key) {

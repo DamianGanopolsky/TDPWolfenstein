@@ -12,6 +12,7 @@
 #include "./objects/items/keys/key.h"
 #include "./objects/items/treasures/treasure.h"
 #include "./objects/items/weapons/weapon.h"
+#include "./constants/YamlConfig.h"
 
 class PickUp {
  public:

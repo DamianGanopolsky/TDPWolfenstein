@@ -2,6 +2,7 @@
 #define FOOD_H_
 
 #include "healer.h"
+#include "../../../constants/YamlConfig.h"
 
 class Food: public Healer {
     public:
