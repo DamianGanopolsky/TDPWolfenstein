@@ -1,5 +1,6 @@
 #include "loop.h"
 #include <chrono>
+#include "../Server/Model/constants/YamlConfig.h"
 
 Loop::Loop(NonBlockingQueue<ConnectionElement*>& new_connections) : 
                 map(12), rate(1000/30), 

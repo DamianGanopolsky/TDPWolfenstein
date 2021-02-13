@@ -4,8 +4,11 @@
 #include <string>
 #include "./server.h"
 #include "../Common/exception.h"
+#include "../Server/Model/constants/YamlConfig.h"
 
 int main(int argc, char* argv[]) {
+	//load_yaml_("../Yaml_configs/server_config.yaml");
+	std::cout << "KIts es" << GameConfig.kit_points << std::endl;
 	if (argc != 2) {
 		std::cerr << "Error invalid arguments" <<std::endl;
 		return 1;

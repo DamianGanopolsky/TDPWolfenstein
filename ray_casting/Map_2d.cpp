@@ -2,6 +2,7 @@
 #include <utility>
 #include <iostream>
 #include <string>
+#define PLAYER_DEAD 40
 
 
 Map_2d::Map_2d(Player& player,std::string YamlPathToMap) : player(player),YamlMap(YamlPathToMap) {
@@ -73,6 +74,7 @@ void Map_2d::add_dead_body(int id,int pos_x,int pos_y){
 	body.pos_y=pos_y;
 	body.state=0;
 	std::cout << "Players state id es" << int(players_state[id].weapon) << std::endl;
+	players_state[id].is_shooting=PLAYER_DEAD;
 
 	switch(int(players_state[id].type_id)){
 		case 0:
@@ -144,6 +146,9 @@ std::list<Game_element> Map_2d::get_game_elements() {
 	/* ACA RENDERIZO LOS DISTINTOS JUGADORES CON SUS POSICIONES ACTUALIZADAS */
 	for (auto & object : players_state){
 		//std::cout << "Get type id es" << get_type_id(object.second.weapon,object.second.is_shooting) << std::endl;
+		if(object.second.is_shooting==PLAYER_DEAD){
+			continue;
+		}
 		Game_element element(object.second.pos_x,object.second.pos_y,\
 		get_type_id(object.second.weapon,object.second.is_shooting),\
 		object.second.vision_angle,this->player);
@@ -158,6 +163,8 @@ std::list<Game_element> Map_2d::get_game_elements() {
 		Game_element element(object.pos_x,object.pos_y,object.type_id,object.state,this->player);
 		elements.push_back(std::move(element));
 	}
+	//Game_element elemento(150,250,20,270,this->player);
+	//elements.push_back(elemento);
 	/*Game_element element(150,250, 11, 270, this->player);
 	Game_element element2(170,250, 12, 270, this->player);
 	Game_element element3(120,250,13, 270, this->player);

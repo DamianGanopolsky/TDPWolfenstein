@@ -58,7 +58,6 @@ enum Items {
 #define ROCKET_LAUNCHER_DAMAGE 1 // config
 #define ROCKET_LAUNCHER_BULLETS_BLAST 5
 #define ROCKET_LAUNCHER_PERIOD_BLAST 0
-
 // tresures
 #define CROSS_POINTS 10
 #define CUP_POINTS 50
