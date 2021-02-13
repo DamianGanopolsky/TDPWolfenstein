@@ -114,7 +114,9 @@ int Map_2d::get_type_id(int weapon,int is_shooting){
 }
 
 void Map_2d::player_shoot(int player_id){
-	players_state[player_id].is_shooting=1;
+	if(players_state[player_id].weapon!=0){
+		players_state[player_id].is_shooting=1;
+	}
 }
 
 void Map_2d::delete_item(int x,int y){
