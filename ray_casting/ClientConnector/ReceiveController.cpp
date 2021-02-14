@@ -72,6 +72,13 @@ void ReceiveController::update(){
                     map.add_dead_body(death_ev.id_player,death_ev.pos_x,death_ev.pos_y);
                     break;
                 }
+                case BE_ATTACKED_EV:{
+                    Change_Weapon_Event attack_ev=updatemessage->get_changed_stat();
+                    if(int(attack_ev.player_id)==player.get_id()){
+                        player.change_health(attack_ev.weapon);
+                    }
+                    break;
+                }
                 default:
                     break;
              }

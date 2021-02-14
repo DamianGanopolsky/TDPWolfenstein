@@ -6,7 +6,7 @@ MachineGun::MachineGun(){
 }
 
 MachineGun::~MachineGun() {}
-
+//ESTE ATTACK CAMBIA EL DAÑO
 void MachineGun::attack(double& distance, int& damage) {
     //segun la distancia y el angulo establezco una proba de precision
     /*float rd_num = getRandomNumber();
