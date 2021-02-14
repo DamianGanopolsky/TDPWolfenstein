@@ -82,7 +82,7 @@ public:
       void reduceNumKeys(int key);
       void reduceTreasure(int treasure);
       void addInventory(int weapon);
-      //void changeWeaponEquiped(Weapon* &weapon);
+      void deleteInventory(int weapon);
 };
 
 #endif   // PLAYER_H

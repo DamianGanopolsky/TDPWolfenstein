@@ -6,12 +6,11 @@
 Game::Game(ClientsConnected& clients_connected, Id map_id, int& rate) : 
                             new_connection_id(1),
                             players(), players_by_name(),
-                            players_in_map(),
+                            players_in_map(), respawn_positions(),
                             clients_connected(clients_connected),
                             map_id(map_id), map("../Maps/Fortified_6.yaml"),
-                            objMap(), rate(rate) {
-                                //map.printMatrix();
-                            }
+                            objMap(), rate(rate) {}
+
 Game::~Game() {}
 
 //_getPlayerPosition deberia chequear si el yaml establece la posicion en la que el player deberia aparecer o no.
@@ -35,7 +34,6 @@ void Game::_notifyMovementEvent(const ConnectionId id, const Response& response)
 void Game::_notifyChangeWeaponEvent(const ConnectionId id, const Response& response, int weapon) {
     std::cout <<"Game: _notifyChangeWeaponEvent()"<< std::endl;
     Notification* notification;
-    //Player& player = this->players.at(id);
     if (response.success) {
         std::cout <<"Game: weapon"<< weapon <<std::endl;
         notification = new Event(map_id, CHANGE_WEAPON_EV, id, weapon);
@@ -99,7 +97,6 @@ void Game::_notifyEvent(const ConnectionId id, const Response& response, EventOp
         notification = new Message(ERROR_MSSG, response.message);
         this->clients_connected.sendMessageToAll(notification);
     } 
-    //player.getInfo();
 }
 
 void Game::_notifyItemChanged(const ConnectionId id, const Response& response, ItemOpcode item_type) {
@@ -200,8 +197,6 @@ Response Game::_canMove(Map& map, Player& player, std::pair<int, int> next_pos) 
     } else { //se mueve dentro de la misma celda
         return Response(true, NO_ITEM_PICKED_UP_MSG);
     }
-    //esto no va
-    //return Response(true, NO_ITEM_PICKED_UP_MSG);
 }
 
 bool Game::_changeCell(PlayerPosition &pos, std::pair<int, int> &next_pos) {
@@ -219,8 +214,16 @@ bool Game::_interactWith(Player& player, Map map, Object* obj) {
     return true;
 }
 
-bool Game::_getPlayerPosition(Id map_id, int init_x, int init_y, Id new_player_id) {
-    return true;
+void Game::_getPlayerPosition(Id map_id, int init_x, int init_y, Id new_player_id) {
+    /*
+    std::pair<int, int> inicial_pos;
+    if (!positions.empty()){
+        inicial_pos = std::make_pair(positions.at(new_player_id).first, positions.at(new_player_id).second);
+    } else {
+        //obtener una posicion random vacia
+    }
+    this->respawn_positions[new_player_id] = std::make_pair(inicial_pos.first, inicial_pos.second);
+    */
 }
 
 void Game::_attack(const ConnectionId id, int iteration) {
@@ -259,7 +262,7 @@ void Game::_attack(const ConnectionId id, int iteration) {
         if((response.success) && (target.getState()->canBeAttacked())) {
             _reduceBullets(id);
             _notifyEvent(id, response, ATTACK_EV); 
-            _notifyEvent(target_id, target.receiveAttack(damage), BE_ATTACKED_EV);
+            receiveAttack(target_id, damage);
         } else if (response.success) {
             _reduceBullets(id);
             _notifyEvent(id, response, ATTACK_EV); 
@@ -476,5 +479,16 @@ void Game::changeWeapon(const ConnectionId id, int& weapon) {
 
 void Game::receiveAttack(const ConnectionId id, int& damage) {
     Player& player = this->players.at(id);
-    _notifyEvent(id, player.receiveAttack(damage), BE_ATTACKED_EV);
+    Response response = player.receiveAttack(damage);
+    if (response.message == PLAYER_DIED_MSG) {
+        std::cout<<"Game: PLAYER_DIED_MSG"<<std::endl;
+        _notifyEvent(id, response, DEATH_EV);
+        //POSICION EN EL MAPA: CAMBIAR SEGUN LO QUE ESTE EN respawn_positions!!!!!!
+        player.getPos().setPosition(100, 100);
+        players_in_map[id] = std::make_pair(player.getPos().getX(), player.getPos().getY());
+        _notifyEvent(id, player.resurrect(), RESURRECT_EV);
+    } else {
+        std::cout<<"Game: BE_ATTACKED_EV"<<std::endl;
+        _notifyEvent(id, response, BE_ATTACKED_EV);
+    }
 }

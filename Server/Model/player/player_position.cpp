@@ -4,7 +4,7 @@ PlayerPosition::PlayerPosition(int width, int height){
     this->width = width;
     this->height = height;
     //generar valores random
-    this->_setInitialPos(100, 100);
+    this->setPosition(100, 100);
     //cambiar el angulo segun lo que llega??
     this->vision_angle = 270;
     this->direction = UP_DIR; //default
@@ -14,7 +14,7 @@ PlayerPosition::PlayerPosition(int width, int height){
 PlayerPosition::PlayerPosition(int inicial_x, int inicial_y, int width, int height) {
     this->width = width;
     this->height = height;
-    this->_setInitialPos(inicial_x, inicial_y);
+    this->setPosition(inicial_x, inicial_y);
     //cambiar el angulo segun lo que llega??
     this->vision_angle = 270;
     this->direction = UP_DIR; //default
@@ -23,7 +23,7 @@ PlayerPosition::PlayerPosition(int inicial_x, int inicial_y, int width, int heig
 
 PlayerPosition::~PlayerPosition() {}
 
-void PlayerPosition::_setInitialPos(int inicial_x, int inicial_y) {
+void PlayerPosition::setPosition(int inicial_x, int inicial_y) {
     if (inicial_x < 0 || inicial_x > this->width ) {
         this->x = 0;
     } else {

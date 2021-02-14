@@ -23,6 +23,7 @@ class Game {
     std::unordered_map<ConnectionId, Player> players;
     std::unordered_map<std::string, ConnectionId> players_by_name;
     std::unordered_map<ConnectionId, std::pair<int, int>> players_in_map;
+    std::unordered_map<ConnectionId, std::pair<int, int>> respawn_positions;
     ClientsConnected& clients_connected;
     Id map_id;
     Map map;
@@ -38,7 +39,7 @@ class Game {
     bool _changeCell(PlayerPosition &pos, std::pair<int, int> &next_pos);
     //ItemOpcode _getItemOpcode(const char* message); ///falta implmentar
     bool _interactWith(Player& player, Map map, Object* obj);///falta implmentar
-    bool _getPlayerPosition(Id map_id, int init_x, int init_y, Id new_player_id);///falta implmentar
+    void _getPlayerPosition(Id map_id, int init_x, int init_y, Id new_player_id);///falta implmentar
     void _attack(const ConnectionId id, int iteration);
     std::pair<ConnectionId, double> _getTargetAttacked(ConnectionId attacker_id);
     void _reduceBullets(const ConnectionId id);

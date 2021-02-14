@@ -252,8 +252,14 @@ Response Player::resurrect() {
     }
     delete this->state;
     this->state = new Alive(this->player_id);
+    addNumResurrection();
+    addLife(MAX_LIFE);
+    deleteInventory(KNIFE_TYPE);
+    deleteInventory(MACHINE_GUN_TYPE);
+    deleteInventory(CHAIN_CANNON_TYPE);
+    reduceBullets(MAX_BULLETS);
+    addBullets(8);
     return Response(true, SUCCESS_MSG);
-    //poner todos los valores iniciales de vida, balas, etc
 }
 
 Response Player::changeWeapon(int& weapon) {
@@ -285,6 +291,10 @@ Response Player::changeWeapon(int& weapon) {
 
 void Player::addInventory(int weapon) {
     this->info.inventory.push_back(weapon);
+}
+
+void Player::deleteInventory(int weapon) {
+    this->info.inventory.remove(weapon);
 }
 
 void Player::addLife(int life) {

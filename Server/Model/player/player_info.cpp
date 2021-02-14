@@ -6,7 +6,7 @@
 
 PlayerInfo::PlayerInfo() : life(50), bullets(100),
                             keys(0), treasure(0), 
-                            resurrected(10) {
+                            resurrected(0) {
                                 this->weapon_type.insert(std::make_pair<Weapon*, int>(&knife, KNIFE_TYPE));
                                 this->weapon_type.insert(std::make_pair<Weapon*, int>(&gun, GUN_TYPE));
                                 this->weapon_type.insert(std::make_pair<Weapon*, int>(&machine_gun, MACHINE_GUN_TYPE));
