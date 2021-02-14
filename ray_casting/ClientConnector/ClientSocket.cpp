@@ -4,8 +4,8 @@
 #include "../../Common/protocol.h"
 #include <inttypes.h>
 
-ClientSocket::ClientSocket(NonBlockingQueue<UpdateMessage*>& non_bloq_queue):\
-recv_queue(non_bloq_queue),socket("127.0.0.1","8082"){
+ClientSocket::ClientSocket(NonBlockingQueue<UpdateMessage*>& non_bloq_queue,const char* Host,const char* Port):\
+recv_queue(non_bloq_queue),socket(Host,Port){
 }
 
 

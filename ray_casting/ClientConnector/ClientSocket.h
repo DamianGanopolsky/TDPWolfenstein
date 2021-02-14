@@ -7,7 +7,7 @@
 
 class ClientSocket {
 public:
-    ClientSocket(NonBlockingQueue<UpdateMessage*>& non_bloq_queue);
+    ClientSocket(NonBlockingQueue<UpdateMessage*>& non_bloq_queue,const char* Host,const char* Port);
     void recv(char* recv_buff,int len);
     void send(uint8_t msg);
     void close();

@@ -74,8 +74,9 @@ otros.
 
 ### Aplicacion Cliente-Servidor  
 
-Una vez compilado el programa, se puede inicializar el servidor, situandose en la carpeta build y ejecutando el comando "./servidor 8082" donde 8082 sera el puerto.
-Luego, para inicializar el cliente se debe ejecutar el comando "./Client" dentro de la carpeta build.
+Una vez compilado el programa, se puede inicializar el servidor, situandose en la carpeta build y ejecutando el comando ./servidor [Port] . Donde Port es el puerto, que puede ser 8082 por ejemplo.  
+Luego, para inicializar el cliente se debe ejecutar el comando "./Client [Host] [Port]" dentro de la carpeta build, siendo Host una 
+direccion IP(e.g: 127.0.0.1), y Port el mismo puerto del servidor.
 
 #### Configuracion del cliente
 Para cambiar el volumen de la musica que se escucha mientras se ejecuta el cliente, o cambiar la resolucion del mismo, se tienen que cambiar dichos parametros

@@ -56,6 +56,7 @@ void ReceiveController::update(){
                 }
                 case ATTACK_EV:{
                     Change_Weapon_Event attack_ev=updatemessage->get_changed_stat();
+                    std::cout << "Player id:" << attack_ev.player_id <<"Bullets:" << attack_ev.weapon << std::endl;
                     if(int(attack_ev.player_id)==player.get_id()){
                         player.shoot(attack_ev.weapon);
 

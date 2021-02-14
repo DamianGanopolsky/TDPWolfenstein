@@ -17,12 +17,15 @@
 
 class ClientManager {
 public:
-    ClientManager();
+    ClientManager(std::string Host,std::string Port);
 
     void start();
 
     ~ClientManager();
 private:
+    std::string host;
+    std::string port;
+
     //ClientSocket clientsocket;
     
     //Receiver receiver;
