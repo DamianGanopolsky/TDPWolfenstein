@@ -241,26 +241,30 @@ void Game::_attack(const ConnectionId id, int iteration) {
     if (id == target_id) {
         std::cout <<"Game: CANT_ATTACK_ITSELF"<< std::endl;
         _notifyEvent(id, Response(false, CANT_ATTACK_ITSELF_ERROR_MSG), ATTACK_EV);
-    } else if (player.getInfo().getNumBullets() == 0) {
+    } else if ((player.getInfo().getNumBullets() == 0) && (player.getInfo().getWeaponTypeEquiped() != KNIFE_TYPE)) {
         std::cout <<"Game: DOESNT HAVE BULLETS"<< std::endl;
         _notifyEvent(id, Response(false, CANT_ATTACK_WITHOUT_BULLETS_ERROR_MSG), ATTACK_EV);
     } else if (target_id == (uint32_t)0) {
         std::cout <<"Game: JUST SHOOTS"<< std::endl;
         //se bajan las balas pero no golpea a nadie
         if (response.success) {
-            _notifyEvent(id, Response(true, CANT_ATTACK_UNKNOWN_ID_ERROR_MSG), ATTACK_EV);
             _reduceBullets(id);
+            _notifyEvent(id, Response(true, CANT_ATTACK_UNKNOWN_ID_ERROR_MSG), ATTACK_EV);
         } else {
             _notifyEvent(id, Response(false, CANT_SHOOT_COOLDOWN_ERROR_MSG), ATTACK_EV);
         }
     } else {
         std::cout <<"Game: ATTACKS"<< std::endl;
-        _notifyEvent(id, response, ATTACK_EV); 
         Player& target = this->players.at(target_id);
-        if((response.success) && (target.getState()->canBeAttacked())){
+        if((response.success) && (target.getState()->canBeAttacked())) {
+            _reduceBullets(id);
+            _notifyEvent(id, response, ATTACK_EV); 
             _notifyEvent(target_id, target.receiveAttack(damage), BE_ATTACKED_EV);
         } else if (response.success) {
             _reduceBullets(id);
+            _notifyEvent(id, response, ATTACK_EV); 
+        } else {
+            _notifyEvent(id, response, ATTACK_EV); 
         }
     }
 }
@@ -340,6 +344,7 @@ void Game::deletePlayer(const ConnectionId id) {
     }
     Player& player = players.at(id);
     this->players_by_name.erase(player.getNickname());
+    this->players_in_map.erase(id);
     _notifyEvent(id, Response(true, SUCCESS_MSG), DELETE_PLAYER_EV);
     this->players.erase(id);
 }

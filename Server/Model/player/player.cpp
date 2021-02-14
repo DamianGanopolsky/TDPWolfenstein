@@ -105,8 +105,8 @@ Response Player::updateShooting(double& distance, int& damage, int& iteration) {
     std::cout <<"Player: updateShooting()"<< std::endl;
     if (this->shooting) {
         std::cout <<"Player: is shooting"<< std::endl;
-        this->machine_gun_cooldown -= iteration * rate;
-        this->chain_cannon_cooldown -= iteration * rate;
+        this->machine_gun_cooldown -= iteration;
+        this->chain_cannon_cooldown -= iteration;
         int type = this->info.getWeaponTypeEquiped(); 
         Item* weapon = this->info.getWeaponEquiped();
         if (weapon  == NULL ){std::cout <<"NULL WEAPON"<< std::endl;}
