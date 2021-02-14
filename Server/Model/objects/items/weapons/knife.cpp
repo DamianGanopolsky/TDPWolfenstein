@@ -7,7 +7,7 @@ Knife::~Knife() {}
 
 void Knife::attack(double& distance, int& damage) {
     //segun si esta en el rango de ataque establezco un danio
-    if (distance < 60) {
+    if (distance < GameConfig.knife_max_range) {
         damage=GameConfig.knife_base_damage;
     }
 

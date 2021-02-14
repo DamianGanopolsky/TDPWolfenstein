@@ -15,6 +15,9 @@ struct YamlParamConfig{
     int gun_base_damage;
     int machine_gun_base_damage;
     int chain_cannon_base_damage;
+    int knife_max_range;
+    int machine_gun_cooldown;
+    int chain_cannon_cooldown;
 };
 
 extern const struct YamlParamConfig GameConfig;
