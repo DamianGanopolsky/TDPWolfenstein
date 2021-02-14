@@ -4,8 +4,10 @@ max_life: 200
 cup_points: 70
 num_bullets_picked_up: 50
 max_bullets: 150
-knife_damage: 1
-gun_damage: 1
-machine_gun_damage: 1
-chain_cannon_damage: 1
+knife_base_damage: 3
+gun_base_damage: 5
+machine_gun_base_damage: 15
+machine_gun_cooldown: 20
+chain_cannon_base_damage: 10
+chain_cannon_cooldown: 10
 

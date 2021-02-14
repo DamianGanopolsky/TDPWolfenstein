@@ -9,4 +9,8 @@ const struct YamlParamConfig GameConfig = {
     .cup_points=data_config["cup_points"].as<int>(),
     .max_bullets=data_config["max_bullets"].as<int>(), 
     .num_bullets_picked_up=data_config["num_bullets_picked_up"].as<int>(),
+    .knife_base_damage=data_config["knife_base_damage"].as<int>(),
+    .gun_base_damage=data_config["gun_base_damage"].as<int>(),
+    .machine_gun_base_damage=data_config["machine_gun_base_damage"].as<int>(),
+    .chain_cannon_base_damage=data_config["chain_cannon_base_damage"].as<int>(),
 };

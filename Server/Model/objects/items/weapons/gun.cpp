@@ -14,7 +14,8 @@ void Gun::attack(double& distance, int& damage) {
     if (rd_num < precision) {
         damage = (int) getRandomNumber();
     }
-    damage = 5;
+    //damage = 5;
+    damage= GameConfig.gun_base_damage;
 }
 
 const int Gun::getType() {

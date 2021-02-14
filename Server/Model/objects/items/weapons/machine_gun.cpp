@@ -14,7 +14,8 @@ void MachineGun::attack(double& distance, int& damage) {
     if (rd_num < precision) {
         damage = (int) getRandomNumber();
     }*/
-    damage = 5;
+    //damage = 5;
+    damage=GameConfig.machine_gun_base_damage;
 }
 
 const int MachineGun::getType() {

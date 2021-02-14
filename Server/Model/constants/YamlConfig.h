@@ -11,6 +11,10 @@ struct YamlParamConfig{
     int cup_points;
     int max_bullets;
     int num_bullets_picked_up;
+    int knife_base_damage;
+    int gun_base_damage;
+    int machine_gun_base_damage;
+    int chain_cannon_base_damage;
 };
 
 extern const struct YamlParamConfig GameConfig;

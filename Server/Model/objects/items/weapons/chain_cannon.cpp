@@ -14,7 +14,8 @@ void ChainCannon::attack(double& distance, int& damage) {
     if (rd_num < precision) {
         damage = (int) getRandomNumber();
     }*/
-    damage = 40;
+    //damage = 40;
+    damage = GameConfig.chain_cannon_base_damage;
 }
 
 const int ChainCannon::getType() {

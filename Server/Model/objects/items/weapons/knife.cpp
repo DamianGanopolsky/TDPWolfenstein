@@ -10,7 +10,8 @@ void Knife::attack(double& distance, int& damage) {
     if (inRange()) {
         damage = (int) getRandomNumber();
     }
-    damage = 5;
+    //damage = 5;
+    damage=GameConfig.knife_base_damage;
 }
 
 const int Knife::getType() {
