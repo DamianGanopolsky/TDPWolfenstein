@@ -102,7 +102,21 @@ void Player::move_right() {
 
 void Player::shoot(int bullets) {
 	soundmanager.play_sound(info.weapon);
-	this->info.weapon_status = 2;
+	std::cout << "Info weapon es" << info.weapon  << std::endl;
+	switch(info.weapon){
+		case 0:
+		case 1:
+		case 3:{
+			this->info.weapon_status=2;
+			break;
+		}
+		case 2:{
+			this->info.weapon_status=6;
+			break;
+		}		
+	}
+	std::cout << "Weapon status es" << info.weapon_status << std::endl;
+	//this->info.weapon_status = 2;
 	if(info.weapon!=0){
 		this->info.ammo=bullets;
 	} 

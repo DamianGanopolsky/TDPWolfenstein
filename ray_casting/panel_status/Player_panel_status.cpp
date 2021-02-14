@@ -158,6 +158,7 @@ void Player_panel_status::copy_to_rederer_weapon(Player_info& info) {
 			this->pistola_status.copy_to_rederer(info.get_weapon_status(), &SrcR);
 			break;
 		case 2:
+			std::cout << "Weapon status es" << info.get_weapon_status() << std::endl;
 			this->automaticgun_status.copy_to_rederer(info.get_weapon_status(),&SrcR);
 			break;
 		case 3:

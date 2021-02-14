@@ -154,5 +154,4 @@ void ReceiveController::update(){
          }
          //client.render();
      }  
-     //DIBUJAR
  }
