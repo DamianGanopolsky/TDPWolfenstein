@@ -40,7 +40,15 @@ void ReceiveController::update(){
                     break;
                 }
                 case RESURRECT_EV:{
-                   // New_Player_Event resurrect_ev=updatemessage->get_new_player_info();
+                   New_Player_Event resurrect_ev=updatemessage->get_new_player_info();
+                   if(int(resurrect_ev.player_id)!=player.get_id()){
+                        map.new_player(resurrect_ev.player_id,\
+                        resurrect_ev.pos_x,resurrect_ev.pos_y,resurrect_ev.angle,0);
+                    }
+                   else{
+                        player.update_position_and_angle(resurrect_ev.pos_x,resurrect_ev.pos_y,\
+                        resurrect_ev.angle);
+                    }
                    break;
                 }
                 case CHANGE_WEAPON_EV:{
