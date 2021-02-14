@@ -34,10 +34,9 @@ void ReceiveController::update(){
                     New_Player_Event new_ev=updatemessage->get_new_player_info();
                     
                     if(int(new_ev.player_id)!=player.get_id()){
-                        map.update_player_pos(new_ev.player_id,\
+                        map.new_player(new_ev.player_id,\
                         new_ev.pos_x,new_ev.pos_y,new_ev.angle,0);
                     }
-                    //std::cout << "lives es" << unsigned(new_ev.life) << std::endl;
                     break;
                 }
                 case RESURRECT_EV:{
@@ -59,9 +58,11 @@ void ReceiveController::update(){
                     std::cout << "Player id:" << attack_ev.player_id <<"Bullets:" << attack_ev.weapon << std::endl;
                     if(int(attack_ev.player_id)==player.get_id()){
                         player.shoot(attack_ev.weapon);
-
                     }
                     else{
+                        if(map.get_player_weapon(attack_ev.player_id)!=0){
+                            soundmanager.play_sound(map.get_player_weapon(attack_ev.player_id));
+                        }
                         map.player_shoot(attack_ev.player_id);
                     }
                     break;

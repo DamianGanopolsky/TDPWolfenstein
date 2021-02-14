@@ -61,6 +61,10 @@ void Player::change_score(int new_score){
 	this->info.scores=new_score;
 }
 
+int Player::get_weapon(){
+	return this->info.weapon;
+}
+
 void Player::update_position_and_angle(int X,int Y,float ANGLE){
 	this->pos_x=X;
 	this->pos_y=Y;

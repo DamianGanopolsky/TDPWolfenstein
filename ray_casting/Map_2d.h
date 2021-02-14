@@ -48,6 +48,8 @@ public:
 	void player_shoot(int id);
 	int get_width();
 	int get_height();
+	void new_player(int id,int pos_x,int pos_y,int angle,int status);
+	int get_player_weapon(int player_id);
 private:
 //PARED O NO
 	std::map<int, bool> boxes;

@@ -23,6 +23,7 @@ public:
 	void move_right();
 	void shoot(int bullets);
 	int get_id();
+	int get_weapon();
 	void add_bullets(int bullets);
 	void change_weapon(int weapon);
 	void change_health(int new_health);

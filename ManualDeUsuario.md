@@ -75,8 +75,8 @@ otros.
 ### Aplicacion Cliente-Servidor  
 
 Una vez compilado el programa, se puede inicializar el servidor, situandose en la carpeta build y ejecutando el comando ./servidor [Port] . Donde Port es el puerto, que puede ser 8082 por ejemplo.  
-Luego, para inicializar el cliente se debe ejecutar el comando "./Client [Host] [Port]" dentro de la carpeta build, siendo Host una 
-direccion IP(e.g: 127.0.0.1), y Port el mismo puerto del servidor.
+Luego, para inicializar el cliente se debe ejecutar el comando "./Client [Host] [Port] [Map]" dentro de la carpeta build. Host es una 
+direccion IP(e.g: 127.0.0.1), Port el mismo puerto del servidor y map es el mapa que se va a correr(unicamente el nombre sin la extension .yaml). Un ejemplo para ejecutar el cliente seria ./Client 127.0.0.1 8082 Fortified_6
 
 #### Configuracion del cliente
 Para cambiar el volumen de la musica que se escucha mientras se ejecuta el cliente, o cambiar la resolucion del mismo, se tienen que cambiar dichos parametros

@@ -10,7 +10,6 @@ Map_2d::Map_2d(Player& player,std::string YamlPathToMap) : player(player),YamlMa
 	MapYamlParser mapyamlparser(YamlPathToMap);
 	map_width=mapyamlparser.Map_Width();
 	map_height=mapyamlparser.Map_Height();
-	std::cout << "map width "<< mapyamlparser.Map_Width() << "map height" << mapyamlparser.Map_Height() <<std::endl;
 	total_boxes=mapyamlparser.Map_Height()*mapyamlparser.Map_Width();
 	/*std::cout << "total boxes es" << total_boxes << "height:" << mapyamlparser.Map_Height() << "width;\
 	" << mapyamlparser.Map_Width() << std::endl;*/
@@ -57,6 +56,14 @@ void Map_2d::open_door(int x,int y){
 void Map_2d::close_door(int x,int y){
 	walls[map_width*y+x]=2;
 	boxes[map_width*y+x]=false;
+}
+
+void Map_2d::new_player(int id,int pos_x,int pos_y,int angle,int status){
+	players_state[id].pos_x=pos_x;
+	players_state[id].pos_y=pos_y;
+	players_state[id].vision_angle=angle;
+	players_state[id].type_id=2;
+	players_state[id].weapon=1;
 }
 
 void Map_2d::update_player_pos(int id,int pos_x,int pos_y,int angle,int status){
@@ -119,6 +126,10 @@ void Map_2d::player_shoot(int player_id){
 	if(players_state[player_id].weapon!=0){
 		players_state[player_id].is_shooting=1;
 	}
+}
+
+int Map_2d::get_player_weapon(int player_id){
+	return players_state[player_id].weapon;
 }
 
 void Map_2d::delete_item(int x,int y){

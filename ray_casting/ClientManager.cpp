@@ -5,8 +5,11 @@
 #include "ClientConnector/Command.h"
 #include "../Common/protocol.h"
 #include "ConstantRateLoop_.h"
+#define PATH_TO_MAPS "../Maps/"
+#define YAML_EXTENSION ".yaml"
 
-ClientManager::ClientManager(std::string Host,std::string Port):host(Host),port(Port){
+ClientManager::ClientManager(std::string Host,std::string Port,std::string MapName):\
+host(Host),port(Port),map_name(MapName){
 	if(Mix_OpenAudio(44100,MIX_DEFAULT_FORMAT,2,1024)<0){
         throw std::invalid_argument("Error  en la inicializacion del audio \n");
     }
@@ -20,12 +23,11 @@ ClientManager::ClientManager(std::string Host,std::string Port):host(Host),port(
 
 void ClientManager::start(){
 	/* TENGO QUE RECIBIR EL PLAYER Y EL MAP ANTES QUE NADA, */
-	std::cout << "Host:" << host << "Port:" << port << std::endl;
 	NonBlockingQueue<UpdateMessage*> recv_queue;
 	ClientSocket clientsock(recv_queue,host.c_str(),port.c_str());
 	New_Player_Event player_info=clientsock.recv_player();
 	Player player(player_info);
-	Map_2d map(player,"../Maps/Fortified_6.yaml");
+	Map_2d map(player,PATH_TO_MAPS+map_name+YAML_EXTENSION);
 	Panel_window panel(map);
 	BlockingQueue<Command*> send_queue;
 	

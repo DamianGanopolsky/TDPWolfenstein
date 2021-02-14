@@ -14,7 +14,7 @@ int main(int argc,char* argv[]) {
 		return ERROR;
 	}*/
 	try{
-		ClientManager clientmanager(argv[1],argv[2]);
+		ClientManager clientmanager(argv[1],argv[2],argv[3]);
 		clientmanager.start();
 	}
 	catch(const Exception& e){
