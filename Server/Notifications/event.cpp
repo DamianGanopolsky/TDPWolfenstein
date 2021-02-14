@@ -105,8 +105,11 @@ bool Event::send(const ConnectionId sender, const Socket& peer) {
                 std::cout << "bullets es: " << bullets <<std::endl;
                 this->player_id = htole32(this->player_id);
                 peer.send((char *)&player_id, sizeof(player_id));
-                this->map = htole32(this->map);
-                peer.send((char *)&map, sizeof(map));
+                char map[12]= "Fortified_6";
+                //map=htole32(map);
+                //this->map = htole32(this->map);
+                //peer.send((char *)&map, sizeof(map));
+                peer.send(map,13);
                 this->pos_x = htole32(this->pos_x);
                 this->pos_y = htole32(this->pos_y);
                 peer.send((char *)&pos_x, sizeof(pos_x));

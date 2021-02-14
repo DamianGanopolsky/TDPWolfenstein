@@ -1,6 +1,7 @@
 #ifndef PROTOCOL_H
 #define PROTOCOL_H
 #include <stdint.h>
+#include <string>
 
 struct Movement_event {
     uint8_t player_id;
@@ -13,7 +14,8 @@ struct Movement_event {
 
 struct New_Player_Event{
     uint32_t player_id;
-    uint32_t map;
+    uint32_t map_len;
+    std::string map;
     uint32_t pos_x;
     uint32_t pos_y;
     float angle;

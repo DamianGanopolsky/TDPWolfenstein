@@ -13,7 +13,7 @@ public:
     void load_movement_event(uint32_t player_id,uint32_t pos_x,uint32_t pos_y,\
     float angle,uint8_t is_moving,uint8_t is_shooting);
 
-    void load_new_player_event(uint8_t player_id,uint8_t map,uint32_t pos_x,uint32_t pos_y,\
+    void load_new_player_event(uint8_t player_id,uint32_t pos_x,uint32_t pos_y,\
     float angle,uint32_t life,uint8_t resurrected,uint32_t score,uint32_t bullets);
 
     void load_death_event(uint32_t player_id,uint32_t pos_x,uint32_t pos_y);

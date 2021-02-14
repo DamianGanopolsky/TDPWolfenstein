@@ -16,7 +16,8 @@ void ClientSocket::close(){
 New_Player_Event ClientSocket::recv_player_func(){
     int bytes_received=0;
     uint32_t player_id[1];
-    uint32_t map[1];
+    //uint32_t map[1];
+    char map[13];
     uint32_t pos_x[1];
     uint32_t pos_y[1];
     float angle[1];
@@ -25,7 +26,8 @@ New_Player_Event ClientSocket::recv_player_func(){
     uint32_t treasure[1];
     uint32_t bullets[1];
     socket.receive((char*)player_id, sizeof(player_id),bytes_received);
-    socket.receive((char*)map, sizeof(map),bytes_received);
+    //socket.receive((char*)map, sizeof(map),bytes_received);
+    socket.receive(map, sizeof(map),bytes_received);
     socket.receive((char*)pos_x,sizeof(pos_x),bytes_received);
     socket.receive((char*)pos_y,sizeof(pos_y),bytes_received);
     socket.receive((char*)angle,sizeof(angle),bytes_received);
@@ -33,9 +35,9 @@ New_Player_Event ClientSocket::recv_player_func(){
     socket.receive((char*)resurrected,sizeof(resurrected),bytes_received);
     socket.receive((char*)treasure,sizeof(treasure),bytes_received);
     socket.receive((char*)bullets,sizeof(bullets),bytes_received);
-    
+    std::cout << "Map es" << map << std::endl;
     player_id[0]=le32toh(player_id[0]);
-    map[0]=le32toh(map[0]);
+    //map_len[0]=le32toh(map_len[0]);
     pos_x[0]=le32toh(pos_x[0]);
     pos_y[0]=le32toh(pos_y[0]);
     angle[0]=le32toh(angle[0]);
@@ -53,7 +55,8 @@ New_Player_Event ClientSocket::recv_player_func(){
     std::cout << "recibi resurrected:" << unsigned(resurrected[0])<< std::endl;
     std::cout << "recibi bullets:" << unsigned(bullets[0])<< std::endl;*/
     my_player.player_id=player_id[0];
-    my_player.map=map[0];
+    //my_player.map=map[0];
+    my_player.map=map;
     my_player.pos_x=pos_x[0];
     my_player.pos_y=pos_y[0];
     my_player.angle=angle[0];
@@ -118,7 +121,7 @@ void ClientSocket::recv(char* recv_buff,int len){
                 case RESURRECT_EV:
                 case NEW_PLAYER_EV: {                         
                     New_Player_Event new_player=recv_player_func();
-                    update_message->load_new_player_event(new_player.player_id,new_player.map,\
+                    update_message->load_new_player_event(new_player.player_id,\
                     new_player.pos_x,new_player.pos_y,new_player.angle,new_player.life\
                     ,new_player.resurrected,new_player.score,new_player.bullets);
                     recv_queue.push(std::move(update_message));
