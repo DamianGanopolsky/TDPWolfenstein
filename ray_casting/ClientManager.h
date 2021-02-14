@@ -17,7 +17,7 @@
 
 class ClientManager {
 public:
-    ClientManager(std::string Host,std::string Port,std::string MapName);
+    ClientManager(std::string Host,std::string Port);
 
     void start();
 
@@ -25,7 +25,6 @@ public:
 private:
     std::string host;
     std::string port;
-    std::string map_name;
 
     //ClientSocket clientsocket;
     
