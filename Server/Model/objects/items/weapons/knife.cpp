@@ -7,11 +7,12 @@ Knife::~Knife() {}
 
 void Knife::attack(double& distance, int& damage) {
     //segun si esta en el rango de ataque establezco un danio
-    if (inRange()) {
-        damage = (int) getRandomNumber();
+    if (distance < 60) {
+        damage=GameConfig.knife_base_damage;
     }
+
     //damage = 5;
-    damage=GameConfig.knife_base_damage;
+    //damage=GameConfig.knife_base_damage;
 }
 
 const int Knife::getType() {
