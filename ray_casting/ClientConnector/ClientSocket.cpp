@@ -16,8 +16,7 @@ void ClientSocket::close(){
 New_Player_Event ClientSocket::recv_player_func(){
     int bytes_received=0;
     uint32_t player_id[1];
-    //uint32_t map[1];
-    char map[13];
+    uint32_t map_size[1];
     uint32_t pos_x[1];
     uint32_t pos_y[1];
     float angle[1];
@@ -26,8 +25,14 @@ New_Player_Event ClientSocket::recv_player_func(){
     uint32_t treasure[1];
     uint32_t bullets[1];
     socket.receive((char*)player_id, sizeof(player_id),bytes_received);
-    //socket.receive((char*)map, sizeof(map),bytes_received);
-    socket.receive(map, sizeof(map),bytes_received);
+    socket.receive((char*)map_size, sizeof(map_size),bytes_received);
+    map_size[0]=le32toh(map_size[0]);
+    int map_size_=int(map_size[0]+1);
+    std::cout << "Map size es" << map_size_ << std::endl;
+    char map[map_size_];
+    //memset(map,0,map_size_);
+    socket.receive(map, map_size_,bytes_received);
+    std::cout << "Recibi bytes:" << bytes_received << std::endl;
     socket.receive((char*)pos_x,sizeof(pos_x),bytes_received);
     socket.receive((char*)pos_y,sizeof(pos_y),bytes_received);
     socket.receive((char*)angle,sizeof(angle),bytes_received);
@@ -35,7 +40,9 @@ New_Player_Event ClientSocket::recv_player_func(){
     socket.receive((char*)resurrected,sizeof(resurrected),bytes_received);
     socket.receive((char*)treasure,sizeof(treasure),bytes_received);
     socket.receive((char*)bullets,sizeof(bullets),bytes_received);
-    std::cout << "Map es" << map << std::endl;
+    std::string map__(map);
+    std::string map_final=map__.substr(0,map_size_);
+    std::cout << "Map final es" << map_final << std::endl;
     player_id[0]=le32toh(player_id[0]);
     //map_len[0]=le32toh(map_len[0]);
     pos_x[0]=le32toh(pos_x[0]);
@@ -45,7 +52,7 @@ New_Player_Event ClientSocket::recv_player_func(){
     treasure[0]=le32toh(treasure[0]);
     resurrected[0]=le32toh(resurrected[0]);
     bullets[0]=le32toh(bullets[0]);
-   /* std::cout << "recibi player id:" << unsigned(player_id[0])<< std::endl;
+    std::cout << "recibi player id:" << unsigned(player_id[0])<< std::endl;
     std::cout << "recibi map:" << unsigned(map[0])<< std::endl;
     std::cout << "recibi posx:" << unsigned(pos_x[0])<< std::endl;
     std::cout << "recibi posy:" << unsigned(pos_y[0])<< std::endl;
@@ -53,10 +60,10 @@ New_Player_Event ClientSocket::recv_player_func(){
     std::cout << "recibi life:" << unsigned(life[0])<< std::endl;
     std::cout << "recibi treasure:" << unsigned(treasure[0])<< std::endl;
     std::cout << "recibi resurrected:" << unsigned(resurrected[0])<< std::endl;
-    std::cout << "recibi bullets:" << unsigned(bullets[0])<< std::endl;*/
+    std::cout << "recibi bullets:" << unsigned(bullets[0])<< std::endl;
     my_player.player_id=player_id[0];
     //my_player.map=map[0];
-    my_player.map=map;
+    my_player.map=map_final;
     my_player.pos_x=pos_x[0];
     my_player.pos_y=pos_y[0];
     my_player.angle=angle[0];
