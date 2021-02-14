@@ -14,7 +14,7 @@ void ChainCannon::attack(double& distance, int& damage) {
     if (rd_num < precision) {
         damage = (int) getRandomNumber();
     }
-    damage = 0;
+    damage = 5;
 }
 
 const int ChainCannon::getType() {
