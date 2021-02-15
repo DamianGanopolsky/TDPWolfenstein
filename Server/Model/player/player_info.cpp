@@ -4,7 +4,7 @@
 #include <algorithm>
 #include <iostream>
 
-PlayerInfo::PlayerInfo() : life(50), bullets(100),
+PlayerInfo::PlayerInfo() : life(100), bullets(8),
                             keys(0), treasure(0), 
                             resurrected(0) {
                                 this->weapon_type.insert(std::make_pair<Weapon*, int>(&knife, KNIFE_TYPE));
@@ -13,9 +13,6 @@ PlayerInfo::PlayerInfo() : life(50), bullets(100),
                                 this->weapon_type.insert(std::make_pair<Weapon*, int>(&chain_cannon, CHAIN_CANNON_TYPE));
                                 this->equiped = &gun;
                                 this->inventory.push_back(GUN_TYPE);
-                                this->inventory.push_back(KNIFE_TYPE);
-                                this->inventory.push_back(MACHINE_GUN_TYPE);
-                                this->inventory.push_back(CHAIN_CANNON_TYPE);
                             }
 
 PlayerInfo::~PlayerInfo(){}

@@ -27,6 +27,7 @@ class ClientsConnected {
         void remove(const ConnectionId id);
         void sendMessageToAll(Notification* message);
         void sendEventToAll(Notification* event);
+        void sendEventToOne(ConnectionId id, Notification* event);
         void stop();
 };
 

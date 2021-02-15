@@ -50,6 +50,16 @@ void ClientsConnected::sendEventToAll(Notification* event) {
     }
 }
 
+void ClientsConnected::sendEventToOne(ConnectionId id, Notification* event) {
+    std::cout <<"ClientsConnected: sendToOne()"<< std::endl;
+    if (clients.count(id) == 0) {
+        throw Exception("Invalid client_id.");
+    }
+    std::shared_ptr<Notification> event_ptr(event);
+    std::cout <<"ClientsConnected: push event"<< std::endl;
+    clients.at(id).push(event_ptr);
+}
+
 void ClientsConnected::stop() { 
     std::cout <<"ClientsConnected: stop()"<< std::endl;
     std::unordered_map<ConnectionId, ClientHandler>::iterator it;

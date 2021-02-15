@@ -339,6 +339,14 @@ const ConnectionId Game::newPlayer() {
 void Game::notifyNewPlayer(const ConnectionId id) {
     //std::cout <<"Game: new player notified"<< std::endl;
     _notifyEvent(id, Response(true, SUCCESS_MSG), NEW_PLAYER_EV);
+    std::unordered_map<ConnectionId, Player>::iterator it;
+    for (it = players.begin(); it != players.end(); it++) {
+        Player& other = it->second;
+        Notification*notification = new Event(map_id, NEW_PLAYER_EV, it->first, other.getPos().getX(), other.getPos().getY(),
+                                                other.getPos().getAngle(), other.getInfo().getLife(), other.getInfo().getNumResurrection(),
+                                                other.getInfo().getTreasure(), other.getInfo().getNumBullets());
+        this->clients_connected.sendEventToOne(id, notification);
+    }
 }
 
 void Game::deletePlayer(const ConnectionId id) {
