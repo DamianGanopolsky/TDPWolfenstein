@@ -46,8 +46,10 @@ void ReceiveController::update(){
                         resurrect_ev.pos_x,resurrect_ev.pos_y,resurrect_ev.angle,0);
                     }
                    else{
-                        player.update_position_and_angle(resurrect_ev.pos_x,resurrect_ev.pos_y,\
-                        resurrect_ev.angle);
+                        std::cout << "Resurreccione y mi nueva pos es x:" << resurrect_ev.pos_x << "y:" << resurrect_ev.pos_y << std::endl;
+                        /*player.update_position_and_angle(resurrect_ev.pos_x,resurrect_ev.pos_y,\
+                        resurrect_ev.angle);*/
+                        player.resurrect_player(resurrect_ev);
                     }
                    break;
                 }
