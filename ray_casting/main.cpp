@@ -5,14 +5,10 @@
 #include "../Common/exception.h"
 
 int main(int argc,char* argv[]) {
-	std::cout << "Argumentos:" << std::endl;
-	for(int i=0;i<argc;i++){
-		std::cout << "Argv es " << argv[i] << std::endl;
-	}
-	/*if(argc!=EXPECTED_ARGS_CLIENT){
+	if(argc!=EXPECTED_ARGS_CLIENT){
 		std::cerr << "Error invalid arguments!" << std::endl;
 		return ERROR;
-	}*/
+	}
 	try{
 		ClientManager clientmanager(argv[1],argv[2]);
 		clientmanager.start();

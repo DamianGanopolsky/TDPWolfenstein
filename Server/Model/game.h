@@ -27,8 +27,10 @@ class Game {
     ClientsConnected& clients_connected;
     Id map_id;
     Map map;
+    
     ObjectMap objMap;
     int rate;
+    std::string YamlMapName;
 
     void _notifyEvent(const ConnectionId id, const Response& response, EventOpcode event_type);
     void _notifyResponse(const ConnectionId id, const Response& response);
@@ -46,7 +48,7 @@ class Game {
     void _move(const ConnectionId id);
 
     public:
-        Game(ClientsConnected& clients_connected, Id map_id, int& rate);
+        Game(ClientsConnected& clients_connected, std::string map_Yaml, int& rate);
         ~Game();
 
         Game(const Game&) = delete;

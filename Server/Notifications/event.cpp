@@ -1,35 +1,35 @@
 #include "event.h"
 
-Event::Event(const Id map, EventOpcode event_type, Id player_id) : 
-            map(map), event_type(event_type), player_id(player_id) {}
+Event::Event(std::string map, EventOpcode event_type, Id player_id) : 
+            map_(map), event_type(event_type), player_id(player_id) {}
 
-Event::Event(const Id map, EventOpcode event_type, Id player_id,
+Event::Event(std::string map, EventOpcode event_type, Id player_id,
             uint32_t pos_x, uint32_t pos_y, float angle, int is_moving,
             int is_shoting) : 
-            map(map), event_type(event_type), player_id(player_id), pos_x(pos_x),
+            map_(map), event_type(event_type), player_id(player_id), pos_x(pos_x),
             pos_y(pos_y), angle(angle), is_moving((uint8_t)is_moving),
             is_shoting((uint8_t)is_shoting) {}
 
-Event::Event(const Id map, EventOpcode event_type, Id player_id,
+Event::Event(std::string map, EventOpcode event_type, Id player_id,
             uint32_t pos_x, uint32_t pos_y, float angle, int life, int resurrected,
             int treasure, int bullets) : 
-            map(map), event_type(event_type), player_id(player_id), pos_x(pos_x),
+            map_(map), event_type(event_type), player_id(player_id), pos_x(pos_x),
             pos_y(pos_y), angle(angle), life((uint32_t)life), resurrected((uint8_t)resurrected),
             treasure((uint32_t)treasure), bullets((uint32_t)bullets) {}
 
-Event::Event(const Id map, EventOpcode event_type, Id player_id, int value) : 
-            map(map), event_type(event_type), player_id(player_id), 
+Event::Event(std::string map, EventOpcode event_type, Id player_id, int value) : 
+            map_(map), event_type(event_type), player_id(player_id), 
             value((uint32_t)value) {}
 
-Event::Event(const Id map, EventOpcode event_type, Id player_id,
+Event::Event(std::string map, EventOpcode event_type, Id player_id,
             uint32_t pos_x, uint32_t pos_y) : 
-            map(map), event_type(event_type), player_id(player_id),
+            map_(map), event_type(event_type), player_id(player_id),
             pos_x(pos_x), pos_y(pos_y) {}
 
 Event::~Event() {}
         
 Event::Event(const Event& other) {
-    this->map = other.map;
+    this->map_ = other.map_;
     this->event_type = other.event_type;
     this->player_id = other.player_id;
     this->pos_x = other.pos_x;
@@ -45,7 +45,7 @@ Event::Event(const Event& other) {
 }
 
 Event& Event::operator=(const Event& other) {
-    this->map = other.map;
+    this->map_ = other.map_;
     this->event_type = other.event_type;
     this->player_id = other.player_id;
     this->pos_x = other.pos_x;
@@ -95,7 +95,7 @@ bool Event::send(const ConnectionId sender, const Socket& peer) {
             case NEW_PLAYER_EV:
             case RESURRECT_EV: { //id del jugador, id del mapa a abrir, coordenada x, coordenada y, angulo del jugador,vida , las vidas, puntaje, balas
                 std::cout << "player_id es: " << player_id <<std::endl;
-                std::cout << "map es: " << map <<std::endl;
+                std::cout << "map es: " << map_ <<std::endl;
                 std::cout << "posx es: " << pos_x <<std::endl;
                 std::cout << "posy es: " << pos_y <<std::endl;
                 std::cout << "angle es: " << angle <<std::endl;
@@ -105,7 +105,10 @@ bool Event::send(const ConnectionId sender, const Socket& peer) {
                 std::cout << "bullets es: " << bullets <<std::endl;
                 this->player_id = htole32(this->player_id);
                 peer.send((char *)&player_id, sizeof(player_id));
-                char map[12]= "Fortified_6";
+                int len_map=map_.length();
+                char map[len_map];
+                strcpy(map, map_.c_str());
+                //char map[12]= "Fortified_6";
                 uint32_t map_size[1];
                 map_size[0]=strlen(map);
                 std::cout << "MAP ACA ES" << map << std::endl;

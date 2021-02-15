@@ -21,7 +21,7 @@ class Loop : public Thread {
     void _deleteQueues();
 
     public:
-        Loop(NonBlockingQueue<ConnectionElement*>& new_connections);
+        Loop(NonBlockingQueue<ConnectionElement*>& new_connections,const char* mapYaml);
         ~Loop();
 
         Loop(const Loop&) = delete;

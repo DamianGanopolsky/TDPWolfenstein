@@ -12,7 +12,7 @@ class Server {
 	Loop loop;
 
 	public: 
-		explicit Server(const char* service);
+		explicit Server(const char* service,const char* Map_yaml);
 		~Server();
 
 		Server(const Server&) = delete;

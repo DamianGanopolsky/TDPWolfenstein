@@ -30,7 +30,7 @@ New_Player_Event ClientSocket::recv_player_func(){
     socket.receive((char*)player_id, sizeof(player_id),bytes_received);
     socket.receive((char*)map_size, sizeof(map_size),bytes_received);
     map_size[0]=le32toh(map_size[0]);
-    int map_size_=int(map_size[0]+1);
+    int map_size_=int(map_size[0]);
     std::cout << "Map size es" << map_size_ << std::endl;
     char map[map_size_];
     //memset(map,0,map_size_);

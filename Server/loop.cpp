@@ -2,9 +2,9 @@
 #include <chrono>
 #include "../Server/Model/constants/YamlConfig.h"
 
-Loop::Loop(NonBlockingQueue<ConnectionElement*>& new_connections) : 
+Loop::Loop(NonBlockingQueue<ConnectionElement*>& new_connections,const char* mapYaml) : 
                 map(12), rate(1000/30), 
-                game(clients_connected, map, rate), 
+                game(clients_connected,mapYaml, rate), 
                 clients_connected(commands, finished_connections),
                 commands(), 
                 finished_connections(), 

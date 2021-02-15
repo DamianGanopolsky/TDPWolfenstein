@@ -2,14 +2,16 @@
 #include "./../clients_connected.h"
 
 #define MAX_NUM 999999999
+#define PATH_TO_MAP "../Maps/"
+#define YAML_EXT ".yaml"
 
-Game::Game(ClientsConnected& clients_connected, Id map_id, int& rate) : 
+Game::Game(ClientsConnected& clients_connected, std::string map_Yaml, int& rate) : 
                             new_connection_id(1),
                             players(), players_by_name(),
                             players_in_map(), respawn_positions(),
                             clients_connected(clients_connected),
-                            map_id(map_id), map("../Maps/Fortified_6.yaml"),
-                            objMap(), rate(rate) {}
+                            map_id(2), map(PATH_TO_MAP+map_Yaml+YAML_EXT),
+                            objMap(), rate(rate),YamlMapName(map_Yaml) {}
 
 Game::~Game() {}
 
@@ -20,7 +22,7 @@ void Game::_notifyMovementEvent(const ConnectionId id, const Response& response)
     Notification* notification;
     Player& player = this->players.at(id);
     if (response.success) {
-        notification = new Event(map_id, MOVEMENT_EV, id, player.getPos().getX(),
+        notification = new Event(YamlMapName, MOVEMENT_EV, id, player.getPos().getX(),
                                  player.getPos().getY(), player.getPos().getAngle(),
                                  player.isMoving(), player.isShooting());
         //std::cout <<"Game: send event to all"<< std::endl;
@@ -36,7 +38,7 @@ void Game::_notifyChangeWeaponEvent(const ConnectionId id, const Response& respo
     Notification* notification;
     if (response.success) {
         std::cout <<"Game: weapon"<< weapon <<std::endl;
-        notification = new Event(map_id, CHANGE_WEAPON_EV, id, weapon);
+        notification = new Event(YamlMapName, CHANGE_WEAPON_EV, id, weapon);
         this->clients_connected.sendEventToAll(notification);
     } else {
         notification = new Message(ERROR_MSSG, response.message);
@@ -59,30 +61,30 @@ void Game::_notifyEvent(const ConnectionId id, const Response& response, EventOp
             case RESURRECT_EV:
             case NEW_PLAYER_EV: {
                 std::cout<<"Game: _notifyEvent, new event"<<std::endl;
-                notification = new Event(map_id, event_type, id, player.getPos().getX(), player.getPos().getY(),
+                notification = new Event(YamlMapName, event_type, id, player.getPos().getX(), player.getPos().getY(),
                                             player.getPos().getAngle(), player.getInfo().getLife(), player.getInfo().getNumResurrection(),
                                             player.getInfo().getTreasure(), player.getInfo().getNumBullets());
                 break;
             }
             case DELETE_PLAYER_EV: {
                 std::cout<<"Game: _notifyEvent, delete_player"<<std::endl;
-                notification = new Event(map_id, event_type, id);
+                notification = new Event(YamlMapName, event_type, id);
                 break;
             }
             case ATTACK_EV: {
                 std::cout<<"Game: _notifyEvent, attack_ev"<<std::endl;
-                notification = new Event(map_id, event_type, id,
+                notification = new Event(YamlMapName, event_type, id,
                                         player.getInfo().getNumBullets());
                 break;
             }
             case BE_ATTACKED_EV: {
                 std::cout<<"Game: _notifyEvent, be_attack_ev"<<std::endl;
-                notification = new Event(map_id, event_type, id, player.getInfo().getLife());
+                notification = new Event(YamlMapName, event_type, id, player.getInfo().getLife());
                 break;
             }
             case DEATH_EV: {
                 std::cout<<"Game: _notifyEvent, death_event"<<std::endl;
-                notification = new Event(map_id, event_type, id, player.getPos().getX(), player.getPos().getY());
+                notification = new Event(YamlMapName, event_type, id, player.getPos().getX(), player.getPos().getY());
                 break;
             }
             case CHANGE_WEAPON_EV:
@@ -342,7 +344,7 @@ void Game::notifyNewPlayer(const ConnectionId id) {
     std::unordered_map<ConnectionId, Player>::iterator it;
     for (it = players.begin(); it != players.end(); it++) {
         Player& other = it->second;
-        Notification*notification = new Event(map_id, NEW_PLAYER_EV, it->first, other.getPos().getX(), other.getPos().getY(),
+        Notification*notification = new Event(YamlMapName, NEW_PLAYER_EV, it->first, other.getPos().getX(), other.getPos().getY(),
                                                 other.getPos().getAngle(), other.getInfo().getLife(), other.getInfo().getNumResurrection(),
                                                 other.getInfo().getTreasure(), other.getInfo().getNumBullets());
         this->clients_connected.sendEventToOne(id, notification);

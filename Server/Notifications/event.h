@@ -6,7 +6,7 @@
 #include "./../Model/player/player.h"
 
 class Event : public Notification {
-    Id map;
+    std::string map_;
     EventOpcode event_type;
     Id player_id;
     uint32_t pos_x;
@@ -21,15 +21,15 @@ class Event : public Notification {
     uint32_t value;
 
     public:
-        Event(const Id map, EventOpcode event_type, Id player_id);
-        Event(const Id map, EventOpcode event_type, Id player_id,
+        Event(std::string map, EventOpcode event_type, Id player_id);
+        Event(std::string map, EventOpcode event_type, Id player_id,
             uint32_t pos_x, uint32_t pos_y, float angle, int is_moving,
             int is_shoting);
-        Event(const Id map, EventOpcode event_type, Id player_id,
+        Event(std::string map, EventOpcode event_type, Id player_id,
             uint32_t pos_x, uint32_t pos_y, float angle, int life, int resurrected,
             int treasure, int bullets);
-        Event(const Id map, EventOpcode event_type, Id player_id, int value);
-        Event(const Id map, EventOpcode event_type, Id player_id,
+        Event(std::string map, EventOpcode event_type, Id player_id, int value);
+        Event(std::string map, EventOpcode event_type, Id player_id,
             uint32_t pos_x, uint32_t pos_y);
 
         virtual ~Event();

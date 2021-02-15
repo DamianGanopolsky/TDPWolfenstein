@@ -1,8 +1,8 @@
 #include "./server.h" 
 
-Server::Server(const char* service) : new_connections(),
+Server::Server(const char* service,const char* Map_yaml) : new_connections(),
 									 accepter(service, new_connections),
-									 loop(new_connections) {}
+									 loop(new_connections,Map_yaml) {}
 
 Server::~Server() {}
 
