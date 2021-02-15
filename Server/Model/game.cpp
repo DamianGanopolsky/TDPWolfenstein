@@ -484,7 +484,9 @@ void Game::receiveAttack(const ConnectionId id, int& damage) {
         std::cout<<"Game: PLAYER_DIED_MSG"<<std::endl;
         _notifyEvent(id, response, DEATH_EV);
         //POSICION EN EL MAPA: CAMBIAR SEGUN LO QUE ESTE EN respawn_positions!!!!!!
-        player.getPos().setPosition(100, 100);
+        player.setPosition(100, 100);
+        std::cout<<"Game: POS X: "<< player.getPos().getX() <<std::endl;
+        std::cout<<"Game: POS Y: "<< player.getPos().getY() <<std::endl;
         players_in_map[id] = std::make_pair(player.getPos().getX(), player.getPos().getY());
         _notifyEvent(id, player.resurrect(), RESURRECT_EV);
     } else {

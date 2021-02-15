@@ -58,7 +58,6 @@ public:
       void updateMovement();
       void updateRotation();
       Response updateShooting(double& distance, int& damage, int& iteration);
-      //Response useWeapon(double& distance, int& damage);
       Response receiveAttack(int& damage);
       Response resurrect();
       Response changeWeapon(int& weapon);
@@ -83,6 +82,7 @@ public:
       void reduceTreasure(int treasure);
       void addInventory(int weapon);
       void deleteInventory(int weapon);
+      void setPosition(int x, int y);
 };
 
 #endif   // PLAYER_H
