@@ -1,4 +1,12 @@
  #include "ReceiveController.h"
+ #include "yaml-cpp/yaml.h"
+
+ReceiveController::ReceiveController(Player& Player,Map_2d& MAP,NonBlockingQueue<UpdateMessage*>& RECV_QUEUE,\
+     Client& CLIENT):player(Player),map(MAP),recv_queue(RECV_QUEUE),client(CLIENT){
+    YAML::Node data_config=YAML::LoadFile("../Yaml_configs/server_config.yaml");
+    lives=data_config["max_resurrections"].as<int>();;
+    std::cout << "Max resurrections es" << lives << std::endl;
+}
 
 
 void ReceiveController::update(){
@@ -80,6 +88,13 @@ void ReceiveController::update(){
                 }
                 case DEATH_EV:{
                     Death_event death_ev=updatemessage->get_death_event();
+                    if(int(death_ev.id_player)==player.get_id()){
+                        lives=lives-1;
+                        if(lives==-1){
+                            client.player_lost();
+                            std::cout << "Me quede sin vidas" << std::endl;
+                        }
+                    }
                     map.add_dead_body(death_ev.id_player,death_ev.pos_x,death_ev.pos_y);
                     break;
                 }

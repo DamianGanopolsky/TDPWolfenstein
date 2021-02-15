@@ -18,6 +18,7 @@ struct YamlParamConfig{
     int knife_max_range;
     int machine_gun_cooldown;
     int chain_cannon_cooldown;
+    int max_resurrections;
 };
 
 extern const struct YamlParamConfig GameConfig;

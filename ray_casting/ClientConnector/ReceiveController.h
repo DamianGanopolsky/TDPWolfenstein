@@ -15,8 +15,7 @@
 class ReceiveController {
 public:
     ReceiveController(Player& Player,Map_2d& MAP,NonBlockingQueue<UpdateMessage*>&\
-     RECV_QUEUE,Client& CLIENT):player(Player),map(MAP),recv_queue(RECV_QUEUE),client(CLIENT){
-    }
+     RECV_QUEUE,Client& CLIENT);
 
     void update();
 
@@ -27,6 +26,7 @@ private:
     NonBlockingQueue<UpdateMessage*>& recv_queue;
     Client& client;
     bool running;
+    int lives;
     
 };
 

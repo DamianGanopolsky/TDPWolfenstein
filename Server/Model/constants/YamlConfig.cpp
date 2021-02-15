@@ -16,4 +16,5 @@ const struct YamlParamConfig GameConfig = {
     .knife_max_range=data_config["knife_max_range"].as<int>(),
     .machine_gun_cooldown=data_config["machine_gun_cooldown"].as<int>(),
     .chain_cannon_cooldown=data_config["chain_cannon_cooldown"].as<int>(),
+    .max_resurrections=data_config["max_resurrections"].as<int>(),
 };

@@ -247,7 +247,8 @@ Response Player::receiveAttack(int& damage) {
 Response Player::resurrect() {
     if(!this->state->resurrect()) {
         return Response(false, STATE_CANT_RESURRECT_ERROR_MSG);
-    } else if (this->info.getNumResurrection() == MAX_RESURRECTIONS) {
+    //} else if (this->info.getNumResurrection() == MAX_RESURRECTIONS) {
+    } else if (this->info.getNumResurrection() == GameConfig.max_resurrections) {
        return Response(false, MAX_RESURRECTIONS_REACHED_ERROR_MSG); 
     }
     delete this->state;

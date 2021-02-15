@@ -11,4 +11,5 @@ machine_gun_base_damage: 15
 machine_gun_cooldown: 20
 chain_cannon_base_damage: 10
 chain_cannon_cooldown: 10
+max_resurrections: 2
 
