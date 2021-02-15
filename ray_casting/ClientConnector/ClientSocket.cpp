@@ -3,9 +3,12 @@
 #include <stdint.h>
 #include "../../Common/protocol.h"
 #include <inttypes.h>
+ #include "yaml-cpp/yaml.h"
 
 ClientSocket::ClientSocket(NonBlockingQueue<UpdateMessage*>& non_bloq_queue,const char* Host,const char* Port):\
 recv_queue(non_bloq_queue),socket(Host,Port){
+    YAML::Node data_config=YAML::LoadFile("../Yaml_configs/server_config.yaml");
+    initial_lives=data_config["max_resurrections"].as<int>();;
 }
 
 
@@ -68,7 +71,7 @@ New_Player_Event ClientSocket::recv_player_func(){
     my_player.pos_y=pos_y[0];
     my_player.angle=angle[0];
     my_player.life=life[0];
-    my_player.resurrected=resurrected[0];
+    my_player.resurrected=initial_lives-resurrected[0];
     my_player.score=treasure[0];
     my_player.bullets=bullets[0];
     return my_player;

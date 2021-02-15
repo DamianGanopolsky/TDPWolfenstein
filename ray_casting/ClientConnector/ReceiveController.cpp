@@ -90,6 +90,8 @@ void ReceiveController::update(){
                     Death_event death_ev=updatemessage->get_death_event();
                     if(int(death_ev.id_player)==player.get_id()){
                         lives=lives-1;
+                        std::cout << "LIVES ES" << lives << std::endl;
+                        player.update_lives(lives);
                         if(lives==-1){
                             client.player_lost();
                             std::cout << "Me quede sin vidas" << std::endl;

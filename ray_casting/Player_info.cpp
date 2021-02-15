@@ -10,7 +10,6 @@ Player_info::~Player_info(){
 
 void Player_info::update_info(int life,int resurrected,int score,int bullets){
 	health=life;
-	lives=resurrected;
 	scores=score;
 	ammo=bullets;
 }

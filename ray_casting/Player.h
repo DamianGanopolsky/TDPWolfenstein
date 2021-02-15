@@ -30,6 +30,7 @@ public:
 	void change_score(int new_score);
 	void update_position_and_angle(int x,int y,float ANGLE);
 	void resurrect_player(New_Player_Event player_new_info);
+	void update_lives(int lives);
 
 private:
 	SoundManager soundmanager;

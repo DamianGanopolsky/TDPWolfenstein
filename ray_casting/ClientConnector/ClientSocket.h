@@ -22,6 +22,7 @@ private:
     NonBlockingQueue<UpdateMessage*>& recv_queue;
     Socket socket;
     New_Player_Event my_player;
+    int initial_lives;
 
 };
 

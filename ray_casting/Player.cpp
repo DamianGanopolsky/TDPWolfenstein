@@ -71,6 +71,12 @@ void Player::update_position_and_angle(int X,int Y,float ANGLE){
 	this->vision_angle=ANGLE;
 }
 
+void Player::update_lives(int lives){
+	std::cout << "Lives recibido es" << lives << std::endl;
+	this->info.lives=lives;
+	std::cout << "Info lives es" << this->info.lives << std::endl;
+}
+
 void Player::left_rotation() {
 	float new_vision_angle = this->vision_angle + ROTATION_SIZE;
 	this->vision_angle = new_vision_angle >= 360.0 ? new_vision_angle - 360.0 : new_vision_angle;
