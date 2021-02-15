@@ -28,7 +28,6 @@ void ClientManager::start(){
 	New_Player_Event player_info=clientsock.recv_player();
 	//std::cout << "Mapa que tengo que abrir es " << player_info.map << std::endl;
 	Player player(player_info);
-	std::cout << "Al final map es" << PATH_TO_MAPS+player_info.map+YAML_EXTENSION << std::endl;
 	Map_2d map(player,PATH_TO_MAPS+player_info.map+YAML_EXTENSION);
 	Panel_window panel(map);
 	BlockingQueue<Command*> send_queue;

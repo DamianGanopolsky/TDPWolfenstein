@@ -23,7 +23,7 @@ public:
 
 	bool is_running();
 	void update(std::set<Ray>&& rays, std::list<Game_element>&& elements, Player_info& player_info);
-
+	void render_player_lost_screen();
 	void render_ending_screen();
 
 private:

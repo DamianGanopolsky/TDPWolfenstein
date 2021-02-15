@@ -19,6 +19,8 @@ public:
 
     void player_lost();
 
+    void stop_game();
+
     Player get_player();
 
 private: 
@@ -28,6 +30,7 @@ private:
     //Constant_rate_loop crl;
     std::set<Ray> rays;
     std::list<Game_element> elements;
+    bool player_lost_;
     bool game_finished;
 	
 };

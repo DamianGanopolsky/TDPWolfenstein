@@ -40,7 +40,7 @@ void ReceiveController::update(){
                 }
                 case NEW_PLAYER_EV:{
                     New_Player_Event new_ev=updatemessage->get_new_player_info();
-                    
+                    std::cout << "Recibi el new player" << new_ev.player_id << std::endl;
                     if(int(new_ev.player_id)!=player.get_id()){
                         map.new_player(new_ev.player_id,\
                         new_ev.pos_x,new_ev.pos_y,new_ev.angle,0);
