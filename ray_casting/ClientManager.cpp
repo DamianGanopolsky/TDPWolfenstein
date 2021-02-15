@@ -5,6 +5,7 @@
 #include "ClientConnector/Command.h"
 #include "../Common/protocol.h"
 #include "ConstantRateLoop_.h"
+#include <chrono>
 #define PATH_TO_MAPS "../Maps/"
 #define YAML_EXTENSION ".yaml"
 
@@ -47,6 +48,8 @@ void ClientManager::start(){
 	//crl.run();
 
 	bool is_running=true;
+	auto t1 = std::chrono::steady_clock::now();
+	//std::chrono::duration<double> dur_prueba=std::chrono::system_clock::now();
 
     while (is_running) {
 		//client.render();
@@ -54,6 +57,9 @@ void ClientManager::start(){
 		is_running=handler.handle();   //Capturo eventos del cliente y envio
 		
 	}
+	auto t2= std::chrono::steady_clock::now();
+	std::chrono::duration<double> diff=t2-t1;
+	std::cout << "Diff es" << diff.count() << std::endl;
 	sender.stop();
 	sender.join();
     receiver.stop();

@@ -7,6 +7,7 @@
 #include "../Common/blocking_queue.h"
 #include "ClientConnector/Command.h"
 #include "ClientConnector/ClientSocket.h"
+#include <chrono>
 
 class Player_handler {
 public:
@@ -24,6 +25,7 @@ private:
 	bool rotating;
 	bool shooting;
 	BlockingQueue<Command*>& SendQueue;
+	std::chrono::time_point<std::chrono::steady_clock> time_last_shoot;
 	
 };
 

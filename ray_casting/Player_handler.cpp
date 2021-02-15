@@ -9,6 +9,8 @@ Player_handler::Player_handler(Player& player,Map_2d& MAP,BlockingQueue<Command*
 								player(player),map(MAP),moving(false),rotating(false),shooting(false),\
 								SendQueue(send_queue) {
 	//sender.start();
+	//time_last_shoot=std::chrono::steady_clock::now();
+	
 }
 
 
@@ -19,14 +21,52 @@ bool Player_handler::handle() {
 	SDL_Event event;
 	quit=true;
 	const Uint8 *state;
+
 	//bool moving=false;
 	while(SDL_PollEvent(&event)!=0){
 		state = SDL_GetKeyboardState(NULL);
 		if((state[SDL_SCANCODE_E])&&(shooting==false)){
-			//std::cout << "Empece a  disparar" << std::endl;
-			Command* command=new Command(START_SHOOTING_CMD);
-			SendQueue.push(std::move(command));
-			shooting=true;
+			//TENGO QUE USAR EL TIEMPO
+			auto t1 = std::chrono::steady_clock::now();
+			std::chrono::duration<double> diff=t1-time_last_shoot;
+			std::cout << "Diff es" << diff.count() << std::endl;
+			switch(player.get_weapon()){
+				case 0:
+				case 1:{
+					std::cout << "DISPARO!" << std::endl;
+					Command* command=new Command(START_SHOOTING_CMD);
+					SendQueue.push(std::move(command));
+					shooting=true;
+					
+					break;
+				}
+				case 2:{
+					//Cooldown en segundos
+					if(diff.count()>0.6){
+						//std::cout << "DISPARO!" << std::endl;
+						Command* command=new Command(START_SHOOTING_CMD);
+						SendQueue.push(std::move(command));
+						shooting=true;
+						time_last_shoot=std::chrono::steady_clock::now();
+					}
+					break;
+				}
+				case 3:{
+					//Cooldown en segundos
+					if(diff.count()>0.25){
+						//std::cout << "DISPARO!" << std::endl;
+						Command* command=new Command(START_SHOOTING_CMD);
+						SendQueue.push(std::move(command));
+						shooting=true;
+						time_last_shoot=std::chrono::steady_clock::now();
+					}
+					break;
+				}
+			}
+			//time_last_shoot=std::chrono::steady_clock::now();
+			//Command* command=new Command(START_SHOOTING_CMD);
+			//SendQueue.push(std::move(command));
+			//shooting=true;
 		}
 		if ((state[SDL_SCANCODE_W])&&(moving==false)) {
 			//sender.send(1);
