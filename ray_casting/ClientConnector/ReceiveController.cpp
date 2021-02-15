@@ -95,6 +95,9 @@ void ReceiveController::update(){
                             std::cout << "Me quede sin vidas" << std::endl;
                         }
                     }
+                    else{
+                        soundmanager.play_sound(DEATH);
+                    }
                     map.add_dead_body(death_ev.id_player,death_ev.pos_x,death_ev.pos_y);
                     break;
                 }
