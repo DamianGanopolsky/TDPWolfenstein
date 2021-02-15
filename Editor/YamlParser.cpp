@@ -153,6 +153,22 @@ std::map <std::pair<int,int>,int> YamlParser::load_map(std::string YamlPath){
     return objects_map;
 }
 
+std::map <int,std::pair<int,int>> YamlParser::load_players(std::string YamlPath){
+    map= YAML::LoadFile(YamlPath);
+    const YAML::Node& players=map["Map"]["Players"];
+    std::pair<int,int> map_position;
+    int player_number=0;
+
+    for (YAML::const_iterator it = players["position"].begin(); it != players["position"].end(); ++it) {
+        const YAML::Node& pos = *it;
+        map_position.first=pos['x'].as<int>();;
+        map_position.second=pos['y'].as<int>();;
+        players_spawn_map[player_number]=map_position;
+        player_number++;
+    }
+    return players_spawn_map;
+}
+
 void YamlParser::Write_Map(std::string YamlPathToWrite,std::map <int,\
 std::vector<std::pair<int,int>>> map,int height,int width){
     /*for (auto const& x : map){
