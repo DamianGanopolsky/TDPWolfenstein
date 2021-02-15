@@ -298,6 +298,10 @@ void Player::deleteInventory(int weapon) {
     this->info.inventory.remove(weapon);
 }
 
+void Player::setPosition(int x, int y) {
+    this->pos.setPosition(x,y);
+}
+
 void Player::addLife(int life) {
     this->info.life += life;
     //this->info.life = (this->info.life > MAX_LIFE) ? MAX_LIFE : this->info.life;
