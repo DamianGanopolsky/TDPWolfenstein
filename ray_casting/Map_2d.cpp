@@ -84,12 +84,12 @@ void Map_2d::add_dead_body(int id,int pos_x,int pos_y){
 	body.state=0;
 	std::cout << "Players state id es" << int(players_state[id].weapon) << std::endl;
 	players_state[id].is_shooting=PLAYER_DEAD;
-
-	switch(int(players_state[id].type_id)){
+	std::cout << "Para el id" << id << "El type id es" << players_state[id].type_id << std::endl;
+	switch(int(players_state[id].weapon)){
 		case 0:
 		case 1:{
 			//bodies_in_map[std::make_pair(pos_x,pos_y)]=13;
-			body.type_id=16;
+			body.type_id=14;
 			break;
 		}
 		case 2:{
