@@ -42,6 +42,7 @@ void ReceiveController::update(){
                 case RESURRECT_EV:{
                    New_Player_Event resurrect_ev=updatemessage->get_new_player_info();
                    if(int(resurrect_ev.player_id)!=player.get_id()){
+                       std::cout << "La id del jugador muerto es" << resurrect_ev.player_id << std::endl;
                         map.new_player(resurrect_ev.player_id,\
                         resurrect_ev.pos_x,resurrect_ev.pos_y,resurrect_ev.angle,0);
                     }
