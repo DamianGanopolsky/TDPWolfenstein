@@ -13,6 +13,7 @@ PlayerInfo::PlayerInfo() : life(100), bullets(8),
                                 this->weapon_type.insert(std::make_pair<Weapon*, int>(&chain_cannon, CHAIN_CANNON_TYPE));
                                 this->equiped = &gun;
                                 this->inventory.push_back(GUN_TYPE);
+                                this->inventory.push_back(KNIFE_TYPE);
                             }
 
 PlayerInfo::~PlayerInfo(){}
