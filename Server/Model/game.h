@@ -17,20 +17,22 @@ class ClientsConnected;
 //#include "./objects/items/weapons/weapon.h"
 #include "./interactor.h"
 #include "./droper.h"
+#include "./post_game.h"
 
 class Game {
     ConnectionId new_connection_id;
+    std::string YamlMapName;
     std::unordered_map<ConnectionId, Player> players;
-    std::unordered_map<std::string, ConnectionId> players_by_name;
+    std::unordered_map<ConnectionId, std::string> players_by_name;
     std::unordered_map<ConnectionId, std::pair<int, int>> players_in_map;
     std::unordered_map<ConnectionId, std::pair<int, int>> respawn_positions;
     ClientsConnected& clients_connected;
+    PostGame post_game;
     Id map_id;
     Map map;
     
     ObjectMap objMap;
     int rate;
-    std::string YamlMapName;
 
     void _notifyEvent(const ConnectionId id, const Response& response, EventOpcode event_type);
     void _notifyResponse(const ConnectionId id, const Response& response);
@@ -46,6 +48,7 @@ class Game {
     std::pair<ConnectionId, double> _getTargetAttacked(ConnectionId attacker_id);
     void _reduceBullets(const ConnectionId id);
     void _move(const ConnectionId id);
+    void _deletePlayer(ConnectionId id);
 
     public:
         Game(ClientsConnected& clients_connected, std::string map_Yaml, int& rate);

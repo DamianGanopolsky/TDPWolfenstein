@@ -7,15 +7,15 @@
 
 Game::Game(ClientsConnected& clients_connected, std::string map_Yaml, int& rate) : 
                             new_connection_id(1),
+                            YamlMapName(map_Yaml),
                             players(), players_by_name(),
                             players_in_map(), respawn_positions(),
                             clients_connected(clients_connected),
-                            map_id(2), map(PATH_TO_MAP+map_Yaml+YAML_EXT),
-                            objMap(), rate(rate),YamlMapName(map_Yaml) {}
+                            post_game(YamlMapName), map_id(2), 
+                            map(PATH_TO_MAP+map_Yaml+YAML_EXT),
+                            objMap(), rate(rate) {}
 
 Game::~Game() {}
-
-//_getPlayerPosition deberia chequear si el yaml establece la posicion en la que el player deberia aparecer o no.
 
 void Game::_notifyMovementEvent(const ConnectionId id, const Response& response) {
     std::cout <<"Game: _notifyMovementEvent()"<< std::endl;
@@ -88,7 +88,8 @@ void Game::_notifyEvent(const ConnectionId id, const Response& response, EventOp
                 break;
             }
             case CHANGE_WEAPON_EV:
-            case MOVEMENT_EV:{
+            case MOVEMENT_EV:
+            case SCORES_EV: {
                 break;
             }
 
@@ -312,6 +313,14 @@ std::pair<ConnectionId, double> Game::_getTargetAttacked(ConnectionId attacker_i
     return closer_player;
 }
 
+void Game::_deletePlayer(ConnectionId id) {
+    //Player& player = players.at(id);
+    this->players_by_name.erase(id);
+    this->players_in_map.erase(id);
+    _notifyEvent(id, Response(true, SUCCESS_MSG), DELETE_PLAYER_EV);
+    this->players.erase(id);
+}
+
 const ConnectionId Game::newPlayer() {
     ConnectionId new_player_id = this->new_connection_id;
     ++(this->new_connection_id);
@@ -333,7 +342,7 @@ const ConnectionId Game::newPlayer() {
     //std::cout <<"Game: new player added"<< std::endl;
     map.setObjectPos(100, 100, MAP_PLAYER);
     //de alguna manera me tienen que pasar el nickname
-    //this->players_by_name[nickname] = new_player_id;
+    //this->players_by_name[new_player_id] = nickname;
     this->players_in_map.emplace(new_player_id, std::make_pair(100, 100));
     return new_player_id;
 
@@ -352,14 +361,13 @@ void Game::notifyNewPlayer(const ConnectionId id) {
 }
 
 void Game::deletePlayer(const ConnectionId id) {
-    if (!this->players.count(id)) {
+    if ((!this->players.count(id)) && (!post_game.isInPostGame(id))) {
         throw Exception("Error in deletePLayer: unknown player id");
+    } else if (post_game.isInPostGame(id)) {
+        post_game.erase(id);
+    } else {
+        _deletePlayer(id);
     }
-    Player& player = players.at(id);
-    this->players_by_name.erase(player.getNickname());
-    this->players_in_map.erase(id);
-    _notifyEvent(id, Response(true, SUCCESS_MSG), DELETE_PLAYER_EV);
-    this->players.erase(id);
 }
 
 void Game::updatePlayers(const int iteration) {
@@ -392,6 +400,17 @@ void Game::updatePlayers(const int iteration) {
             if (!player.gun_can_shoot) {
                 player.gun_can_shoot = true;
             }
+        }
+        if (player.getInfo().getNumResurrection() == MAX_RESURRECTIONS) {
+            post_game.add(id, players_by_name.at(id), player.getInfo().getTreasure());
+            _deletePlayer(id);
+        }
+        if ((players.size() == 1) && (!post_game.isEmpty())) {
+            //END GAME
+            post_game.add(id, players_by_name.at(id), player.getInfo().getTreasure());
+            _deletePlayer(id);
+            Notification* notification = post_game.showScores();
+            this->clients_connected.sendEventToAll(notification);
         }
 
         ++player_it;

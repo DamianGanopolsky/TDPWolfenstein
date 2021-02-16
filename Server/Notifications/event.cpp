@@ -26,6 +26,17 @@ Event::Event(std::string map, EventOpcode event_type, Id player_id,
             map_(map), event_type(event_type), player_id(player_id),
             pos_x(pos_x), pos_y(pos_y) {}
 
+Event::Event(std::string map, EventOpcode event_type, int num_player, 
+            std::string& name_1, int score_1, std::string& name_2,
+            int score_2, std::string& name_3, int score_3, 
+            std::string& name_4, int score_4, std::string& name_5, 
+            int score_5) : 
+            map_(map), event_type(event_type), num_players((uint32_t)num_player),
+            name_1(name_1), score_1((uint32_t)score_1), name_2(name_2), 
+            score_2((uint32_t)score_2), name_3(name_3), score_3((uint32_t)score_3), 
+            name_4(name_4), score_4((uint32_t)score_4), name_5(name_5), 
+            score_5((uint32_t)score_5) {}
+
 Event::~Event() {}
         
 Event::Event(const Event& other) {
@@ -155,6 +166,65 @@ bool Event::send(const ConnectionId sender, const Socket& peer) {
                 peer.send((char *)&pos_x, sizeof(pos_x));
                 peer.send((char *)&pos_y, sizeof(pos_y));
                 break;
+            }
+            case SCORES_EV: {
+                this->num_players = htole32(this->num_players);
+                peer.send((char *)&num_players, sizeof(num_players));
+                //player 1
+                const char* char_name_1 = name_1.c_str();
+                uint32_t name_1_size[1];
+                name_1_size[0] = strlen(char_name_1);
+                name_1_size[0] = htole32(name_1_size[0]);
+                std::cout << "NAME_1: " << char_name_1 << std::endl;
+                std::cout << "NAME_1 SIZE: " << name_1_size << std::endl;
+                peer.send((char *)name_1_size, sizeof(name_1_size));
+                peer.send(char_name_1, sizeof(char_name_1));
+                this->score_1 = htole32(this->score_1);
+                peer.send((char *)&score_1, sizeof(score_1));
+                //player 2
+                const char* char_name_2 = name_2.c_str();
+                uint32_t name_2_size[1];
+                name_2_size[0] = strlen(char_name_2);
+                name_2_size[0] = htole32(name_2_size[0]);
+                std::cout << "NAME_2: " << char_name_2 << std::endl;
+                std::cout << "NAME_2 SIZE: " << name_2_size << std::endl;
+                peer.send((char *)name_2_size, sizeof(name_2_size));
+                peer.send(char_name_2, sizeof(char_name_2));
+                this->score_2 = htole32(this->score_2);
+                peer.send((char *)&score_2, sizeof(score_2));
+                //player 3
+                const char* char_name_3 = name_3.c_str();
+                uint32_t name_3_size[1];
+                name_3_size[0] = strlen(char_name_3);
+                name_3_size[0] = htole32(name_3_size[0]);
+                std::cout << "NAME_3: " << char_name_3 << std::endl;
+                std::cout << "NAME_3 SIZE: " << name_3_size << std::endl;
+                peer.send((char *)name_3_size, sizeof(name_3_size));
+                peer.send(char_name_3, sizeof(char_name_3));
+                this->score_3= htole32(this->score_3);
+                peer.send((char *)&score_3, sizeof(score_3));
+                //player 4
+                const char* char_name_4 = name_4.c_str();
+                uint32_t name_4_size[1];
+                name_4_size[0] = strlen(char_name_4);
+                name_4_size[0] = htole32(name_4_size[0]);
+                std::cout << "NAME_4: " << char_name_4 << std::endl;
+                std::cout << "NAME_4 SIZE: " << name_4_size << std::endl;
+                peer.send((char *)name_4_size, sizeof(name_4_size));
+                peer.send(char_name_4, sizeof(char_name_4));
+                this->score_4 = htole32(this->score_4);
+                peer.send((char *)&score_4, sizeof(score_4));
+                //player 5
+                const char* char_name_5 = name_5.c_str();
+                uint32_t name_5_size[1];
+                name_5_size[0] = strlen(char_name_5);
+                name_5_size[0] = htole32(name_5_size[0]);
+                std::cout << "NAME_5: " << char_name_5 << std::endl;
+                std::cout << "NAME_5 SIZE: " << name_5_size << std::endl;
+                peer.send((char *)name_5_size, sizeof(name_5_size));
+                peer.send(char_name_5, sizeof(char_name_5));
+                this->score_5= htole32(this->score_5);
+                peer.send((char *)&score_5, sizeof(score_5));
             }
             default:
                 throw Exception("Unknown event type.");
