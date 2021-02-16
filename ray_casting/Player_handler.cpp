@@ -29,11 +29,11 @@ bool Player_handler::handle() {
 			//TENGO QUE USAR EL TIEMPO
 			auto t1 = std::chrono::steady_clock::now();
 			std::chrono::duration<double> diff=t1-time_last_shoot;
-			std::cout << "Diff es" << diff.count() << std::endl;
+			//std::cout << "Diff es" << diff.count() << std::endl;
 			switch(player.get_weapon()){
 				case 0:
 				case 1:{
-					std::cout << "DISPARO!" << std::endl;
+					//std::cout << "DISPARO!" << std::endl;
 					Command* command=new Command(START_SHOOTING_CMD);
 					SendQueue.push(std::move(command));
 					shooting=true;

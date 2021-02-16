@@ -67,7 +67,7 @@ void Panel_window::render_player_lost_screen(){
 		printf("TTF OPENFONT: %s \n",TTF_GetError());
 	}
 	SDL_Rect text_1_Rect={0,100,350,30};
-	const char* final_score= "Los otros jugadores siguen jugando, para ver a los ganadores sigue esperando";
+	const char* final_score= "Espera a que termine la partida para ver a los ganadores";
     SDL_Surface* surfaceMessage = TTF_RenderText_Solid(Sans, final_score, {108, 0, 0});
 	SDL_Texture* texture_of_text = SDL_CreateTextureFromSurface(this->renderer,surfaceMessage); 
 	SDL_RenderCopy(this->renderer, texture_of_text, NULL, &text_1_Rect);
