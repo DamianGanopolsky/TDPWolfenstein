@@ -6,6 +6,7 @@
 #include "../Common/protocol.h"
 #include "ConstantRateLoop_.h"
 #include <chrono>
+#include <unistd.h>
 #define PATH_TO_MAPS "../Maps/"
 #define YAML_EXTENSION ".yaml"
 
@@ -50,12 +51,12 @@ void ClientManager::start(){
 	bool is_running=true;
 	auto t1 = std::chrono::steady_clock::now();
 	//std::chrono::duration<double> dur_prueba=std::chrono::system_clock::now();
-
+	std::cout << "AD" << std::endl;
     while (is_running) {
 		//client.render();
 		receivecontroller.update();    //Recibo eventos y actualizo
 		is_running=handler.handle();   //Capturo eventos del cliente y envio
-		
+		//sleep(1);
 	}
 	auto t2= std::chrono::steady_clock::now();
 	std::chrono::duration<double> diff=t2-t1;

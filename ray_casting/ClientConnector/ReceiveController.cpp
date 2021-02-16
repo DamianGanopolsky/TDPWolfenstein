@@ -1,5 +1,6 @@
  #include "ReceiveController.h"
  #include "yaml-cpp/yaml.h"
+ #include <unistd.h>
 
 ReceiveController::ReceiveController(Player& Player,Map_2d& MAP,NonBlockingQueue<UpdateMessage*>& RECV_QUEUE,\
      Client& CLIENT):player(Player),map(MAP),recv_queue(RECV_QUEUE),client(CLIENT){
@@ -12,10 +13,10 @@ ReceiveController::ReceiveController(Player& Player,Map_2d& MAP,NonBlockingQueue
 void ReceiveController::update(){
      //POP
      UpdateMessage* updatemessage=recv_queue.pop();
-     //client.render();
      if(!updatemessage){
          //Aca dibujo lo actualizado
          client.render();
+         usleep(33000);
      }
      
      

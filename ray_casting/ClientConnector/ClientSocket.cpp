@@ -176,6 +176,82 @@ void ClientSocket::recv(char* recv_buff,int len){
                     recv_queue.push(std::move(update_message));
                     break;
                 }
+                case SCORES_EV:{
+                   /* uint32_t num_players[1];
+                    uint32_t name1_size[1];
+                    uint32_t name2_size[1];
+                    uint32_t name3_size[1];
+                    uint32_t name4_size[1];
+                    uint32_t name5_size[1];
+                    uint32_t score1_size[1];
+                    uint32_t score2_size[1];
+                    uint32_t score3_size[1];
+                    uint32_t score4_size[1];
+                    uint32_t score5_size[1];
+                    socket.receive((char*)num_players,sizeof(num_players),bytes_received);
+                    //player 1
+                    const char* char_name_1 = name_1.c_str();
+                    uint32_t name_1_size[1];
+                    name_1_size[0] = strlen(char_name_1);
+                    name_1_size[0] = htole32(name_1_size[0]);
+                    std::cout << "NAME_1: " << char_name_1 << std::endl;
+                    std::cout << "NAME_1 SIZE: " << name_1_size << std::endl;
+                    peer.send((char *)name_1_size, sizeof(name_1_size));
+                    peer.send(char_name_1, sizeof(char_name_1));
+                    this->score_1 = htole32(this->score_1);
+                    peer.send((char *)&score_1, sizeof(score_1));
+                    //player 2
+                    const char* char_name_2 = name_2.c_str();
+                    uint32_t name_2_size[1];
+                    name_2_size[0] = strlen(char_name_2);
+                    name_2_size[0] = htole32(name_2_size[0]);
+                    std::cout << "NAME_2: " << char_name_2 << std::endl;
+                    std::cout << "NAME_2 SIZE: " << name_2_size << std::endl;
+                    peer.send((char *)name_2_size, sizeof(name_2_size));
+                    peer.send(char_name_2, sizeof(char_name_2));
+                    this->score_2 = htole32(this->score_2);
+                    peer.send((char *)&score_2, sizeof(score_2));
+                    //player 3
+                    const char* char_name_3 = name_3.c_str();
+                    uint32_t name_3_size[1];
+                    name_3_size[0] = strlen(char_name_3);
+                    name_3_size[0] = htole32(name_3_size[0]);
+                    std::cout << "NAME_3: " << char_name_3 << std::endl;
+                    std::cout << "NAME_3 SIZE: " << name_3_size << std::endl;
+                    peer.send((char *)name_3_size, sizeof(name_3_size));
+                    peer.send(char_name_3, sizeof(char_name_3));
+                    this->score_3= htole32(this->score_3);
+                    peer.send((char *)&score_3, sizeof(score_3));
+                    //player 4
+                    const char* char_name_4 = name_4.c_str();
+                    uint32_t name_4_size[1];
+                    name_4_size[0] = strlen(char_name_4);
+                    name_4_size[0] = htole32(name_4_size[0]);
+                    std::cout << "NAME_4: " << char_name_4 << std::endl;
+                    std::cout << "NAME_4 SIZE: " << name_4_size << std::endl;
+                    peer.send((char *)name_4_size, sizeof(name_4_size));
+                    peer.send(char_name_4, sizeof(char_name_4));
+                    this->score_4 = htole32(this->score_4);
+                    peer.send((char *)&score_4, sizeof(score_4));
+                    //player 5
+                    const char* char_name_5 = name_5.c_str();
+                    uint32_t name_5_size[1];
+                    name_5_size[0] = strlen(char_name_5);
+                    name_5_size[0] = htole32(name_5_size[0]);
+                    std::cout << "NAME_5: " << char_name_5 << std::endl;
+                    std::cout << "NAME_5 SIZE: " << name_5_size << std::endl;
+                    peer.send((char *)name_5_size, sizeof(name_5_size));
+                    peer.send(char_name_5, sizeof(char_name_5));
+                    this->score_5= htole32(this->score_5);
+                    peer.send((char *)&score_5, sizeof(score_5));*/
+
+
+                    break;
+                }
+
+
+
+            
             }
         }
         if(buffer[0]==ITEM_CHANGED_OPCODE){
