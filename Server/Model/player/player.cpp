@@ -133,8 +133,8 @@ Response Player::updateShooting(double& distance, int& damage, int& iteration) {
             case MACHINE_GUN_TYPE: {
                 std::cout <<"MACHINE GUN ATTACK!"<< std::endl;
                 while (this->machine_gun_cooldown <= 0) {
-                    //this->machine_gun_cooldown += MACHINE_GUN_TIME;
-                    this->machine_gun_cooldown += GameConfig.machine_gun_cooldown;
+                    this->machine_gun_cooldown += MACHINE_GUN_TIME;
+                    //this->machine_gun_cooldown += GameConfig.machine_gun_cooldown;
                     weapon->attack(distance, damage);
                     return Response(true, SUCCESS_MSG);
                 }
@@ -143,8 +143,8 @@ Response Player::updateShooting(double& distance, int& damage, int& iteration) {
             case CHAIN_CANNON_TYPE: {
                 std::cout <<"CHAIN CANNON ATTACK!"<< std::endl;
                 while (this->chain_cannon_cooldown <= 0) {
-                    //this->chain_cannon_cooldown += CHAIN_CANNON_TIME;
-                    this->chain_cannon_cooldown += GameConfig.chain_cannon_cooldown;
+                    this->chain_cannon_cooldown += CHAIN_CANNON_TIME;
+                    //this->chain_cannon_cooldown += GameConfig.chain_cannon_cooldown;
                     weapon->attack(distance, damage);
                     return Response(true, SUCCESS_MSG);
                 }

@@ -74,13 +74,16 @@ otros.
 
 ### Aplicacion Cliente-Servidor  
 
-Una vez compilado el programa, se puede inicializar el servidor, situandose en la carpeta build y ejecutando el comando ./servidor [Port] . Donde Port es el puerto, que puede ser 8082 por ejemplo.  
-Luego, para inicializar el cliente se debe ejecutar el comando "./Client [Host] [Port] [Map]" dentro de la carpeta build. Host es una 
-direccion IP(e.g: 127.0.0.1), Port el mismo puerto del servidor y map es el mapa que se va a correr(unicamente el nombre sin la extension .yaml). Un ejemplo para ejecutar el cliente seria ./Client 127.0.0.1 8082 Fortified_6
+Una vez compilado el programa, se puede inicializar el servidor, situandose en la carpeta build y ejecutando el comando ./servidor [Port] [Map]. Donde Port es el puerto, que puede ser 8082 por ejemplo y map es el nombre del mapa que se desea crear, todos los mapas estan en la carpeta Maps. Un ejemplo para ejecutar el servidor seria "./servidor 8082 Maze"
+Luego, para inicializar el cliente se debe ejecutar el comando "./Client [Host] [Port]" dentro de la carpeta build. Host es una 
+direccion IP(e.g: 127.0.0.1), Port el mismo puerto del servidor. Un ejemplo para ejecutar el cliente seria "./Client 127.0.0.1 8082"
 
 #### Configuracion del cliente
 Para cambiar el volumen de la musica que se escucha mientras se ejecuta el cliente, o cambiar la resolucion del mismo, se tienen que cambiar dichos parametros
 en el archivo Yaml que se encuentra en el archivo "client_settings.yaml" dentro de la carpeta "Yaml_configs".
+
+#### Configuracion del servidor  
+Para cambiar los parametros numericos que usa el servidor, se debe modificar el archivo "server_config.yaml" que se encuentra en la carpeta "Yaml_configs"
 
 #### Movimiento del jugador 
 
@@ -96,7 +99,11 @@ en el archivo Yaml que se encuentra en el archivo "client_settings.yaml" dentro 
 - 2: Para seleccionar la pistola
 - 3: Para seleccionar el arma automatica
 - 4: Para seleccionar el Chain Cannon  
-Vale aclarar que las ultimas dos armas se tienen que lootear para que se pueda cambiar de arma a alguna de estas.
+Vale aclarar que las ultimas dos armas se tienen que lootear para que se pueda cambiar de arma a alguna de estas.  
+
+#### Disparos
+
+Tecla e: Dispara con el arma actual
 
 #### Salir del juego  
 Se puede salir del juego en cualquier momento presionando la tecla "Esc" del lado del cliente.  

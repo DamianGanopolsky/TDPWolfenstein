@@ -59,7 +59,6 @@ void ClientManager::start(){
 	}
 	auto t2= std::chrono::steady_clock::now();
 	std::chrono::duration<double> diff=t2-t1;
-	std::cout << "Diff es" << diff.count() << std::endl;
 	sender.stop();
 	sender.join();
     receiver.stop();
