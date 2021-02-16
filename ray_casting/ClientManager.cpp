@@ -56,6 +56,7 @@ void ClientManager::start(){
 		//client.render();
 		receivecontroller.update();    //Recibo eventos y actualizo
 		is_running=handler.handle();   //Capturo eventos del cliente y envio
+		//usleep(33000);
 		//sleep(1);
 	}
 	auto t2= std::chrono::steady_clock::now();
