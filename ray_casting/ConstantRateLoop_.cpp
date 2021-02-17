@@ -26,10 +26,11 @@ void ConstantRateLoop_::run(){
         //_finishedConnections();
         std::cout << "Capturo eventos del cliente y envio" << std::endl;
 		//client.render();
+        client.render();
         is_running=player_handler.handle(); //Capturo eventos del cliente y envio
         std::cout << "Recibo eventos del server, updateo y dibujo" << std::endl;
 		receive_controller.update();    //Recibo eventos y actualizo
-        client.render();
+        
         //client.render();
         //HANDLER
         //UPDATE Va a tener el hilo recv adentro
@@ -46,7 +47,8 @@ void ConstantRateLoop_::run(){
             it += std::floor(lost / rate);
         }
         std::cout << "Rest es" << rest << std::endl;
-        sleep(rest/1000);
+        //sleep(rest/1000);
+        usleep(rest*1000);
         //std::sleep_for(std::chrono::milliseconds(rest));
         t1 += std::chrono::milliseconds(rate);
         it += 1;

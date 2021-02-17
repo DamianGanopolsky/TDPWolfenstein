@@ -51,7 +51,6 @@ void ClientManager::start(){
 	bool is_running=true;
 	auto t1 = std::chrono::steady_clock::now();
 	//std::chrono::duration<double> dur_prueba=std::chrono::system_clock::now();
-	std::cout << "AD" << std::endl;
     while (is_running) {
 		//client.render();
 		receivecontroller.update();    //Recibo eventos y actualizo
