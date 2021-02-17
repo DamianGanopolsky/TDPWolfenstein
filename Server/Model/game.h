@@ -30,7 +30,7 @@ class Game {
     PostGame post_game;
     Id map_id;
     Map map;
-    
+    bool game_ended;
     ObjectMap objMap;
     int rate;
 
