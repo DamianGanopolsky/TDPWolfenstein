@@ -24,10 +24,9 @@ Computadora 1
 - Placa de video integrada, intel HD Graphics 520
 
 Computadora 2
-- Sistema operativo :  Ubuntu
-- 
--
--
+- Sistema operativo :  Ubuntu 20.04.2
+- Procesador Intel i3-2350M
+- 5.8 GB de Ram
 
 ## Modo de uso
 

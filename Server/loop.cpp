@@ -35,6 +35,7 @@ void Loop::_newCommands() {
             Notification* message = new Message(ERROR_MSSG, e.what());
             clients_connected.sendMessageToAll(message);
         }
+        delete command;
     }
 }
 
