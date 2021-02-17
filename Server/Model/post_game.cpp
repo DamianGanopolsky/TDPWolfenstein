@@ -2,11 +2,14 @@
 
 PostGame::PostGame(std::string map_name) : 
                     map_name(map_name), is_empty(true),
-                    losers(), scores(), names() {}
+                    losers(), scores(), names() {
+                       std::cout<<"PostGame: start()"<<std::endl; 
+                    }
 
 PostGame::~PostGame() {}
 
 void PostGame::_getBestScores() {
+    std::cout<<"PostGame: _getBestScores()"<<std::endl;
     std::unordered_map<ConnectionId, std::pair<std::string, int>>::iterator it;
     std::string name;
     ConnectionId id;
@@ -23,10 +26,11 @@ void PostGame::_getBestScores() {
         this->names[i] = name;
         losers.erase(id);
     }
-
+    std::cout<<"PostGame: end _getBestScores()"<<std::endl;
 }
 
 void PostGame::add(ConnectionId id, std::string nickname, int score) {
+    std::cout<<"PostGame: add"<< (unsigned)id <<std::endl;
     if (losers.count(id) > 0) {
         throw Exception("Repeated client_id in PostGame.");
     }
@@ -35,6 +39,7 @@ void PostGame::add(ConnectionId id, std::string nickname, int score) {
 }
 
 Notification* PostGame::showScores() {
+    std::cout<<"PostGame: showScores()"<<std::endl;
     Notification* notification;
     _getBestScores();
     std::string empty;
