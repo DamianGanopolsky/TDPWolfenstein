@@ -77,10 +77,10 @@ bool Event::send(const ConnectionId sender, const Socket& peer) {
     try{
         uint8_t buffer[2];
         buffer[0] = EVENT_OPCODE;
-        //std::cout << "Event opcode es" << unsigned(buffer[0]) << std::endl;
+        std::cout << "Event opcode es" << unsigned(buffer[0]) << std::endl;
         buffer[1] = event_type;
         peer.send((char *)buffer, sizeof(buffer));
-        //std::cout << "event type es: " << unsigned(event_type) <<std::endl;
+        std::cout << "event type es: " << unsigned(event_type) <<std::endl;
         switch (event_type) {
             case MOVEMENT_EV: { //id del jugador, coordenada x, coordenada y, angulo del jugador, moviendo (1-si o 0-no), disparando (si o no)
                 //std::cout << "id es: " << player_id <<std::endl;

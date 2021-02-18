@@ -95,11 +95,11 @@ void ClientSocket::recv(char* recv_buff,int len){
        // buffer[0]=*recv_buff;
        // buffer[1]=*(recv_buff+1);
         socket.receive((char*)buffer,sizeof(buffer),bytes_received);
-        /*std::cout << "Empece a recibir" << std::endl;
-        std::cout << "OPcode es" << unsigned(buffer[0]) << std::endl;
-        std::cout << "Tipo de opcode es" << unsigned(buffer[1]) << std::endl;*/
+        std::cout << "Empece a recibir" << std::endl;
+        std::cout << "Opcode es" << unsigned(buffer[0]) << std::endl;
+        std::cout << "Tipo de opcode es" << unsigned(buffer[1]) << std::endl;
         UpdateMessage* update_message = new UpdateMessage(buffer[0],buffer[1]);
-        if(buffer[0]==EVENT_OPCODE){  
+        if(buffer[0]==EVENT_OPCODE){   
             switch(buffer[1]){
 
                 case MOVEMENT_EV:{
@@ -177,6 +177,7 @@ void ClientSocket::recv(char* recv_buff,int len){
                     break;
                 }
                 case SCORES_EV:{
+                    std::cout<<"Entro a score ev"<<std::endl;
                     uint32_t num_players[1];
                     uint32_t name1_size[1];
                     uint32_t name2_size[1];
