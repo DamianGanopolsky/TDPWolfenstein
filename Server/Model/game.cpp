@@ -425,7 +425,7 @@ void Game::updatePlayers(const int iteration) {
             it = this->players.begin();
             std::cout <<"Game: player id "<< (unsigned)it->first<<std::endl;
             std::string name = players_by_name.at(it->first);
-            std::cout <<"Game: player get name "<< std::endl;
+            std::cout <<"Game: player get name "<< name <<std::endl;
             int treasure = it->second.getInfo().getTreasure();
             std::cout <<"Game: player get treasure "<< std::endl;
             post_game.add(it->first, name, treasure);

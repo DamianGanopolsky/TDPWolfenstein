@@ -170,22 +170,26 @@ bool Event::send(const ConnectionId sender, const Socket& peer) {
                 break;
             }
             case SCORES_EV: {
+                std::cout << "ENTRA A SCORE_EV: " << num_players <<std::endl;
                 this->num_players = htole32(this->num_players);
                 std::cout << "num_players es: " << num_players <<std::endl;
                 peer.send((char *)&num_players, sizeof(num_players));
                 //player 1
-                const char* char_name_1 = name_1.c_str();
+                //const char* char_name_1 = name_1.c_str();
+                const char* char_name_1 = "player 1";
                 uint32_t name_1_size[1];
                 name_1_size[0] = strlen(char_name_1);
                 name_1_size[0] = htole32(name_1_size[0]);
-                std::cout << "NAME_1: " << char_name_1 << std::endl;
                 std::cout << "NAME_1 BYTES: " << sizeof(char_name_1) << std::endl;
                 peer.send((char *)name_1_size, sizeof(name_1_size));
+                std::cout << "NAME_1: " << name_1 << std::endl;
                 peer.send(char_name_1, sizeof(char_name_1));
                 this->score_1 = htole32(this->score_1);
+                std::cout << "SCORE_1: " << score_1 << std::endl;
                 peer.send((char *)&score_1, sizeof(score_1));
                 //player 2
-                const char* char_name_2 = name_2.c_str();
+                //const char* char_name_2 = name_2.c_str();
+                const char* char_name_2 = "player 2";
                 uint32_t name_2_size[1];
                 name_2_size[0] = strlen(char_name_2);
                 name_2_size[0] = htole32(name_2_size[0]);
@@ -196,7 +200,8 @@ bool Event::send(const ConnectionId sender, const Socket& peer) {
                 this->score_2 = htole32(this->score_2);
                 peer.send((char *)&score_2, sizeof(score_2));
                 //player 3
-                const char* char_name_3 = name_3.c_str();
+                //const char* char_name_3 = name_3.c_str();
+                const char* char_name_3 = "player 3";
                 uint32_t name_3_size[1];
                 name_3_size[0] = strlen(char_name_3);
                 name_3_size[0] = htole32(name_3_size[0]);
@@ -207,7 +212,8 @@ bool Event::send(const ConnectionId sender, const Socket& peer) {
                 this->score_3= htole32(this->score_3);
                 peer.send((char *)&score_3, sizeof(score_3));
                 //player 4
-                const char* char_name_4 = name_4.c_str();
+                //const char* char_name_4 = name_4.c_str();
+                const char* char_name_4 = "player 4";
                 uint32_t name_4_size[1];
                 name_4_size[0] = strlen(char_name_4);
                 name_4_size[0] = htole32(name_4_size[0]);
@@ -218,7 +224,8 @@ bool Event::send(const ConnectionId sender, const Socket& peer) {
                 this->score_4 = htole32(this->score_4);
                 peer.send((char *)&score_4, sizeof(score_4));
                 //player 5
-                const char* char_name_5 = name_5.c_str();
+                //const char* char_name_5 = name_5.c_str();
+                const char* char_name_5 = "player 5";
                 uint32_t name_5_size[1];
                 name_5_size[0] = strlen(char_name_5);
                 name_5_size[0] = htole32(name_5_size[0]);

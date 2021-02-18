@@ -10,14 +10,15 @@ PostGame::~PostGame() {}
 
 void PostGame::_getBestScores() {
     std::cout<<"PostGame: _getBestScores()"<<std::endl;
-    std::unordered_map<ConnectionId, std::pair<std::string, int>>::iterator it;
+    /*std::unordered_map<ConnectionId, std::pair<std::string, int>>::iterator it;
     std::string name;
     ConnectionId id;
     int score = losers.begin()->second.second;
-    for (int i = 0; i == 5; i++) {
+    for (int i = 0; i <= 5; i++) {
         for (it = losers.begin(); it != losers.end(); it++) {
             if (score < it->second.second) {
                 name = it->second.first;
+                std::cout<<"PostGame: names "<<name<<std::endl;
                 score = it->second.second;
                 id = it->first;
             }
@@ -26,7 +27,7 @@ void PostGame::_getBestScores() {
         this->names[i] = name;
         losers.erase(id);
     }
-    std::cout<<"PostGame: end _getBestScores()"<<std::endl;
+    std::cout<<"PostGame: end _getBestScores()"<<std::endl;*/
 }
 
 void PostGame::add(ConnectionId id, std::string nickname, int score) {
@@ -40,6 +41,8 @@ void PostGame::add(ConnectionId id, std::string nickname, int score) {
 
 Notification* PostGame::showScores() {
     std::cout<<"PostGame: showScores()"<<std::endl;
+    std::cout<<"PostGame: name 1"<<names[0]<<std::endl;
+    std::cout<<"PostGame: name 2"<<names[1]<<std::endl;
     Notification* notification;
     _getBestScores();
     std::string empty;
