@@ -3,6 +3,13 @@
 Event::Event(std::string map, EventOpcode event_type, Id player_id) : 
             map_(map), event_type(event_type), player_id(player_id) {}
 
+Event::Event (EventOpcode event_type, int value) : 
+            event_type(event_type), value((uint32_t)value) {}
+
+Event::Event(std::string map, EventOpcode event_type, Id player_id, int value) : 
+            map_(map), event_type(event_type), player_id(player_id), 
+            value((uint32_t)value) {}
+
 Event::Event(std::string map, EventOpcode event_type, Id player_id,
             uint32_t pos_x, uint32_t pos_y, float angle, int is_moving,
             int is_shoting) : 
@@ -16,10 +23,6 @@ Event::Event(std::string map, EventOpcode event_type, Id player_id,
             map_(map), event_type(event_type), player_id(player_id), pos_x(pos_x),
             pos_y(pos_y), angle(angle), life((uint32_t)life), resurrected((uint8_t)resurrected),
             treasure((uint32_t)treasure), bullets((uint32_t)bullets) {}
-
-Event::Event(std::string map, EventOpcode event_type, Id player_id, int value) : 
-            map_(map), event_type(event_type), player_id(player_id), 
-            value((uint32_t)value) {}
 
 Event::Event(std::string map, EventOpcode event_type, Id player_id,
             uint32_t pos_x, uint32_t pos_y) : 
@@ -175,8 +178,9 @@ bool Event::send(const ConnectionId sender, const Socket& peer) {
                 std::cout << "num_players es: " << num_players <<std::endl;
                 peer.send((char *)&num_players, sizeof(num_players));
                 //player 1
-                //const char* char_name_1 = name_1.c_str();
-                char char_name_1[9] = "player 1";
+                int len_name_1 = name_1.length();
+                char char_name_1[len_name_1];
+                strcpy(char_name_1, name_1.c_str());
                 uint32_t name_1_size[1];
                 name_1_size[0] = strlen(char_name_1);
                 name_1_size[0] = htole32(name_1_size[0]);
@@ -187,22 +191,10 @@ bool Event::send(const ConnectionId sender, const Socket& peer) {
                 this->score_1 = htole32(this->score_1);
                 std::cout << "SCORE_1: " << score_1 << std::endl;
                 peer.send((char *)&score_1, sizeof(score_1));
-                /*
-                int len_map=map_.length();
-                char map[len_map];
-                strcpy(map, map_.c_str());
-                //char map[12]= "Fortified_6";
-                uint32_t map_size[1];
-                map_size[0]=strlen(map);
-                std::cout << "MAP ACA ES" << map << std::endl;
-                map_size[0] = htole32(map_size[0]);
-                peer.send((char*)map_size, sizeof(map_size));
-                std::cout << "ENVIE" << sizeof(map) << "BYTES" << std::endl;
-                peer.send(map,sizeof(map));
-                */
                 //player 2
-                //const char* char_name_2 = name_2.c_str();
-                char char_name_2[9] = "player 2";
+                int len_name_2 = name_2.length();
+                char char_name_2[len_name_2];
+                strcpy(char_name_2, name_2.c_str());
                 uint32_t name_2_size[1];
                 name_2_size[0] = strlen(char_name_2);
                 name_2_size[0] = htole32(name_2_size[0]);
@@ -214,8 +206,9 @@ bool Event::send(const ConnectionId sender, const Socket& peer) {
                 std::cout << "SCORE_2: " << score_2 << std::endl;
                 peer.send((char *)&score_2, sizeof(score_2));
                 //player 3
-                //const char* char_name_3 = name_3.c_str();
-                char char_name_3[9] = "player 3";
+                int len_name_3 = name_3.length();
+                char char_name_3[len_name_3];
+                strcpy(char_name_3, name_3.c_str());
                 uint32_t name_3_size[1];
                 name_3_size[0] = strlen(char_name_3);
                 name_3_size[0] = htole32(name_3_size[0]);
@@ -227,8 +220,9 @@ bool Event::send(const ConnectionId sender, const Socket& peer) {
                 std::cout << "SCORE_3: " << score_3 << std::endl;
                 peer.send((char *)&score_3, sizeof(score_3));
                 //player 4
-                //const char* char_name_4 = name_4.c_str();
-                char char_name_4[9] = "player 4";
+                int len_name_4 = name_4.length();
+                char char_name_4[len_name_4];
+                strcpy(char_name_4, name_4.c_str());
                 uint32_t name_4_size[1];
                 name_4_size[0] = strlen(char_name_4);
                 name_4_size[0] = htole32(name_4_size[0]);
@@ -240,8 +234,9 @@ bool Event::send(const ConnectionId sender, const Socket& peer) {
                 std::cout << "SCORE_4: " << score_4 << std::endl;
                 peer.send((char *)&score_4, sizeof(score_4));
                 //player 5
-                //const char* char_name_5 = name_5.c_str();
-                char char_name_5[9] = "player 5";
+                int len_name_5 = name_5.length();
+                char char_name_5[len_name_5];
+                strcpy(char_name_5, name_5.c_str());
                 uint32_t name_5_size[1];
                 name_5_size[0] = strlen(char_name_5);
                 name_5_size[0] = htole32(name_5_size[0]);
@@ -252,6 +247,12 @@ bool Event::send(const ConnectionId sender, const Socket& peer) {
                 this->score_5= htole32(this->score_5);
                 std::cout << "SCORE_5: " << score_5 << std::endl;
                 peer.send((char *)&score_5, sizeof(score_5));
+                break;
+            }
+            case PLAYERS_MISSING_EV: {
+                this->value = htole32(this->value);
+                peer.send((char *)&value, sizeof(value));
+                break;
             }
             default:
                 throw Exception("Unknown event type.");

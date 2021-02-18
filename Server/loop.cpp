@@ -4,7 +4,7 @@
 
 Loop::Loop(NonBlockingQueue<ConnectionElement*>& new_connections,const char* mapYaml) : 
                 map(12), rate(1000/30), 
-                game(clients_connected,mapYaml, rate), 
+                pre_game(clients_connected, mapYaml, rate), 
                 clients_connected(commands, finished_connections),
                 commands(), 
                 finished_connections(), 
@@ -17,10 +17,9 @@ void Loop::_newConnections() {
     ConnectionElement* connection = nullptr;
     while ((connection = this->new_connections.pop())) {
         std::cout <<"Loop: new_connection"<< std::endl;
-        ConnectionId id = this->game.newPlayer();
+        ConnectionId id = pre_game.addPlayer();
         std::cout <<"Loop: new player added"<< id <<std::endl;
         clients_connected.add(id, connection->peer);
-        this->game.notifyNewPlayer(id);
         delete connection;
     } 
 }
@@ -30,7 +29,7 @@ void Loop::_newCommands() {
     while((command = this->commands.pop())) {
         std::cout <<"Loop: new_command"<< std::endl;
         try {
-            command->run(this->game);
+            command->run(pre_game.game);
         } catch (const std::exception& e) {
             Notification* message = new Message(ERROR_MSSG, e.what());
             clients_connected.sendMessageToAll(message);
@@ -43,7 +42,7 @@ void Loop::_finishedConnections() {
     ConnectionId* connection = nullptr;
     while ((connection = finished_connections.pop())){
         std::cout <<"Loop: deleting finished connection"<< std::endl;
-        game.deletePlayer(*connection);
+        pre_game.deletePlayer(*connection);
         clients_connected.remove(*connection);
         delete connection;
     }
@@ -56,7 +55,7 @@ void Loop::_deleteQueues() {
     }
     ConnectionId* connection = nullptr;
     while ((connection = finished_connections.pop())){
-        game.deletePlayer(*connection);
+        pre_game.deletePlayer(*connection);
         delete connection;
     }
 }
@@ -70,9 +69,16 @@ void Loop::run() {
     int it = 1;
     while (is_running) {
         _newConnections();
-        _newCommands();
+        //_newCommands();
         //std::cout <<"Loop: update game"<< std::endl;
-        game.updatePlayers(it);
+        int players_left = pre_game.update(it);
+        if (players_left >= 0) {
+            Notification* notification = new Event(PLAYERS_MISSING_EV, players_left);
+            clients_connected.sendEventToAll(notification);
+        }
+        if (players_left == -1) {
+            _newCommands();
+        }
         _finishedConnections();
         
         it = 0;
