@@ -183,9 +183,6 @@ std::vector<std::pair<int,int>>> map,int height,int width){
     for (auto const& x : map){
         if(x.first==MAP_PLAYER){
             players_=x.second.size();
-            /*for(std::pair<int,int> position : x.second) {
-                players_++;
-            }*/
         }
     }
     //out << YAML::BeginDoc;

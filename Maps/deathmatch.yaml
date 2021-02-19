@@ -1,4 +1,5 @@
 Map:
+  Cant_players: 3
   map_dimentions:
     height: 30
     width: 30
@@ -570,5 +571,3 @@ Map:
         y: 256
       - x: 1536
         y: 256
-      - x: 1536
-        y: 1536
