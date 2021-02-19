@@ -10,13 +10,15 @@ ReceiveController::ReceiveController(Player& Player,Map_2d& MAP,NonBlockingQueue
 }
 
 
-void ReceiveController::update(){
+bool ReceiveController::update(){
      //POP
      UpdateMessage* updatemessage=recv_queue.pop();
      if(!updatemessage){
          //Aca dibujo lo actualizado
+         std::cout << "RENDERIZO" << std::endl;
          client.render();
-         usleep(33000);
+         return true;
+         //usleep(33000);
      }
      
      
@@ -177,6 +179,7 @@ void ReceiveController::update(){
                 }
              }
          }
+         return false;
          //client.render();
      }  
  }

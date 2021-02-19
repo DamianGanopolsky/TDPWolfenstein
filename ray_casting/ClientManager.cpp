@@ -49,17 +49,38 @@ void ClientManager::start(){
 	//crl.run();
 
 	bool is_running=true;
-	auto t1 = std::chrono::steady_clock::now();
+	
 	//std::chrono::duration<double> dur_prueba=std::chrono::system_clock::now();
+	auto t1 = std::chrono::steady_clock::now();
     while (is_running) {
 		//client.render();
-		receivecontroller.update();    //Recibo eventos y actualizo
+		//client.render();
+		t1=std::chrono::steady_clock::now();
 		is_running=handler.handle();   //Capturo eventos del cliente y envio
+		if(receivecontroller.update()){
+			auto t2= std::chrono::steady_clock::now();
+			std::chrono::duration<float, std::milli> diff;
+			//std::chrono::duration<double> diff=t2-t1;
+			diff = t2 - t1;
+			std::cout << "Delta es" << diff.count() << std::endl;
+			if(diff.count()<100){
+				int sleeping_time=(100-diff.count())*1000;
+				std::cout << "SLeeping time es" << sleeping_time << std::endl;
+				usleep(sleeping_time);
+			}
+			//usleep(33000);
+
+		}    //Recibo eventos y actualizo
+		/*if(diff.count()<100){
+			int sleeping_time=(100-diff.count())*1000;
+			std::cout << "SLeeping time es" << sleeping_time << std::endl;
+			usleep(sleeping_time);
+		}*/
 		//usleep(33000);
 		//sleep(1);
 	}
-	auto t2= std::chrono::steady_clock::now();
-	std::chrono::duration<double> diff=t2-t1;
+	//auto t2= std::chrono::steady_clock::now();
+	//std::chrono::duration<double> diff=t2-t1;
 	sender.stop();
 	sender.join();
     receiver.stop();

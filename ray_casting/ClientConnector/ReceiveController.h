@@ -17,7 +17,7 @@ public:
     ReceiveController(Player& Player,Map_2d& MAP,NonBlockingQueue<UpdateMessage*>&\
      RECV_QUEUE,Client& CLIENT);
 
-    void update();
+    bool update();
 
 private:
     SoundManager soundmanager;
