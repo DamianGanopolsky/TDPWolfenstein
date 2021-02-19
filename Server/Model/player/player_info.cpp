@@ -71,7 +71,7 @@ std::list <int> PlayerInfo::getInventory() {
     return this->inventory;
 }
 
-void PlayerInfo::changeWeaponEquiped(int& type) {
+void PlayerInfo::changeWeaponEquiped(const int& type) {
     for (auto& x: weapon_type) {
         if (x.second == type) {
             this->equiped = x.first;

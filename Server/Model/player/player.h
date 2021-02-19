@@ -46,6 +46,8 @@ public:
       int machine_gun_cooldown;
       int chain_cannon_cooldown;
       bool gun_can_shoot;
+      bool forced_weapon;
+      int weapon_equiped_before;
       PlayerPosition getPos();
       PlayerInfo getInfo();
       State* getState();
@@ -60,7 +62,7 @@ public:
       Response updateShooting(double& distance, int& damage, int& iteration);
       Response receiveAttack(int& damage);
       Response resurrect();
-      Response changeWeapon(int& weapon);
+      Response changeWeapon(const int& weapon);
       Response startMovingUp();
       Response startMovingDown();
       Response startMovingLeft();

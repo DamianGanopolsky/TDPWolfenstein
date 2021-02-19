@@ -142,12 +142,12 @@ bool Event::send(const ConnectionId sender, const Socket& peer) {
                 peer.send((char *)&bullets, sizeof(bullets));
                 break;
             }
-            case DELETE_PLAYER_EV: { //id del jugador
+            /*case DELETE_PLAYER_EV: { //id del jugador
                 std::cout << "Event: DELETE_PLAYER_EV" <<std::endl;
                 this->player_id = htole32(this->player_id);
                 peer.send((char *)&player_id, sizeof(player_id));
                 break;
-            }
+            }*/
             case ATTACK_EV:
             case BE_ATTACKED_EV:
             case CHANGE_WEAPON_EV: { //id del jugador, value
@@ -254,6 +254,9 @@ bool Event::send(const ConnectionId sender, const Socket& peer) {
                 this->score_5= htole32(this->score_5);
                 std::cout << "SCORE_5: " << score_5 << std::endl;
                 peer.send((char *)&score_5, sizeof(score_5));
+            }
+            case DELETE_PLAYER_EV: {
+                break;
             }
             default:
                 throw Exception("Unknown event type.");
