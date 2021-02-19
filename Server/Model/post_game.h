@@ -11,9 +11,12 @@ class PostGame {
     std::string map_name;
     bool is_empty;
     std::unordered_map<ConnectionId, std::pair<std::string, int>> losers;
+    std::unordered_map<ConnectionId, std::pair<std::string, int>> losers_copy;
     int scores[5];
     std::string names[5];
+    int num_players;
     void _getBestScores();
+    void _copyOfMap();
     
     public:
         PostGame(std::string map_name);

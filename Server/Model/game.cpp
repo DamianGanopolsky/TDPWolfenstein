@@ -380,7 +380,7 @@ void Game::updatePlayers(const int iteration) {
     //std::cout <<"Game: enter updatePlayers()"<< std::endl;
     std::unordered_map<ConnectionId, Player>::iterator 
         player_it = this->players.begin();
-    while ((player_it != this->players.end()) && (!game_ended)) {
+    while ((!game_ended) && (player_it != this->players.end()) ) {
         ConnectionId id = player_it->first;
         Player& player = player_it->second;
         if (player.isMoving()) {
@@ -425,7 +425,7 @@ void Game::updatePlayers(const int iteration) {
             it = this->players.begin();
             std::cout <<"Game: player id "<< (unsigned)it->first<<std::endl;
             std::string name = players_by_name.at(it->first);
-            std::cout <<"Game: player get name "<< std::endl;
+            std::cout <<"Game: player get name "<< name <<std::endl;
             int treasure = it->second.getInfo().getTreasure();
             std::cout <<"Game: player get treasure "<< std::endl;
             post_game.add(it->first, name, treasure);
@@ -434,6 +434,7 @@ void Game::updatePlayers(const int iteration) {
             Notification* notification = post_game.showScores();
             std::cout <<"Game: showed scores "<< std::endl;
             this->clients_connected.sendEventToAll(notification);
+            break;
         }
 
         ++player_it;
