@@ -10,7 +10,7 @@
 
 class Ray_panel : public Element_panel {
 public:
-	Ray_panel(Ray&& ray, Wall_texture& wall_textures,Map_2d& map);
+	Ray_panel(Ray&& ray, Wall_texture& wall_textures);
 	Ray_panel(Ray_panel&& other);
 	~Ray_panel();
 
@@ -20,7 +20,7 @@ private:
 	SDL_Texture *tex;
 	Uint32 pixels[PANEL_HEIGHT];
 	Ray ray;
-	Map_2d& map;    
+	//Map_2d& map;    
 };
 
 #endif

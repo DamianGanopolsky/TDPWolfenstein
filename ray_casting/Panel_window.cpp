@@ -3,6 +3,7 @@
 #include <iostream>
 #include <utility>
 #include <queue>
+#include <chrono>
 
 
 Panel_window::Panel_window(Map_2d& MAP): map(MAP), running(true) {
@@ -18,6 +19,10 @@ Panel_window::Panel_window(Map_2d& MAP): map(MAP), running(true) {
 	waiting_screen=SDL_CreateTextureFromSurface(this->renderer,waiting_screen_surf);
 	SDL_FreeSurface(waiting_screen_surf);
     SDL_FreeSurface(ending_screen_surf);
+}
+
+void Panel_window::load_map(Map_2d& MAP){
+	//map=MAP;
 }
 
 Panel_window::~Panel_window() {
@@ -38,16 +43,27 @@ void Panel_window::update(std::set<Ray>&& rays, std::list<Game_element>&& elemen
 	//Cola donde estan los rayos y los elementos del juego, se renderiza primero lo que esta mas lejos.
 	//Paredes, piso y techo -> rayos
 	Elements_panel_queue q;
+
 	for (std::set<Ray>::iterator ray = rays.begin(); ray != rays.end(); ++ray) {
 		Ray ray_perp = ray->get_ray_perp();
-		q.push(std::move(Ray_panel(std::move(ray_perp), this->wall_textures,map)));
-	}
+		
+		q.push(std::move(Ray_panel(std::move(ray_perp), this->wall_textures)));
+
+			}
+
+
+	auto t1 = std::chrono::steady_clock::now();
 	for (std::list<Game_element>::iterator element = elements.begin(); element != elements.end(); ++element) {
 		if (element->is_visible()) {
 			element->set_texture(this->player_panel_status.get_texture(element->get_texture_section(), element->get_type_id()));
 			q.push(std::move(*element));
 		}
 	}
+	auto t2= std::chrono::steady_clock::now();
+	std::chrono::duration<float, std::milli> diff;
+	//std::chrono::duration<double> diff=t2-t1;
+	diff = t2 - t1;
+	std::cout << "Diff es" << diff.count() << std::endl;
 	SDL_RenderClear(this->renderer);
 	
 	while(!q.empty()) {

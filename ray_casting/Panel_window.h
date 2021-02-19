@@ -20,7 +20,7 @@ public:
 	Panel_window(const Panel_window& other) = delete;
 	Panel_window(Panel_window&& other) = delete;
 	~Panel_window();
-
+	void load_map(Map_2d& MAP);
 	bool is_running();
 	void update(std::set<Ray>&& rays, std::list<Game_element>&& elements, Player_info& player_info);
 	void render_player_lost_screen();
