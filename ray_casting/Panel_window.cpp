@@ -96,3 +96,7 @@ void Panel_window::render_ending_screen(){
 	TTF_CloseFont(Sans);
 	SDL_RenderPresent(this->renderer);
 }
+
+void Panel_window::render_waiting_screen(){
+	
+}

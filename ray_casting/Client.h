@@ -19,6 +19,8 @@ public:
 
     void player_lost();
 
+    void start_game();
+
     void stop_game();
 
     Player get_player();
@@ -32,7 +34,7 @@ private:
     std::list<Game_element> elements;
     bool player_lost_;
     bool game_finished;
-	
+	bool waiting_screen;
 };
 
 #endif

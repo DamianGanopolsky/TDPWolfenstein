@@ -3,7 +3,7 @@
 #include <unistd.h>
 
 Client::Client(Panel_window& Panel,Player& Player,Map_2d& Map):panel(Panel),player(Player),map(Map),\
-player_lost_(false),game_finished(false){
+player_lost_(false),game_finished(false),waiting_screen(true){
     rays = std::move(map.get_player_rays());
     elements = std::move(map.get_game_elements());
     panel.update(std::move(rays), std::move(elements),  player.get_info());
@@ -16,9 +16,17 @@ void Client::update(){
     panel.update(std::move(rays), std::move(elements),  player.get_info()); 
 }
 
+void Client::start_game(){
+    waiting_screen=false;
+}
+
 void Client::render(){
     //auto t1= std::chrono::steady_clock::now();
     //int animation_to_render=0;
+    if(waiting_screen){
+        panel.render_waiting_screen();
+    }
+
     if((!player_lost_)&&(!game_finished)){
         
         rays = std::move(map.get_player_rays());   //No tienen que ver con lo grafico

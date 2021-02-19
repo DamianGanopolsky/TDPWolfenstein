@@ -179,11 +179,11 @@ void ClientSocket::recv(char* recv_buff,int len){
                 case SCORES_EV:{
                     std::cout<<"Entro a score ev"<<std::endl;
                     uint32_t num_players[1];
-                    uint32_t name1_size[1];
+                    /*uint32_t name1_size[1];
                     uint32_t name2_size[1];
                     uint32_t name3_size[1];
                     uint32_t name4_size[1];
-                    uint32_t name5_size[1];
+                    uint32_t name5_size[1];*/
                     uint32_t score1_size[1];
                     uint32_t score2_size[1];
                     uint32_t score3_size[1];
@@ -192,76 +192,77 @@ void ClientSocket::recv(char* recv_buff,int len){
 
                     socket.receive((char*)num_players,sizeof(num_players),bytes_received);
 
-                    socket.receive((char*)name1_size,sizeof(name1_size),bytes_received);
-                    name1_size[0]=le32toh(name1_size[0]);
+                   // socket.receive((char*)name1_size,sizeof(name1_size),bytes_received);
+                   /* name1_size[0]=le32toh(name1_size[0]);
                     int name1_size_=int(name1_size[0]);
                     std::cout << "Name 1 size es" << name1_size_ << std::endl;
-                    char name1[name1_size_];
+                    char name1[name1_size_];*/
                     //memset(map,0,map_size_);
-                    socket.receive(name1, name1_size_,bytes_received);
+                   // socket.receive(name1, name1_size_,bytes_received);
                     socket.receive((char*)score1_size,sizeof(score1_size),bytes_received);
                     score1_size[0]=le32toh(score1_size[0]);
+
                     std::cout << "Score 1 es" << unsigned(score1_size[0]) << std::endl;
+                    /*
                     std::string name1__(name1);
                     std::string name1_final=name1__.substr(0,name1_size_);
-                    std::cout << "Name 1 es" << name1_final << std::endl;
+                    std::cout << "Name 1 es" << name1_final << std::endl;*/
 
-                    socket.receive((char*)name2_size,sizeof(name2_size),bytes_received);
-                    name2_size[0]=le32toh(name2_size[0]);
+                   // socket.receive((char*)name2_size,sizeof(name2_size),bytes_received);
+                    /*name2_size[0]=le32toh(name2_size[0]);
                     int name2_size_=int(name2_size[0]);
                     std::cout << "Name 2 size es" << name2_size_ << std::endl;
-                    char name2[name2_size_];
+                    char name2[name2_size_];*/
                     //memset(map,0,map_size_);
-                    socket.receive(name2, name2_size_,bytes_received);
+                    //socket.receive(name2, name2_size_,bytes_received);
                     socket.receive((char*)score2_size,sizeof(score2_size),bytes_received);
                     score2_size[0]=le32toh(score2_size[0]);
-                    std::string name2__(name2);
+                    /*std::string name2__(name2);
                     std::string name2_final=name2__.substr(0,name2_size_);
-                    std::cout << "Name 2 es" << name2_final << std::endl;
+                    std::cout << "Name 2 es" << name2_final << std::endl;*/
                     std::cout << "Score 2 es" << unsigned(score2_size[0]) << std::endl;
 
-                    socket.receive((char*)name3_size,sizeof(name3_size),bytes_received);
-                    name3_size[0]=le32toh(name3_size[0]);
+                   // socket.receive((char*)name3_size,sizeof(name3_size),bytes_received);
+                    /*name3_size[0]=le32toh(name3_size[0]);
                     int name3_size_=int(name3_size[0]);
                     std::cout << "Name 3 size es" << name3_size_ << std::endl;
                     char name3[name3_size_];
-                    //memset(map,0,map_size_);
-                    socket.receive(name3, name3_size_,bytes_received);
+                    //socket.receive(name3, name3_size_,bytes_received);*/
                     socket.receive((char*)score3_size,sizeof(score3_size),bytes_received);
                     score3_size[0]=le32toh(score3_size[0]);
-                    std::string name3__(name1);
+                    /*std::string name3__(name1);
                     std::string name3_final=name3__.substr(0,name3_size_);
-                    std::cout << "Name 3 es" << name3_final << std::endl;
+                    std::cout << "Name 3 es" << name3_final << std::endl;*/
                     std::cout << "Score 3 es" << unsigned(score3_size[0]) << std::endl;
 
 
-                    socket.receive((char*)name4_size,sizeof(name4_size),bytes_received);
-                    name4_size[0]=le32toh(name4_size[0]);
-                    int name4_size_=int(name4_size[0]);
+                   // socket.receive((char*)name4_size,sizeof(name4_size),bytes_received);
+                    //name4_size[0]=le32toh(name4_size[0]);
+                    /*int name4_size_=int(name4_size[0]);
                     std::cout << "Name 4 size es" << name4_size_ << std::endl;
-                    char name4[name4_size_];
+                    char name4[name4_size_];*/
                     //memset(map,0,map_size_);
-                    socket.receive(name4, name4_size_,bytes_received);
+                   // socket.receive(name4, name4_size_,bytes_received);
                     socket.receive((char*)score4_size,sizeof(score4_size),bytes_received);
                     score4_size[0]=le32toh(score4_size[0]);
-                    std::string name4__(name4);
+                    /*std::string name4__(name4);
                     std::string name4_final=name4__.substr(0,name4_size_);
-                    std::cout << "Name 4 es" << name4_final << std::endl;
+                    std::cout << "Name 4 es" << name4_final << std::endl;*/
                     std::cout << "Score 4 es" << unsigned(score4_size[0]) << std::endl;
 
 
-                    socket.receive((char*)name5_size,sizeof(name5_size),bytes_received);
-                    name5_size[0]=le32toh(name5_size[0]);
+                    //socket.receive((char*)name5_size,sizeof(name5_size),bytes_received);
+                   /* name5_size[0]=le32toh(name5_size[0]);
                     int name5_size_=int(name5_size[0]);
                     std::cout << "Name 5 size es" << name5_size_ << std::endl;
-                    char name5[name5_size_];
+                    char name5[name5_size_];*/
                     //memset(map,0,map_size_);
-                    socket.receive(name5, name5_size_,bytes_received);
+                    //socket.receive(name5, name5_size_,bytes_received);
                     socket.receive((char*)score5_size,sizeof(score5_size),bytes_received);
                     score5_size[0]=le32toh(score5_size[0]);
-                    std::string name5__(name5);
+                    /*std::string name5__(name5);
                     std::string name5_final=name5__.substr(0,name5_size_);
-                    std::cout << "Name 5 es" << name5_final << std::endl;
+                    std::cout << "Name 5 es" << name5_final << std::endl;*/
                     std::cout << "Score 5 es" << unsigned(score5_size[0]) << std::endl;
 /*
                     //player 1
