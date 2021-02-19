@@ -16,20 +16,20 @@ bool ReceiveController::update(){
      if(!updatemessage){
          //Aca dibujo lo actualizado
          //std::cout << "RENDERIZO" << std::endl;
-         auto t1=std::chrono::steady_clock::now();
+         //auto t1=std::chrono::steady_clock::now();
          client.render();
-         auto t2= std::chrono::steady_clock::now();
+         /*auto t2= std::chrono::steady_clock::now();
         std::chrono::duration<float, std::milli> diff;
 			//std::chrono::duration<double> diff=t2-t1;
         diff = t2 - t1;
-        std::cout << "DELTA DE RENDERIZADO ES" << diff.count() << std::endl;
+        std::cout << "DELTA DE RENDERIZADO ES" << diff.count() << std::endl;*/
          return true;
          //usleep(33000);
      }
 
      //UPDATe
      else{
-         auto t1=std::chrono::steady_clock::now();
+         //auto t1=std::chrono::steady_clock::now();
          if(updatemessage->get_opcode()==0){
              switch(updatemessage->get_event_type()){
                 case MOVEMENT_EV:  {//MOVEMENT EVENT
@@ -187,11 +187,11 @@ bool ReceiveController::update(){
                 }
              }
          }
-        auto t2= std::chrono::steady_clock::now();
+        /*auto t2= std::chrono::steady_clock::now();
         std::chrono::duration<float, std::milli> diff;
 			//std::chrono::duration<double> diff=t2-t1;
         diff = t2 - t1;
-        std::cout << "DELTA DE UPDATE ES" << diff.count() << std::endl;
+        std::cout << "DELTA DE UPDATE ES" << diff.count() << std::endl;*/
          return false;
          
      }  

@@ -23,23 +23,9 @@ void Client::render(){
         
         rays = std::move(map.get_player_rays());   //No tienen que ver con lo grafico
         //Todos los elementos que no son paredes. Tienen que tener una distancia
-
-        auto t1=std::chrono::steady_clock::now();
         elements = std::move(map.get_game_elements());   //No tienen que ver con lo grafico
-        auto t2= std::chrono::steady_clock::now();
-        std::chrono::duration<float, std::milli> diff;
-			//std::chrono::duration<double> diff=t2-t1;
-        diff = t2 - t1;
-        std::cout << "DELTA DE GET ELEMENTS ES" << diff.count() << std::endl;
         //DIBUJAR
-        t1=std::chrono::steady_clock::now();
-
         panel.update(std::move(rays), std::move(elements),  player.get_info()); 
-        t2= std::chrono::steady_clock::now();
-       // std::chrono::duration<float, std::milli> diff;
-			//std::chrono::duration<double> diff=t2-t1;
-        diff = t2 - t1;
-        std::cout << "DELTA DE RENDERIZADO POSTA ES" << diff.count() << std::endl;
     }
     else{
         if(game_finished){
