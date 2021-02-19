@@ -49,6 +49,8 @@ class Game {
     void _reduceBullets(const ConnectionId id);
     void _move(const ConnectionId id);
     void _deletePlayer(ConnectionId id);
+    bool is_player_target(int pos_x_attacker, int pos_y_attacker, int vision_angle_attacker, \
+int pos_x_other_player,int pos_y_other_player);
 
     public:
         Game(ClientsConnected& clients_connected, std::string map_Yaml, int& rate);

@@ -4,14 +4,15 @@
 #define MAX_NUM 999999999
 #define PATH_TO_MAP "../Maps/"
 #define YAML_EXT ".yaml"
+#define FOV 90.0
 
-Game::is_player_target(int pos_x_attacker, int pos_y_attacker, int vision_angle_attacker, \
+bool Game::is_player_target(int pos_x_attacker, int pos_y_attacker, int vision_angle_attacker, \
 int pos_x_other_player,int pos_y_other_player){
 
 	//this->texture_section = this->get_texture_section(vision_angle, player.get_angle());
 
-	float x = player.get_pos_x() - pos_x;
-	float y = player.get_pos_y() - pos_y;
+	float x = pos_x_attacker - pos_x_other_player;
+	float y = pos_y_attacker - pos_y_other_player;
 	float angle = x == 0 ? 90 : atan(abs(y / x)) * 180 / PI;
 
 	if (x > 0 && y >= 0) {
@@ -21,35 +22,15 @@ int pos_x_other_player,int pos_y_other_player){
 	} else if (x < 0 && y < 0) {
 		angle = 360 - angle; 
 	}
-	angle_=vision_angle;
 
-	int ply_angle = player.get_angle() - FOV / 2;
+	int ply_angle = vision_angle_attacker - FOV / 2;
 	float  angle_min = ply_angle < 0 ? 360.0 + ply_angle : ply_angle;
-	ply_angle = player.get_angle() + FOV / 2;
+	ply_angle = vision_angle_attacker + FOV / 2;
 	float angle_max = ply_angle  >= 360 ? ply_angle - 360.0 : ply_angle;
 
 	bool out =  angle_min > angle_max ? angle < angle_min && angle > angle_max : angle < angle_min || angle > angle_max;
-
-	/*if (out && angle < angle_min){
-		std::cout << angle << ", "<<  angle_min << std::endl;
-	}*/ 
-
-	if (out) {
-		this->dist = -1.0;
-		this->pos_ray = -1; 
-	} else {
-		float angle_diff = angle > angle_max ? angle_max - angle + 360.0 : angle_max - angle;
-		this->pos_ray = angle_diff / FOV * PANEL_WIDTH;
-
-		float real_dist = sqrt(pow(x,2) + pow(y,2));
-		int offset =  this->pos_ray < PANEL_WIDTH / 2 ? this->pos_ray : PANEL_WIDTH - this->pos_ray;
-		this->dist = real_dist * cos((FOV / 2.0 - offset * FOV / PANEL_WIDTH) * PI / 180.0);
-	} 
+    return !out;
 }
-
-
-
-
 
 
 Game::Game(ClientsConnected& clients_connected, std::string map_Yaml, int& rate) : 
@@ -342,12 +323,28 @@ void Game::_reduceBullets(const ConnectionId id) {
 }
 
 std::pair<ConnectionId, double> Game::_getTargetAttacked(ConnectionId attacker_id) {
-    //NECESITO EL ANGULO ACTUAL DEL PLAYER QUE ESTA ATACANDO
     std::cout <<"Game: _getTargetAttacked"<< std::endl;
     std::unordered_map<ConnectionId, std::pair<int, int>>::iterator it;
     std::pair<ConnectionId, double>closer_player =  std::make_pair(0, MAX_NUM);
     for (it = players_in_map.begin(); it != players_in_map.end(); it++) {
         std::cout <<"Game: enter for"<< std::endl;
+
+        if (it->first != attacker_id) {
+            int attacker_x = players_in_map.at(attacker_id).first;
+            int attacker_y = players_in_map.at(attacker_id).second;
+            float attacker_angle =(players.at(attacker_id).getPos().getAngle());
+            int other_player_x=it->second.first;
+            int other_player_y=it->second.second;
+            int x_delta = (players_in_map.at(attacker_id).first - it->second.first);
+            int y_delta = (players_in_map.at(attacker_id).second - it->second.second);
+            double distance = sqrt( pow(x_delta, 2) + pow(y_delta, 2) ); 
+            if(is_player_target(attacker_x, attacker_y, int(attacker_angle), \
+other_player_x,other_player_y)){
+                closer_player.first=it->first;
+                closer_player.second=distance;
+            }
+        }
+        /*
         if (it->first != attacker_id) {
             std::cout <<"Game: enter if"<< std::endl;
             int x = (players_in_map.at(attacker_id).first - it->second.first);
@@ -358,6 +355,7 @@ std::pair<ConnectionId, double> Game::_getTargetAttacked(ConnectionId attacker_i
                 closer_player.second = distance;
             }
         }
+        */
     }
     return closer_player;
 }
@@ -568,7 +566,6 @@ void Game::openDoor(const ConnectionId id) {
 
     /*int object_code = map[pos.getX()][pos.getY()];
     Object obj = objMap.getObject(object_code);
-
     bool door_opened = _interactWith(player, map, obj);
     if (!door_opened) {
         _notifyItemChanged(id, Response(false, NO_KEY_TO_OPEN_CLOSED_DOOR), OPEN_DOOR_ITM);
