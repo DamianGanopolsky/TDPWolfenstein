@@ -37,7 +37,6 @@ bool Player_handler::handle() {
 					Command* command=new Command(START_SHOOTING_CMD);
 					SendQueue.push(std::move(command));
 					shooting=true;
-					
 					break;
 				}
 				case 2:{

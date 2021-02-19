@@ -88,10 +88,10 @@ Para cambiar los parametros numericos que usa el servidor, se debe modificar el 
 
 - W: Para avanzar hacia adelante
 - S: Para avanzar hacia atras
-- A: Para avanzar hacia la izquierda
-- D: Para avanzar hacia la derecha
-- ->(Flecha hacia la derecha): Para rotar el angulo de vision hacia la derecha
-- <-(Flecha hacia la izquierda): Para rotar el angulo de vision hacia la izquierda
+- Q: Para avanzar hacia la izquierda
+- E: Para avanzar hacia la derecha
+- D: Para rotar el angulo de vision hacia la derecha
+- A: Para rotar el angulo de vision hacia la izquierda
 
 #### Cambio de armas
 - 1: Para seleccionar el cuchillo
@@ -102,7 +102,7 @@ Vale aclarar que las ultimas dos armas se tienen que lootear para que se pueda c
 
 #### Disparos
 
-Tecla e: Dispara con el arma actual
+Tecla Enter: Dispara con el arma actual
 
 #### Salir del juego  
 Se puede salir del juego en cualquier momento presionando la tecla "Esc" del lado del cliente.  
