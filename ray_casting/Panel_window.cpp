@@ -51,27 +51,34 @@ void Panel_window::update(std::set<Ray>&& rays, std::list<Game_element>&& elemen
 
 			}
 
-
-	auto t1 = std::chrono::steady_clock::now();
 	for (std::list<Game_element>::iterator element = elements.begin(); element != elements.end(); ++element) {
 		if (element->is_visible()) {
 			element->set_texture(this->player_panel_status.get_texture(element->get_texture_section(), element->get_type_id()));
 			q.push(std::move(*element));
 		}
 	}
-	auto t2= std::chrono::steady_clock::now();
-	std::chrono::duration<float, std::milli> diff;
-	//std::chrono::duration<double> diff=t2-t1;
-	diff = t2 - t1;
-	std::cout << "Diff es" << diff.count() << std::endl;
+
 	SDL_RenderClear(this->renderer);
-	
+	int count=0;
 	while(!q.empty()) {
 		
 		Element_panel* element = q.top();
+		auto t1 = std::chrono::steady_clock::now();
+
 		element->copy_to_rederer(*this->renderer);
+		auto t2= std::chrono::steady_clock::now();
+		std::chrono::duration<float, std::milli> diff;
+		//std::chrono::duration<double> diff=t2-t1;
+		diff = t2 - t1;
+		/*if(diff.count()>0.3){
+			std::cout << "El elemento que tarda es" << count << std::endl;
+		}*/
+		//std::cout << "Diff es" << diff.count() << std::endl;
 		q.pop();
+		count++;
 	}
+	//std::cout << "La cuenta total es" << count << std::endl;
+
 	this->player_panel_status.copy_to_rederer(player_info);
     SDL_RenderPresent(this->renderer);
 }
