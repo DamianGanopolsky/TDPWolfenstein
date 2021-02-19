@@ -2,6 +2,8 @@
 #include <utility>
 #include <iostream>
 #include <string>
+#include <chrono>
+#include <unistd.h>
 #define PLAYER_DEAD 40
 
 
@@ -175,13 +177,5 @@ std::list<Game_element> Map_2d::get_game_elements() {
 		Game_element element(object.pos_x,object.pos_y,object.type_id,object.state,this->player);
 		elements.push_back(std::move(element));
 	}
-	//Game_element elemento(150,250,20,270,this->player);
-	//elements.push_back(elemento);
-	/*Game_element element(150,250, 11, 270, this->player);
-	Game_element element2(170,250, 12, 270, this->player);
-	Game_element element3(120,250,13, 270, this->player);
-	elements.push_back(std::move(element));
-	elements.push_back(std::move(element2));
-	elements.push_back(std::move(element3));*/
 	return elements; 
 }

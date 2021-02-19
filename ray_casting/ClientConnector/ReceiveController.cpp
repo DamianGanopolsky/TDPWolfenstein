@@ -15,15 +15,21 @@ bool ReceiveController::update(){
      UpdateMessage* updatemessage=recv_queue.pop();
      if(!updatemessage){
          //Aca dibujo lo actualizado
-         std::cout << "RENDERIZO" << std::endl;
+         //std::cout << "RENDERIZO" << std::endl;
+         auto t1=std::chrono::steady_clock::now();
          client.render();
+         auto t2= std::chrono::steady_clock::now();
+        std::chrono::duration<float, std::milli> diff;
+			//std::chrono::duration<double> diff=t2-t1;
+        diff = t2 - t1;
+        std::cout << "DELTA DE RENDERIZADO ES" << diff.count() << std::endl;
          return true;
          //usleep(33000);
      }
-     
-     
+
      //UPDATe
      else{
+         auto t1=std::chrono::steady_clock::now();
          if(updatemessage->get_opcode()==0){
              switch(updatemessage->get_event_type()){
                 case MOVEMENT_EV:  {//MOVEMENT EVENT
@@ -132,6 +138,7 @@ bool ReceiveController::update(){
                     break;
                 }
                 case BULLETS_TAKEN_ITM:{
+                    std::cout << "AGARRE BULLETS" << std::endl;
                     Item_taken_event it_taken=updatemessage->get_item_taken();
                     //std::cout << "Pos x es :" << it_taken.pos_x << "Pos y es: " << it_taken.pos_y << std::endl;
                     map.delete_item(it_taken.pos_x,it_taken.pos_y);
@@ -149,6 +156,7 @@ bool ReceiveController::update(){
                     break;
                 }
                 case FOOD_TAKEN_ITM:{
+                    
                     Item_taken_event it_taken=updatemessage->get_item_taken();
                     map.delete_item(it_taken.pos_x,it_taken.pos_y);
                     if(int(it_taken.player_id)==player.get_id()){
@@ -179,7 +187,12 @@ bool ReceiveController::update(){
                 }
              }
          }
+        auto t2= std::chrono::steady_clock::now();
+        std::chrono::duration<float, std::milli> diff;
+			//std::chrono::duration<double> diff=t2-t1;
+        diff = t2 - t1;
+        std::cout << "DELTA DE UPDATE ES" << diff.count() << std::endl;
          return false;
-         //client.render();
+         
      }  
  }
