@@ -10,7 +10,9 @@ Player::Player(int width, int height,
                 shooting(false), knife(),
                 gun(), machine_gun(), chain_cannon(),
                 rate(rate), machine_gun_cooldown(0),
-                chain_cannon_cooldown(0), gun_can_shoot(true) {}
+                chain_cannon_cooldown(0), gun_can_shoot(true),
+                forced_weapon(false), 
+                weapon_equiped_before(KNIFE_TYPE) /*default*/ {}
 
 Player::Player(int pos_x, int pos_y, int width, int height,
                 std::string& nickname, Id id_player, const int& rate) : 
@@ -21,7 +23,9 @@ Player::Player(int pos_x, int pos_y, int width, int height,
                 shooting(false), knife(),
                 gun(), machine_gun(), chain_cannon(),
                 rate(rate), machine_gun_cooldown(0),
-                chain_cannon_cooldown(0), gun_can_shoot(true) {}
+                chain_cannon_cooldown(0), gun_can_shoot(true),
+                forced_weapon(false), 
+                weapon_equiped_before(KNIFE_TYPE) /*default*/ {}
 
 Player::~Player() {
     delete this->state;
@@ -263,7 +267,7 @@ Response Player::resurrect() {
     return Response(true, SUCCESS_MSG);
 }
 
-Response Player::changeWeapon(int& weapon) {
+Response Player::changeWeapon(const int& weapon) {
     if(this->info.hasWeapon(weapon)){
         switch (weapon) {
             case KNIFE_TYPE: {

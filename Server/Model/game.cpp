@@ -113,11 +113,11 @@ void Game::_notifyEvent(const ConnectionId id, const Response& response, EventOp
                                             player.getInfo().getTreasure(), player.getInfo().getNumBullets());
                 break;
             }
-            case DELETE_PLAYER_EV: {
+            /*case DELETE_PLAYER_EV: {
                 std::cout<<"Game: _notifyEvent, delete_player"<<std::endl;
                 notification = new Event(YamlMapName, event_type, id);
                 break;
-            }
+            }*/
             case ATTACK_EV: {
                 std::cout<<"Game: _notifyEvent, attack_ev"<<std::endl;
                 notification = new Event(YamlMapName, event_type, id,
@@ -134,6 +134,7 @@ void Game::_notifyEvent(const ConnectionId id, const Response& response, EventOp
                 notification = new Event(YamlMapName, event_type, id, player.getPos().getX(), player.getPos().getY());
                 break;
             }
+            case DELETE_PLAYER_EV:
             case CHANGE_WEAPON_EV:
             case MOVEMENT_EV:
             case SCORES_EV: {
@@ -455,6 +456,18 @@ void Game::updatePlayers(const int iteration) {
                 player.gun_can_shoot = true;
             }
         }
+        if ((player.getInfo().getNumBullets() == 0) && (!player.forced_weapon)) {
+            std::cout <<"Game: DOESNT HAS BULLETS"<< std::endl;
+            int weapon = player.getInfo().getWeaponTypeEquiped();
+            changeWeapon(id, KNIFE_TYPE);
+            player.forced_weapon = true;
+            player.weapon_equiped_before = weapon;
+        }
+        if ((player.getInfo().getNumBullets() != 0) && (player.forced_weapon)) {
+            std::cout <<"Game: HAS BULLETS"<< std::endl;
+            changeWeapon(id, player.weapon_equiped_before);
+            player.forced_weapon = false;
+        }
         if (player.getInfo().getNumResurrection() == MAX_RESURRECTIONS) {
             std::cout <<"Game: player got MAX_RESURRECTIONS "<< std::endl;
             std::string name = players_by_name.at(id);
@@ -564,7 +577,7 @@ void Game::openDoor(const ConnectionId id) {
     }*/
 }
 
-void Game::changeWeapon(const ConnectionId id, int& weapon) {
+void Game::changeWeapon(const ConnectionId id, const int& weapon) {
     std::cout <<"Game:change_weapon"<< std::endl;
     Player& player = this->players.at(id);
     if (!player.getInfo().hasWeapon(weapon)) {

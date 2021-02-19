@@ -77,7 +77,7 @@ class Game {
         void startShooting(const ConnectionId id);
         void stopShooting(const ConnectionId id);
         void openDoor(const ConnectionId id);
-        void changeWeapon(const ConnectionId id, int& weapon);
+        void changeWeapon(const ConnectionId id, const int& weapon);
         void receiveAttack(const ConnectionId, int& damage);
 
 

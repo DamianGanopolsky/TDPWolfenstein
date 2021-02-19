@@ -35,7 +35,7 @@ class PlayerInfo {
       int getNumResurrection();
       Weapon* getWeaponEquiped();
       int getWeaponTypeEquiped();
-      void changeWeaponEquiped(int& type);
+      void changeWeaponEquiped(const int& type);
       std::list <int>getInventory();
       bool hasWeapon(int weapon);
 };
