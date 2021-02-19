@@ -5,6 +5,53 @@
 #define PATH_TO_MAP "../Maps/"
 #define YAML_EXT ".yaml"
 
+Game::is_player_target(int pos_x_attacker, int pos_y_attacker, int vision_angle_attacker, \
+int pos_x_other_player,int pos_y_other_player){
+
+	//this->texture_section = this->get_texture_section(vision_angle, player.get_angle());
+
+	float x = player.get_pos_x() - pos_x;
+	float y = player.get_pos_y() - pos_y;
+	float angle = x == 0 ? 90 : atan(abs(y / x)) * 180 / PI;
+
+	if (x > 0 && y >= 0) {
+		angle = 180 - angle;
+	} else if (x > 0 && y < 0) {
+		angle += 180;
+	} else if (x < 0 && y < 0) {
+		angle = 360 - angle; 
+	}
+	angle_=vision_angle;
+
+	int ply_angle = player.get_angle() - FOV / 2;
+	float  angle_min = ply_angle < 0 ? 360.0 + ply_angle : ply_angle;
+	ply_angle = player.get_angle() + FOV / 2;
+	float angle_max = ply_angle  >= 360 ? ply_angle - 360.0 : ply_angle;
+
+	bool out =  angle_min > angle_max ? angle < angle_min && angle > angle_max : angle < angle_min || angle > angle_max;
+
+	/*if (out && angle < angle_min){
+		std::cout << angle << ", "<<  angle_min << std::endl;
+	}*/ 
+
+	if (out) {
+		this->dist = -1.0;
+		this->pos_ray = -1; 
+	} else {
+		float angle_diff = angle > angle_max ? angle_max - angle + 360.0 : angle_max - angle;
+		this->pos_ray = angle_diff / FOV * PANEL_WIDTH;
+
+		float real_dist = sqrt(pow(x,2) + pow(y,2));
+		int offset =  this->pos_ray < PANEL_WIDTH / 2 ? this->pos_ray : PANEL_WIDTH - this->pos_ray;
+		this->dist = real_dist * cos((FOV / 2.0 - offset * FOV / PANEL_WIDTH) * PI / 180.0);
+	} 
+}
+
+
+
+
+
+
 Game::Game(ClientsConnected& clients_connected, std::string map_Yaml, int& rate) : 
                             new_connection_id(1),
                             YamlMapName(map_Yaml),
@@ -294,6 +341,7 @@ void Game::_reduceBullets(const ConnectionId id) {
 }
 
 std::pair<ConnectionId, double> Game::_getTargetAttacked(ConnectionId attacker_id) {
+    //NECESITO EL ANGULO ACTUAL DEL PLAYER QUE ESTA ATACANDO
     std::cout <<"Game: _getTargetAttacked"<< std::endl;
     std::unordered_map<ConnectionId, std::pair<int, int>>::iterator it;
     std::pair<ConnectionId, double>closer_player =  std::make_pair(0, MAX_NUM);
