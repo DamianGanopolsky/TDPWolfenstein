@@ -16,24 +16,22 @@
 
 class Panel_window {
 public:
-	Panel_window(Map_2d& MAP);
+	Panel_window();
 	Panel_window(const Panel_window& other) = delete;
 	Panel_window(Panel_window&& other) = delete;
 	~Panel_window();
-	void load_map(Map_2d& MAP);
 	bool is_running();
 	void update(std::set<Ray>&& rays, std::list<Game_element>&& elements, Player_info& player_info);
 	void render_player_lost_screen();
 	void render_ending_screen();
 	void render_waiting_screen();
+	void load_map_dimentions(int MAP_HEIGHT,int MAP_WIDTH);
 
 	void render_login_screen();
 
 private:
-	Map_2d& map;
 	SDL_Renderer* renderer;
-	int map_width;
-	int map_height;
+
 	
 	SDL_Window *window;
 	SDL_Texture* Ending_screen_base;
@@ -41,6 +39,8 @@ private:
 	bool running;
 	Wall_texture wall_textures;
 	Player_panel_status player_panel_status;
+	int map_width;
+	int map_height;
 
 };
 

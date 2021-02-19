@@ -6,13 +6,13 @@
 #include <chrono>
 
 
-Panel_window::Panel_window(Map_2d& MAP): map(MAP), running(true) {
+Panel_window::Panel_window():  running(true) {
 	this->window = SDL_CreateWindow(PANEL_TITLE, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, PANEL_WIDTH, PANEL_HEIGHT, 0);
 	SDL_SetWindowFullscreen(window,0);
 	this->renderer = SDL_CreateRenderer(this->window, -1, 0);
 	this->player_panel_status = Player_panel_status(this->renderer);
-	map_width=map.get_width();
-	map_height=map.get_height();
+	//map_width=map.get_width();
+	//map_height=map.get_height();
 	SDL_Surface* ending_screen_surf=IMG_Load("../ray_casting/sprites/EndingScreenBase.png");
     Ending_screen_base=SDL_CreateTextureFromSurface(this->renderer,ending_screen_surf);
 	SDL_Surface* waiting_screen_surf=IMG_Load("../ray_casting/sprites/waiting_screen_final.jpg");
@@ -21,9 +21,11 @@ Panel_window::Panel_window(Map_2d& MAP): map(MAP), running(true) {
     SDL_FreeSurface(ending_screen_surf);
 }
 
-void Panel_window::load_map(Map_2d& MAP){
-	//map=MAP;
+void Panel_window::load_map_dimentions(int MAP_HEIGHT,int MAP_WIDTH){
+	map_height=MAP_HEIGHT;
+	map_width=MAP_WIDTH;
 }
+
 
 Panel_window::~Panel_window() {
 	if (this->renderer) {

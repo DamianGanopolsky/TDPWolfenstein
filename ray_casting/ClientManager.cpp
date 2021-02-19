@@ -27,16 +27,15 @@ void ClientManager::start(){
 	/* TENGO QUE RECIBIR EL PLAYER Y EL MAP ANTES QUE NADA, */
 	NonBlockingQueue<UpdateMessage*> recv_queue;
 	ClientSocket clientsock(recv_queue,host.c_str(),port.c_str());
-	//std::string nickname="PlayerName";
-	//clientsock.send_nickname(nickname);
+	std::string nickname="PlayerName";
+	clientsock.send_nickname(nickname);
 	New_Player_Event player_info=clientsock.recv_player();
 	//std::cout << "Mapa que tengo que abrir es " << player_info.map << std::endl;
 	Player player(player_info);
 	Map_2d map(player,PATH_TO_MAPS+player_info.map+YAML_EXTENSION);
-	Panel_window panel(map);
+	Panel_window panel;
 	BlockingQueue<Command*> send_queue;
-	
-	
+	panel.load_map_dimentions(map.get_height(),map.get_width());
 	Client client(panel,player,map);
 	Player_handler handler(player,map,send_queue,client);
 	
