@@ -25,7 +25,7 @@ bool Player_handler::handle() {
 	//bool moving=false;
 	while(SDL_PollEvent(&event)!=0){
 		state = SDL_GetKeyboardState(NULL);
-		if((state[SDL_SCANCODE_E])&&(shooting==false)){
+		if((state[SDL_SCANCODE_RETURN])&&(shooting==false)){
 			//TENGO QUE USAR EL TIEMPO
 			auto t1 = std::chrono::steady_clock::now();
 			std::chrono::duration<double> diff=t1-time_last_shoot;
@@ -84,44 +84,44 @@ bool Player_handler::handle() {
 			moving=true;
 			
 		}
-		if ((state[SDL_SCANCODE_A])&&(moving==false)) {
+		if ((state[SDL_SCANCODE_Q])&&(moving==false)) {
 			//printf("A ON.\n");
 			Command* command = new Command(START_MOVING_LEFT_CMD);
 			SendQueue.push(std::move(command));
 			moving=true;
 		}
-		if ((state[SDL_SCANCODE_D])&&(moving==false)) {
+		if ((state[SDL_SCANCODE_E])&&(moving==false)) {
 			//printf("D ON\n");
 			Command* command = new Command(START_MOVING_RIGHT_CMD);
 			SendQueue.push(std::move(command));
 			moving=true;
 		}
-		if ((state[SDL_SCANCODE_RIGHT])&&(rotating==false)){
+		if ((state[SDL_SCANCODE_D])&&(rotating==false)){
 			Command* command = new Command(START_ROTATING_RIGHT);
 			SendQueue.push(std::move(command));
 			//printf("Rotating right on \n");
 			rotating=true;
 		}
-		if ((state[SDL_SCANCODE_LEFT])&&(rotating==false)){
+		if ((state[SDL_SCANCODE_A])&&(rotating==false)){
 			//printf("Rotating left on \n");
 			Command* command = new Command(START_ROTATING_LEFT);
 			SendQueue.push(std::move(command));
 			rotating=true;
 		}
-		if (((state[SDL_SCANCODE_W]==0)&&(state[SDL_SCANCODE_A]==0)&&\
-		(state[SDL_SCANCODE_S]==0)&&(state[SDL_SCANCODE_D]==0))&&(moving)){
+		if (((state[SDL_SCANCODE_W]==0)&&(state[SDL_SCANCODE_Q]==0)&&\
+		(state[SDL_SCANCODE_S]==0)&&(state[SDL_SCANCODE_E]==0))&&(moving)){
 			//printf("STOP MOVING\n");
 			Command* command = new Command(STOP_MOVING_CMD);
 			SendQueue.push(std::move(command));
 			moving=false;
 		}
-		if (((state[SDL_SCANCODE_LEFT]==0)&&(state[SDL_SCANCODE_RIGHT]==0))&&(rotating)){
+		if (((state[SDL_SCANCODE_A]==0)&&(state[SDL_SCANCODE_D]==0))&&(rotating)){
 			//printf("Stop rotating \n");
 			Command* command = new Command(STOP_ROTATING);
 			SendQueue.push(std::move(command));
 			rotating=false;
 		}
-		if((state[SDL_SCANCODE_E]==0)&&(shooting)){
+		if((state[SDL_SCANCODE_RETURN]==0)&&(shooting)){
 			//std::cout << "Pare de disparar" << std::endl;
 			Command* command= new Command(STOP_SHOOTING_CMD);
 			SendQueue.push(std::move(command));

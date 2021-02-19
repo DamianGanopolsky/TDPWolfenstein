@@ -172,8 +172,10 @@ bool Event::send(const ConnectionId sender, const Socket& peer) {
             case SCORES_EV: {
                 std::cout << "ENTRA A SCORE_EV: " << num_players <<std::endl;
                 this->num_players = htole32(this->num_players);
+                
                 std::cout << "num_players es: " << num_players <<std::endl;
                 peer.send((char *)&num_players, sizeof(num_players));
+                sleep(30);
                 //player 1
                 //const char* char_name_1 = name_1.c_str();
                 char char_name_1[9] = "player 1";
