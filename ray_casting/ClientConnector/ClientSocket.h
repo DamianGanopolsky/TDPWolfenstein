@@ -16,6 +16,8 @@ public:
 
     New_Player_Event recv_player_func();
 
+    void send_nickname(std::string Nickname);
+
     
 
 private:

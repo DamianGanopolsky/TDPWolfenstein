@@ -90,7 +90,6 @@ bool Player_handler::handle() {
 			Command* command = new Command(START_MOVING_DOWN_CMD);
 			SendQueue.push(std::move(command));
 			moving=true;
-			
 		}
 		if ((state[SDL_SCANCODE_Q])&&(moving==false)) {
 			//printf("A ON.\n");

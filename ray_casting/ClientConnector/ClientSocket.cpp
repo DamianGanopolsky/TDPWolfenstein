@@ -16,6 +16,22 @@ void ClientSocket::close(){
     socket.shutdown();
     socket.close();
 }
+
+void ClientSocket::send_nickname(std::string NickName){
+   // std::string map_;
+    int len_NickName=NickName.length();
+    char nickname[len_NickName];
+    strcpy(nickname, NickName.c_str());
+    uint32_t nicknamesize[1];
+    nicknamesize[0]=strlen(nickname);
+    nicknamesize[0] = htole32(nicknamesize[0]);
+    socket.send((char*)nicknamesize, sizeof(nicknamesize));
+    socket.send(nickname,sizeof(nickname));
+}
+
+
+
+
 New_Player_Event ClientSocket::recv_player_func(){
     int bytes_received=0;
     uint32_t player_id[1];
