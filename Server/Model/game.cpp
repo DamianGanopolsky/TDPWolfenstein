@@ -360,7 +360,7 @@ void Game::_deletePlayer(ConnectionId id) {
     std::cout <<"Game: players_by_name erased"<< std::endl;
     this->players_in_map.erase(id);
     std::cout <<"Game: players_in_map erased"<< std::endl;
-    _notifyEvent(id, Response(true, SUCCESS_MSG), DELETE_PLAYER_EV);
+    //_notifyEvent(id, Response(true, SUCCESS_MSG), DELETE_PLAYER_EV);
     std::cout <<"Game: _notifyEvent()"<< std::endl;
     this->players.erase(id);
     std::cout <<"Game: players erased"<< std::endl;
@@ -416,7 +416,7 @@ void Game::deletePlayer(const ConnectionId id) {
     }
 }
 
-void Game::updatePlayers(const int iteration) {
+bool Game::updatePlayers(const int iteration) {
     //std::cout <<"Game: enter updatePlayers()"<< std::endl;
     std::unordered_map<ConnectionId, Player>::iterator 
         player_it = this->players.begin();
@@ -486,11 +486,13 @@ void Game::updatePlayers(const int iteration) {
             Notification* notification = post_game.showScores();
             std::cout <<"Game: showed scores "<< std::endl;
             this->clients_connected.sendEventToAll(notification);
-            break;
+            return false;
+            //break;
         }
 
         ++player_it;
     }
+    return true;
 }
 
 void Game::updateOpenDoorsLifetime(const int iteration) {}

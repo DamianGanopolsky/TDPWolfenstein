@@ -15,6 +15,7 @@ class Loop : public Thread {
     NonBlockingQueue<ConnectionId*> finished_connections;
     NonBlockingQueue<ConnectionElement*>& new_connections;
     std::atomic<bool> is_running;
+    bool has_players;
     void _newConnections();
     void _newCommands();
     void _finishedConnections();

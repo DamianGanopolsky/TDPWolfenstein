@@ -121,7 +121,7 @@ void Player::shoot(int bullets) {
 			break;
 		}		
 	}
-	std::cout << "Weapon status es" << info.weapon_status << std::endl;
+	//std::cout << "Weapon status es" << info.weapon_status << std::endl;
 	//this->info.weapon_status = 2;
 	if(info.weapon!=0){
 		this->info.ammo=bullets;

@@ -175,7 +175,7 @@ bool Event::send(const ConnectionId sender, const Socket& peer) {
                 
                 std::cout << "num_players es: " << num_players <<std::endl;
                 peer.send((char *)&num_players, sizeof(num_players));
-                sleep(30);
+                //sleep(30);
                 //player 1
                 //const char* char_name_1 = name_1.c_str();
                 char char_name_1[9] = "player 1";

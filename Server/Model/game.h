@@ -64,7 +64,7 @@ int pos_x_other_player,int pos_y_other_player);
         const ConnectionId newPlayer();
         void notifyNewPlayer(const ConnectionId id);
         void deletePlayer(const ConnectionId id);
-        void updatePlayers(const int iteration);
+        bool updatePlayers(const int iteration);
 
         void updateOpenDoorsLifetime(const int iteration);
 

@@ -11,7 +11,7 @@ Loop::Loop(NonBlockingQueue<ConnectionElement*>& new_connections,std::string map
                 commands(), 
                 finished_connections(), 
                 new_connections(new_connections),
-                is_running(true) {
+                is_running(true), has_players(false) {
                     /*YAML::Node config = YAML::LoadFile(PATH_TO_MAP+mapYaml+YAML_EXT);
                     int cant_players = config["Map"]["Cant_players"].as<int>();
                     std::cout << "CANT PLAYERS ES" << cant_players << std::endl;*/
@@ -76,9 +76,11 @@ void Loop::run() {
     int it = 1;
     while (is_running) {
         _newConnections();
-        _newCommands();
+        if (has_players) {
+            _newCommands();
+        }
         //std::cout <<"Loop: update game"<< std::endl;
-        game.updatePlayers(it);
+        this->has_players = game.updatePlayers(it);
         _finishedConnections();
         
         it = 0;
