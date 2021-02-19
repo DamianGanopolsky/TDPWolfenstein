@@ -33,6 +33,7 @@ class Event : public Notification {
 
 
     public:
+        Event(EventOpcode event_type);
         Event(std::string map, EventOpcode event_type, Id player_id);
         Event(std::string map, EventOpcode event_type, Id player_id,
             uint32_t pos_x, uint32_t pos_y, float angle, int is_moving,

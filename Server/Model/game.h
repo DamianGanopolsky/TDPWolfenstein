@@ -20,7 +20,6 @@ class ClientsConnected;
 #include "./post_game.h"
 
 class Game {
-    ConnectionId new_connection_id;
     std::string YamlMapName;
     std::unordered_map<ConnectionId, Player> players;
     std::unordered_map<ConnectionId, std::string> players_by_name;
@@ -61,7 +60,7 @@ int pos_x_other_player,int pos_y_other_player);
         Game(Game&& other) = delete;
         Game& operator=(Game&& other) = delete;
 
-        const ConnectionId newPlayer();
+        void newPlayer(const ConnectionId id);
         void notifyNewPlayer(const ConnectionId id);
         void deletePlayer(const ConnectionId id);
         bool updatePlayers(const int iteration);

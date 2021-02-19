@@ -7,27 +7,7 @@
 #define FOV 45
 #include <cstdlib>
 
-bool Game::is_player_target(int pos_x_attacker, int pos_y_attacker, float vision_angle_attacker, \
-int pos_x_other_player,int pos_y_other_player){
-	float x = pos_x_attacker - pos_x_other_player;
-	float y = pos_y_attacker - pos_y_other_player;
-    float angle=atan2(y,x);
-    angle=angle * 180/PI;
-    std::cout << "Angulo es" << angle << std::endl;
-    angle=180-angle;
-    std::cout << "Angulo es" << angle << std::endl;
-    int diff=std::abs(angle-vision_angle_attacker);
-    if(diff<10){
-        return true;
-    }
-    else{
-        return false;
-    }
-}
-
-
 Game::Game(ClientsConnected& clients_connected, std::string map_Yaml, int& rate) : 
-                            new_connection_id(1),
                             YamlMapName(map_Yaml),
                             players(), players_by_name(),
                             players_in_map(), respawn_positions(),
@@ -111,7 +91,8 @@ void Game::_notifyEvent(const ConnectionId id, const Response& response, EventOp
             case DELETE_PLAYER_EV:
             case CHANGE_WEAPON_EV:
             case MOVEMENT_EV:
-            case SCORES_EV: {
+            case SCORES_EV:
+            case START_EV: {
                 break;
             }
 
@@ -241,11 +222,12 @@ bool Game::_interactWith(Player& player, Map map, Object* obj) {
 
 void Game::_getPlayerPosition(Id map_id, int init_x, int init_y, Id new_player_id) {
     /*
+    //positions tiene las posiciones etablecidas por el mapa del editor
+    //postions es un unordered_map<int id ,std::pair<int x, int y>>
     std::pair<int, int> inicial_pos;
     if (!positions.empty()){
         inicial_pos = std::make_pair(positions.at(new_player_id).first, positions.at(new_player_id).second);
-    } else {
-        //obtener una posicion random vacia
+        positions.erase(new_player_id);
     }
     this->respawn_positions[new_player_id] = std::make_pair(inicial_pos.first, inicial_pos.second);
     */
@@ -353,6 +335,24 @@ other_player_x,other_player_y))&&(distance<500)){
     return closer_player;
 }
 
+bool Game::is_player_target(int pos_x_attacker, int pos_y_attacker, float vision_angle_attacker, \
+int pos_x_other_player,int pos_y_other_player){
+	float x = pos_x_attacker - pos_x_other_player;
+	float y = pos_y_attacker - pos_y_other_player;
+    float angle=atan2(y,x);
+    angle=angle * 180/PI;
+    std::cout << "Angulo es" << angle << std::endl;
+    angle=180-angle;
+    std::cout << "Angulo es" << angle << std::endl;
+    int diff=std::abs(angle-vision_angle_attacker);
+    if(diff<10){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
 void Game::_deletePlayer(ConnectionId id) {
     std::cout <<"Game: _deletePlayer()"<< std::endl;
     //Player& player = players.at(id);
@@ -366,32 +366,29 @@ void Game::_deletePlayer(ConnectionId id) {
     std::cout <<"Game: players erased"<< std::endl;
 }
 
-const ConnectionId Game::newPlayer() {
-    ConnectionId new_player_id = this->new_connection_id;
-    ++(this->new_connection_id);
+void Game::newPlayer(const ConnectionId id) {
     //del yaml con mapas obtener Id map_id = ...
     //int init_x, init_y;
-    //bool has_assigned_position = _getPlayerPosition(map_id, init_x, init_y, new_player_id);
+    //bool has_assigned_position = _getPlayerPosition(map_id, init_x, init_y, id);
     //if (!has_assigned_position) {
-        //this->map.setPlayerPosition(map_id, init_x, init_y, new_player_id);
+        //this->map.setPlayerPosition(map_id, init_x, init_y, id);
     //} else {
         //map.setObjectPos(init_x, init_y, MAP_PLAYER);
     //}
     std::string nickname = "hola";
     //std::cout <<"Game: adding a new player"<< std::endl;
     this->players.emplace(std::piecewise_construct, 
-                std::forward_as_tuple(new_player_id),
+                std::forward_as_tuple(id),
                 std::forward_as_tuple(100, 100, 2240, 
-                                    2240, nickname, new_player_id,
+                                    2240, nickname, id,
                                     rate));
     //std::cout <<"Game: new player added"<< std::endl;
     map.setObjectPos(100, 100, MAP_PLAYER);
     //de alguna manera me tienen que pasar el nickname
-    this->players_by_name[new_player_id] = nickname;
-    this->players_in_map.emplace(new_player_id, std::make_pair(100, 100));
-    return new_player_id;
-
+    this->players_by_name[id] = nickname;
+    this->players_in_map.emplace(id, std::make_pair(100, 100));
 }
+
 void Game::notifyNewPlayer(const ConnectionId id) {
     //std::cout <<"Game: new player notified"<< std::endl;
     _notifyEvent(id, Response(true, SUCCESS_MSG), NEW_PLAYER_EV);

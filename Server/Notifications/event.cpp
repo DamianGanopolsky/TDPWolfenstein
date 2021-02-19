@@ -1,5 +1,7 @@
 #include "event.h"
 
+Event::Event(EventOpcode event_type) : event_type(event_type) {}
+
 Event::Event(std::string map, EventOpcode event_type, Id player_id) : 
             map_(map), event_type(event_type), player_id(player_id) {}
 
@@ -255,7 +257,8 @@ bool Event::send(const ConnectionId sender, const Socket& peer) {
                 std::cout << "SCORE_5: " << score_5 << std::endl;
                 peer.send((char *)&score_5, sizeof(score_5));
             }
-            case DELETE_PLAYER_EV: {
+            case DELETE_PLAYER_EV:
+            case START_EV: {
                 break;
             }
             default:

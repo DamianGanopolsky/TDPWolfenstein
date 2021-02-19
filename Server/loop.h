@@ -2,20 +2,21 @@
 #define LOOP_H
 
 #include "../Common/thread.h"
-#include "./Model/game.h"
+#include "./Model/pre_game.h"
 #include "./clients_connected.h"
 #include "./connection_element.h"
 
 class Loop : public Thread {
     Id map;
     int rate;
-    Game game;
+    PreGame pre_game;
     ClientsConnected clients_connected;
     NonBlockingQueue<Command*> commands;
     NonBlockingQueue<ConnectionId*> finished_connections;
     NonBlockingQueue<ConnectionElement*>& new_connections;
     std::atomic<bool> is_running;
     bool has_players;
+    int first_game_it;
     void _newConnections();
     void _newCommands();
     void _finishedConnections();
