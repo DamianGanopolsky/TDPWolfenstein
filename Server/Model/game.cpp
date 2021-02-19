@@ -6,6 +6,7 @@
 #define YAML_EXT ".yaml"
 
 Game::Game(ClientsConnected& clients_connected, std::string map_Yaml, int& rate) : 
+                            new_connection_id(1),
                             YamlMapName(map_Yaml),
                             players(), players_by_name(),
                             players_in_map(), respawn_positions(),
@@ -88,8 +89,7 @@ void Game::_notifyEvent(const ConnectionId id, const Response& response, EventOp
             }
             case CHANGE_WEAPON_EV:
             case MOVEMENT_EV:
-            case SCORES_EV:
-            case PLAYERS_MISSING_EV: {
+            case SCORES_EV: {
                 break;
             }
 
@@ -326,29 +326,32 @@ void Game::_deletePlayer(ConnectionId id) {
     std::cout <<"Game: players erased"<< std::endl;
 }
 
-void Game::newPlayer(ConnectionId id) {
+const ConnectionId Game::newPlayer() {
+    ConnectionId new_player_id = this->new_connection_id;
+    ++(this->new_connection_id);
     //del yaml con mapas obtener Id map_id = ...
     //int init_x, init_y;
-    //bool has_assigned_position = _getPlayerPosition(map_id, init_x, init_y, id);
+    //bool has_assigned_position = _getPlayerPosition(map_id, init_x, init_y, new_player_id);
     //if (!has_assigned_position) {
-        //this->map.setPlayerPosition(map_id, init_x, init_y, id);
+        //this->map.setPlayerPosition(map_id, init_x, init_y, new_player_id);
     //} else {
         //map.setObjectPos(init_x, init_y, MAP_PLAYER);
     //}
     std::string nickname = "hola";
     //std::cout <<"Game: adding a new player"<< std::endl;
     this->players.emplace(std::piecewise_construct, 
-                std::forward_as_tuple(id),
+                std::forward_as_tuple(new_player_id),
                 std::forward_as_tuple(100, 100, 2240, 
-                                    2240, nickname, id,
+                                    2240, nickname, new_player_id,
                                     rate));
     //std::cout <<"Game: new player added"<< std::endl;
     map.setObjectPos(100, 100, MAP_PLAYER);
     //de alguna manera me tienen que pasar el nickname
-    this->players_by_name[id] = nickname;
-    this->players_in_map.emplace(id, std::make_pair(100, 100));
-}
+    this->players_by_name[new_player_id] = nickname;
+    this->players_in_map.emplace(new_player_id, std::make_pair(100, 100));
+    return new_player_id;
 
+}
 void Game::notifyNewPlayer(const ConnectionId id) {
     //std::cout <<"Game: new player notified"<< std::endl;
     _notifyEvent(id, Response(true, SUCCESS_MSG), NEW_PLAYER_EV);

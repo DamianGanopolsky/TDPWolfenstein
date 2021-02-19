@@ -2,14 +2,14 @@
 #define LOOP_H
 
 #include "../Common/thread.h"
-#include "./Model/pre_game.h"
+#include "./Model/game.h"
 #include "./clients_connected.h"
 #include "./connection_element.h"
 
 class Loop : public Thread {
     Id map;
     int rate;
-    PreGame pre_game;
+    Game game;
     ClientsConnected clients_connected;
     NonBlockingQueue<Command*> commands;
     NonBlockingQueue<ConnectionId*> finished_connections;

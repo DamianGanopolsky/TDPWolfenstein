@@ -91,8 +91,7 @@ enum EventOpcode {
     // Si el resultado de la cuenta es 0, muestro la pantalla
     //CHANGE_LEVEL_EV, // No hace falta aunque sea por ahora
     CHANGE_WEAPON_EV, //id del jugador, {0,1,2,3} 0=CUCHILLO, 1=pistola, ...
-    SCORES_EV, // cant de jugadores(por si son menos de 5), nickname_1, puntos_1, nickname_2, puntos_2,...
-    PLAYERS_MISSING_EV //cant de jugadores que faltan(uint32)
+    SCORES_EV // cant de jugadores(por si son menos de 5), nickname_1, puntos_1, nickname_2, puntos_2,...
 };
 
 enum ItemOpcode {
