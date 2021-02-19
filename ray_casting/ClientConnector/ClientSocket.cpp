@@ -24,9 +24,10 @@ void ClientSocket::send_nickname(std::string NickName){
     strcpy(nickname, NickName.c_str());
     uint32_t nicknamesize[1];
     nicknamesize[0]=strlen(nickname);
+     std::cout<<" tamanio nickname enviado: "<< unsigned(nicknamesize[0]) << std::endl;
     nicknamesize[0] = htole32(nicknamesize[0]);
     socket.send((char*)nicknamesize, sizeof(nicknamesize));
-    std::cout<<" tamanio nickname enviado: "<<std::endl;
+   
     socket.send(nickname,sizeof(nickname));
     std::cout<<"nickname enviado: "<< nickname <<std::endl;
 }
@@ -99,6 +100,7 @@ New_Player_Event ClientSocket::recv_player(){
     int bytes_received=0;
     uint8_t buffer[2];
     socket.receive((char*)buffer,sizeof(buffer),bytes_received);
+    std::cout << "Recibi un buffer" << std::endl;
     my_player = recv_player_func();
     return my_player;
 }
