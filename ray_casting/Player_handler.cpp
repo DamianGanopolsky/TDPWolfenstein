@@ -5,9 +5,10 @@
 #include "../Common/protocol.h"
 
 
-Player_handler::Player_handler(Player& player,Map_2d& MAP,BlockingQueue<Command*>& send_queue): 
+Player_handler::Player_handler(Player& player,Map_2d& MAP,BlockingQueue<Command*>& send_queue,\
+Client& Client): 
 								player(player),map(MAP),moving(false),rotating(false),shooting(false),\
-								SendQueue(send_queue) {
+								SendQueue(send_queue),client(Client) {
 	//sender.start();
 	//time_last_shoot=std::chrono::steady_clock::now();
 	
@@ -25,6 +26,14 @@ bool Player_handler::handle() {
 	//bool moving=false;
 	while(SDL_PollEvent(&event)!=0){
 		state = SDL_GetKeyboardState(NULL);
+		if(state[SDL_SCANCODE_ESCAPE]){
+			SendQueue.close();
+			quit=false;
+			break;   
+		}
+		if(!client.is_playing()){
+			break;
+		}
 		if((state[SDL_SCANCODE_RETURN])&&(shooting==false)){
 			//TENGO QUE USAR EL TIEMPO
 			auto t1 = std::chrono::steady_clock::now();

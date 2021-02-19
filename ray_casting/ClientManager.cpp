@@ -34,8 +34,9 @@ void ClientManager::start(){
 	Panel_window panel(map);
 	BlockingQueue<Command*> send_queue;
 	
-	Player_handler handler(player,map,send_queue);
+	
 	Client client(panel,player,map);
+	Player_handler handler(player,map,send_queue,client);
 	
 	ReceiveController receivecontroller(player,map,recv_queue,client);
 	Receiver receiver(&clientsock,recv_queue,receivecontroller);
@@ -53,8 +54,6 @@ void ClientManager::start(){
 	//std::chrono::duration<double> dur_prueba=std::chrono::system_clock::now();
 	auto t1 = std::chrono::steady_clock::now();
     while (is_running) {
-		//client.render();
-		//client.render();
 		t1=std::chrono::steady_clock::now();
 		is_running=handler.handle();   //Capturo eventos del cliente y envio
 		if(receivecontroller.update()){
@@ -68,19 +67,7 @@ void ClientManager::start(){
 			//	std::cout << "SLeeping time es" << sleeping_time << std::endl;
 				usleep(sleeping_time);
 			}
-			//usleep(33000);
-
-		}    //Recibo eventos y actualizo
-		//else{
-		//	usleep(10000);
-		//}
-		/*if(diff.count()<100){
-			int sleeping_time=(100-diff.count())*1000;
-			std::cout << "SLeeping time es" << sleeping_time << std::endl;
-			usleep(sleeping_time);
-		}*/
-		//usleep(33000);
-		//sleep(1);
+		}   
 	}
 	//auto t2= std::chrono::steady_clock::now();
 	//std::chrono::duration<double> diff=t2-t1;
