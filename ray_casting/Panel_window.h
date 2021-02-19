@@ -27,6 +27,8 @@ public:
 	void render_ending_screen();
 	void render_waiting_screen();
 
+	void render_login_screen();
+
 private:
 	Map_2d& map;
 	SDL_Renderer* renderer;

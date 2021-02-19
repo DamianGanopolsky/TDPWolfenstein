@@ -106,3 +106,7 @@ void Panel_window::render_waiting_screen(){
     SDL_RenderCopy(this->renderer,waiting_screen,NULL,&main_screen_rect);
 	SDL_RenderPresent(this->renderer);
 }
+
+void Panel_window::render_login_screen(){
+	
+}
