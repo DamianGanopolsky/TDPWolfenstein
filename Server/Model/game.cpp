@@ -4,32 +4,25 @@
 #define MAX_NUM 999999999
 #define PATH_TO_MAP "../Maps/"
 #define YAML_EXT ".yaml"
-#define FOV 90.0
+#define FOV 45
+#include <cstdlib>
 
-bool Game::is_player_target(int pos_x_attacker, int pos_y_attacker, int vision_angle_attacker, \
+bool Game::is_player_target(int pos_x_attacker, int pos_y_attacker, float vision_angle_attacker, \
 int pos_x_other_player,int pos_y_other_player){
-
-	//this->texture_section = this->get_texture_section(vision_angle, player.get_angle());
-
 	float x = pos_x_attacker - pos_x_other_player;
 	float y = pos_y_attacker - pos_y_other_player;
-	float angle = x == 0 ? 90 : atan(abs(y / x)) * 180 / PI;
-
-	if (x > 0 && y >= 0) {
-		angle = 180 - angle;
-	} else if (x > 0 && y < 0) {
-		angle += 180;
-	} else if (x < 0 && y < 0) {
-		angle = 360 - angle; 
-	}
-
-	int ply_angle = vision_angle_attacker - FOV / 2;
-	float  angle_min = ply_angle < 0 ? 360.0 + ply_angle : ply_angle;
-	ply_angle = vision_angle_attacker + FOV / 2;
-	float angle_max = ply_angle  >= 360 ? ply_angle - 360.0 : ply_angle;
-
-	bool out =  angle_min > angle_max ? angle < angle_min && angle > angle_max : angle < angle_min || angle > angle_max;
-    return !out;
+    float angle=atan2(y,x);
+    angle=angle * 180/PI;
+    std::cout << "Angulo es" << angle << std::endl;
+    angle=180-angle;
+    std::cout << "Angulo es" << angle << std::endl;
+    int diff=std::abs(angle-vision_angle_attacker);
+    if(diff<10){
+        return true;
+    }
+    else{
+        return false;
+    }
 }
 
 
@@ -338,8 +331,8 @@ std::pair<ConnectionId, double> Game::_getTargetAttacked(ConnectionId attacker_i
             int x_delta = (players_in_map.at(attacker_id).first - it->second.first);
             int y_delta = (players_in_map.at(attacker_id).second - it->second.second);
             double distance = sqrt( pow(x_delta, 2) + pow(y_delta, 2) ); 
-            if(is_player_target(attacker_x, attacker_y, int(attacker_angle), \
-other_player_x,other_player_y)){
+            if((is_player_target(attacker_x, attacker_y, attacker_angle, \
+other_player_x,other_player_y))&&(distance<200)){
                 closer_player.first=it->first;
                 closer_player.second=distance;
             }
