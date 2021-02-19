@@ -372,10 +372,8 @@ void Game::_deletePlayer(ConnectionId id) {
     std::cout <<"Game: players erased"<< std::endl;
 }
 
-void Game::newPlayer(const ConnectionId id) {
+void Game::newPlayer(const ConnectionId id, std::string& nickname) {
     _getPlayerPosition(id);
-    //de alguna manera me tienen que pasar el nickname
-    std::string nickname = "hola";
     this->players.emplace(std::piecewise_construct, 
                 std::forward_as_tuple(id),
                 std::forward_as_tuple(

@@ -26,7 +26,9 @@ void ClientSocket::send_nickname(std::string NickName){
     nicknamesize[0]=strlen(nickname);
     nicknamesize[0] = htole32(nicknamesize[0]);
     socket.send((char*)nicknamesize, sizeof(nicknamesize));
+    std::cout<<" tamanio nickname enviado: "<<std::endl;
     socket.send(nickname,sizeof(nickname));
+    std::cout<<"nickname enviado: "<< nickname <<std::endl;
 }
 
 

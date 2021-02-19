@@ -21,10 +21,10 @@ bool PreGame::update(int iteration) {
     return false;
 }
 
-ConnectionId PreGame::addPlayer() {
+ConnectionId PreGame::addPlayer(std::string& nickname) {
     if (players != max_players) {
         ConnectionId id = this->new_connection_id;
-        this->game.newPlayer(id);
+        this->game.newPlayer(id, nickname);
         ++(this->new_connection_id);
         ++(this->players);
         return id;

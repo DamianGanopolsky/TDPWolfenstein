@@ -5,7 +5,9 @@
 
 struct ConnectionElement{
     Socket peer;
-    ConnectionElement(Socket& peer) : peer(std::move(peer)){}
+    std::string nickname;
+    ConnectionElement(Socket& peer, std::string& nickname) : 
+                peer(std::move(peer)), nickname(nickname) {}
 };
 
 

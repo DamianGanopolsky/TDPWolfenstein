@@ -5,16 +5,18 @@
 #include <string>
 #include <atomic>
 #include <iostream>
-//#include "../Common/socket.h"
-#include "../Common/thread.h"
-#include "../Common/non_blocking_queue.h"
-#include "./connection_element.h"
+#include "./login.h"
+//#include "../Common/thread.h"
+//#include "../Common/non_blocking_queue.h"
+//#include "./connection_element.h"
 
 class Accepter: public Thread {
 	Socket socket;
 	std::atomic<bool> keep_accepting;
 	NonBlockingQueue<ConnectionElement*>& new_connections;
-
+	std::list<Login> logins;
+	void _joinReaper();
+	void _joinThreads();
 	public:
 		explicit Accepter(const char* service, NonBlockingQueue<ConnectionElement*>& new_connections);
 		~Accepter();

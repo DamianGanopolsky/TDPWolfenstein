@@ -13,7 +13,7 @@ class PreGame {
         ~PreGame();
         Game game;
         bool update(int iterations);
-        ConnectionId addPlayer();
+        ConnectionId addPlayer(std::string& nickname);
         void notifyNewPlayer(const ConnectionId id);
         void deletePlayer(const ConnectionId id);
 };

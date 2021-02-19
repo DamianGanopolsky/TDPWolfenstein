@@ -18,7 +18,7 @@ void Loop::_newConnections() {
     while ((connection = this->new_connections.pop())) {
         std::cout <<"Loop: new_connection"<< std::endl;
         //ConnectionId id = this->game.newPlayer();
-        ConnectionId id = pre_game.addPlayer();
+        ConnectionId id = pre_game.addPlayer(connection->nickname);
         std::cout <<"Loop: new player added"<< id <<std::endl;
         if (id) {
             std::cout <<"Loop: notifico new players"<< id <<std::endl;
