@@ -179,11 +179,24 @@ std::vector<std::pair<int,int>>> map,int height,int width){
     }
     }*/
     YAML::Emitter out;
+    int players_=0;
+    for (auto const& x : map){
+        if(x.first==MAP_PLAYER){
+            players_=x.second.size();
+            /*for(std::pair<int,int> position : x.second) {
+                players_++;
+            }*/
+        }
+    }
     //out << YAML::BeginDoc;
     
     out << YAML::BeginMap;
     out << YAML::Key<< "Map";
     out << YAML::Value << YAML::BeginMap;
+    //out << YAML::BeginMap;
+    out << YAML::Key << "Cant_players";
+    out << YAML::Value << players_;
+   // out << YAML::EndMap;
     //out << YAML::BeginMap;
     out << YAML::Key << "map_dimentions";
     out << YAML::Value << YAML::BeginMap;
@@ -193,6 +206,7 @@ std::vector<std::pair<int,int>>> map,int height,int width){
     out << YAML::Value << width;
     out << YAML::EndMap;
     //out << YAML::EndMap;
+    int players_count=0;
 
     for (auto const& x : map){
         //out << YAML::BeginMap;
@@ -243,6 +257,9 @@ std::vector<std::pair<int,int>>> map,int height,int width){
             if(x.first==DOOR){
                 std::cout << "en x" << position.first << "en y" << position.second << std::endl;
             }*/
+            if(x.first==MAP_PLAYER){
+                players_count++;
+            }
             out << YAML::BeginMap;
             out << YAML::Key << "x";
             out << YAML::Value << position.first*CUADRICULA;
@@ -253,7 +270,10 @@ std::vector<std::pair<int,int>>> map,int height,int width){
         out << YAML::EndSeq;
         out << YAML::EndMap;
     }
+
     out << YAML::EndMap;
+
+    std::cout << "Players count es" << players_count << std::endl;
     
     std::ofstream fileOut(YamlPathToWrite);
     //std::ofstream fileOut("../Maps/Export.yaml");
