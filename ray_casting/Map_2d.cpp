@@ -59,7 +59,6 @@ void Map_2d::close_door(int x,int y){
 }
 
 void Map_2d::new_player(int id,int pos_x,int pos_y,int angle,int status){
-	std::cout << "PASE POR NEW PLAYER" << std::endl;
 	players_state[id].pos_x=pos_x;
 	players_state[id].pos_y=pos_y;
 	players_state[id].vision_angle=angle;

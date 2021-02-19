@@ -93,7 +93,7 @@ void ReceiveController::update(){
                         lives=lives-1;
                         std::cout << "LIVES ES" << lives << std::endl;
                         player.update_lives(lives);
-                        if(lives==-1){
+                        if(lives==0){
                             client.player_lost();
                             std::cout << "Me quede sin vidas" << std::endl;
                         }
@@ -101,7 +101,8 @@ void ReceiveController::update(){
                     else{
                         soundmanager.play_sound(DEATH);
                     }
-                    map.add_dead_body(death_ev.id_player,death_ev.pos_x,death_ev.pos_y);
+                    std::cout << "AGrego muerto en el mapa " << std::endl;
+                     map.add_dead_body(death_ev.id_player,death_ev.pos_x,death_ev.pos_y);
                     break;
                 }
                 case BE_ATTACKED_EV:{
