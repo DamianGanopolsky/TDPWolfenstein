@@ -20,7 +20,8 @@ class ClientsConnected;
 #include "./post_game.h"
 
 class Game {
-    std::string YamlMapName;
+    std::string map_Yaml;
+    std::string path_Yaml;
     std::unordered_map<ConnectionId, Player> players;
     std::unordered_map<ConnectionId, std::string> players_by_name;
     std::unordered_map<ConnectionId, std::pair<int, int>> players_in_map;
@@ -32,6 +33,8 @@ class Game {
     bool game_ended;
     ObjectMap objMap;
     int rate;
+    int height;
+    int width;
 
     void _notifyEvent(const ConnectionId id, const Response& response, EventOpcode event_type);
     void _notifyResponse(const ConnectionId id, const Response& response);
@@ -42,7 +45,7 @@ class Game {
     bool _changeCell(PlayerPosition &pos, std::pair<int, int> &next_pos);
     //ItemOpcode _getItemOpcode(const char* message); ///falta implmentar
     bool _interactWith(Player& player, Map map, Object* obj);///falta implmentar
-    void _getPlayerPosition(Id map_id, int init_x, int init_y, Id new_player_id);///falta implmentar
+    void _getPlayerPosition(ConnectionId new_player_id);
     void _attack(const ConnectionId id, int iteration);
     std::pair<ConnectionId, double> _getTargetAttacked(ConnectionId attacker_id);
     void _reduceBullets(const ConnectionId id);

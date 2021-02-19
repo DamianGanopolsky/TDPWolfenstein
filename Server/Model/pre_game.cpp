@@ -1,9 +1,14 @@
 #include "./pre_game.h"
 
+#define PATH_TO_MAP "../Maps/"
+#define YAML_EXT ".yaml"
+
 PreGame::PreGame(ClientsConnected& clients_connected, std::string map_Yaml, int& rate) :  
                     new_connection_id(1),
                     players(0), game(clients_connected, map_Yaml, rate) {
-                        this->max_players = 2;
+                        YAML::Node config = YAML::LoadFile(PATH_TO_MAP+map_Yaml+YAML_EXT);
+                        this->max_players = config["Map"]["Cant_players"].as<int>();
+                        std::cout << "CANT PLAYERS ES" << max_players << std::endl;
                     }
 
 PreGame::~PreGame() {}

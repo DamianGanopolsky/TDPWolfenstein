@@ -1,8 +1,5 @@
 #include "loop.h"
 #include <chrono>
-#include "../Server/Model/constants/YamlConfig.h"
-#define PATH_TO_MAP "../Maps/"
-#define YAML_EXT ".yaml"
 
 Loop::Loop(NonBlockingQueue<ConnectionElement*>& new_connections,std::string mapYaml) : 
                 map(12), rate(1000/30), 
@@ -12,11 +9,7 @@ Loop::Loop(NonBlockingQueue<ConnectionElement*>& new_connections,std::string map
                 finished_connections(), 
                 new_connections(new_connections),
                 is_running(true), has_players(false),
-                first_game_it(0) {
-                    /*YAML::Node config = YAML::LoadFile(PATH_TO_MAP+mapYaml+YAML_EXT);
-                    int cant_players = config["Map"]["Cant_players"].as<int>();
-                    std::cout << "CANT PLAYERS ES" << cant_players << std::endl;*/
-                }
+                first_game_it(0) {}
 
 Loop::~Loop() {}
 

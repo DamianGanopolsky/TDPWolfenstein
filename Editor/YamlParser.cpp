@@ -157,7 +157,7 @@ std::map <int,std::pair<int,int>> YamlParser::load_players(std::string YamlPath)
     map= YAML::LoadFile(YamlPath);
     const YAML::Node& players=map["Map"]["Players"];
     std::pair<int,int> map_position;
-    int player_number=0;
+    int player_number=1;
 
     for (YAML::const_iterator it = players["position"].begin(); it != players["position"].end(); ++it) {
         const YAML::Node& pos = *it;
