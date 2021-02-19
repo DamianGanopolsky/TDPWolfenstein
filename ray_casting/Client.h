@@ -21,6 +21,8 @@ public:
 
     void start_game();
 
+    bool is_playing();
+
     void stop_game();
 
     Player get_player();

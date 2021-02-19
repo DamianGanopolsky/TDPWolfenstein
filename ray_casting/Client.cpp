@@ -20,11 +20,16 @@ void Client::start_game(){
     waiting_screen=false;
 }
 
+bool Client::is_playing(){
+    return !waiting_screen;
+}
+
 void Client::render(){
     //auto t1= std::chrono::steady_clock::now();
     //int animation_to_render=0;
     if(waiting_screen){
         panel.render_waiting_screen();
+        return;
     }
 
     if((!player_lost_)&&(!game_finished)){

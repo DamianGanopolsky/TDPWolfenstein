@@ -324,6 +324,10 @@ void ClientSocket::recv(char* recv_buff,int len){
 
                     break;
                 }
+                case START_EV:{
+                    recv_queue.push(std::move(update_message));
+                    break;
+                }
 
 
 

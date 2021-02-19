@@ -120,6 +120,10 @@ bool ReceiveController::update(){
                     }
                     break;
                 }
+                case START_EV:{
+                    client.start_game();
+                    break;
+                }
                 default:
                     break;
              }

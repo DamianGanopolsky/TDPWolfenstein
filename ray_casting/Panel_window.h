@@ -25,6 +25,7 @@ public:
 	void update(std::set<Ray>&& rays, std::list<Game_element>&& elements, Player_info& player_info);
 	void render_player_lost_screen();
 	void render_ending_screen();
+	void render_waiting_screen();
 
 private:
 	Map_2d& map;
@@ -34,6 +35,7 @@ private:
 	
 	SDL_Window *window;
 	SDL_Texture* Ending_screen_base;
+	SDL_Texture* waiting_screen;
 	bool running;
 	Wall_texture wall_textures;
 	Player_panel_status player_panel_status;

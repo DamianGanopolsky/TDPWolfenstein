@@ -14,6 +14,9 @@ Panel_window::Panel_window(Map_2d& MAP): map(MAP), running(true) {
 	map_height=map.get_height();
 	SDL_Surface* ending_screen_surf=IMG_Load("../ray_casting/sprites/EndingScreenBase.png");
     Ending_screen_base=SDL_CreateTextureFromSurface(this->renderer,ending_screen_surf);
+	SDL_Surface* waiting_screen_surf=IMG_Load("../ray_casting/sprites/waiting_screen_final.jpg");
+	waiting_screen=SDL_CreateTextureFromSurface(this->renderer,waiting_screen_surf);
+	SDL_FreeSurface(waiting_screen_surf);
     SDL_FreeSurface(ending_screen_surf);
 }
 
@@ -98,5 +101,8 @@ void Panel_window::render_ending_screen(){
 }
 
 void Panel_window::render_waiting_screen(){
-	
+	SDL_RenderClear(this->renderer);
+	SDL_Rect main_screen_rect={0,0,PANEL_WIDTH,PANEL_HEIGHT};
+    SDL_RenderCopy(this->renderer,waiting_screen,NULL,&main_screen_rect);
+	SDL_RenderPresent(this->renderer);
 }
