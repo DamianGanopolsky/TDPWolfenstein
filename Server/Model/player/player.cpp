@@ -9,7 +9,8 @@ Player::Player(int width, int height,
                 moving(false), rotating(false), 
                 shooting(false), knife(),
                 gun(), machine_gun(), chain_cannon(),
-                rate(rate), machine_gun_cooldown(0),
+                rate(rate), life_cooldown(LIFE_TIME), 
+                machine_gun_cooldown(0),
                 chain_cannon_cooldown(0), gun_can_shoot(true),
                 forced_weapon(false), 
                 weapon_equiped_before(KNIFE_TYPE) /*default*/ {}
@@ -22,7 +23,8 @@ Player::Player(int pos_x, int pos_y, int width, int height,
                 moving(false), rotating(false), 
                 shooting(false), knife(),
                 gun(), machine_gun(), chain_cannon(),
-                rate(rate), machine_gun_cooldown(0),
+                rate(rate), life_cooldown(LIFE_TIME), 
+                machine_gun_cooldown(0),
                 chain_cannon_cooldown(0), gun_can_shoot(true),
                 forced_weapon(false), 
                 weapon_equiped_before(KNIFE_TYPE) /*default*/ {}
@@ -103,6 +105,19 @@ void Player::updateRotation() {
     if (this->rotating) {
         this->pos.rotate(this->pos.getRotation());
     }
+}
+
+Response Player::updateLife(int& iteration) {
+    if (this->alive) {
+        this->life_cooldown -= iteration;
+        while (this->life_cooldown <= 0) {
+            std::cout <<"Player: updating life"<< std::endl;
+            this->life_cooldown += LIFE_TIME;
+            reduceLife(LIFE_LOST_BECAUSE_TIME);
+            return Response(true, SUCCESS_MSG);
+        }
+    }
+    return Response(false, CANT_BE_ATTACKED_ERROR_MSG);
 }
 
 Response Player::updateShooting(double& distance, int& damage, int& iteration) {

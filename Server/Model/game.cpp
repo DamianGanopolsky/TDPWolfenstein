@@ -105,10 +105,10 @@ void Game::_notifyEvent(const ConnectionId id, const Response& response, EventOp
         }
         std::cout<<"Game: Se notifica a todos"<<std::endl;
         this->clients_connected.sendEventToAll(notification);
-    } else {
-        notification = new Message(ERROR_MSSG, response.message);
-        this->clients_connected.sendMessageToAll(notification);
-    } 
+    } //else {
+        //notification = new Message(ERROR_MSSG, response.message);
+        //this->clients_connected.sendMessageToAll(notification);
+    //} 
 }
 
 void Game::_notifyItemChanged(const ConnectionId id, const Response& response, ItemOpcode item_type) {
@@ -424,7 +424,7 @@ void Game::deletePlayer(const ConnectionId id) {
     }
 }
 
-bool Game::updatePlayers(const int iteration) {
+bool Game::updatePlayers(int& iteration) {
     //std::cout <<"Game: enter updatePlayers()"<< std::endl;
     std::unordered_map<ConnectionId, Player>::iterator 
         player_it = this->players.begin();
@@ -444,16 +444,22 @@ bool Game::updatePlayers(const int iteration) {
         if (player.isShooting()) {
             std::cout <<"Game: player shoot"<< std::endl;
             _attack(id, iteration);
-        } else {
-            if (player.machine_gun_cooldown > 0) {
-                player.machine_gun_cooldown = std::max((int)(player.chain_cannon_cooldown - iteration *rate),0);
-            }
-            if (player.chain_cannon_cooldown > 0) {
-                player.chain_cannon_cooldown = std::max((int)(player.chain_cannon_cooldown - iteration *rate),0);
-            }
-            if (!player.gun_can_shoot) {
-                player.gun_can_shoot = true;
-            }
+        }
+        if (player.machine_gun_cooldown > 0) {
+            player.machine_gun_cooldown = std::max((int)(player.chain_cannon_cooldown - iteration *rate),0);
+        }
+        if (player.chain_cannon_cooldown > 0) {
+            player.chain_cannon_cooldown = std::max((int)(player.chain_cannon_cooldown - iteration *rate),0);
+        }
+        if (!player.gun_can_shoot) {
+            player.gun_can_shoot = true;
+        }
+        if (player.isAlive()) {
+            Response response = player.updateLife(iteration);
+            _notifyEvent(id, response, BE_ATTACKED_EV);
+        }
+        if (player.life_cooldown > 0) {
+            player.life_cooldown = std::max((int)(player.life_cooldown - iteration),0);
         }
         if ((player.getInfo().getNumBullets() == 0) && (!player.forced_weapon)) {
             std::cout <<"Game: DOESNT HAS BULLETS"<< std::endl;
@@ -595,6 +601,7 @@ bool Game::receiveAttack(const ConnectionId id, int& damage) {
     Player& player = this->players.at(id);
     Response response = player.receiveAttack(damage);
     if (response.message == PLAYER_DIED_MSG) {
+        map.setObjectPos(player.getPos().getX(), player.getPos().getY(), MAP_NONE);
         std::cout<<"Game: PLAYER_DIED_MSG"<<std::endl;
         _notifyEvent(id, response, DEATH_EV);
         player.setPosition(respawn_positions.at(id).first,
