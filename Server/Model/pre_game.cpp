@@ -5,7 +5,8 @@
 
 PreGame::PreGame(ClientsConnected& clients_connected, std::string map_Yaml, int& rate) :  
                     new_connection_id(1),
-                    players(0), game(clients_connected, map_Yaml, rate) {
+                    players(0), game_started(false),
+                    game(clients_connected, map_Yaml, rate) {
                         YAML::Node config = YAML::LoadFile(PATH_TO_MAP+map_Yaml+YAML_EXT);
                         this->max_players = config["Map"]["Cant_players"].as<int>();
                         std::cout << "CANT PLAYERS ES" << max_players << std::endl;
@@ -16,6 +17,7 @@ PreGame::~PreGame() {}
 bool PreGame::update(int iteration) {
     if (players == max_players){
         game.updatePlayers(iteration);
+        game_started = true;
         return true;
     }
     return false;
@@ -41,5 +43,8 @@ void PreGame::notifyNewPlayer(const ConnectionId id) {
 void PreGame::deletePlayer(const ConnectionId id) {
     if (players == max_players) {
         game.deletePlayer(id);
+    } else if (!game_started) {
+        --(this->players);
+        --(this->new_connection_id);
     }
 }

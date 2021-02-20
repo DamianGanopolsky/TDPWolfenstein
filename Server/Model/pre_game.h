@@ -7,6 +7,7 @@ class PreGame {
     ConnectionId new_connection_id;
     int max_players;
     int players;
+    bool game_started;
 
     public:
         PreGame(ClientsConnected& clients_connected, std::string map_Yaml, int& rate);
