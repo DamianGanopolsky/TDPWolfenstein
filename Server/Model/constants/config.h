@@ -14,6 +14,7 @@ enum Items {
     CORPSE
 
 };
+
 // healers:
 
 #define KIT_POINTS 20
@@ -21,6 +22,8 @@ enum Items {
 #define BLOOD_MINIMUN_TO_HEAL 11
 #define FOOD_POINTS 10
 #define MAX_LIFE 100
+#define LIFE_TIME 3636
+#define LIFE_LOST_BECAUSE_TIME 5
 
 // weapons:
 

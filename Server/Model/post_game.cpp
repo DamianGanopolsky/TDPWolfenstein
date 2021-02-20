@@ -44,7 +44,8 @@ void PostGame::_getBestScores() {
         int score = -1;
         for (it = losers_copy.begin(); it != losers_copy.end(); it++) {
             std::cout<<"PostGame: enter in for2"<<std::endl;
-            int value = ((it->second.second[1]*2) + it->second.second[0]);
+            int value = ((it->second.second[0]*TREASURE_WEIGHT_FINAL_SCORE)+
+                (it->second.second[1]*KILLS_WEIGHT_FINAL_SCORE));
             if (score < value) {
                 std::cout<<"PostGame:enters in if"<<std::endl;
                 name = it->second.first;

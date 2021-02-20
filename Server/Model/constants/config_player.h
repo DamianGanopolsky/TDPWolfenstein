@@ -9,6 +9,10 @@
 #define DISPLACEMENT 5
 #define PI 3.14159265
 
+#define KILLS_WEIGHT_FINAL_SCORE 2
+#define TREASURE_WEIGHT_FINAL_SCORE 1
+
+
 //player position direction
 enum Direction {
     UP_DIR = 0,

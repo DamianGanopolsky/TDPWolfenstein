@@ -66,7 +66,7 @@ int pos_x_other_player,int pos_y_other_player);
         void newPlayer(const ConnectionId id, std::string& nickname);
         void notifyNewPlayer(const ConnectionId id);
         void deletePlayer(const ConnectionId id);
-        bool updatePlayers(const int iteration);
+        bool updatePlayers(int& iteration);
 
         void updateOpenDoorsLifetime(const int iteration);
 

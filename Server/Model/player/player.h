@@ -43,6 +43,7 @@ public:
           std::string& nickname, Id id_player, 
           const int& rate);
       ~Player();
+      int life_cooldown;
       int machine_gun_cooldown;
       int chain_cannon_cooldown;
       bool gun_can_shoot;
@@ -59,6 +60,7 @@ public:
       bool isShooting();
       void updateMovement();
       void updateRotation();
+      Response updateLife(int& iteration);
       Response updateShooting(double& distance, int& damage, int& iteration);
       Response receiveAttack(int& damage);
       Response resurrect();
