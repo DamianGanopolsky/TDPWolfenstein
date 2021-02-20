@@ -26,10 +26,11 @@ Panel_window::Panel_window():  running(true) {
 	//logincontroller.run();
 }
 
-void Panel_window::load_map_dimentions(int MAP_HEIGHT,int MAP_WIDTH,int Map_Players){
+void Panel_window::load_map_dimentions(int MAP_HEIGHT,int MAP_WIDTH,int Map_Players,std::string Map_Name){
 	map_height=MAP_HEIGHT;
 	map_width=MAP_WIDTH;
 	map_cant_players=Map_Players;
+	map_name=Map_Name;
 }
 
 SDL_Renderer* Panel_window::get_renderer(){
@@ -116,7 +117,7 @@ void Panel_window::render_player_lost_screen(){
 }
 
 void Panel_window::render_ending_screen(){
-	SDL_SetRenderDrawColor(this->renderer,105,105,105,255);
+	SDL_SetRenderDrawColor(this->renderer,105,105,40,40);
 	SDL_RenderClear(this->renderer);
 	SDL_Rect main_screen_rect={0,0,PANEL_WIDTH,PANEL_HEIGHT};
     SDL_RenderCopy(this->renderer,Ending_screen_base,NULL,&main_screen_rect);
@@ -174,6 +175,15 @@ void Panel_window::render_waiting_screen(){
 	SDL_RenderClear(this->renderer);
 	SDL_Rect main_screen_rect={0,0,PANEL_WIDTH,PANEL_HEIGHT};
     SDL_RenderCopy(this->renderer,waiting_screen,NULL,&main_screen_rect);
+	TTF_Font* Sans = TTF_OpenFont("../ray_casting/panel_status/OpenSans-Bold.ttf", 35); 
+	SDL_Rect text_1_Rect={int(0.2344*PANEL_WIDTH),int(0.5875*PANEL_HEIGHT),int(0.5469*PANEL_WIDTH),int(0.075*PANEL_HEIGHT)};
+	std::string text="Mapa elegido: "+map_name+" ("+std::to_string(map_cant_players)+" jugadores"+")";
+    SDL_Surface* surfaceMessage = TTF_RenderText_Solid(Sans, text.c_str(), {108, 0, 0});
+	SDL_Texture* texture_of_text = SDL_CreateTextureFromSurface(this->renderer,surfaceMessage); 
+	SDL_RenderCopy(this->renderer, texture_of_text, NULL, &text_1_Rect);
+	SDL_FreeSurface(surfaceMessage);
+	SDL_DestroyTexture(texture_of_text);
+	TTF_CloseFont(Sans);
 	SDL_RenderPresent(this->renderer);
 }
 

@@ -28,7 +28,7 @@ public:
 	void render_player_lost_screen();
 	void render_ending_screen();
 	void render_waiting_screen();
-	void load_map_dimentions(int MAP_HEIGHT,int MAP_WIDTH,int map_players);
+	void load_map_dimentions(int MAP_HEIGHT,int MAP_WIDTH,int map_players,std::string Map_Name);
 	void load_final_stats(std::vector<Player_stats> Final_Stats);
 
 	void render_login_screen();
@@ -46,6 +46,7 @@ private:
 	int map_width;
 	int map_height;
 	int map_cant_players;
+	std::string map_name;
 	std::vector<Player_stats> final_stats;
 };
 
