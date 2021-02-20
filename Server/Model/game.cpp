@@ -408,9 +408,12 @@ void Game::notifyNewPlayer(const ConnectionId id) {
 void Game::deletePlayer(const ConnectionId id) {
     if ((!this->players.count(id)) && (!post_game.isInPostGame(id))) {
         throw Exception("Error in deletePLayer: unknown player id");
-    } else if (!post_game.isInPostGame(id)) {
+    }
+    if (!post_game.isInPostGame(id)) {
+        std::cout<<"Agrego a post_game a: "<<id<<std::endl;
         post_game.add(id, players_by_name.at(id), players.at(id).getInfo().getTreasure());
-    } else if(this->players.count(id)) {    
+    } 
+    if(this->players.count(id)) {
         _deletePlayer(id);
     
     }
