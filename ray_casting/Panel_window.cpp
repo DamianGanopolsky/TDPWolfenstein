@@ -126,22 +126,15 @@ void Panel_window::render_ending_screen(){
 	float x_initial=0.0078;
 	float y_initial=0.23;
 	float x_treasure=0.5156;
-	float x_final_score=0.359;
-	float x_kills=0.6875;
-	/*int x_initial=5;
-	int y_initial=85;
-	int x_treasure=330;
-	int x_final_score=230;
-	int x_kills=440;*/
+	//float x_final_score=0.359;
+	//float x_kills=0.6875;
 
 	for (auto & element : final_stats) {
 
 		SDL_Rect text_1_Rect={int(x_initial*PANEL_WIDTH),int(y_initial*PANEL_HEIGHT),int(0.2344*PANEL_WIDTH),int(0.1*PANEL_HEIGHT)};
 		SDL_Rect text_2_Rect={int(x_treasure*PANEL_WIDTH),int(y_initial*PANEL_HEIGHT),int(0.039*PANEL_WIDTH),int(0.0625*PANEL_HEIGHT)};
-		SDL_Rect kills_Rect={int(x_final_score*PANEL_WIDTH),int(y_initial*PANEL_HEIGHT),int(0.039*PANEL_WIDTH),int(0.0625*PANEL_HEIGHT)};
-		SDL_Rect final_score_Rect={int(x_kills*PANEL_WIDTH),int(y_initial*PANEL_HEIGHT),int(0.039*PANEL_WIDTH),int(0.0625*PANEL_HEIGHT)};
-		std::cout << "Nickname es" << element.Nickname << std::endl;
-		//const char* final_score= "El score final ha sido:";
+		//SDL_Rect kills_Rect={int(x_final_score*PANEL_WIDTH),int(y_initial*PANEL_HEIGHT),int(0.039*PANEL_WIDTH),int(0.0625*PANEL_HEIGHT)};
+		//SDL_Rect final_score_Rect={int(x_kills*PANEL_WIDTH),int(y_initial*PANEL_HEIGHT),int(0.039*PANEL_WIDTH),int(0.0625*PANEL_HEIGHT)};
 		std::string treasure = std::to_string(element.score);
 		SDL_Surface* surfaceMessage = TTF_RenderText_Solid(Sans, element.Nickname.c_str(), {108, 0, 0});
 		SDL_Surface* surfaceMessage_treas = TTF_RenderText_Solid(Sans, treasure.c_str(), {108, 0, 0});
@@ -149,8 +142,8 @@ void Panel_window::render_ending_screen(){
 		SDL_Texture* texture_of_treasure = SDL_CreateTextureFromSurface(this->renderer,surfaceMessage_treas); 
 		SDL_RenderCopy(this->renderer, texture_of_text, NULL, &text_1_Rect);
 		SDL_RenderCopy(this->renderer, texture_of_treasure, NULL, &text_2_Rect);
-		SDL_RenderCopy(this->renderer, texture_of_treasure, NULL, &kills_Rect);
-		SDL_RenderCopy(this->renderer, texture_of_treasure, NULL, &final_score_Rect);
+		//SDL_RenderCopy(this->renderer, texture_of_treasure, NULL, &kills_Rect);
+		//SDL_RenderCopy(this->renderer, texture_of_treasure, NULL, &final_score_Rect);
 		SDL_FreeSurface(surfaceMessage);
 		SDL_DestroyTexture(texture_of_text);
 		SDL_FreeSurface(surfaceMessage_treas);
