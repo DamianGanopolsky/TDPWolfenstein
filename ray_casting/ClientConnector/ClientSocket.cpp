@@ -232,6 +232,12 @@ void ClientSocket::recv(char* recv_buff,int len){
                     std::string name1__(name1);
                     std::string name1_final=name1__.substr(0,name1_size_);
                     std::cout << "Name 1 es" << name1_final << std::endl;
+                    Player_stats player_1;
+                    player_1.Nickname=name1_final;
+                    player_1.score=score1_size[0];
+                    final_stats.push_back(player_1);
+
+
                     socket.receive((char*)name2_size,sizeof(name2_size),bytes_received);
                     name2_size[0]=le32toh(name2_size[0]);
                     int name2_size_=int(name2_size[0]);
@@ -249,6 +255,13 @@ void ClientSocket::recv(char* recv_buff,int len){
                     std::string name2__(name2);
                     std::string name2_final=name2__.substr(0,name2_size_);
                     std::cout << "Name 2 es" << name2_final << std::endl;
+                    Player_stats player_2;
+                    player_2.Nickname=name2_final;
+                    player_2.score=score2_size[0];
+                    final_stats.push_back(player_2);
+
+
+
                     socket.receive((char*)name3_size,sizeof(name3_size),bytes_received);
                     name3_size[0]=le32toh(name3_size[0]);
                     int name3_size_=int(name3_size[0]);
@@ -306,10 +319,11 @@ void ClientSocket::recv(char* recv_buff,int len){
                     std::string name5__(name5);
                     std::string name5_final=name5__.substr(0,name5_size_);
                     std::cout << "Name 5 es" << name5_final << std::endl;
-
+                    
 
                     std::cout << "Score 5 es" << unsigned(score5_size[0]) << std::endl;
-
+                    update_message->load_game_stats(final_stats);
+                    recv_queue.push(std::move(update_message));
                     break;
                 }
                 case START_EV:{

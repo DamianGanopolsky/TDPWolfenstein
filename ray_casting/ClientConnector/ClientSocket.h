@@ -4,6 +4,7 @@
 #include "../../Common/socket.h"
 #include "../../Common/non_blocking_queue.h"
 #include "UpdateMessage.h"
+#include "../const.h"
 
 class ClientSocket {
 public:
@@ -24,6 +25,7 @@ private:
     NonBlockingQueue<UpdateMessage*>& recv_queue;
     Socket socket;
     New_Player_Event my_player;
+    std::vector<Player_stats> final_stats;
     int initial_lives;
 
 };

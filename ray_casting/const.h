@@ -1,5 +1,6 @@
 #ifndef __CONST_H__
 #define __CONST_H__
+#include <string>
 
 #define PANEL_HEIGHT 400
 #define PANEL_WIDTH 640
@@ -30,6 +31,12 @@ enum Sounds_ {
     CHAIN_CANNON_ATTACK,
     DEATH,
     EQUIP_WEAPON
+};
+
+struct Player_stats{
+    std::string Nickname;
+    uint32_t score;
+    uint32_t kills;
 };
 
 //para panel status

@@ -74,7 +74,6 @@ void ClientManager::start(){
 			//std::cout << "Delta es" << diff.count() << std::endl;
 			if(diff.count()<100){
 				int sleeping_time=(100-diff.count())*1000;
-			//	std::cout << "SLeeping time es" << sleeping_time << std::endl;
 				usleep(sleeping_time);
 			}
 		}   

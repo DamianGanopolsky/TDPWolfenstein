@@ -1,8 +1,11 @@
 #ifndef __UPDATEMESSAGE_H__
 #define __UPDATEMESSAGE_H__
 
+#include <vector>
+#include <string>
 #include <stdint.h>
 #include "../../Common/protocol.h"
+#include "../const.h"
 
 class UpdateMessage {
 public:
@@ -24,6 +27,8 @@ public:
 
     void load_item_taken(uint32_t player_id,uint32_t pos_x,uint32_t pos_y,uint32_t value);
 
+    void load_game_stats(std::vector<Player_stats> final_stats);
+
     uint8_t get_opcode();
 
     uint8_t get_event_type();
@@ -40,6 +45,8 @@ public:
 
     Death_event get_death_event();
 
+    std::vector<Player_stats> get_final_stats();
+
 private:
     uint8_t Opcode;
     uint8_t Type_Of_Event;
@@ -55,6 +62,8 @@ private:
     Item_taken_event ItTakenEvent;
 
     Death_event death_event;
+
+    std::vector<Player_stats> final_stats;
 
     /*uint8_t Player_Id;
     uint8_t Pos_X;

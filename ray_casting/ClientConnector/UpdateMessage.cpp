@@ -10,6 +10,7 @@ UpdateMessage::UpdateMessage(const UpdateMessage& other) {
     this->ChDoorEvent=other.ChDoorEvent;
     this->ItTakenEvent=other.ItTakenEvent;
     this->death_event=other.death_event;
+    this->final_stats=other.final_stats;
 }
 UpdateMessage& UpdateMessage::operator=(const UpdateMessage& other) {
     this->Opcode = other.Opcode;
@@ -20,6 +21,7 @@ UpdateMessage& UpdateMessage::operator=(const UpdateMessage& other) {
     this->ChDoorEvent=other.ChDoorEvent;
     this->ItTakenEvent=other.ItTakenEvent;
     this->death_event=other.death_event;
+    this->final_stats=other.final_stats;
     return *this;
 }
 
@@ -76,10 +78,16 @@ void UpdateMessage::load_death_event(uint32_t player_id,uint32_t pos_x,uint32_t 
     death_event.pos_y=pos_y;
 }
 
-
+void UpdateMessage::load_game_stats(std::vector<Player_stats> Final_Stats){
+    final_stats=Final_Stats;
+}
 
 Movement_event UpdateMessage::get_mov_event_info(){
     return MovEvent;
+}
+
+std::vector<Player_stats> UpdateMessage::get_final_stats(){
+    return final_stats;
 }
 
 New_Player_Event UpdateMessage::get_new_player_info(){
