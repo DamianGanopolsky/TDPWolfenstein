@@ -12,6 +12,7 @@
 #include <list>
 #include "Map_2d.h"
 #include "const.h"
+#include <vector>
 
 
 class Panel_window {
@@ -28,6 +29,7 @@ public:
 	void render_ending_screen();
 	void render_waiting_screen();
 	void load_map_dimentions(int MAP_HEIGHT,int MAP_WIDTH);
+	void load_final_stats(std::vector<Player_stats> Final_Stats);
 
 	void render_login_screen();
 
@@ -43,7 +45,7 @@ private:
 	Player_panel_status player_panel_status;
 	int map_width;
 	int map_height;
-
+	std::vector<Player_stats> final_stats;
 };
 
 #endif

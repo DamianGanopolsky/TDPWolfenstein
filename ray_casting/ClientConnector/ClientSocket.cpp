@@ -229,13 +229,23 @@ void ClientSocket::recv(char* recv_buff,int len){
 
                     std::cout << "Score 1 es" << unsigned(score1_size[0]) << std::endl;
                     
+                    std::vector<Player_stats> pl_stats;
+
+
                     std::string name1__(name1);
                     std::string name1_final=name1__.substr(0,name1_size_);
                     std::cout << "Name 1 es" << name1_final << std::endl;
+                    /*Player_stats player_1;
+                    player_1.Nickname=name1_final;
+                    player_1.score=score1_size[0];
+                    final_stats.push_back(player_1);*/
                     Player_stats player_1;
                     player_1.Nickname=name1_final;
                     player_1.score=score1_size[0];
-                    final_stats.push_back(player_1);
+                    pl_stats.push_back(player_1);
+                    //pl_stats[0].Nickname=name1_final;
+                    //pl_stats[0].score=score1_size[0];
+                    //final_stats.push_back(pl_stats[0]);
 
 
                     socket.receive((char*)name2_size,sizeof(name2_size),bytes_received);
@@ -258,9 +268,7 @@ void ClientSocket::recv(char* recv_buff,int len){
                     Player_stats player_2;
                     player_2.Nickname=name2_final;
                     player_2.score=score2_size[0];
-                    final_stats.push_back(player_2);
-
-
+                    pl_stats.push_back(player_2);
 
                     socket.receive((char*)name3_size,sizeof(name3_size),bytes_received);
                     name3_size[0]=le32toh(name3_size[0]);
@@ -280,6 +288,11 @@ void ClientSocket::recv(char* recv_buff,int len){
 
 
                     std::cout << "Score 3 es" << unsigned(score3_size[0]) << std::endl;
+
+                    Player_stats player_3;
+                    player_3.Nickname=name3_final;
+                    player_3.score=score3_size[0];
+                    pl_stats.push_back(player_3);
 
 
                     socket.receive((char*)name4_size,sizeof(name4_size),bytes_received);
@@ -302,6 +315,11 @@ void ClientSocket::recv(char* recv_buff,int len){
 
                     std::cout << "Score 4 es" << unsigned(score4_size[0]) << std::endl;
 
+                    Player_stats player_4;
+                    player_4.Nickname=name4_final;
+                    player_4.score=score4_size[0];
+                    pl_stats.push_back(player_4);
+
 
                     socket.receive((char*)name5_size,sizeof(name5_size),bytes_received);
                     name5_size[0]=le32toh(name5_size[0]);
@@ -319,7 +337,14 @@ void ClientSocket::recv(char* recv_buff,int len){
                     std::string name5__(name5);
                     std::string name5_final=name5__.substr(0,name5_size_);
                     std::cout << "Name 5 es" << name5_final << std::endl;
+                    Player_stats player_5;
+                    player_5.Nickname=name5_final;
+                    player_5.score=score5_size[0];
+                    pl_stats.push_back(player_5);
                     
+                    for(int i=0; i < int(num_players[0]); i++){
+                        final_stats.push_back(pl_stats[i]);
+                    }
 
                     std::cout << "Score 5 es" << unsigned(score5_size[0]) << std::endl;
                     update_message->load_game_stats(final_stats);
@@ -330,10 +355,6 @@ void ClientSocket::recv(char* recv_buff,int len){
                     recv_queue.push(std::move(update_message));
                     break;
                 }
-
-
-
-            
             }
         }
         if(buffer[0]==ITEM_CHANGED_OPCODE){

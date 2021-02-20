@@ -6,6 +6,8 @@
 #include "Map_2d.h"
 #include "Ray.h"
 #include "Constant_rate_loop.h"
+#include <vector>
+#include "const.h"
 
 #include <SDL2/SDL.h>
 
@@ -23,7 +25,7 @@ public:
 
     bool is_playing();
 
-    void stop_game();
+    void stop_game(std::vector<Player_stats> Final_Stats);
 
     Player get_player();
 
@@ -37,6 +39,7 @@ private:
     bool player_lost_;
     bool game_finished;
 	bool waiting_screen;
+    std::vector<Player_stats> final_stats;
 };
 
 #endif

@@ -141,6 +141,10 @@ void Panel_window::render_waiting_screen(){
 	SDL_RenderPresent(this->renderer);
 }
 
+void Panel_window::load_final_stats(std::vector<Player_stats> Final_Stats){
+	final_stats=Final_Stats;
+}
+
 void Panel_window::render_login_screen(){
 	
 }
