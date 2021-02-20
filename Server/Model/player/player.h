@@ -78,6 +78,7 @@ public:
       void addNumKeys(int key);
       void addTreasure(int treasure);
       void addNumResurrection();
+      void addKill();
       void reduceLife(int life);
       void reduceBullets(int bullets);
       void reduceNumKeys(int key);

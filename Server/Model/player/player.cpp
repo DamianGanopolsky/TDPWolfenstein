@@ -330,6 +330,10 @@ void Player::addNumResurrection() {
     this->info.resurrected += 1;
 }
 
+void Player::addKill() {
+    this->info.kills += 1;
+}
+
 void Player::reduceLife(int life) {
     this->info.life -= life;
     this->info.life = (this->info.life < 0) ? 0 : this->info.life;

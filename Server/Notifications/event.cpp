@@ -29,15 +29,17 @@ Event::Event(std::string map, EventOpcode event_type, Id player_id,
             pos_x(pos_x), pos_y(pos_y) {}
 
 Event::Event(std::string map, EventOpcode event_type, int num_player, 
-            std::string& name_1, int score_1, std::string& name_2,
-            int score_2, std::string& name_3, int score_3, 
-            std::string& name_4, int score_4, std::string& name_5, 
-            int score_5) : 
+            std::string& name_1, int treasure_1, int kills_1, int score_1, 
+            std::string& name_2, int treasure_2, int kills_2, int score_2, 
+            std::string& name_3, int treasure_3, int kills_3, int score_3, 
+            std::string& name_4, int treasure_4, int kills_4, int score_4, 
+            std::string& name_5, int treasure_5, int kills_5, int score_5) : 
             map_(map), event_type(event_type), num_players((uint32_t)num_player),
-            name_1(name_1), score_1((uint32_t)score_1), name_2(name_2), 
-            score_2((uint32_t)score_2), name_3(name_3), score_3((uint32_t)score_3), 
-            name_4(name_4), score_4((uint32_t)score_4), name_5(name_5), 
-            score_5((uint32_t)score_5) {}
+            name_1(name_1), treasure_1((uint32_t)treasure_1), kills_1((uint32_t)kills_1), score_1((uint32_t)score_1), 
+            name_2(name_2), treasure_2((uint32_t)treasure_2), kills_2((uint32_t)kills_2), score_2((uint32_t)score_2), 
+            name_3(name_3), treasure_3((uint32_t)treasure_3), kills_3((uint32_t)kills_3), score_3((uint32_t)score_3), 
+            name_4(name_4), treasure_4((uint32_t)treasure_4), kills_4((uint32_t)kills_4), score_4((uint32_t)score_4), 
+            name_5(name_5), treasure_5((uint32_t)treasure_5), kills_5((uint32_t)kills_5), score_5((uint32_t)score_5) {}
 
 Event::~Event() {}
         
@@ -175,7 +177,8 @@ bool Event::send(const ConnectionId sender, const Socket& peer) {
                 this->num_players = htole32(this->num_players);
                 std::cout << "num_players es: " << num_players <<std::endl;
                 peer.send((char *)&num_players, sizeof(num_players));
-                //player 1
+                
+                //PLAYER 1
                 int len_name_1 = name_1.length();
                 char char_name_1[len_name_1];
                 strcpy(char_name_1, name_1.c_str());
@@ -186,10 +189,19 @@ bool Event::send(const ConnectionId sender, const Socket& peer) {
                 peer.send((char *)name_1_size, sizeof(name_1_size));
                 std::cout << "NAME_1: " << char_name_1 << std::endl;
                 peer.send(char_name_1, sizeof(char_name_1));
+                //treasure
+                this->treasure_1 = htole32(this->treasure_1);
+                std::cout << "TREASURE_1: " << treasure_1 << std::endl;
+                peer.send((char *)&treasure_1, sizeof(treasure_1));
+                //kills
+                this->kills_1 = htole32(this->kills_1);
+                std::cout << "KILLS_1: " << kills_1 << std::endl;
+                peer.send((char *)&kills_1, sizeof(kills_1));
+                //score
                 this->score_1 = htole32(this->score_1);
                 std::cout << "SCORE_1: " << score_1 << std::endl;
                 peer.send((char *)&score_1, sizeof(score_1));
-                //player 2
+                //PLAYER 2
                 int len_name_2 = name_2.length();
                 char char_name_2[len_name_2];
                 strcpy(char_name_2, name_2.c_str());
@@ -200,10 +212,19 @@ bool Event::send(const ConnectionId sender, const Socket& peer) {
                 std::cout << "NAME_2 BYTES: " <<  sizeof(char_name_2) << std::endl;
                 peer.send((char *)name_2_size, sizeof(name_2_size));
                 peer.send(char_name_2, sizeof(char_name_2));
+                //treasure
+                this->treasure_2 = htole32(this->treasure_2);
+                std::cout << "TREASURE_2: " << treasure_2 << std::endl;
+                peer.send((char *)&treasure_2, sizeof(treasure_2));
+                //kills
+                this->kills_2 = htole32(this->kills_2);
+                std::cout << "KILLS_2: " << kills_2 << std::endl;
+                peer.send((char *)&kills_2, sizeof(kills_2));
+                //score
                 this->score_2 = htole32(this->score_2);
                 std::cout << "SCORE_2: " << score_2 << std::endl;
                 peer.send((char *)&score_2, sizeof(score_2));
-                //player 3
+                //PLAYER 3
                 int len_name_3 = name_3.length();
                 char char_name_3[len_name_3];
                 strcpy(char_name_3, name_3.c_str());
@@ -214,10 +235,19 @@ bool Event::send(const ConnectionId sender, const Socket& peer) {
                 std::cout << "NAME_3 BYTES: " <<  sizeof(char_name_3) << std::endl;
                 peer.send((char *)name_3_size, sizeof(name_3_size));
                 peer.send(char_name_3, sizeof(char_name_3));
+                //treasure
+                this->treasure_3 = htole32(this->treasure_3);
+                std::cout << "TREASURE_3: " << treasure_3 << std::endl;
+                peer.send((char *)&treasure_3, sizeof(treasure_3));
+                //kills
+                this->kills_3 = htole32(this->kills_3);
+                std::cout << "KILLS_3: " << kills_3 << std::endl;
+                peer.send((char *)&kills_3, sizeof(kills_3));
+                //score
                 this->score_3= htole32(this->score_3);
                 std::cout << "SCORE_3: " << score_3 << std::endl;
                 peer.send((char *)&score_3, sizeof(score_3));
-                //player 4
+                //PLAYER 4
                 int len_name_4 = name_4.length();
                 char char_name_4[len_name_4];
                 strcpy(char_name_4, name_4.c_str());
@@ -228,10 +258,19 @@ bool Event::send(const ConnectionId sender, const Socket& peer) {
                 std::cout << "NAME_4 BYTES: " <<  sizeof(char_name_4) << std::endl;
                 peer.send((char *)name_4_size, sizeof(name_4_size));
                 peer.send(char_name_4, sizeof(char_name_4));
+                //treasure
+                this->treasure_4 = htole32(this->treasure_4);
+                std::cout << "TREASURE_4: " << treasure_4 << std::endl;
+                peer.send((char *)&treasure_4, sizeof(treasure_4));
+                //kills
+                this->kills_4 = htole32(this->kills_4);
+                std::cout << "KILLS_4: " << kills_4 << std::endl;
+                peer.send((char *)&kills_4, sizeof(kills_4));
+                //score
                 this->score_4 = htole32(this->score_4);
                 std::cout << "SCORE_4: " << score_4 << std::endl;
                 peer.send((char *)&score_4, sizeof(score_4));
-                //player 5
+                //PLAYER 5
                 int len_name_5 = name_5.length();
                 char char_name_5[len_name_5];
                 strcpy(char_name_5, name_5.c_str());
@@ -242,6 +281,15 @@ bool Event::send(const ConnectionId sender, const Socket& peer) {
                 std::cout << "NAME_5 BYTES: " <<  sizeof(char_name_5) << std::endl;
                 peer.send((char *)name_5_size, sizeof(name_5_size));
                 peer.send(char_name_5, sizeof(char_name_5));
+                //treasure
+                this->treasure_5 = htole32(this->treasure_5);
+                std::cout << "TREASURE_5: " << treasure_5 << std::endl;
+                peer.send((char *)&treasure_5, sizeof(treasure_5));
+                //kills
+                this->kills_5 = htole32(this->kills_5);
+                std::cout << "KILLS_5: " << kills_5 << std::endl;
+                peer.send((char *)&kills_5, sizeof(kills_5));
+                //score
                 this->score_5= htole32(this->score_5);
                 std::cout << "SCORE_5: " << score_5 << std::endl;
                 peer.send((char *)&score_5, sizeof(score_5));

@@ -17,6 +17,7 @@ class PlayerInfo {
       int keys;
       int treasure;
       int resurrected;
+      int kills;
       Weapon* equiped;
       Knife knife;
       Gun gun;
@@ -33,6 +34,7 @@ class PlayerInfo {
       int getKey();
       int getTreasure();
       int getNumResurrection();
+      int getKills();
       Weapon* getWeaponEquiped();
       int getWeaponTypeEquiped();
       void changeWeaponEquiped(const int& type);

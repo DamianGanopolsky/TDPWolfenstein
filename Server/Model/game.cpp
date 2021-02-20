@@ -275,7 +275,10 @@ void Game::_attack(const ConnectionId id, int iteration) {
         if((response.success) && (target.getState()->canBeAttacked())) {
             _reduceBullets(id);
             _notifyEvent(id, response, ATTACK_EV); 
-            receiveAttack(target_id, damage);
+            bool is_dead = receiveAttack(target_id, damage);
+            if (is_dead) {
+                player.addKill();
+            }
         } else if (response.success) {
             _reduceBullets(id);
             _notifyEvent(id, response, ATTACK_EV); 
@@ -411,7 +414,9 @@ void Game::deletePlayer(const ConnectionId id) {
     }
     if (!post_game.isInPostGame(id)) {
         std::cout<<"Agrego a post_game a: "<<id<<std::endl;
-        post_game.add(id, players_by_name.at(id), players.at(id).getInfo().getTreasure());
+        post_game.add(id, players_by_name.at(id), 
+                    players.at(id).getInfo().getTreasure(), 
+                    players.at(id).getInfo().getKills());
     } 
     if(this->players.count(id)) {
         _deletePlayer(id);
@@ -468,7 +473,7 @@ bool Game::updatePlayers(const int iteration) {
             std::cout <<"Game: player get name "<< std::endl;
             int treasure = player.getInfo().getTreasure();
             std::cout <<"Game: player get treasure "<< std::endl;
-            post_game.add(id, name, treasure);
+            post_game.add(id, name, treasure, player.getInfo().getKills());
             std::cout <<"Game: added to post_game "<< std::endl;
             _deletePlayer(id);
         }
@@ -483,7 +488,7 @@ bool Game::updatePlayers(const int iteration) {
             std::cout <<"Game: player get name "<< name <<std::endl;
             int treasure = it->second.getInfo().getTreasure();
             std::cout <<"Game: player get treasure "<< std::endl;
-            post_game.add(it->first, name, treasure);
+            post_game.add(it->first, name, treasure, it->second.getInfo().getKills());
             std::cout <<"Game: added to post_game "<< std::endl;
             _deletePlayer(it->first);
             Notification* notification = post_game.showScores();
@@ -586,7 +591,7 @@ void Game::changeWeapon(const ConnectionId id, const int& weapon) {
     }
 }
 
-void Game::receiveAttack(const ConnectionId id, int& damage) {
+bool Game::receiveAttack(const ConnectionId id, int& damage) {
     Player& player = this->players.at(id);
     Response response = player.receiveAttack(damage);
     if (response.message == PLAYER_DIED_MSG) {
@@ -598,8 +603,9 @@ void Game::receiveAttack(const ConnectionId id, int& damage) {
         std::cout<<"Game: POS Y: "<< player.getPos().getY() <<std::endl;
         players_in_map[id] = std::make_pair(player.getPos().getX(), player.getPos().getY());
         _notifyEvent(id, player.resurrect(), RESURRECT_EV);
-    } else {
-        std::cout<<"Game: BE_ATTACKED_EV"<<std::endl;
-        _notifyEvent(id, response, BE_ATTACKED_EV);
+        return true;
     }
+    std::cout<<"Game: BE_ATTACKED_EV"<<std::endl;
+    _notifyEvent(id, response, BE_ATTACKED_EV);
+    return false;
 }

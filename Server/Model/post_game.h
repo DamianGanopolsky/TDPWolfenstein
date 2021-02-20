@@ -10,8 +10,10 @@
 class PostGame {
     std::string map_name;
     bool is_empty;
-    std::unordered_map<ConnectionId, std::pair<std::string, int>> losers;
-    std::unordered_map<ConnectionId, std::pair<std::string, int>> losers_copy;
+    std::unordered_map<ConnectionId, std::pair<std::string, std::vector<int>>> losers;
+    std::unordered_map<ConnectionId, std::pair<std::string, std::vector<int>>> losers_copy;
+    int treasures[5];
+    int kills[5];
     int scores[5];
     std::string names[5];
     int num_players;
@@ -21,7 +23,7 @@ class PostGame {
     public:
         PostGame(std::string map_name);
         ~PostGame();
-        void add(ConnectionId id, std::string nickname, int score);
+        void add(ConnectionId id, std::string nickname, int treasure, int kills);
         Notification* showScores();
         bool isInPostGame(ConnectionId id);
         bool isEmpty();

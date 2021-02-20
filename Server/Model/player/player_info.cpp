@@ -6,7 +6,8 @@
 
 PlayerInfo::PlayerInfo() : life(100), bullets(8),
                             keys(0), treasure(0), 
-                            resurrected(0) {
+                            resurrected(0),
+                            kills(0) {
                                 this->weapon_type.insert(std::make_pair<Weapon*, int>(&knife, KNIFE_TYPE));
                                 this->weapon_type.insert(std::make_pair<Weapon*, int>(&gun, GUN_TYPE));
                                 this->weapon_type.insert(std::make_pair<Weapon*, int>(&machine_gun, MACHINE_GUN_TYPE));
@@ -36,6 +37,10 @@ int PlayerInfo::getTreasure() {
 
 int PlayerInfo::getNumResurrection() {
     return this->resurrected;
+}
+
+int PlayerInfo::getKills(){
+    return this->kills;
 }
 
 Weapon* PlayerInfo::getWeaponEquiped() {

@@ -82,7 +82,7 @@ int pos_x_other_player,int pos_y_other_player);
         void stopShooting(const ConnectionId id);
         void openDoor(const ConnectionId id);
         void changeWeapon(const ConnectionId id, const int& weapon);
-        void receiveAttack(const ConnectionId, int& damage);
+        bool receiveAttack(const ConnectionId, int& damage);
 
 
 };
