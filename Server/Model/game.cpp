@@ -601,6 +601,7 @@ bool Game::receiveAttack(const ConnectionId id, int& damage) {
     Player& player = this->players.at(id);
     Response response = player.receiveAttack(damage);
     if (response.message == PLAYER_DIED_MSG) {
+        map.setObjectPos(player.getPos().getX(), player.getPos().getY(), MAP_NONE);
         std::cout<<"Game: PLAYER_DIED_MSG"<<std::endl;
         _notifyEvent(id, response, DEATH_EV);
         player.setPosition(respawn_positions.at(id).first,

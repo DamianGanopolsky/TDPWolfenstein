@@ -5,7 +5,7 @@
 #include "./objects/items/bullets/bullet.h"
 #include "./objects/items/keys/key.h"
 #include "./objects/items/weapons/weapon.h"
-#include "./objects/items/corpse/corpse.h"
+#include "./objects/scene/non_blocking_objects/corpse.h"
 
 class Drop {
  public: 
