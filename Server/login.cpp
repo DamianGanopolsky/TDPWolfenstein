@@ -1,6 +1,7 @@
 #include "./login.h"
 
 #include <iostream>
+#include <cstring>
 
 Login::Login(Socket& peer, NonBlockingQueue<ConnectionElement*>& new_connections)
     : is_running(false),
@@ -15,7 +16,7 @@ std::string Login::_receive() {
     std::cout << "Login: _receive"<<std::endl;
     bool connected = false;
     //uint8_t opcode;
-    std::string nickname;
+    std::string nickname = "";
     int bytes_received = 0;
     uint32_t name_size[1];
     while (!connected) {
@@ -34,12 +35,15 @@ std::string Login::_receive() {
             throw Exception("Error socket closed before expected.");
         }*/
         std::cout << "Login: 2do recieve"<<std::endl;
-        std::string name__(name);
+        std::string name__;
+        std::strcpy(name, name__.c_str());
+        std::cout << "Login:hola"<<std::endl;
         nickname = name__.substr(0,name_size_);
         std::cout << "Name es" << nickname << std::endl;
         //if (!(peer.receive((char *)buffer, 1, bytes_received))) {
             //throw Exception("Error socket closed before expected.");
         //}
+        connected =true;
     }
     return nickname;
     //return "";
