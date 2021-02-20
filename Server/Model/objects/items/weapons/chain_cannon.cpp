@@ -8,14 +8,15 @@ ChainCannon::ChainCannon(){
 ChainCannon::~ChainCannon() {}
 
 void ChainCannon::attack(double& distance, int& damage) {
-    //segun la distancia y el angulo establezco una proba de precision
-    /*float rd_num = getRandomNumber();
-    int precision = 0 ;
-    if (rd_num < precision) {
-        damage = (int) getRandomNumber();
-    }*/
-    //damage = 40;
-    damage = GameConfig.chain_cannon_base_damage;
+    if(distance<70){
+        damage = GameConfig.chain_cannon_base_damage;
+    }
+    else if(distance<400){
+        damage = GameConfig.chain_cannon_base_damage-GameConfig.chain_cannon_base_damage/4 ;
+    }
+    else{
+        damage = GameConfig.chain_cannon_base_damage/2;
+    }
 }
 
 const int ChainCannon::getType() {

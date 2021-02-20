@@ -8,14 +8,18 @@ Gun::Gun() {
 Gun::~Gun() {}
 
 void Gun::attack(double& distance, int& damage) {
-    //segun la distancia y el angulo establezco una proba de precision
-    float rd_num = getRandomNumber();
+    /*float rd_num = getRandomNumber();
     int precision = 0 ;
     if (rd_num < precision) {
         damage = (int) getRandomNumber();
-    }
+    }*/
     //damage = 5;
-    damage= GameConfig.gun_base_damage;
+    if(distance<70){
+        damage = GameConfig.gun_base_damage;
+    }
+    else{
+        damage = GameConfig.gun_base_damage/2;
+    }
 }
 
 const int Gun::getType() {
