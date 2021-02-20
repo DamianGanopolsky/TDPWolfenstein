@@ -207,6 +207,18 @@ void ClientSocket::recv(char* recv_buff,int len){
                     uint32_t score4_size[1];
                     uint32_t score5_size[1];
 
+                    uint32_t score1_final[1];
+                    uint32_t score2_final[1];
+                    uint32_t score3_final[1];
+                    uint32_t score4_final[1];
+                    uint32_t score5_final[1];
+
+                    uint32_t kills1_final[1];
+                    uint32_t kills2_final[1];
+                    uint32_t kills3_final[1];
+                    uint32_t kills4_final[1];
+                    uint32_t kills5_final[1];
+
                     socket.receive((char*)num_players,sizeof(num_players),bytes_received);
 
 
@@ -215,6 +227,7 @@ void ClientSocket::recv(char* recv_buff,int len){
                     uint32_t name3_size[1];
                     uint32_t name4_size[1];
                     uint32_t name5_size[1];
+                    //puntos_finales_1, cant_asesinatos_1, tesoros_1,
                     socket.receive((char*)name1_size,sizeof(name1_size),bytes_received);
                     name1_size[0]=le32toh(name1_size[0]);
                     int name1_size_=int(name1_size[0]);
@@ -222,6 +235,12 @@ void ClientSocket::recv(char* recv_buff,int len){
                     char name1[name1_size_];
                     //memset(map,0,map_size_);
                     socket.receive(name1, name1_size_,bytes_received);
+
+                    socket.receive((char*)score1_final,sizeof(score1_final),bytes_received);
+                    score1_final[0]=le32toh(score1_final[0]);
+
+                    socket.receive((char*)kills1_final,sizeof(kills1_final),bytes_received);
+                    kills1_final[0]=le32toh(kills1_final[0]);
 
 
                     socket.receive((char*)score1_size,sizeof(score1_size),bytes_received);
@@ -242,6 +261,8 @@ void ClientSocket::recv(char* recv_buff,int len){
                     Player_stats player_1;
                     player_1.Nickname=name1_final;
                     player_1.score=score1_size[0];
+                    player_1.final_score=score1_final[0];
+                    player_1.kills=kills1_final[0];
                     pl_stats.push_back(player_1);
                     //pl_stats[0].Nickname=name1_final;
                     //pl_stats[0].score=score1_size[0];
@@ -257,6 +278,13 @@ void ClientSocket::recv(char* recv_buff,int len){
                     socket.receive(name2, name2_size_,bytes_received);
 
 
+                    socket.receive((char*)score2_final,sizeof(score2_final),bytes_received);
+                    score2_final[0]=le32toh(score2_final[0]);
+
+                    socket.receive((char*)kills2_final,sizeof(kills2_final),bytes_received);
+                    kills2_final[0]=le32toh(kills2_final[0]);
+
+
                     socket.receive((char*)score2_size,sizeof(score2_size),bytes_received);
                     score2_size[0]=le32toh(score2_size[0]);
                     std::cout << "Score 2 es" << unsigned(score2_size[0]) << std::endl;
@@ -268,6 +296,8 @@ void ClientSocket::recv(char* recv_buff,int len){
                     Player_stats player_2;
                     player_2.Nickname=name2_final;
                     player_2.score=score2_size[0];
+                    player_2.final_score=score2_final[0];
+                    player_2.kills=kills2_final[0];
                     pl_stats.push_back(player_2);
 
                     socket.receive((char*)name3_size,sizeof(name3_size),bytes_received);
@@ -276,6 +306,12 @@ void ClientSocket::recv(char* recv_buff,int len){
                     std::cout << "Name 3 size es" << name3_size_ << std::endl;
                     char name3[name3_size_];
                     socket.receive(name3, name3_size_,bytes_received);
+
+                    socket.receive((char*)score3_final,sizeof(score3_final),bytes_received);
+                    score3_final[0]=le32toh(score3_final[0]);
+
+                    socket.receive((char*)kills3_final,sizeof(kills3_final),bytes_received);
+                    kills3_final[0]=le32toh(kills3_final[0]);
 
 
                     socket.receive((char*)score3_size,sizeof(score3_size),bytes_received);
@@ -292,6 +328,8 @@ void ClientSocket::recv(char* recv_buff,int len){
                     Player_stats player_3;
                     player_3.Nickname=name3_final;
                     player_3.score=score3_size[0];
+                    player_3.final_score=score3_final[0];
+                    player_3.kills=kills3_final[0];
                     pl_stats.push_back(player_3);
 
 
@@ -303,6 +341,11 @@ void ClientSocket::recv(char* recv_buff,int len){
                     //memset(map,0,map_size_);
                     socket.receive(name4, name4_size_,bytes_received);
 
+                    socket.receive((char*)score4_final,sizeof(score4_final),bytes_received);
+                    score4_final[0]=le32toh(score4_final[0]);
+
+                    socket.receive((char*)kills4_final,sizeof(kills4_final),bytes_received);
+                    kills4_final[0]=le32toh(kills4_final[0]);
 
                     socket.receive((char*)score4_size,sizeof(score4_size),bytes_received);
                     score4_size[0]=le32toh(score4_size[0]);
@@ -318,6 +361,8 @@ void ClientSocket::recv(char* recv_buff,int len){
                     Player_stats player_4;
                     player_4.Nickname=name4_final;
                     player_4.score=score4_size[0];
+                    player_4.final_score=score4_final[0];
+                    player_4.kills=kills4_final[0];
                     pl_stats.push_back(player_4);
 
 
@@ -328,6 +373,12 @@ void ClientSocket::recv(char* recv_buff,int len){
                     char name5[name5_size_];
                     //memset(map,0,map_size_);
                     socket.receive(name5, name5_size_,bytes_received);
+
+                    socket.receive((char*)score5_final,sizeof(score5_final),bytes_received);
+                    score5_final[0]=le32toh(score5_final[0]);
+
+                    socket.receive((char*)kills5_final,sizeof(kills5_final),bytes_received);
+                    kills5_final[0]=le32toh(kills5_final[0]);
 
 
                     socket.receive((char*)score5_size,sizeof(score5_size),bytes_received);
@@ -340,6 +391,8 @@ void ClientSocket::recv(char* recv_buff,int len){
                     Player_stats player_5;
                     player_5.Nickname=name5_final;
                     player_5.score=score5_size[0];
+                    player_5.final_score=score5_final[0];
+                    player_5.kills=kills5_final[0];
                     pl_stats.push_back(player_5);
                     
                     for(int i=0; i < int(num_players[0]); i++){

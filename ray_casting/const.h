@@ -35,6 +35,7 @@ enum Sounds_ {
 
 struct Player_stats{
     std::string Nickname;
+    uint32_t final_score;
     uint32_t score;
     uint32_t kills;
 };
