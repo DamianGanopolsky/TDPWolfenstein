@@ -39,7 +39,6 @@ void ClientManager::start(){
 	Panel_window panel;
 	LoginView loginview(panel.get_renderer());
 	loginview.render();
-	sleep(15);
 	BlockingQueue<Command*> send_queue;
 	panel.load_map_dimentions(map.get_height(),map.get_width());
 	Client client(panel,player,map);
