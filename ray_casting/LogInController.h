@@ -3,6 +3,7 @@
 #include "LoginView.h"
 
 
+
 class LogInController {
 public:
     LogInController(LoginView& LoginView);
@@ -10,6 +11,7 @@ public:
 private: 
     LoginView& loginview;
     bool handle_events();
+    
 };
 
 #endif

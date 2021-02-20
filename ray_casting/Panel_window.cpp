@@ -4,6 +4,8 @@
 #include <utility>
 #include <queue>
 #include <chrono>
+#include "LoginView.h"
+#include "LogInController.h"
 
 
 Panel_window::Panel_window():  running(true) {
@@ -19,6 +21,9 @@ Panel_window::Panel_window():  running(true) {
 	waiting_screen=SDL_CreateTextureFromSurface(this->renderer,waiting_screen_surf);
 	SDL_FreeSurface(waiting_screen_surf);
     SDL_FreeSurface(ending_screen_surf);
+	//LoginView loginview(renderer);
+	//LogInController logincontroller(loginview);
+	//logincontroller.run();
 }
 
 void Panel_window::load_map_dimentions(int MAP_HEIGHT,int MAP_WIDTH){

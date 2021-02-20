@@ -1,10 +1,17 @@
 #include "LogInController.h"
+#include <iostream>
+
+LogInController::LogInController(LoginView& LoginView):loginview(LoginView){
+    
+}
 
 void LogInController::run(){
     bool quit = false;
+    std::cout << "asd0" << std::endl;
 
     while (!quit){
         quit=handle_events();
+        loginview.render();
         //editor.render();
         //window.render();
     }
@@ -16,11 +23,18 @@ bool LogInController::handle_events(){
 
 	SDL_Event event;
 	bool quit=false;
-	const Uint8 *state;
 
 	//bool moving=false;
 	while(SDL_PollEvent(&event)!=0){
-        switch (event.type){    
+        switch (event.type){   
+
+            case SDL_KEYDOWN:
+
+                switch(event.key.keysym.sym){
+                    case SDLK_ESCAPE:  //Salir de la pantalla
+                        quit=true;
+                        break;
+                }
             case SDL_QUIT:
                 quit=true;
                 break;
@@ -35,5 +49,5 @@ bool LogInController::handle_events(){
                 break;
         }
     }
-
+    return quit;
 }

@@ -6,6 +6,7 @@
 #include "../Common/protocol.h"
 #include "ConstantRateLoop_.h"
 #include "LoginView.h"
+#include "LogInController.h"
 #include <chrono>
 #include <unistd.h>
 #define PATH_TO_MAPS "../Maps/"
@@ -37,8 +38,11 @@ void ClientManager::start(){
 	Player player(player_info);
 	Map_2d map(player,PATH_TO_MAPS+player_info.map+YAML_EXTENSION);
 	Panel_window panel;
-	LoginView loginview(panel.get_renderer());
-	loginview.render();
+	std::cout << "Previo a login view" << std::endl;
+	/*LoginView loginview(panel.get_renderer());
+	LogInController logincontroller(loginview);
+	logincontroller.run();*/
+	//loginview.render();
 	BlockingQueue<Command*> send_queue;
 	panel.load_map_dimentions(map.get_height(),map.get_width());
 	Client client(panel,player,map);

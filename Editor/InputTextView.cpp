@@ -41,17 +41,7 @@ void InputTextView::Update(SDL_Event* event){
             //textbox.box.w += 40;
         }
     }
-    
-    /*int count=0;
-    std::string aux;
-    for(char& c : textbox.box_content) {
-        aux=c;
-        caracteres.at(count).Load_Text("../OpenSans-Bold.ttf",aux.c_str(),12);
-        std::cout << c << std::endl;
-        texture_of_caracter.push_back(SDL_CreateTextureFromSurface\
-        (window.getRenderer(), caracteres.at(count).getSurface()));
-        count++;
-    }*/
+
     texto.Load_Text("../OpenSans-Bold.ttf",textbox.box_content,12);
     texture_of_text = SDL_CreateTextureFromSurface(window.getRenderer(), texto.getSurface()); 
 }
