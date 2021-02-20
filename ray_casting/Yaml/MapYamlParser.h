@@ -34,4 +34,6 @@ public:
 
     int Map_Width();
 
+    int get_map_players();
+
 };

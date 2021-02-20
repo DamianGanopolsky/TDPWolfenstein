@@ -26,9 +26,10 @@ Panel_window::Panel_window():  running(true) {
 	//logincontroller.run();
 }
 
-void Panel_window::load_map_dimentions(int MAP_HEIGHT,int MAP_WIDTH){
+void Panel_window::load_map_dimentions(int MAP_HEIGHT,int MAP_WIDTH,int Map_Players){
 	map_height=MAP_HEIGHT;
 	map_width=MAP_WIDTH;
+	map_cant_players=Map_Players;
 }
 
 SDL_Renderer* Panel_window::get_renderer(){

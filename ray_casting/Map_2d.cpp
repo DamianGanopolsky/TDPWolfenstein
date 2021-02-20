@@ -12,6 +12,7 @@ Map_2d::Map_2d(Player& player,std::string YamlPathToMap) : player(player),YamlMa
 	MapYamlParser mapyamlparser(YamlPathToMap);
 	map_width=mapyamlparser.Map_Width();
 	map_height=mapyamlparser.Map_Height();
+	map_players=mapyamlparser.get_map_players();
 	total_boxes=mapyamlparser.Map_Height()*mapyamlparser.Map_Width();
 	/*std::cout << "total boxes es" << total_boxes << "height:" << mapyamlparser.Map_Height() << "width;\
 	" << mapyamlparser.Map_Width() << std::endl;*/
@@ -108,6 +109,10 @@ void Map_2d::add_dead_body(int id,int pos_x,int pos_y){
 
 void Map_2d::update_player_texture(int id,int weapon){
 	players_state[id].weapon=weapon;
+}
+
+int Map_2d::map_get_players(){
+	return map_players;
 }
 
 int Map_2d::get_type_id(int weapon,int is_shooting){

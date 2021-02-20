@@ -169,6 +169,10 @@ std::map<int,int> MapYamlParser::get_boxes(){
     return walls_map;
 }
 
+int MapYamlParser::get_map_players(){
+    return map["Map"]["Cant_players"].as<int>();
+}
+
 int MapYamlParser::Map_Height(){
     return map["Map"]["map_dimentions"]["height"].as<int>();
 }

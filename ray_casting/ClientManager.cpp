@@ -46,7 +46,7 @@ void ClientManager::start(){
 	logincontroller.run();*/
 	//loginview.render();
 	BlockingQueue<Command*> send_queue;
-	panel.load_map_dimentions(map.get_height(),map.get_width());
+	panel.load_map_dimentions(map.get_height(),map.get_width(),map.map_get_players());
 	Client client(panel,player,map);
 	Player_handler handler(player,map,send_queue,client);
 	
