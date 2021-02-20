@@ -125,7 +125,7 @@ bool ReceiveController::update(){
                     std::vector<Player_stats> final_stats=updatemessage->get_final_stats();
                     std::cout << "Cadena 1 es" << final_stats[0].Nickname << std::endl;
                     std::cout << "Score 2 es" << final_stats[1].score << std::endl;
-
+                    client.stop_game(final_stats);
                     break;
                 }
                 case START_EV:{
