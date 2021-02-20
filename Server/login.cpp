@@ -16,34 +16,33 @@ std::string Login::_receive() {
     std::cout << "Login: _receive"<<std::endl;
     bool connected = false;
     //uint8_t opcode;
-    std::string nickname = "";
+    std::string nickname = " ";
     int bytes_received = 0;
     uint32_t name_size[1];
     while (!connected) {
+        nickname.clear();
+        nickname.shrink_to_fit();
         std::cout << "Login: entra en while"<<std::endl;
-        peer.receive((char*)name_size, sizeof(name_size), bytes_received);
-        /*if (!(peer.receive((char*)name_size, sizeof(name_size), bytes_received))) {
+        if (!(peer.receive((char*)name_size, sizeof(name_size), bytes_received))) {
             throw Exception("Error socket closed before expected.");
-        }*/
+        }
         std::cout << "Login: 1er recieve"<<std::endl;
         name_size[0] = le32toh(name_size[0]);
+        std::cout << "Login:hola"<<std::endl;
         int name_size_ = int (name_size[0]);
         std::cout << "Name size es" << name_size_ << std::endl;
+        nickname.reserve(name_size_);
+        std::cout << "Login:chau"<<std::endl;
         char name[name_size_];
-        peer.receive(name, name_size_, bytes_received);
-        /*if (!(peer.receive(name, name_size_, bytes_received))) {
+        std::cout << "Login:si"<<std::endl;
+        if (!(peer.receive(name, name_size_, bytes_received))) {
             throw Exception("Error socket closed before expected.");
-        }*/
-        std::cout << "Login: 2do recieve"<<std::endl;
-        std::string name__;
-        std::strcpy(name, name__.c_str());
-        std::cout << "Login:hola"<<std::endl;
-        nickname = name__.substr(0,name_size_);
-        std::cout << "Name es" << nickname << std::endl;
-        //if (!(peer.receive((char *)buffer, 1, bytes_received))) {
-            //throw Exception("Error socket closed before expected.");
-        //}
-        connected =true;
+        }
+        for (int i = 0; i<name_size_; i++) {
+            nickname += name[i];
+        }
+        std::cout << "Nickname es" << nickname << std::endl;
+        connected = true;
     }
     return nickname;
     //return "";
