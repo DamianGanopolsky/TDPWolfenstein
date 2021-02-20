@@ -12,7 +12,6 @@
 #include "const.h"
 #include "Yaml/MapYamlParser.h"
 #include <string>
-#include "DeadBodie.h"
 
 struct state{
     int pos_x;

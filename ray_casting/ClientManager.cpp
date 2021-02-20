@@ -5,6 +5,7 @@
 #include "ClientConnector/Command.h"
 #include "../Common/protocol.h"
 #include "ConstantRateLoop_.h"
+#include "LoginView.h"
 #include <chrono>
 #include <unistd.h>
 #define PATH_TO_MAPS "../Maps/"
@@ -27,13 +28,18 @@ void ClientManager::start(){
 	/* TENGO QUE RECIBIR EL PLAYER Y EL MAP ANTES QUE NADA, */
 	NonBlockingQueue<UpdateMessage*> recv_queue;
 	ClientSocket clientsock(recv_queue,host.c_str(),port.c_str());
-	std::string nickname="PlayerName";
+	std::string nickname="PlayerNameASD";
 	clientsock.send_nickname(nickname);
 	New_Player_Event player_info=clientsock.recv_player();
+
+	
 	//std::cout << "Mapa que tengo que abrir es " << player_info.map << std::endl;
 	Player player(player_info);
 	Map_2d map(player,PATH_TO_MAPS+player_info.map+YAML_EXTENSION);
 	Panel_window panel;
+	LoginView loginview(panel.get_renderer());
+	loginview.render();
+	sleep(15);
 	BlockingQueue<Command*> send_queue;
 	panel.load_map_dimentions(map.get_height(),map.get_width());
 	Client client(panel,player,map);

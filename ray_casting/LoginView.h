@@ -6,7 +6,7 @@
 
 class LoginView {
 public:
-    LoginView(SDL_Renderer*& Renderer);
+    LoginView(SDL_Renderer* Renderer);
 
     bool is_active();
 

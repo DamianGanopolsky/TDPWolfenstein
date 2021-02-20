@@ -21,6 +21,8 @@ public:
 	Panel_window(Panel_window&& other) = delete;
 	~Panel_window();
 	bool is_running();
+
+	SDL_Renderer* get_renderer();
 	void update(std::set<Ray>&& rays, std::list<Game_element>&& elements, Player_info& player_info);
 	void render_player_lost_screen();
 	void render_ending_screen();

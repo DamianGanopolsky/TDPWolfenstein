@@ -26,6 +26,10 @@ void Panel_window::load_map_dimentions(int MAP_HEIGHT,int MAP_WIDTH){
 	map_width=MAP_WIDTH;
 }
 
+SDL_Renderer* Panel_window::get_renderer(){
+	return renderer;
+}
+
 
 Panel_window::~Panel_window() {
 	if (this->renderer) {
