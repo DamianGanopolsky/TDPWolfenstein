@@ -40,6 +40,7 @@ std::string Login::_receive() {
         //if (!(peer.receive((char *)buffer, 1, bytes_received))) {
             //throw Exception("Error socket closed before expected.");
         //}
+        connected =true;
     }
     return nickname;
     //return "";
