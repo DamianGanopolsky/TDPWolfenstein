@@ -125,12 +125,12 @@ void Panel_window::render_ending_screen(){
 	}
 	int x_initial=5;
 	int y_initial=85;
-	int x_treasure=290;
+	int x_treasure=330;
 
 	for (auto & element : final_stats) {
 
 		SDL_Rect text_1_Rect={x_initial,y_initial,150,40};
-		SDL_Rect text_2_Rect={x_treasure,y_initial,150,40};
+		SDL_Rect text_2_Rect={x_treasure,y_initial+15,25,25};
 		std::cout << "Nickname es" << element.Nickname << std::endl;
 		//const char* final_score= "El score final ha sido:";
 		std::string treasure = std::to_string(element.score);
@@ -139,7 +139,7 @@ void Panel_window::render_ending_screen(){
 		SDL_Texture* texture_of_text = SDL_CreateTextureFromSurface(this->renderer,surfaceMessage); 
 		SDL_Texture* texture_of_treasure = SDL_CreateTextureFromSurface(this->renderer,surfaceMessage_treas); 
 		SDL_RenderCopy(this->renderer, texture_of_text, NULL, &text_1_Rect);
-		SDL_RenderCopy(this->renderer, texture_of_text, NULL, &text_2_Rect);
+		SDL_RenderCopy(this->renderer, texture_of_treasure, NULL, &text_2_Rect);
 		SDL_FreeSurface(surfaceMessage);
 		SDL_DestroyTexture(texture_of_text);
 		SDL_FreeSurface(surfaceMessage_treas);
