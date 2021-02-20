@@ -41,5 +41,8 @@ void PreGame::notifyNewPlayer(const ConnectionId id) {
 void PreGame::deletePlayer(const ConnectionId id) {
     if (players == max_players) {
         game.deletePlayer(id);
+    } else {
+        --(this->players);
+        --(this->new_connection_id);
     }
 }
