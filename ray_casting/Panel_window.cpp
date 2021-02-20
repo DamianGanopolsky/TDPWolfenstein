@@ -148,8 +148,8 @@ void Panel_window::render_ending_screen(){
 		SDL_Texture* texture_of_kills = SDL_CreateTextureFromSurface(this->renderer,surfaceMessage_kills);  
 		SDL_RenderCopy(this->renderer, texture_of_text, NULL, &text_1_Rect);
 		SDL_RenderCopy(this->renderer, texture_of_treasure, NULL, &text_2_Rect);
-		SDL_RenderCopy(this->renderer, texture_of_kills, NULL, &kills_Rect);
-		SDL_RenderCopy(this->renderer, texture_of_fscore, NULL, &final_score_Rect);
+		SDL_RenderCopy(this->renderer, texture_of_kills, NULL, &final_score_Rect);
+		SDL_RenderCopy(this->renderer, texture_of_fscore, NULL, &kills_Rect);
 		SDL_FreeSurface(surfaceMessage);
 		SDL_DestroyTexture(texture_of_text);
 		SDL_FreeSurface(surfaceMessage_treas);

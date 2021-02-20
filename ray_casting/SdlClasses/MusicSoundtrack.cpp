@@ -13,8 +13,8 @@ MusicSoundtrack::MusicSoundtrack(){
     }*/
     Main_music_soundtrack=Mix_LoadMUS("../Music/MusicSoundtrack.mp3");
     YAML::Node config = YAML::LoadFile("../Yaml_configs/client_settings.yaml");
-    int volume_music = config["Music_volume"].as<int>();
-    Mix_VolumeMusic(volume_music);
+    //int volume_music = config["Music_volume"].as<int>();
+    Mix_VolumeMusic(128);
 }
 
 void MusicSoundtrack::load_editor_soundtrack(){

@@ -29,6 +29,8 @@ void ClientManager::start(){
 	/* TENGO QUE RECIBIR EL PLAYER Y EL MAP ANTES QUE NADA, */
 	NonBlockingQueue<UpdateMessage*> recv_queue;
 	ClientSocket clientsock(recv_queue,host.c_str(),port.c_str());
+	MusicSoundtrack music;
+	music.play_editor();
 	std::string nickname="PlayerNameASD";
 	clientsock.send_nickname(nickname);
 	New_Player_Event player_info=clientsock.recv_player();
@@ -54,8 +56,7 @@ void ClientManager::start(){
 	receiver.start();
 	sender.start();
 	
-	MusicSoundtrack music;
-	music.play_editor();
+
 	//ConstantRateLoop_ crl(handler,client,receivecontroller);
 	//crl.run();
 
