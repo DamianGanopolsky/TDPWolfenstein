@@ -123,6 +123,31 @@ void Panel_window::render_ending_screen(){
 	if(!Sans){
 		printf("TTF OPENFONT: %s \n",TTF_GetError());
 	}
+	int x_initial=5;
+	int y_initial=85;
+	int x_treasure=290;
+
+	for (auto & element : final_stats) {
+
+		SDL_Rect text_1_Rect={x_initial,y_initial,150,40};
+		SDL_Rect text_2_Rect={x_treasure,y_initial,150,40};
+		std::cout << "Nickname es" << element.Nickname << std::endl;
+		//const char* final_score= "El score final ha sido:";
+		std::string treasure = std::to_string(element.score);
+		SDL_Surface* surfaceMessage = TTF_RenderText_Solid(Sans, element.Nickname.c_str(), {108, 0, 0});
+		SDL_Surface* surfaceMessage_treas = TTF_RenderText_Solid(Sans, treasure.c_str(), {108, 0, 0});
+		SDL_Texture* texture_of_text = SDL_CreateTextureFromSurface(this->renderer,surfaceMessage); 
+		SDL_Texture* texture_of_treasure = SDL_CreateTextureFromSurface(this->renderer,surfaceMessage_treas); 
+		SDL_RenderCopy(this->renderer, texture_of_text, NULL, &text_1_Rect);
+		SDL_RenderCopy(this->renderer, texture_of_text, NULL, &text_2_Rect);
+		SDL_FreeSurface(surfaceMessage);
+		SDL_DestroyTexture(texture_of_text);
+		SDL_FreeSurface(surfaceMessage_treas);
+		SDL_DestroyTexture(texture_of_treasure);
+		y_initial=y_initial+30;
+    	
+		//std::cout << "Score tesoros es" << element.score << std::endl;
+	}
 	/*SDL_Rect text_1_Rect={0,100,350,30};
 	const char* final_score= "El score final ha sido:";
     SDL_Surface* surfaceMessage = TTF_RenderText_Solid(Sans, final_score, {108, 0, 0});

@@ -57,6 +57,7 @@ void Client::player_lost(){
 void Client::stop_game(std::vector<Player_stats> Final_Stats){
     game_finished=true;
     final_stats=Final_Stats;
+    panel.load_final_stats(final_stats);
 }
 
 Player Client::get_player(){
