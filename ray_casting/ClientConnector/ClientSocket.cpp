@@ -97,10 +97,11 @@ New_Player_Event ClientSocket::recv_player_func(){
 }
 
 New_Player_Event ClientSocket::recv_player(){
+    std::cout << "Entro a recv player" << std::endl;
     int bytes_received=0;
     uint8_t buffer[2];
     socket.receive((char*)buffer,sizeof(buffer),bytes_received);
-    std::cout << "Recibi un buffer" << std::endl;
+    std::cout << "Recibi:" << bytes_received << "bytes" << std::endl;
     my_player = recv_player_func();
     return my_player;
 }
