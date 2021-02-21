@@ -534,15 +534,14 @@ bool Game::updatePlayers(int& iteration) {
         if (player.isShooting()) {
             std::cout <<"Game: player shoot"<< std::endl;
             _attack(id, iteration);
+        } else if (!player.gun_can_shoot) {
+            player.gun_can_shoot = true;
         }
         if (player.machine_gun_cooldown > 0) {
-            player.machine_gun_cooldown = std::max((int)(player.chain_cannon_cooldown - iteration *rate),0);
+            player.machine_gun_cooldown = std::max((int)(player.chain_cannon_cooldown - iteration),0);
         }
         if (player.chain_cannon_cooldown > 0) {
-            player.chain_cannon_cooldown = std::max((int)(player.chain_cannon_cooldown - iteration *rate),0);
-        }
-        if (!player.gun_can_shoot) {
-            player.gun_can_shoot = true;
+            player.chain_cannon_cooldown = std::max((int)(player.chain_cannon_cooldown - iteration),0);
         }
         if (player.isAlive()) {
             Response response = player.updateLife(iteration);
