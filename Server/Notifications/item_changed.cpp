@@ -54,6 +54,8 @@ bool ItemChanged::send(const ConnectionId sender, const Socket& peer) {
             case MACHINE_GUN_DROPPED_ITM:
             case CHAIN_CANNON_DROPPED_ITM: { //  pos x, pos y (posicion de la puerta)
                 std::cout<<"dropped: "<<std::endl;
+                std::cout<<"pos_x: "<<pos_x<<std::endl;
+                std::cout<<"pos_y: "<<pos_y<<std::endl;
                 this->pos_x = htole32(this->pos_x);
                 this->pos_y = htole32(this->pos_y);
                 peer.send((char *)&pos_x, sizeof(pos_x));
