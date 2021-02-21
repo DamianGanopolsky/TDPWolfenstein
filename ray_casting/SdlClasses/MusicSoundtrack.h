@@ -6,7 +6,6 @@
 class MusicSoundtrack{
 private:
     Mix_Music* Main_music_soundtrack;
-    //Mix_Music* Pow;
 
 public:
     MusicSoundtrack();

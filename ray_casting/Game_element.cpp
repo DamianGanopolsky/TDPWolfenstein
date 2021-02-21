@@ -34,10 +34,6 @@ Game_element::Game_element(int pos_x, int pos_y, int type_id, int vision_angle, 
 
 	bool out =  angle_min > angle_max ? angle < angle_min && angle > angle_max : angle < angle_min || angle > angle_max;
 
-	/*if (out && angle < angle_min){
-		std::cout << angle << ", "<<  angle_min << std::endl;
-	}*/ 
-
 	if (out) {
 		this->dist = -1.0;
 		this->pos_ray = -1; 
@@ -75,10 +71,6 @@ void Game_element::update(int pos_x, int pos_y, int TYPE_ID, int vision_angle, P
 
 	bool out =  angle_min > angle_max ? angle < angle_min && angle > angle_max : angle < angle_min || angle > angle_max;
 
-	/*if (out && angle < angle_min){
-		std::cout << angle << ", "<<  angle_min << std::endl;
-	}*/ 
-
 	if (out) {
 		this->dist = -1.0;
 		this->pos_ray = -1; 
@@ -115,11 +107,9 @@ void Game_element::set_texture(SDL_Texture* tex) {
 int Game_element::get_texture_section() {
 	//DETERMINA CUAL DE TODAS LAS TEXTURAS DE ANGULO USAR, LO HARDCODEO A 0
 	if(get_type_id()>13){
-		//std::cout << "Texture section es" << angle_ << std::endl;
 		return angle_;
 	}
 	return this->texture_section; 
-	//return 0;
 }
 
 int Game_element::get_texture_section(int element_angle, int player_angle) {
@@ -131,24 +121,14 @@ int Game_element::get_texture_section(int element_angle, int player_angle) {
 	}
 	int element_section = this->get_angle_section(element_angle);  
 	int player_section = this->get_angle_section(player_angle);
-	//std::cout << "Element section es" << element_section << std::endl;
-	//std::cout << "player section es" << player_section << std::endl;
-
 	int diff = player_section - element_section + 4;
-	//std::cout << "Element angle es " << element_angle << std::endl;
-	//std::cout << "Texture section es" << element_angle/360 << std::endl;
-	//return element_angle/360;
 	int tex_sec=diff < 0 ? TOTAL_SECTIONS + diff : diff;
 	if(tex_sec>7){
 		return 0;
 	}
 	else{
 		return diff < 0 ? TOTAL_SECTIONS + diff : diff; 
-	}
-
-	//std::cout << "Texture section es" << tex_sec << std::endl;
-
-	    
+	} 
 }
 
 int Game_element::get_angle_section(int angle) {

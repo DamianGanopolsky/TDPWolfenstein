@@ -10,17 +10,12 @@
 
 class SoundManager{
 private:
-    //SdlSound gunshot;
     std::unordered_map<int,SdlSound> SoundHash;
 
 public:
     SoundManager();
 
-    //void load_client_sounds();
-
     void play_sound(int id);
-
-	//~SoundManager();
 };
 
 #endif

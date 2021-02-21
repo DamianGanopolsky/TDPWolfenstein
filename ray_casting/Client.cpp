@@ -25,8 +25,6 @@ bool Client::is_playing(){
 }
 
 void Client::render(){
-    //auto t1= std::chrono::steady_clock::now();
-    //int animation_to_render=0;
     if(waiting_screen){
         panel.render_waiting_screen();
         return;
@@ -34,9 +32,8 @@ void Client::render(){
 
     if((!player_lost_)&&(!game_finished)){
         
-        rays = std::move(map.get_player_rays());   //No tienen que ver con lo grafico
-        //Todos los elementos que no son paredes. Tienen que tener una distancia
-        elements = std::move(map.get_game_elements());   //No tienen que ver con lo grafico
+        rays = std::move(map.get_player_rays());  
+        elements = std::move(map.get_game_elements());   
         //DIBUJAR
         panel.update(std::move(rays), std::move(elements),  player.get_info()); 
     }

@@ -5,7 +5,6 @@
 #include "Player_info.h"
 #include "Map_2d.h"
 #include "Ray.h"
-#include "Constant_rate_loop.h"
 #include <vector>
 #include "const.h"
 

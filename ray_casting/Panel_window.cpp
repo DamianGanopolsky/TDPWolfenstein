@@ -157,16 +157,7 @@ void Panel_window::render_ending_screen(){
 		SDL_FreeSurface(surfaceMessage_treas);
 		SDL_DestroyTexture(texture_of_treasure);
 		y_initial=y_initial+0.1;
-    	
-		//std::cout << "Score tesoros es" << element.score << std::endl;
 	}
-	/*SDL_Rect text_1_Rect={0,100,350,30};
-	const char* final_score= "El score final ha sido:";
-    SDL_Surface* surfaceMessage = TTF_RenderText_Solid(Sans, final_score, {108, 0, 0});
-	SDL_Texture* texture_of_text = SDL_CreateTextureFromSurface(this->renderer,surfaceMessage); 
-	SDL_RenderCopy(this->renderer, texture_of_text, NULL, &text_1_Rect);
-	SDL_FreeSurface(surfaceMessage);
-	SDL_DestroyTexture(texture_of_text);*/
 	TTF_CloseFont(Sans);
 	SDL_RenderPresent(this->renderer);
 }

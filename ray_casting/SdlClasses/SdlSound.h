@@ -7,11 +7,6 @@ private:
 
 public:
     SdlSound(const char* path_to_sound);
-    //SdlSound(SdlSound&& other);
-
-    //SdlSound& operator=(SdlSound&& other);
 
     void play(int volumen);
-
-	~SdlSound();
 };

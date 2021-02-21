@@ -10,8 +10,8 @@ void Receiver::stop(){
 void Receiver::run(){
     try{
         while(receiving){
-            uint8_t buffer[2];  //DESCOMENTAR
-            clientsocket->recv((char*)buffer,2);  //DESCOMENTAR
+            uint8_t buffer[2];  
+            clientsocket->recv((char*)buffer,2);  
         }
     }
     catch(...){}

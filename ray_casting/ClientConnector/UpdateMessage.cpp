@@ -49,7 +49,6 @@ void UpdateMessage::load_movement_event(uint32_t player_id,uint32_t pos_x,uint32
 void UpdateMessage::load_new_player_event(uint8_t player_id,uint32_t pos_x,uint32_t pos_y,\
     float angle,uint32_t life,uint8_t resurrected,uint32_t score,uint32_t bullets){
         NewPEvent.player_id=player_id;
-       // NewPEvent.map=map;
         NewPEvent.pos_x=pos_x;
         NewPEvent.pos_y=pos_y;
         NewPEvent.angle=angle;

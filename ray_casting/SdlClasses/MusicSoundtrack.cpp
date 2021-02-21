@@ -5,12 +5,6 @@
 
 
 MusicSoundtrack::MusicSoundtrack(){
-    /*if(SDL_Init(SDL_INIT_AUDIO)==-1) {
-        printf("SDL_Init: %s\n", SDL_GetError());
-    }
-    if(Mix_OpenAudio(44100,MIX_DEFAULT_FORMAT,2,1024)<0){
-        std::cout << "eRROR:" << Mix_GetError() << std::endl;
-    }*/
     Main_music_soundtrack=Mix_LoadMUS("../Music/MusicSoundtrack.mp3");
     YAML::Node config = YAML::LoadFile("../Yaml_configs/client_settings.yaml");
     int volume_music = config["Music_volume"].as<int>();

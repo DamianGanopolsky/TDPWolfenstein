@@ -2,7 +2,6 @@
 #include <iostream>
 
 LoginView::LoginView(SDL_Renderer*& Renderer):renderer(Renderer),port(Renderer){
-    std::cout << "Loginview inicio constructor" << std::endl;
 	SDL_Surface* login_surf=IMG_Load("../ray_casting/sprites/BackgroundFinal.jpg");
     texture_login=SDL_CreateTextureFromSurface(this->renderer,login_surf);
 

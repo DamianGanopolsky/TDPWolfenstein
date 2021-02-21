@@ -7,16 +7,10 @@ LogInController::LogInController(LoginView& LoginView):loginview(LoginView){
 
 void LogInController::run(){
     bool quit = false;
-    std::cout << "asd0" << std::endl;
-
     while (!quit){
         quit=handle_events();
         loginview.render();
-        //editor.render();
-        //window.render();
     }
-
-
 }
 
 bool LogInController::handle_events(){

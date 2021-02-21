@@ -4,7 +4,6 @@
 #include "ClientConnector/UpdateMessage.h"
 #include "ClientConnector/Command.h"
 #include "../Common/protocol.h"
-#include "ConstantRateLoop_.h"
 #include "LoginView.h"
 #include "LogInController.h"
 #include <chrono>
@@ -34,17 +33,9 @@ void ClientManager::start(){
 	std::string nickname="PlayerNameASD";
 	clientsock.send_nickname(nickname);
 	New_Player_Event player_info=clientsock.recv_player();
-
-	
-	//std::cout << "Mapa que tengo que abrir es " << player_info.map << std::endl;
 	Player player(player_info);
 	Map_2d map(player,PATH_TO_MAPS+player_info.map+YAML_EXTENSION);
 	Panel_window panel;
-	std::cout << "Previo a login view" << std::endl;
-	/*LoginView loginview(panel.get_renderer());
-	LogInController logincontroller(loginview);
-	logincontroller.run();*/
-	//loginview.render();
 	BlockingQueue<Command*> send_queue;
 	panel.load_map_dimentions(map.get_height(),map.get_width(),map.map_get_players(),player_info.map);
 	Client client(panel,player,map);
@@ -73,8 +64,8 @@ void ClientManager::start(){
 			std::chrono::duration<float, std::milli> diff;
 			diff = t2 - t1;
 			//std::cout << "Delta es" << diff.count() << std::endl;
-			if(diff.count()<100){
-				int sleeping_time=(100-diff.count())*1000;
+			if(diff.count()<200){
+				int sleeping_time=(200-diff.count())*1000;
 				usleep(sleeping_time);
 			}
 		}
@@ -89,6 +80,19 @@ void ClientManager::start(){
 			}
 		}   
 		*/
+		/*		t1=std::chrono::steady_clock::now();
+		is_running=handler.handle();
+		receivecontroller.update();
+		if((it%101)==0){
+			client.render();
+		}
+		auto t2= std::chrono::steady_clock::now();
+		std::chrono::duration<float, std::milli> diff;
+		diff = t2 - t1;
+		if(diff.count()<1){
+			int sleeping_time=(1-diff.count())*1000;
+			usleep(sleeping_time);
+		}*/
 	}
 	//auto t2= std::chrono::steady_clock::now();
 	//std::chrono::duration<double> diff=t2-t1;

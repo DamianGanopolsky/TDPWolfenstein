@@ -9,12 +9,6 @@ TextButton::TextButton(SDL_Renderer*& Renderer):renderer(Renderer){
    // }
     textbox.box_content="";
     textbox.active=false;
-    /*textbox.box.x=0.28*window.getWidth();
-
-    textbox.box.y=0.4359*window.getHeight();
-    textbox.box.w=int(0.04166*window.getWidth());
-    textbox.box.h=int(0.0703*window.getHeight());*/
-    std::cout << "ASD" << std::endl;
     SDL_Surface* button_base_surface=IMG_Load("../ray_casting/sprites/Unpressed_bar.png");
     button_base=SDL_CreateTextureFromSurface(Renderer,button_base_surface);
 }

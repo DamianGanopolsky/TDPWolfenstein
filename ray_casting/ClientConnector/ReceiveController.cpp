@@ -38,9 +38,6 @@ bool ReceiveController::update(){
                     if(mov_event.player_id==player.get_id()){   // 1 SERIA YO
                         player.update_position_and_angle(mov_event.pos_x,\
                         mov_event.pos_y,mov_event.angle);
-                       /* if(mov_event.is_shooting==1){
-                            player.shoot();
-                        }*/
                     }
                     else{
                         map.update_player_pos(mov_event.player_id,mov_event.pos_x\
@@ -50,7 +47,7 @@ bool ReceiveController::update(){
                 }
                 case NEW_PLAYER_EV:{
                     New_Player_Event new_ev=updatemessage->get_new_player_info();
-                    std::cout << "Recibi el new player" << new_ev.player_id << std::endl;
+                    //std::cout << "Recibi el new player" << new_ev.player_id << std::endl;
                     if(int(new_ev.player_id)!=player.get_id()){
                         map.new_player(new_ev.player_id,\
                         new_ev.pos_x,new_ev.pos_y,new_ev.angle,0);
@@ -60,12 +57,12 @@ bool ReceiveController::update(){
                 case RESURRECT_EV:{
                    New_Player_Event resurrect_ev=updatemessage->get_new_player_info();
                    if(int(resurrect_ev.player_id)!=player.get_id()){
-                       std::cout << "La id del jugador muerto es" << resurrect_ev.player_id << std::endl;
+                       //std::cout << "La id del jugador muerto es" << resurrect_ev.player_id << std::endl;
                         map.new_player(resurrect_ev.player_id,\
                         resurrect_ev.pos_x,resurrect_ev.pos_y,resurrect_ev.angle,0);
                     }
                    else{
-                        std::cout << "Resurreccione y mi nueva pos es x:" << resurrect_ev.pos_x << "y:" << resurrect_ev.pos_y << std::endl;
+                        //std::cout << "Resurreccione y mi nueva pos es x:" << resurrect_ev.pos_x << "y:" << resurrect_ev.pos_y << std::endl;
                         /*player.update_position_and_angle(resurrect_ev.pos_x,resurrect_ev.pos_y,\
                         resurrect_ev.angle);*/
                         player.resurrect_player(resurrect_ev);
@@ -84,7 +81,7 @@ bool ReceiveController::update(){
                 }
                 case ATTACK_EV:{
                     Change_Weapon_Event attack_ev=updatemessage->get_changed_stat();
-                    std::cout << "Player id:" << attack_ev.player_id <<"Bullets:" << attack_ev.weapon << std::endl;
+                    //std::cout << "Player id:" << attack_ev.player_id <<"Bullets:" << attack_ev.weapon << std::endl;
                     if(int(attack_ev.player_id)==player.get_id()){
                         player.shoot(attack_ev.weapon);
                     }
@@ -100,17 +97,17 @@ bool ReceiveController::update(){
                     Death_event death_ev=updatemessage->get_death_event();
                     if(int(death_ev.id_player)==player.get_id()){
                         lives=lives-1;
-                        std::cout << "LIVES ES" << lives << std::endl;
+                        //std::cout << "LIVES ES" << lives << std::endl;
                         player.update_lives(lives);
                         if(lives==0){
                             client.player_lost();
-                            std::cout << "Me quede sin vidas" << std::endl;
+                          //  std::cout << "Me quede sin vidas" << std::endl;
                         }
                     }
                     else{
                         soundmanager.play_sound(DEATH);
                     }
-                    std::cout << "AGrego muerto en el mapa " << std::endl;
+                    //std::cout << "AGrego muerto en el mapa " << std::endl;
                      map.add_dead_body(death_ev.id_player,death_ev.pos_x,death_ev.pos_y);
                     break;
                 }
@@ -122,10 +119,10 @@ bool ReceiveController::update(){
                     break;
                 }
                 case SCORES_EV:{
-                    std::cout << "RECEIVE CONTROLLER SCORES EV" << std::endl;
+                    //std::cout << "RECEIVE CONTROLLER SCORES EV" << std::endl;
                     std::vector<Player_stats> final_stats=updatemessage->get_final_stats();
-                    std::cout << "Cadena 1 es" << final_stats[0].Nickname << std::endl;
-                    std::cout << "Score 2 es" << final_stats[1].score << std::endl;
+                    //std::cout << "Cadena 1 es" << final_stats[0].Nickname << std::endl;
+                    //std::cout << "Score 2 es" << final_stats[1].score << std::endl;
                     client.stop_game(final_stats);
                     break;
                 }
@@ -151,7 +148,7 @@ bool ReceiveController::update(){
                     break;
                 }
                 case BULLETS_TAKEN_ITM:{
-                    std::cout << "AGARRE BULLETS" << std::endl;
+                    //std::cout << "AGARRE BULLETS" << std::endl;
                     Item_taken_event it_taken=updatemessage->get_item_taken();
                     //std::cout << "Pos x es :" << it_taken.pos_x << "Pos y es: " << it_taken.pos_y << std::endl;
                     map.delete_item(it_taken.pos_x,it_taken.pos_y);
@@ -186,12 +183,12 @@ bool ReceiveController::update(){
                     break;
                 }
                 case TREASURE_TAKEN_ITM:{
-                    std::cout << "Recibi tesoro" << std::endl;
+                    //std::cout << "Recibi tesoro" << std::endl;
                     //client.player_lost();
                     
                     Item_taken_event it_taken=updatemessage->get_item_taken();
                     
-                    std::cout << "Cuadricula x es" << it_taken.pos_x << "Cuadricula y es" << it_taken.pos_y << std::endl;
+                    //std::cout << "Cuadricula x es" << it_taken.pos_x << "Cuadricula y es" << it_taken.pos_y << std::endl;
                     map.delete_item(it_taken.pos_x,it_taken.pos_y);
                     if(int(it_taken.player_id)==player.get_id()){
                         player.change_score(it_taken.value);
@@ -199,19 +196,19 @@ bool ReceiveController::update(){
                     break;
                 }
                 case MACHINE_GUN_DROPPED_ITM:{
-                    std::cout << "DROPEO" << std::endl;
+                    //std::cout << "DROPEO" << std::endl;
                     Item_dropped_event it_dropped=updatemessage->get_item_dropped();
                     map.add_item(it_dropped.pos_x,it_dropped.pos_y,MAP_MACHINE_GUN);
                     break;
                 }
                 case CHAIN_CANNON_DROPPED_ITM: {
-                    std::cout << "DROPEO" << std::endl;
+                    //std::cout << "DROPEO" << std::endl;
                     Item_dropped_event it_dropped=updatemessage->get_item_dropped();
                     map.add_item(it_dropped.pos_x,it_dropped.pos_y,MAP_CHAIN_CANNON);
                     break;
                 }
                 case BULLETS_DROPPED_ITM:{
-                    std::cout << "DROPEO" << std::endl;
+                    //std::cout << "DROPEO" << std::endl;
                     Item_dropped_event it_dropped=updatemessage->get_item_dropped();
                     map.add_item(it_dropped.pos_x,it_dropped.pos_y,MAP_BULLET);
                     break;

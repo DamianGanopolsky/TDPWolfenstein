@@ -11,11 +11,6 @@
 Ray_shotter::Ray_shotter(std::map<int, bool>& game_map, const float angle,\
  const int number,int height,int width) : game_map(game_map), angle(angle), number(number),\
   map_height(height),map_width(width){
-	//std::cout << "---------------"  << std::endl; 
-	//std::cout << "Ray Number: " << number << std::endl;
-	//MapYamlParser mapyamlparser(Yaml);
-	//map_width=mapyamlparser.Map_Width();
-	//map_height=mapyamlparser.Map_Height(); 
 }
 
 Ray_shotter::~Ray_shotter() {

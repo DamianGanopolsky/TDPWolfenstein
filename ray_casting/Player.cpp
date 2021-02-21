@@ -72,9 +72,7 @@ void Player::update_position_and_angle(int X,int Y,float ANGLE){
 }
 
 void Player::update_lives(int lives){
-	std::cout << "Lives recibido es" << lives << std::endl;
 	this->info.lives=lives;
-	std::cout << "Info lives es" << this->info.lives << std::endl;
 }
 
 void Player::left_rotation() {
@@ -108,7 +106,6 @@ void Player::move_right() {
 
 void Player::shoot(int bullets) {
 	soundmanager.play_sound(info.weapon);
-	std::cout << "Info weapon es" << info.weapon  << std::endl;
 	switch(info.weapon){
 		case 0:
 		case 1:
@@ -121,8 +118,6 @@ void Player::shoot(int bullets) {
 			break;
 		}		
 	}
-	//std::cout << "Weapon status es" << info.weapon_status << std::endl;
-	//this->info.weapon_status = 2;
 	if(info.weapon!=0){
 		this->info.ammo=bullets;
 	} 
