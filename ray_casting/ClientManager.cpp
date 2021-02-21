@@ -11,8 +11,8 @@
 #define PATH_TO_MAPS "../Maps/"
 #define YAML_EXTENSION ".yaml"
 
-ClientManager::ClientManager(std::string Host,std::string Port):\
-host(Host),port(Port){
+ClientManager::ClientManager(std::string Host,std::string Port,std::string Nickname):\
+host(Host),port(Port),nickname(Nickname){
 	if(Mix_OpenAudio(44100,MIX_DEFAULT_FORMAT,2,1024)<0){
         throw std::invalid_argument("Error  en la inicializacion del audio \n");
     }
@@ -30,7 +30,7 @@ void ClientManager::start(){
 	ClientSocket clientsock(recv_queue,host.c_str(),port.c_str());
 	MusicSoundtrack music;
 	music.play_editor();
-	std::string nickname="PlayerNameASD";
+	//std::string nickname="PlayerNameASD";
 	clientsock.send_nickname(nickname);
 	New_Player_Event player_info=clientsock.recv_player();
 	Player player(player_info);

@@ -6,7 +6,7 @@
 
 #define SUCCESS 0
 #define ERROR 1
-#define EXPECTED_ARGS_CLIENT 3
+#define EXPECTED_ARGS_CLIENT 4
 #define EXPECTED_ARGS_EDITOR 1
 
 #ifndef ID
