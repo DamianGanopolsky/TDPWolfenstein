@@ -274,7 +274,7 @@ Response Player::resurrect() {
     this->state = new Alive(this->player_id);
     addNumResurrection();
     addLife(MAX_LIFE);
-    deleteInventory(KNIFE_TYPE);
+    //deleteInventory(KNIFE_TYPE);
     deleteInventory(MACHINE_GUN_TYPE);
     deleteInventory(CHAIN_CANNON_TYPE);
     reduceBullets(MAX_BULLETS);
@@ -329,8 +329,8 @@ void Player::addLife(int life) {
 
 void Player::addBullets(int bullets) {
     this->info.bullets += bullets;
-    //this->info.bullets = (this->info.bullets > MAX_BULLETS) ? MAX_BULLETS : this->info.bullets;
-    this->info.bullets = (this->info.bullets > GameConfig.max_bullets) ? GameConfig.max_bullets : this->info.bullets;
+    this->info.bullets = (this->info.bullets > MAX_BULLETS) ? MAX_BULLETS : this->info.bullets;
+    //this->info.bullets = (this->info.bullets > GameConfig.max_bullets) ? GameConfig.max_bullets : this->info.bullets;
 }
 
 void Player::addNumKeys(int key) {
