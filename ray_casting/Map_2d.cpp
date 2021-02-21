@@ -2,7 +2,7 @@
 #include <utility>
 #include <iostream>
 #include <string>
-#include <chrono>
+
 #include <unistd.h>
 #include "Yaml/YamlConfigClient.h"
 #define PLAYER_DEAD 40
@@ -20,6 +20,7 @@ Map_2d::Map_2d(Player& player,std::string YamlPathToMap) : player(player),YamlMa
 	" << mapyamlparser.Map_Width() << std::endl;*/
 	walls=mapyamlparser.get_boxes();
 	elements_map=mapyamlparser.load_objects();
+	time_last_update=std::chrono::steady_clock::now();
 	
 	for (auto const& x : walls){
 		if(x.second==2){
@@ -79,7 +80,24 @@ void Map_2d::update_player_pos(int id,int pos_x,int pos_y,int angle,int status){
 	players_state[id].pos_y=pos_y;
 	players_state[id].vision_angle=angle;
 	players_state[id].type_id=2;
-	players_state[id].is_moving=1;
+	//players_state[id].is_moving=1;
+	std::chrono::time_point<std::chrono::steady_clock> t2=std::chrono::steady_clock::now();
+	std::chrono::duration<double> diff=t2-time_last_update;
+	std::cout << "Diff es" << diff.count() << std::endl;
+	if(diff.count()>0.05){
+		
+		if(players_state[id].is_moving==0){
+			players_state[id].is_moving=1;
+		}
+		else{
+			std::cout << "Cambio a 0" << std::endl;
+			players_state[id].is_moving=0;
+		}
+		std::cout << "ID es" << players_state[id].is_moving << std::endl;
+		time_last_update=std::chrono::steady_clock::now();
+	}
+
+	//players_state[id].is_moving=rand()%2;
 }
 
 void Map_2d::add_item(int pos_x,int pos_y,int item){
@@ -192,7 +210,12 @@ std::list<Game_element> Map_2d::get_game_elements() {
 		object.second.vision_angle,this->player);
 		elements.push_back(std::move(element));
 		object.second.is_shooting=0;
-		object.second.is_moving=0;
+		std::chrono::time_point<std::chrono::steady_clock> t2=std::chrono::steady_clock::now();
+		std::chrono::duration<double> diff=t2-time_last_update;
+		if(diff.count()>0.1){
+			object.second.is_moving=0;
+		}
+		//object.second.is_moving=0;
 	}
 
 	for(auto& object: bodies){

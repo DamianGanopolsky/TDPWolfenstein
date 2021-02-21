@@ -12,6 +12,7 @@
 #include "const.h"
 #include "Yaml/MapYamlParser.h"
 #include <string>
+#include <chrono>
 
 struct state{
     int pos_x;
@@ -57,6 +58,7 @@ private:
 	std::map<int, bool> boxes;
 	//std::map<int, int> walls;
 	//std::unordered_map<int, bool> boxes;
+	std::chrono::time_point<std::chrono::steady_clock> time_last_update;
 	std::map<int, int> walls;
 	int total_boxes;
 
