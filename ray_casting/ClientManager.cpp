@@ -50,9 +50,9 @@ void ClientManager::start(){
 	
 	//std::chrono::duration<double> dur_prueba=std::chrono::system_clock::now();
 	auto t1 = std::chrono::steady_clock::now();
-	//int it=0;
+	int it=0;
     while (is_running) {
-		t1=std::chrono::steady_clock::now();
+		/*t1=std::chrono::steady_clock::now();
 		is_running=handler.handle();   //Capturo eventos del cliente y envio
 		if(!receivecontroller.update()){
 			auto t2= std::chrono::steady_clock::now();
@@ -63,7 +63,7 @@ void ClientManager::start(){
 				int sleeping_time=(ClientConfig.constant_rate_loop_ms-diff.count())*1000;
 				usleep(sleeping_time);
 			}
-		}
+		}*/
 		/*
 		else{
 			auto t2= std::chrono::steady_clock::now();
@@ -75,7 +75,7 @@ void ClientManager::start(){
 			}
 		}   
 		*/
-		/*		t1=std::chrono::steady_clock::now();
+		t1=std::chrono::steady_clock::now();
 		is_running=handler.handle();
 		receivecontroller.update();
 		if((it%101)==0){
@@ -87,7 +87,7 @@ void ClientManager::start(){
 		if(diff.count()<1){
 			int sleeping_time=(1-diff.count())*1000;
 			usleep(sleeping_time);
-		}*/
+		}
 	}
 	//auto t2= std::chrono::steady_clock::now();
 	//std::chrono::duration<double> diff=t2-t1;
