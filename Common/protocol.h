@@ -107,6 +107,9 @@ enum ItemOpcode {
     WEAPON_TAKEN_ITM, // id del jugador que lo agarra, pos x, pos y
     TREASURE_TAKEN_ITM, //id del jugador que lo agarra, pos x, pos y, puntaja del jugador
     BULLETS_TAKEN_ITM, //id del jugador que lo agarra, pos x, pos y, balas del jugador
+    MACHINE_GUN_DROPPED_ITM, // pos x, pos y
+    CHAIN_CANNON_DROPPED_ITM, // pos x, pos y
+    BULLETS_DROPPED_ITM // pos x, pos y
 
 };
 

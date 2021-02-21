@@ -38,7 +38,8 @@ class Game {
 
     void _notifyEvent(const ConnectionId id, const Response& response, EventOpcode event_type);
     void _notifyResponse(const ConnectionId id, const Response& response);
-    void _notifyItemChanged(const ConnectionId id, const Response& response, ItemOpcode item_type);
+    void _notifyItemChanged(const ConnectionId id, ItemOpcode item_type);
+    void _notifyItemDropped(const ConnectionId id, ItemOpcode item_type, int x, int y);
     void _notifyMovementEvent(const ConnectionId id, const Response& response);
     void _notifyChangeWeaponEvent(const ConnectionId id, const Response& response, int weapon);
     Response _canMove(Map& map, Player& player, std::pair<int, int> next_pos);
@@ -52,7 +53,9 @@ class Game {
     void _move(const ConnectionId id);
     void _deletePlayer(ConnectionId id);
     bool is_player_target(int pos_x_attacker, int pos_y_attacker, float vision_angle_attacker, \
-int pos_x_other_player,int pos_y_other_player);
+        int pos_x_other_player,int pos_y_other_player);
+    void _dropItems(ConnectionId id, int pos_x, int pos_y);
+    std::pair<int, int> _getNearestCellEmpty(int pos_x, int pos_y);
 
     public:
         Game(ClientsConnected& clients_connected, std::string map_Yaml, int& rate);

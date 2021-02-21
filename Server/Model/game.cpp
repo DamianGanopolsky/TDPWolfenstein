@@ -111,7 +111,7 @@ void Game::_notifyEvent(const ConnectionId id, const Response& response, EventOp
     //} 
 }
 
-void Game::_notifyItemChanged(const ConnectionId id, const Response& response, ItemOpcode item_type) {
+void Game::_notifyItemChanged(const ConnectionId id, ItemOpcode item_type) {
     Notification* notification;
     Player& player = this->players.at(id);
     switch (item_type) {
@@ -154,6 +154,11 @@ void Game::_notifyItemChanged(const ConnectionId id, const Response& response, I
                             player.getInfo().getNumBullets());
             break;
         }
+        case BULLETS_DROPPED_ITM:
+        case MACHINE_GUN_DROPPED_ITM:
+        case CHAIN_CANNON_DROPPED_ITM: {
+            break;
+        }
         default:
             throw Exception("Unknown item type.");
             break;
@@ -161,6 +166,91 @@ void Game::_notifyItemChanged(const ConnectionId id, const Response& response, I
         this->clients_connected.sendEventToAll(notification);
 }
 
+void Game::_notifyItemDropped(const ConnectionId id, ItemOpcode item_type, int x, int y) {
+    Notification* notification;
+    //Player& player = this->players.at(id);
+    switch (item_type) {
+        case CLOSE_DOOR_ITM:
+        case OPEN_DOOR_ITM:
+        case WEAPON_TAKEN_ITM:
+        case MEDICAL_KIT_TAKEN_ITM:
+        case FOOD_TAKEN_ITM:
+        case BLOOD_TAKEN_ITM:
+        case KEY_TAKEN_ITM:
+        case TREASURE_TAKEN_ITM:
+        case BULLETS_TAKEN_ITM: {
+            break;
+        }
+        case BULLETS_DROPPED_ITM:
+        case MACHINE_GUN_DROPPED_ITM:
+        case CHAIN_CANNON_DROPPED_ITM: {
+            notification = new ItemChanged(map_id, item_type, id,
+                                            x, y);
+            break;
+        }
+        default:
+            throw Exception("Unknown item type.");
+            break;
+        }
+        this->clients_connected.sendEventToAll(notification);
+}
+
+void Game::_dropItems(ConnectionId id, int x, int y) {
+    Player& player = this->players.at(id);
+    int weapon = player.getInfo().getWeaponTypeEquiped();
+    switch (weapon) {
+        case MACHINE_GUN_TYPE: {
+            std::pair <int, int> pos = _getNearestCellEmpty(x, y);
+            map.setObjectPos(pos.first, pos.second, MAP_MACHINE_GUN);
+            _notifyItemChanged(id, MACHINE_GUN_DROPPED_ITM);
+            break;
+        }
+        case CHAIN_CANNON_TYPE: {
+            std::pair <int, int> pos = _getNearestCellEmpty(x, y);
+            map.setObjectPos(pos.first, pos.second, MAP_CHAIN_CANNON);
+            _notifyItemChanged(id, CHAIN_CANNON_DROPPED_ITM);
+            break;
+        }
+        case GUN_TYPE:
+        case KNIFE_TYPE: {
+            break;
+        }
+    }
+    std::pair <int, int> pos_bullets = _getNearestCellEmpty(x, y);
+    map.setObjectPos(pos_bullets.first, pos_bullets.second, MAP_BULLET);
+    _notifyItemChanged(id, BULLETS_DROPPED_ITM);
+}
+
+std::pair<int, int> Game::_getNearestCellEmpty(int pos_x, int pos_y) {
+    std::pair<int, int> pos;
+    for (int i = 1; i != 35; i++) {
+        pos = map.getNextPos(UP_DIR, pos_x, pos_y, i);
+        if(map.getObjectPos((pos.first*POINTS_PER_CELL),
+        (pos.second*POINTS_PER_CELL)) == MAP_NONE) {
+            return std::make_pair((pos.first*POINTS_PER_CELL),
+            (pos.second*POINTS_PER_CELL));
+        }
+        pos = map.getNextPos(DOWN_DIR, pos_x, pos_y, i);
+        if(map.getObjectPos((pos.first*POINTS_PER_CELL),
+        (pos.second*POINTS_PER_CELL)) == MAP_NONE) {
+            return std::make_pair((pos.first*POINTS_PER_CELL),
+            (pos.second*POINTS_PER_CELL));
+        }
+        pos = map.getNextPos(LEFT_DIR, pos_x, pos_y, i);
+        if(map.getObjectPos((pos.first*POINTS_PER_CELL),
+        (pos.second*POINTS_PER_CELL)) == MAP_NONE) {
+            return std::make_pair((pos.first*POINTS_PER_CELL),
+            (pos.second*POINTS_PER_CELL));
+        }
+        pos = map.getNextPos(RIGHT_DIR, pos_x, pos_y, i);
+        if(map.getObjectPos((pos.first*POINTS_PER_CELL),
+        (pos.second*POINTS_PER_CELL)) == MAP_NONE) {
+            return std::make_pair((pos.first*POINTS_PER_CELL),
+            (pos.second*POINTS_PER_CELL));
+        }
+    }
+    return std::make_pair(1,1);
+}
 void Game::_move(const ConnectionId id) {
     std::cout <<"Game: player is moving"<< std::endl;
     Player& player = this->players.at(id);
@@ -174,7 +264,7 @@ void Game::_move(const ConnectionId id) {
         player.updateMovement();
         players_in_map.at(id) = std::make_pair(player.getPos().getX(), player.getPos().getY());
         _notifyMovementEvent(id, Response(true, SUCCESS_MSG));
-        _notifyItemChanged(id, can_move, (ItemOpcode)can_move.value);
+        _notifyItemChanged(id, (ItemOpcode)can_move.value);
     } else if (can_move.success) {
         std::cout <<"Game: player can move"<< std::endl;
         map.setObjectPos(player.getPos().getX(), player.getPos().getY(), MAP_NONE);
@@ -601,6 +691,7 @@ bool Game::receiveAttack(const ConnectionId id, int& damage) {
     Player& player = this->players.at(id);
     Response response = player.receiveAttack(damage);
     if (response.message == PLAYER_DIED_MSG) {
+        //_dropItems(id, player.getPos().getX(), player.getPos().getY());
         map.setObjectPos(player.getPos().getX(), player.getPos().getY(), MAP_NONE);
         std::cout<<"Game: PLAYER_DIED_MSG"<<std::endl;
         _notifyEvent(id, response, DEATH_EV);

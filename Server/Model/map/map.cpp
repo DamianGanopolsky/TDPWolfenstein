@@ -10,7 +10,12 @@ Map::Map(std::string YamlPathToMap){
     _loadMatrix(initial_map);
 }
 
-
+Map::~Map() {
+    for(int i=0;i<columns;i++){
+        delete [] map[i];
+    }
+    delete[] map;
+}
 
 void Map::_loadMatrix(std::map <std::pair<int,int>,int> initial_map){
     map= new int*[rows];
@@ -54,9 +59,6 @@ void Map::_loadMatrix(std::map <std::pair<int,int>,int> initial_map){
     }
 }
 
-void Map::printMatrix(){
-}
-
 int Map::getObjectPos(int x, int y) {
     int cell_x = (x/POINTS_PER_CELL);
     int cell_y = (y/POINTS_PER_CELL);
@@ -70,15 +72,35 @@ void Map::setObjectPos(int x, int y, ObjectsInMap object) {
     map[cell_x][cell_y] = object;
 }
 
-/*void Map::update_player(int command, Id player_id, Id target_id) {
-    Player player = this->players[player_id];
-    Player target = this->players[target_id];
-    cmd.applyCommand(command, this->map, player, target);
-}*/
-
-Map::~Map() {
-    for(int i=0;i<columns;i++){
-        delete [] map[i];
+std::pair<int, int> Map::getNextPos(Direction direction, int x ,int y, int value) {
+    switch (direction) {
+        /*
+    int new_y = (this->y + 1 > this->height) ? this->height : (this->y + 1);
+        */
+        case UP_DIR: {
+            int new_x = (x/POINTS_PER_CELL);
+            int new_y = ((y/POINTS_PER_CELL)+value > this->rows) ? this->rows : (y/POINTS_PER_CELL)+value;
+            return std::pair<int, int> (new_x, new_y);
+        }
+        case DOWN_DIR: {
+            int new_x = (x/POINTS_PER_CELL);
+            int new_y = ((y/POINTS_PER_CELL)-value < 0) ? 0 : (y/POINTS_PER_CELL)-value;
+            return std::pair<int, int> (new_x, new_y);
+        }
+        case LEFT_DIR: {
+            int new_x = ((x/POINTS_PER_CELL)+value > this->columns) ? this->columns : (x/POINTS_PER_CELL)+value;
+            int new_y = (y/POINTS_PER_CELL);
+            return std::pair<int, int> (new_x, new_y);
+        }
+        case RIGHT_DIR: {
+            int new_x = ((x/POINTS_PER_CELL)-value < 0) ? 0 : (x/POINTS_PER_CELL);
+            int new_y = (y/POINTS_PER_CELL);
+            return std::pair<int, int> (new_x, new_y);
+        }
+        default: {
+            throw Exception("Unknown next position");
+            break;
+        }
     }
-    delete[] map;
+    return std::pair<int, int> (-1, -1);
 }

@@ -49,7 +49,10 @@ bool ItemChanged::send(const ConnectionId sender, const Socket& peer) {
         peer.send((char *)buffer, 2);
         switch (item_type) {
             case CLOSE_DOOR_ITM:
-            case OPEN_DOOR_ITM: { //  pos x, pos y (posicion de la puerta)
+            case OPEN_DOOR_ITM:
+            case BULLETS_DROPPED_ITM:
+            case MACHINE_GUN_DROPPED_ITM:
+            case CHAIN_CANNON_DROPPED_ITM: { //  pos x, pos y (posicion de la puerta)
                 this->pos_x = htole32(this->pos_x);
                 this->pos_y = htole32(this->pos_y);
                 peer.send((char *)&pos_x, sizeof(pos_x));
