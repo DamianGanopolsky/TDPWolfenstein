@@ -20,6 +20,7 @@ struct state{
     int vision_angle;
 	int weapon;
 	int is_shooting;
+	int is_moving;
 };
 
 struct body_state{
@@ -77,7 +78,7 @@ private:
 	Player& player; 
 	std::string YamlMap;
 
-	int get_type_id(int weapon,int is_shooting);
+	int get_type_id(int weapon,int is_shooting,int is_moving);
 };
 
 #endif

@@ -107,17 +107,17 @@ void Game_element::set_texture(SDL_Texture* tex) {
 
 int Game_element::get_texture_section() {
 	//DETERMINA CUAL DE TODAS LAS TEXTURAS DE ANGULO USAR, LO HARDCODEO A 0
-	if(get_type_id()>13){
+	if((get_type_id()>13)&&(get_type_id()<17)){
 		return angle_;
 	}
 	return this->texture_section; 
 }
 
 int Game_element::get_texture_section(int element_angle, int player_angle) {
-	if(get_type_id()>13){
+	if((get_type_id()>13)&&(get_type_id()<17)){
 		return angle_;
 	}
-	if(get_type_id()>3){
+	if((get_type_id()>3)&&(get_type_id()<17)){
 		return 0;
 	}
 	int element_section = this->get_angle_section(element_angle);  

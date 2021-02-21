@@ -70,6 +70,7 @@ void Map_2d::new_player(int id,int pos_x,int pos_y,int angle,int status){
 	players_state[id].type_id=2;
 	players_state[id].weapon=1;
 	players_state[id].is_shooting=0;
+	players_state[id].is_moving=0;
 }
 
 void Map_2d::update_player_pos(int id,int pos_x,int pos_y,int angle,int status){
@@ -78,6 +79,7 @@ void Map_2d::update_player_pos(int id,int pos_x,int pos_y,int angle,int status){
 	players_state[id].pos_y=pos_y;
 	players_state[id].vision_angle=angle;
 	players_state[id].type_id=2;
+	players_state[id].is_moving=1;
 }
 
 void Map_2d::add_item(int pos_x,int pos_y,int item){
@@ -121,9 +123,20 @@ int Map_2d::map_get_players(){
 	return map_players;
 }
 
-int Map_2d::get_type_id(int weapon,int is_shooting){
+int Map_2d::get_type_id(int weapon,int is_shooting,int is_moving){
 	if(is_shooting==0){
-		return weapon;
+		//return weapon;
+		if(is_moving==0){
+			return weapon;
+		}
+		else{
+			if(weapon==0){
+				return (is_moving*20)+1;
+			}
+			else{
+				return (is_moving*20)+weapon;
+			}
+		}
 	}
 	else{
 		if(weapon==0){
@@ -170,15 +183,16 @@ std::list<Game_element> Map_2d::get_game_elements() {
 	}
 	/* ACA RENDERIZO LOS DISTINTOS JUGADORES CON SUS POSICIONES ACTUALIZADAS */
 	for (auto & object : players_state){
-		//std::cout << "Get type id es" << get_type_id(object.second.weapon,object.second.is_shooting) << std::endl;
 		if(object.second.is_shooting==PLAYER_DEAD){
 			continue;
 		}
+		
 		Game_element element(object.second.pos_x,object.second.pos_y,\
-		get_type_id(object.second.weapon,object.second.is_shooting),\
+		get_type_id(object.second.weapon,object.second.is_shooting,object.second.is_moving),\
 		object.second.vision_angle,this->player);
 		elements.push_back(std::move(element));
 		object.second.is_shooting=0;
+		object.second.is_moving=0;
 	}
 
 	for(auto& object: bodies){

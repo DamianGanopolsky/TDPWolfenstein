@@ -44,6 +44,7 @@ private:
 	Element_panel_status officer_dead_status;
 	Element_panel_status eguard_dead_status;
 	Element_panel_status guard_dead_status;
+	Element_panel_status officer_moving_status;
 	//SdlText numero;
 	
 	void copy_to_rederer_weapon(Player_info& info);
