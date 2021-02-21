@@ -29,6 +29,8 @@ public:
 
     void load_game_stats(std::vector<Player_stats> final_stats);
 
+    void load_drop(uint32_t pos_x,uint32_t pos_y);
+
     uint8_t get_opcode();
 
     uint8_t get_event_type();
@@ -44,6 +46,8 @@ public:
     Item_taken_event get_item_taken();
 
     Death_event get_death_event();
+
+    Item_dropped_event get_item_dropped();
 
     std::vector<Player_stats> get_final_stats();
 
@@ -62,6 +66,8 @@ private:
     Item_taken_event ItTakenEvent;
 
     Death_event death_event;
+
+    Item_dropped_event item_dropped;
 
     std::vector<Player_stats> final_stats;
 

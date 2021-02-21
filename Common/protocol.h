@@ -48,6 +48,11 @@ struct Death_event{
     uint32_t pos_y;
 };
 
+struct Item_dropped_event{
+    uint32_t pos_x;
+    uint32_t pos_y;
+};
+
 
 
 

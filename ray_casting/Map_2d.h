@@ -48,6 +48,7 @@ public:
 	int get_width();
 	int get_height();
 	int map_get_players();
+	void add_item(int pos_x,int pos_y,int item);
 	void new_player(int id,int pos_x,int pos_y,int angle,int status);
 	int get_player_weapon(int player_id);
 private:

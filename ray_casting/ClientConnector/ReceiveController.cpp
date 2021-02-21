@@ -1,6 +1,7 @@
  #include "ReceiveController.h"
  #include "yaml-cpp/yaml.h"
  #include <unistd.h>
+ #include "../../Server/Model/constants/const_object_map.h"
 
 ReceiveController::ReceiveController(Player& Player,Map_2d& MAP,NonBlockingQueue<UpdateMessage*>& RECV_QUEUE,\
      Client& CLIENT):player(Player),map(MAP),recv_queue(RECV_QUEUE),client(CLIENT){
@@ -23,7 +24,7 @@ bool ReceiveController::update(){
 			//std::chrono::duration<double> diff=t2-t1;
         diff = t2 - t1;
         std::cout << "DELTA DE RENDERIZADO ES" << diff.count() << std::endl;*/
-         return true;
+         return false;
          //usleep(33000);
      }
 
@@ -197,6 +198,24 @@ bool ReceiveController::update(){
                     }
                     break;
                 }
+                case MACHINE_GUN_DROPPED_ITM:{
+                    std::cout << "DROPEO" << std::endl;
+                    Item_dropped_event it_dropped=updatemessage->get_item_dropped();
+                    map.add_item(it_dropped.pos_x,it_dropped.pos_y,MAP_MACHINE_GUN);
+                    break;
+                }
+                case CHAIN_CANNON_DROPPED_ITM: {
+                    std::cout << "DROPEO" << std::endl;
+                    Item_dropped_event it_dropped=updatemessage->get_item_dropped();
+                    map.add_item(it_dropped.pos_x,it_dropped.pos_y,MAP_CHAIN_CANNON);
+                    break;
+                }
+                case BULLETS_DROPPED_ITM:{
+                    std::cout << "DROPEO" << std::endl;
+                    Item_dropped_event it_dropped=updatemessage->get_item_dropped();
+                    map.add_item(it_dropped.pos_x,it_dropped.pos_y,MAP_BULLET);
+                    break;
+                }
              }
          }
         /*auto t2= std::chrono::steady_clock::now();
@@ -204,7 +223,7 @@ bool ReceiveController::update(){
 			//std::chrono::duration<double> diff=t2-t1;
         diff = t2 - t1;
         std::cout << "DELTA DE UPDATE ES" << diff.count() << std::endl;*/
-         return false;
+         return true;
          
      }  
  }

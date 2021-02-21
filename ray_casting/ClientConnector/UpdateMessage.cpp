@@ -82,6 +82,11 @@ void UpdateMessage::load_game_stats(std::vector<Player_stats> Final_Stats){
     final_stats=Final_Stats;
 }
 
+void UpdateMessage::load_drop(uint32_t pos_x,uint32_t pos_y){
+    item_dropped.pos_x=pos_x;
+    item_dropped.pos_y=pos_y;
+}
+
 Movement_event UpdateMessage::get_mov_event_info(){
     return MovEvent;
 }
@@ -92,6 +97,10 @@ std::vector<Player_stats> UpdateMessage::get_final_stats(){
 
 New_Player_Event UpdateMessage::get_new_player_info(){
     return NewPEvent;
+}
+
+Item_dropped_event UpdateMessage::get_item_dropped(){
+    return item_dropped;
 }
 
 Change_Weapon_Event UpdateMessage::get_changed_stat(){

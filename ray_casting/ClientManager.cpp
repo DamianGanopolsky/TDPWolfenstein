@@ -64,20 +64,31 @@ void ClientManager::start(){
 	
 	//std::chrono::duration<double> dur_prueba=std::chrono::system_clock::now();
 	auto t1 = std::chrono::steady_clock::now();
+	//int it=0;
     while (is_running) {
 		t1=std::chrono::steady_clock::now();
 		is_running=handler.handle();   //Capturo eventos del cliente y envio
-		if(receivecontroller.update()){
+		if(!receivecontroller.update()){
 			auto t2= std::chrono::steady_clock::now();
 			std::chrono::duration<float, std::milli> diff;
-			//std::chrono::duration<double> diff=t2-t1;
 			diff = t2 - t1;
 			//std::cout << "Delta es" << diff.count() << std::endl;
 			if(diff.count()<100){
 				int sleeping_time=(100-diff.count())*1000;
 				usleep(sleeping_time);
 			}
+		}
+		/*
+		else{
+			auto t2= std::chrono::steady_clock::now();
+			std::chrono::duration<float, std::milli> diff;
+			diff = t2 - t1;
+			if(diff.count()<5){
+				int sleeping_time=(5-diff.count())*1000;
+				usleep(sleeping_time);
+			}
 		}   
+		*/
 	}
 	//auto t2= std::chrono::steady_clock::now();
 	//std::chrono::duration<double> diff=t2-t1;

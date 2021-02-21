@@ -84,6 +84,9 @@ struct Player_stats{
 #define TOTAL_OFFICER_GUARDIAS 8
 #define IMAGE_OFFICER_GUARDIAS_PATH "../ray_casting/panel_status/images/Oficial/Officer"
 
+#define TOTAL_OFFICER_GUARDIAS_MOVING 8
+#define IMAGE_OFFICER_GUARDIAS_MOVING_PATH "../ray_casting/panel_status/images/Oficial/OfficerMoving"
+
 #define TOTAL_OFFICER_GUARDIAS_DEAD 4
 #define IMAGE_OFFICER_GUARDIAS_DEAD_PATH "../ray_casting/panel_status/images/Oficial/DeadOfficer"
 

@@ -78,6 +78,10 @@ void Map_2d::update_player_pos(int id,int pos_x,int pos_y,int angle,int status){
 	players_state[id].type_id=2;
 }
 
+void Map_2d::add_item(int pos_x,int pos_y,int item){
+	elements_map[std::make_pair(pos_x*64,pos_y*64)]=item;
+}
+
 void Map_2d::add_dead_body(int id,int pos_x,int pos_y){
 	//bodies_in_map[std::pair<pos_x,pos_y>]=players_state.
 	body_state body;
