@@ -185,7 +185,8 @@ void Game::_notifyItemDropped(const ConnectionId id, ItemOpcode item_type, int x
         case MACHINE_GUN_DROPPED_ITM:
         case CHAIN_CANNON_DROPPED_ITM: {
             notification = new ItemChanged(map_id, item_type, id,
-                                            x, y);
+                                            x/POINTS_PER_CELL, 
+                                            y/POINTS_PER_CELL);
             break;
         }
         default:
