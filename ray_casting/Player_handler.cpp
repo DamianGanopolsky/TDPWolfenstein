@@ -148,16 +148,14 @@ bool Player_handler::handle() {
 						quit=false;
 						break;   
 				}
-			case SDL_MOUSEBUTTONUP:
+			case SDL_MOUSEBUTTONUP:{
 				if(event.button.button==SDL_BUTTON_RIGHT){
 					Command* command = new Command(OPEN_DOOR_CMD);
 					SendQueue.push(std::move(command));
                 }
 				break;
-
-			case SDL_MOUSEMOTION:
-				//std::cout << "En x:" << event.button.x << "En y:" << event.button.y << std::endl;
-		}
+			}
+	}
 	}
 	return quit;
 }
