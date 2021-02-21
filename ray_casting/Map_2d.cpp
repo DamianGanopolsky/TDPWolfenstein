@@ -7,6 +7,7 @@
 #define PLAYER_DEAD 40
 
 
+
 Map_2d::Map_2d(Player& player,std::string YamlPathToMap) : player(player),YamlMap(YamlPathToMap) {
 
 	MapYamlParser mapyamlparser(YamlPathToMap);
@@ -79,7 +80,7 @@ void Map_2d::update_player_pos(int id,int pos_x,int pos_y,int angle,int status){
 }
 
 void Map_2d::add_item(int pos_x,int pos_y,int item){
-	elements_map[std::make_pair(pos_x*64,pos_y*64)]=item;
+	elements_map[std::make_pair(pos_x,pos_y)]=item;
 }
 
 void Map_2d::add_dead_body(int id,int pos_x,int pos_y){

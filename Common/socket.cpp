@@ -128,7 +128,7 @@ Socket Socket::accept() const {
 
 ssize_t Socket::send(const char* buffer, size_t buffer_size) const {
 	size_t total_sent = 0;
-	std::cout <<"Socket: Se envio un buffer de bytes"<< std::endl;
+	//std::cout <<"Socket: Se envio un buffer de bytes"<< std::endl;
 	while (total_sent < buffer_size) {
 		ssize_t last_sent = ::send(fd, &buffer[total_sent], buffer_size-total_sent,
 							MSG_NOSIGNAL);
@@ -148,7 +148,7 @@ ssize_t Socket::receive(char* buffer, size_t buffer_size,
 						int& bytes_received) const {
 	size_t total_recv = 0;
 	bytes_received = 0;
-	std::cout <<"Socket: Se recibio un buffer de bytes"<< std::endl;
+	//std::cout <<"Socket: Se recibio un buffer de bytes"<< std::endl;
 	while (total_recv < buffer_size) {
 		ssize_t last_recv = ::recv(fd, &buffer[total_recv], 
 									buffer_size-total_recv, 0);

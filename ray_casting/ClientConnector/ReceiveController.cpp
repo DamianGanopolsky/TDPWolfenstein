@@ -2,6 +2,13 @@
  #include "yaml-cpp/yaml.h"
  #include <unistd.h>
  #include "../../Server/Model/constants/const_object_map.h"
+ #define KEY 4
+#define MEDICAL_KIT 5
+#define TREASURE 6
+#define FOOD 7
+#define AUTOMATIC_GUN 8
+#define BULLETS 9
+#define CHAIN_CANNON 10
 
 ReceiveController::ReceiveController(Player& Player,Map_2d& MAP,NonBlockingQueue<UpdateMessage*>& RECV_QUEUE,\
      Client& CLIENT):player(Player),map(MAP),recv_queue(RECV_QUEUE),client(CLIENT){
@@ -196,21 +203,24 @@ bool ReceiveController::update(){
                     break;
                 }
                 case MACHINE_GUN_DROPPED_ITM:{
-                    //std::cout << "DROPEO" << std::endl;
+                    
                     Item_dropped_event it_dropped=updatemessage->get_item_dropped();
-                    map.add_item(it_dropped.pos_x,it_dropped.pos_y,MAP_MACHINE_GUN);
+                    std::cout << "DROPEO AMCHINE GUN EN"<< it_dropped.pos_x << " " << it_dropped.pos_y << std::endl;
+                    map.add_item(it_dropped.pos_x,it_dropped.pos_y,AUTOMATIC_GUN);
                     break;
                 }
                 case CHAIN_CANNON_DROPPED_ITM: {
                     //std::cout << "DROPEO" << std::endl;
                     Item_dropped_event it_dropped=updatemessage->get_item_dropped();
-                    map.add_item(it_dropped.pos_x,it_dropped.pos_y,MAP_CHAIN_CANNON);
+                    std::cout << "DROPEO CHAIN CANNON EN"<< it_dropped.pos_x << " " << it_dropped.pos_y << std::endl;
+                    map.add_item(it_dropped.pos_x,it_dropped.pos_y,CHAIN_CANNON);
                     break;
                 }
                 case BULLETS_DROPPED_ITM:{
                     //std::cout << "DROPEO" << std::endl;
                     Item_dropped_event it_dropped=updatemessage->get_item_dropped();
-                    map.add_item(it_dropped.pos_x,it_dropped.pos_y,MAP_BULLET);
+                    std::cout << "DROPEO BULLET EN"<< it_dropped.pos_x << " " << it_dropped.pos_y << std::endl;
+                    map.add_item(it_dropped.pos_x,it_dropped.pos_y,BULLETS);
                     break;
                 }
              }
