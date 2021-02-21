@@ -196,32 +196,42 @@ void Game::_notifyItemDropped(const ConnectionId id, ItemOpcode item_type, int x
 }
 
 void Game::_dropItems(ConnectionId id, int x, int y) {
+    std::cout<<"Game: _dropItems() "<<std::endl;
     Player& player = this->players.at(id);
     int weapon = player.getInfo().getWeaponTypeEquiped();
+    std::cout<<"Game: got weapon "<<std::endl;
     switch (weapon) {
         case MACHINE_GUN_TYPE: {
+            std::cout<<"Game: IS MACHINE GUN "<<std::endl;
             std::pair <int, int> pos = _getNearestCellEmpty(x, y);
             map.setObjectPos(pos.first, pos.second, MAP_MACHINE_GUN);
-            _notifyItemChanged(id, MACHINE_GUN_DROPPED_ITM);
+            _notifyItemDropped(id, MACHINE_GUN_DROPPED_ITM,
+                                pos.first, pos.second);
             break;
         }
         case CHAIN_CANNON_TYPE: {
+            std::cout<<"Game: IS CHAIN_CANON "<<std::endl;
             std::pair <int, int> pos = _getNearestCellEmpty(x, y);
             map.setObjectPos(pos.first, pos.second, MAP_CHAIN_CANNON);
-            _notifyItemChanged(id, CHAIN_CANNON_DROPPED_ITM);
+            _notifyItemDropped(id, CHAIN_CANNON_DROPPED_ITM,
+                                pos.first, pos.second);
             break;
         }
         case GUN_TYPE:
         case KNIFE_TYPE: {
+            std::cout<<"Game: IS OTHER WEAPON "<<std::endl;
             break;
         }
     }
     std::pair <int, int> pos_bullets = _getNearestCellEmpty(x, y);
     map.setObjectPos(pos_bullets.first, pos_bullets.second, MAP_BULLET);
-    _notifyItemChanged(id, BULLETS_DROPPED_ITM);
+    std::cout<<"Game: NOTIFY BULLETS "<<std::endl;
+    _notifyItemDropped(id, BULLETS_DROPPED_ITM, 
+                        pos_bullets.first, pos_bullets.second);
 }
 
 std::pair<int, int> Game::_getNearestCellEmpty(int pos_x, int pos_y) {
+    std::cout<<"Game: _getNearestCellEmpty() "<<std::endl;
     std::pair<int, int> pos;
     for (int i = 1; i != 35; i++) {
         pos = map.getNextPos(UP_DIR, pos_x, pos_y, i);
@@ -249,6 +259,7 @@ std::pair<int, int> Game::_getNearestCellEmpty(int pos_x, int pos_y) {
             (pos.second*POINTS_PER_CELL));
         }
     }
+    std::cout<<"Game: _getNearestCellEmpty() END "<<std::endl;
     return std::make_pair(1,1);
 }
 void Game::_move(const ConnectionId id) {
@@ -690,9 +701,10 @@ bool Game::receiveAttack(const ConnectionId id, int& damage) {
     Player& player = this->players.at(id);
     Response response = player.receiveAttack(damage);
     if (response.message == PLAYER_DIED_MSG) {
-        //_dropItems(id, player.getPos().getX(), player.getPos().getY());
-        map.setObjectPos(player.getPos().getX(), player.getPos().getY(), MAP_NONE);
         std::cout<<"Game: PLAYER_DIED_MSG"<<std::endl;
+        _dropItems(id, player.getPos().getX(), player.getPos().getY());
+        map.setObjectPos(player.getPos().getX(), player.getPos().getY(), MAP_NONE);
+        std::cout<<"Game: notify player died"<<std::endl;
         _notifyEvent(id, response, DEATH_EV);
         player.setPosition(respawn_positions.at(id).first,
                             respawn_positions.at(id).second);
