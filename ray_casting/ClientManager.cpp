@@ -84,8 +84,8 @@ void ClientManager::start(){
 		auto t2= std::chrono::steady_clock::now();
 		std::chrono::duration<float, std::milli> diff;
 		diff = t2 - t1;
-		if(diff.count()<1){
-			int sleeping_time=(1-diff.count())*1000;
+		if(diff.count()<16.67){
+			int sleeping_time=(16.67-diff.count())*1000;
 			usleep(sleeping_time);
 		}
 	}
