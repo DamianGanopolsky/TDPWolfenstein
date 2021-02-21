@@ -46,10 +46,6 @@ void ClientManager::start(){
 	Sender sender(&clientsock,send_queue);
 	receiver.start();
 	sender.start();
-	
-
-	//ConstantRateLoop_ crl(handler,client,receivecontroller);
-	//crl.run();
 
 	bool is_running=true;
 	
@@ -64,8 +60,8 @@ void ClientManager::start(){
 			std::chrono::duration<float, std::milli> diff;
 			diff = t2 - t1;
 			//std::cout << "Delta es" << diff.count() << std::endl;
-			if(diff.count()<100){
-				int sleeping_time=(100-diff.count())*1000;
+			if(diff.count()<ClientConfig.constant_rate_loop_ms){
+				int sleeping_time=(ClientConfig.constant_rate_loop_ms-diff.count())*1000;
 				usleep(sleeping_time);
 			}
 		}

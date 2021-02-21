@@ -14,6 +14,7 @@
 #include "../Common/blocking_queue.h"
 #include "Client.h"
 #include <iostream>
+#include "Yaml/YamlConfigClient.h"
 
 class ClientManager {
 public:
