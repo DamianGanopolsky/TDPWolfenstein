@@ -64,8 +64,8 @@ void ClientManager::start(){
 			std::chrono::duration<float, std::milli> diff;
 			diff = t2 - t1;
 			//std::cout << "Delta es" << diff.count() << std::endl;
-			if(diff.count()<200){
-				int sleeping_time=(200-diff.count())*1000;
+			if(diff.count()<100){
+				int sleeping_time=(100-diff.count())*1000;
 				usleep(sleeping_time);
 			}
 		}
