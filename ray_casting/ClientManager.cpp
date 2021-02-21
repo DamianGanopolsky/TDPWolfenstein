@@ -30,7 +30,6 @@ void ClientManager::start(){
 	ClientSocket clientsock(recv_queue,host.c_str(),port.c_str());
 	MusicSoundtrack music;
 	music.play_editor();
-	//std::string nickname="PlayerNameASD";
 	clientsock.send_nickname(nickname);
 	New_Player_Event player_info=clientsock.recv_player();
 	Player player(player_info);
