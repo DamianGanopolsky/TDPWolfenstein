@@ -7,6 +7,7 @@
 #include "Wall_texture.h"
 #include "const.h"
 #include "Map_2d.h"
+#include "Yaml/YamlConfigClient.h"
 
 class Ray_panel : public Element_panel {
 public:

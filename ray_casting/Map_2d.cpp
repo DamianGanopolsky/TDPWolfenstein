@@ -4,6 +4,7 @@
 #include <string>
 #include <chrono>
 #include <unistd.h>
+#include "Yaml/YamlConfigClient.h"
 #define PLAYER_DEAD 40
 
 
@@ -35,11 +36,11 @@ Map_2d::~Map_2d() {
 }
 
 std::set<Ray> Map_2d::get_player_rays() {
-	float ray_width = FOV / PANEL_WIDTH;
+	float ray_width = FOV / ClientConfig.screen_width;
 	float angle = this->player.get_angle() + FOV / 2;
 	std::set<Ray> rays; 
 	
-	for (int i = 0; i < PANEL_WIDTH; i++) {
+	for (int i = 0; i < ClientConfig.screen_width; i++) {
 		float shotter_angle = angle < 0.0 ? 360 + angle : angle;
 		shotter_angle = shotter_angle >= 360.0 ? shotter_angle - 360.0 : shotter_angle;
 		Ray_shotter shotter(this->boxes, shotter_angle, i,map_height,map_width);

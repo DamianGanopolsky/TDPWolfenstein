@@ -6,12 +6,12 @@
 Ray_panel::Ray_panel(Ray&& ray, Wall_texture& wall_textures) : ray(std::move(ray)) {
 	this->dist = ray.get_dist();
 	int proy_slice_height = (WALL_HEIGHT / this->ray.get_dist()) * PANEL_DISTANCE;
-	int pixel_min = (PANEL_HEIGHT - proy_slice_height) / 2;
+	int pixel_min = (ClientConfig.screen_height - proy_slice_height) / 2;
 	int pixel_max = pixel_min + proy_slice_height;
 	int wall_x = this->ray.get_pos_x() == 0 || this->ray.get_pos_x() == 63 ? this->ray.get_pos_y() : this->ray.get_pos_x();
 
 	/* SOLO PARA PAREDES */
-	for (int min = 0; min < PANEL_HEIGHT; min++) {
+	for (int min = 0; min < ClientConfig.screen_height; min++) {
 		if (min < pixel_min) {
 			this->pixels[min] = FLOOR_COLOR;
 		} else if (min < pixel_max) {
@@ -27,7 +27,7 @@ Ray_panel::Ray_panel(Ray&& ray, Wall_texture& wall_textures) : ray(std::move(ray
 Ray_panel::Ray_panel(Ray_panel&& other) : ray(std::move(other.ray)){
 	this->tex = other.tex;
 	other.tex = nullptr;
-	for (int i = 0; i < PANEL_HEIGHT; i++) {
+	for (int i = 0; i < ClientConfig.screen_height; i++) {
 		this->pixels[i] = other.pixels[i];
 	}
 	this->dist = other.dist;
@@ -41,12 +41,12 @@ Ray_panel::~Ray_panel() {
 }
 
 void Ray_panel::copy_to_rederer(SDL_Renderer& renderer) {
-	this->tex = SDL_CreateTexture(&renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STATIC, 1, PANEL_HEIGHT);
+	this->tex = SDL_CreateTexture(&renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STATIC, 1, ClientConfig.screen_height);
 	SDL_Rect SrcR;
 	SrcR.x = this->ray.get_number();
 	SrcR.y = 0;
 	SrcR.w = 1;
-	SrcR.h = PANEL_HEIGHT;
+	SrcR.h = ClientConfig.screen_height;
 	SDL_UpdateTexture(this->tex, NULL, this->pixels, sizeof(Uint32));
     SDL_RenderCopy(&renderer, this->tex, NULL, &SrcR);
 }

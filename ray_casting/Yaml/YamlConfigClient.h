@@ -10,7 +10,7 @@ struct YamlParamConfig{
     
 };
 
-extern const struct YamlParamConfig GameConfig;
+extern const struct YamlParamConfig ClientConfig;
 //int kit_points;
 //YAML::Node Yaml= YAML::LoadFile("../Yaml_configs/server_config.yaml");
 //int kit_points=Yaml["kit"].as<int>();;

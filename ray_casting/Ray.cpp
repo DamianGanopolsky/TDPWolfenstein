@@ -1,8 +1,9 @@
 #include "Ray.h"
 #include <utility>
 #include <cmath>
+#include "Yaml/YamlConfigClient.h"
 
-#define PANEL_WIDTH 640.0
+#define SCREEN_WIDTH 640.0
 #define FOV 60.0
 #define PI 3.14159265
 
@@ -54,7 +55,7 @@ bool Ray::operator>(Ray& other_ray) const {
 }
 
 Ray Ray::get_ray_perp() const {
-	int number_ray_offset =  this->number < PANEL_WIDTH / 2 ? this->number : PANEL_WIDTH - this->number;
-	float new_dist = this->dist * cos((FOV / 2.0 - number_ray_offset * FOV / PANEL_WIDTH) * PI / 180.0);
+	int number_ray_offset =  this->number < SCREEN_WIDTH / 2 ? this->number : SCREEN_WIDTH - this->number;
+	float new_dist = this->dist * cos((FOV / 2.0 - number_ray_offset * FOV / SCREEN_WIDTH) * PI / 180.0);
 	return Ray(this->point, this->pos_x, this->pos_y, new_dist, this->number);
 }		

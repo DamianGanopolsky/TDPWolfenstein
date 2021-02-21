@@ -6,10 +6,10 @@
 #include <chrono>
 #include "LoginView.h"
 #include "LogInController.h"
-
+#include "Yaml/YamlConfigClient.h"
 
 Panel_window::Panel_window():  running(true) {
-	this->window = SDL_CreateWindow(PANEL_TITLE, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, PANEL_WIDTH, PANEL_HEIGHT, 0);
+	this->window = SDL_CreateWindow(PANEL_TITLE, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, ClientConfig.screen_width, ClientConfig.screen_height, 0);
 	SDL_SetWindowFullscreen(window,0);
 	this->renderer = SDL_CreateRenderer(this->window, -1, 0);
 	this->player_panel_status = Player_panel_status(this->renderer);
@@ -99,7 +99,7 @@ void Panel_window::update(std::set<Ray>&& rays, std::list<Game_element>&& elemen
 void Panel_window::render_player_lost_screen(){
 	SDL_SetRenderDrawColor(this->renderer,105,105,105,255);
 	SDL_RenderClear(this->renderer);
-	SDL_Rect main_screen_rect={0,0,PANEL_WIDTH,PANEL_HEIGHT};
+	SDL_Rect main_screen_rect={0,0,ClientConfig.screen_width,ClientConfig.screen_height};
     SDL_RenderCopy(this->renderer,Ending_screen_base,NULL,&main_screen_rect);
 	TTF_Font* Sans = TTF_OpenFont("../ray_casting/panel_status/OpenSans-Bold.ttf", 35); 
 	if(!Sans){
@@ -119,7 +119,7 @@ void Panel_window::render_player_lost_screen(){
 void Panel_window::render_ending_screen(){
 	SDL_SetRenderDrawColor(this->renderer,105,105,40,40);
 	SDL_RenderClear(this->renderer);
-	SDL_Rect main_screen_rect={0,0,PANEL_WIDTH,PANEL_HEIGHT};
+	SDL_Rect main_screen_rect={0,0,ClientConfig.screen_width,ClientConfig.screen_height};
     SDL_RenderCopy(this->renderer,Ending_screen_base,NULL,&main_screen_rect);
 	TTF_Font* Sans = TTF_OpenFont("../ray_casting/panel_status/OpenSans-Bold.ttf", 35); 
 	if(!Sans){
@@ -133,10 +133,10 @@ void Panel_window::render_ending_screen(){
 
 	for (auto & element : final_stats) {
 
-		SDL_Rect text_1_Rect={int(x_initial*PANEL_WIDTH),int(y_initial*PANEL_HEIGHT),int(0.2344*PANEL_WIDTH),int(0.1*PANEL_HEIGHT)};
-		SDL_Rect text_2_Rect={int(x_treasure*PANEL_WIDTH),int(y_initial*PANEL_HEIGHT),int(0.039*PANEL_WIDTH),int(0.0625*PANEL_HEIGHT)};
-		SDL_Rect kills_Rect={int(x_final_score*PANEL_WIDTH),int(y_initial*PANEL_HEIGHT),int(0.039*PANEL_WIDTH),int(0.0625*PANEL_HEIGHT)};
-		SDL_Rect final_score_Rect={int(x_kills*PANEL_WIDTH),int(y_initial*PANEL_HEIGHT),int(0.039*PANEL_WIDTH),int(0.0625*PANEL_HEIGHT)};
+		SDL_Rect text_1_Rect={int(x_initial*ClientConfig.screen_width),int(y_initial*ClientConfig.screen_height),int(0.2344*ClientConfig.screen_width),int(0.1*ClientConfig.screen_height)};
+		SDL_Rect text_2_Rect={int(x_treasure*ClientConfig.screen_width),int(y_initial*ClientConfig.screen_height),int(0.039*ClientConfig.screen_width),int(0.0625*ClientConfig.screen_height)};
+		SDL_Rect kills_Rect={int(x_final_score*ClientConfig.screen_width),int(y_initial*ClientConfig.screen_height),int(0.039*ClientConfig.screen_width),int(0.0625*ClientConfig.screen_height)};
+		SDL_Rect final_score_Rect={int(x_kills*ClientConfig.screen_width),int(y_initial*ClientConfig.screen_height),int(0.039*ClientConfig.screen_width),int(0.0625*ClientConfig.screen_height)};
 		std::string treasure = std::to_string(element.score);
 		std::string final_score= std::to_string(element.final_score);
 		std::string kills= std::to_string(element.kills);
@@ -164,10 +164,10 @@ void Panel_window::render_ending_screen(){
 
 void Panel_window::render_waiting_screen(){
 	SDL_RenderClear(this->renderer);
-	SDL_Rect main_screen_rect={0,0,PANEL_WIDTH,PANEL_HEIGHT};
+	SDL_Rect main_screen_rect={0,0,ClientConfig.screen_width,ClientConfig.screen_height};
     SDL_RenderCopy(this->renderer,waiting_screen,NULL,&main_screen_rect);
 	TTF_Font* Sans = TTF_OpenFont("../ray_casting/panel_status/OpenSans-Bold.ttf", 35); 
-	SDL_Rect text_1_Rect={int(0.2344*PANEL_WIDTH),int(0.5875*PANEL_HEIGHT),int(0.5469*PANEL_WIDTH),int(0.075*PANEL_HEIGHT)};
+	SDL_Rect text_1_Rect={int(0.2344*ClientConfig.screen_width),int(0.5875*ClientConfig.screen_height),int(0.5469*ClientConfig.screen_width),int(0.075*ClientConfig.screen_height)};
 	std::string text="Mapa elegido: "+map_name+" ("+std::to_string(map_cant_players)+" jugadores"+")";
     SDL_Surface* surfaceMessage = TTF_RenderText_Solid(Sans, text.c_str(), {108, 0, 0});
 	SDL_Texture* texture_of_text = SDL_CreateTextureFromSurface(this->renderer,surfaceMessage); 

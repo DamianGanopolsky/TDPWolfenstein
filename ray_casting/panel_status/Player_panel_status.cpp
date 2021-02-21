@@ -5,6 +5,7 @@
 #include <cmath>
 #include <string>
 #include <iostream>
+#include "../Yaml/YamlConfigClient.h"
 
 Player_panel_status::Player_panel_status(SDL_Renderer*& renderer) :
 										renderer(renderer), 
@@ -119,10 +120,10 @@ Player_panel_status::~Player_panel_status() {
 
 void Player_panel_status::copy_to_rederer(Player_info& player_info) {
 	SDL_Rect SrcR;
-	SrcR.w = PANEL_WIDTH;
-	SrcR.h = PANEL_HEIGHT * 0.2;
+	SrcR.w = ClientConfig.screen_width;
+	SrcR.h = ClientConfig.screen_height * 0.2;
 	SrcR.x = 0;
-	SrcR.y = PANEL_HEIGHT - SrcR.h;
+	SrcR.y = ClientConfig.screen_height - SrcR.h;
     SDL_RenderCopy(this->renderer, this->status_tex, NULL, &SrcR);
 
 	//std::cout << "Health aca es" << player_info.get_health() <<std::endl;
@@ -138,17 +139,17 @@ void Player_panel_status::copy_to_rederer(Player_info& player_info) {
 
 void Player_panel_status::copy_to_rederer_weapon(Player_info& info) {
 	SDL_Rect SrcR;
-	SrcR.w = PANEL_WIDTH * 0.2;
-	SrcR.h = PANEL_HEIGHT * 0.19;
-	SrcR.x = PANEL_WIDTH * 0.795;
-	SrcR.y = PANEL_HEIGHT - SrcR.h;
+	SrcR.w = ClientConfig.screen_width * 0.2;
+	SrcR.h = ClientConfig.screen_height * 0.19;
+	SrcR.x = ClientConfig.screen_width * 0.795;
+	SrcR.y = ClientConfig.screen_height - SrcR.h;
 	//Sombra del arma
 	this->weapon_status.copy_to_rederer(info.get_weapon(), &SrcR);
 
-	SrcR.w = PANEL_WIDTH * 0.25;
-	SrcR.h = PANEL_HEIGHT * 0.25;
-	SrcR.x = (PANEL_WIDTH - SrcR.w) / 2 ;
-	SrcR.y = PANEL_HEIGHT * 0.8 - SrcR.h;
+	SrcR.w = ClientConfig.screen_width * 0.25;
+	SrcR.h = ClientConfig.screen_height * 0.25;
+	SrcR.x = (ClientConfig.screen_width - SrcR.w) / 2 ;
+	SrcR.y = ClientConfig.screen_height * 0.8 - SrcR.h;
 
 	switch(info.get_weapon()){
 		case 0:
@@ -170,10 +171,10 @@ void Player_panel_status::copy_to_rederer_weapon(Player_info& info) {
 
 void Player_panel_status::copy_to_rederer_face(int health) {
 	SDL_Rect SrcR;
-	SrcR.w = PANEL_WIDTH * 0.1;
-	SrcR.h = PANEL_HEIGHT * 0.19;
-	SrcR.x = PANEL_WIDTH * 0.415;
-	SrcR.y = PANEL_HEIGHT - SrcR.h;
+	SrcR.w = ClientConfig.screen_width * 0.1;
+	SrcR.h = ClientConfig.screen_height * 0.19;
+	SrcR.x = ClientConfig.screen_width * 0.415;
+	SrcR.y = ClientConfig.screen_height - SrcR.h;
 
 	int face_number = ((MAX_HEALTH - health) / (MAX_HEALTH / (TOTAL_FACES - 1)));
 
@@ -182,10 +183,10 @@ void Player_panel_status::copy_to_rederer_face(int health) {
 
 void Player_panel_status::copy_to_rederer_lives(int lives) {
 	SDL_Rect SrcR;
-	SrcR.w = PANEL_WIDTH * 0.03;
-	SrcR.h = PANEL_HEIGHT * 0.10;
-	SrcR.x = PANEL_WIDTH * 0.340;
-	SrcR.y = PANEL_HEIGHT - SrcR.h * 1.25;
+	SrcR.w = ClientConfig.screen_width * 0.03;
+	SrcR.h = ClientConfig.screen_height * 0.10;
+	SrcR.x = ClientConfig.screen_width * 0.340;
+	SrcR.y = ClientConfig.screen_height - SrcR.h * 1.25;
 
 	/*std::string lives_str=std::to_string(lives);
 	TTF_Font* Sans = TTF_OpenFont("../ray_casting/panel_status/OpenSans-Bold.ttf", 35); 
@@ -202,11 +203,11 @@ void Player_panel_status::copy_to_rederer_lives(int lives) {
 
 void Player_panel_status::copy_to_rederer_health(int health) {
 	SDL_Rect SrcR;
-	//SrcR.w = PANEL_WIDTH * 0.025;
-	SrcR.w = PANEL_WIDTH * 0.086;
-	SrcR.h = PANEL_HEIGHT * 0.10;
-	SrcR.x = PANEL_WIDTH * 0.525;
-	SrcR.y = PANEL_HEIGHT - SrcR.h * 1.25;
+	//SrcR.w = ClientConfig.screen_width * 0.025;
+	SrcR.w = ClientConfig.screen_width * 0.086;
+	SrcR.h = ClientConfig.screen_height * 0.10;
+	SrcR.x = ClientConfig.screen_width * 0.525;
+	SrcR.y = ClientConfig.screen_height - SrcR.h * 1.25;
 
 	this->copy_to_rederer_number_(health,SrcR);
 
@@ -215,11 +216,11 @@ void Player_panel_status::copy_to_rederer_health(int health) {
 
 void Player_panel_status::copy_to_rederer_score(int score) {
 	SDL_Rect SrcR;
-	//SrcR.w = PANEL_WIDTH * 0.025;
-	SrcR.w = PANEL_WIDTH * 0.1;
-	SrcR.h = PANEL_HEIGHT * 0.10;
-	SrcR.x = PANEL_WIDTH * 0.1719;
-	SrcR.y = PANEL_HEIGHT* 0.87;
+	//SrcR.w = ClientConfig.screen_width * 0.025;
+	SrcR.w = ClientConfig.screen_width * 0.1;
+	SrcR.h = ClientConfig.screen_height * 0.10;
+	SrcR.x = ClientConfig.screen_width * 0.1719;
+	SrcR.y = ClientConfig.screen_height* 0.87;
 
 	this->copy_to_rederer_number_(score,SrcR);
 
@@ -228,10 +229,10 @@ void Player_panel_status::copy_to_rederer_score(int score) {
 
 void Player_panel_status::copy_to_rederer_level(int level) {
 	SDL_Rect SrcR;
-	SrcR.w = PANEL_WIDTH * 0.025;
-	SrcR.h = PANEL_HEIGHT * 0.10;
-	SrcR.x = PANEL_WIDTH * 0.05;
-	SrcR.y = PANEL_HEIGHT* 0.87;
+	SrcR.w = ClientConfig.screen_width * 0.025;
+	SrcR.h = ClientConfig.screen_height * 0.10;
+	SrcR.x = ClientConfig.screen_width * 0.05;
+	SrcR.y = ClientConfig.screen_height* 0.87;
 	this->copy_to_rederer_number_(level,SrcR);
 
 	//this->copy_to_rederer_number(level, 1, SrcR, false);
@@ -239,10 +240,10 @@ void Player_panel_status::copy_to_rederer_level(int level) {
 
 void Player_panel_status::copy_to_rederer_ammo(int ammo) {
 	SDL_Rect SrcR;
-	SrcR.w = PANEL_WIDTH * 0.1;
-	SrcR.h = PANEL_HEIGHT * 0.10;
-	SrcR.x = PANEL_WIDTH * 0.660;
-	SrcR.y = PANEL_HEIGHT - SrcR.h * 1.25;
+	SrcR.w = ClientConfig.screen_width * 0.1;
+	SrcR.h = ClientConfig.screen_height * 0.10;
+	SrcR.x = ClientConfig.screen_width * 0.660;
+	SrcR.y = ClientConfig.screen_height - SrcR.h * 1.25;
 
 	this->copy_to_rederer_number_(ammo,SrcR);
 

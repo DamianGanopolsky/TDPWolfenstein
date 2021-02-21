@@ -3,7 +3,7 @@
 #include <string>
 
 #define PANEL_HEIGHT 400
-#define PANEL_WIDTH 640
+#define PANEL_WIDTH 320
 
 #define PANEL_DISTANCE 277
 #define WALL_HEIGHT 64.0

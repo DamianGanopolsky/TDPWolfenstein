@@ -3,6 +3,7 @@
 #include "const.h"
 #include <SDL2/SDL_image.h>
 #include <iostream>
+#include "Yaml/YamlConfigClient.h"
 
 #define PI 3.1415
 #define TOTAL_SECTIONS 8
@@ -39,11 +40,11 @@ Game_element::Game_element(int pos_x, int pos_y, int type_id, int vision_angle, 
 		this->pos_ray = -1; 
 	} else {
 		float angle_diff = angle > angle_max ? angle_max - angle + 360.0 : angle_max - angle;
-		this->pos_ray = angle_diff / FOV * PANEL_WIDTH;
+		this->pos_ray = angle_diff / FOV * ClientConfig.screen_width;
 
 		float real_dist = sqrt(pow(x,2) + pow(y,2));
-		int offset =  this->pos_ray < PANEL_WIDTH / 2 ? this->pos_ray : PANEL_WIDTH - this->pos_ray;
-		this->dist = real_dist * cos((FOV / 2.0 - offset * FOV / PANEL_WIDTH) * PI / 180.0);
+		int offset =  this->pos_ray < ClientConfig.screen_width / 2 ? this->pos_ray : ClientConfig.screen_width - this->pos_ray;
+		this->dist = real_dist * cos((FOV / 2.0 - offset * FOV / ClientConfig.screen_width) * PI / 180.0);
 	} 
 }
 
@@ -76,11 +77,11 @@ void Game_element::update(int pos_x, int pos_y, int TYPE_ID, int vision_angle, P
 		this->pos_ray = -1; 
 	} else {
 		float angle_diff = angle > angle_max ? angle_max - angle + 360.0 : angle_max - angle;
-		this->pos_ray = angle_diff / FOV * PANEL_WIDTH;
+		this->pos_ray = angle_diff / FOV * ClientConfig.screen_width;
 
 		float real_dist = sqrt(pow(x,2) + pow(y,2));
-		int offset =  this->pos_ray < PANEL_WIDTH / 2 ? this->pos_ray : PANEL_WIDTH - this->pos_ray;
-		this->dist = real_dist * cos((FOV / 2.0 - offset * FOV / PANEL_WIDTH) * PI / 180.0);
+		int offset =  this->pos_ray < ClientConfig.screen_width / 2 ? this->pos_ray : ClientConfig.screen_width - this->pos_ray;
+		this->dist = real_dist * cos((FOV / 2.0 - offset * FOV / ClientConfig.screen_width) * PI / 180.0);
 	} 
 }
 
@@ -153,6 +154,6 @@ void Game_element::copy_to_rederer(SDL_Renderer& renderer) {
 	SrcR.w = (ENEMY_HEIGHT / this->dist) * PANEL_DISTANCE;
 	SrcR.h = (ENEMY_HEIGHT / this->dist) * PANEL_DISTANCE;
 	SrcR.x = this->pos_ray - SrcR.w / 2;
-	SrcR.y = (PANEL_HEIGHT - SrcR.w) / 2 ;
+	SrcR.y = (ClientConfig.screen_height - SrcR.w) / 2 ;
     SDL_RenderCopy(&renderer, this->texture, NULL, &SrcR);
 } 
