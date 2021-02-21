@@ -81,7 +81,7 @@ void Map_2d::update_player_pos(int id,int pos_x,int pos_y,int angle,int status){
 	players_state[id].vision_angle=angle;
 	players_state[id].type_id=2;
 	//players_state[id].is_moving=1;
-	std::chrono::time_point<std::chrono::steady_clock> t2=std::chrono::steady_clock::now();
+	/*std::chrono::time_point<std::chrono::steady_clock> t2=std::chrono::steady_clock::now();
 	std::chrono::duration<double> diff=t2-time_last_update;
 	std::cout << "Diff es" << diff.count() << std::endl;
 	if(diff.count()>0.05){
@@ -96,7 +96,7 @@ void Map_2d::update_player_pos(int id,int pos_x,int pos_y,int angle,int status){
 		std::cout << "ID es" << players_state[id].is_moving << std::endl;
 		time_last_update=std::chrono::steady_clock::now();
 	}
-
+*/
 	//players_state[id].is_moving=rand()%2;
 }
 
