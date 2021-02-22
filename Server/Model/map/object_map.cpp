@@ -14,7 +14,6 @@ ObjectMap::ObjectMap() : map(), player(0,0,str,0,0), bullet(), blood(), food(),
 ObjectMap::~ObjectMap() {}
 
 Object* ObjectMap::getObject(int code) {
-    std::cout <<"ObjectMap: code "<< code <<std::endl;
     return this->map.at(code);
 }
 
@@ -50,5 +49,4 @@ void ObjectMap::setMap() {
 
     this->map[MAP_DOOR] = &door;
     this->map[MAP_LOCKED_DOOR] = &locked_door;
-    //this->map[MAP_SECRET_PASSAGE] = secret_passage;
 }

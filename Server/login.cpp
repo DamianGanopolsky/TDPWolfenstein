@@ -11,7 +11,6 @@ Login::Login(Socket& peer, NonBlockingQueue<ConnectionElement*>& new_connections
 Login::~Login() {}
 
 std::string Login::_receive() {
-    std::cout << "Login: _receive"<<std::endl;
     bool connected = false;
     std::string nickname = " ";
     int bytes_received = 0;
@@ -24,7 +23,6 @@ std::string Login::_receive() {
         }
         name_size[0] = le32toh(name_size[0]);
         int name_size_ = int (name_size[0]);
-        std::cout << "Name size es" << name_size_ << std::endl;
         nickname.reserve(name_size_);
         char name[name_size_];
         if (!(peer.receive(name, name_size_, bytes_received))) {
@@ -40,7 +38,6 @@ std::string Login::_receive() {
 
 void Login::run() {
     is_running = true;
-    std::cout << "Login: run()"<<std::endl;
     try {
         std::string nickname = _receive();
         new_connections.push(new ConnectionElement(peer, nickname));
