@@ -617,7 +617,11 @@ bool Game::receiveAttack(const ConnectionId id, int& damage) {
         player.setPosition(respawn_positions.at(id).first,
                             respawn_positions.at(id).second);
         players_in_map[id] = std::make_pair(player.getPos().getX(), player.getPos().getY());
-        _notifyEvent(id, player.resurrect(), RESURRECT_EV);
+        Response response_resurrect = player.resurrect();
+        _notifyEvent(id, response_resurrect, RESURRECT_EV);
+        if (response_resurrect.success) {
+            _notifyChangeWeaponEvent(id, response_resurrect, KNIFE_TYPE);
+        }
         return true;
     }
     _notifyEvent(id, response, BE_ATTACKED_EV);
