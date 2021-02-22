@@ -80,10 +80,8 @@ bool Event::send(const ConnectionId sender, const Socket& peer) {
     try{
         uint8_t buffer[2];
         buffer[0] = EVENT_OPCODE;
-        std::cout << "Event opcode es" << unsigned(buffer[0]) << std::endl;
         buffer[1] = event_type;
         peer.send((char *)buffer, sizeof(buffer));
-        std::cout << "event type es: " << unsigned(event_type) <<std::endl;
         switch (event_type) {
             case MOVEMENT_EV: { 
                 this->player_id = htole32(this->player_id);
@@ -105,7 +103,6 @@ bool Event::send(const ConnectionId sender, const Socket& peer) {
                 int len_map=map_.length();
                 char map[len_map];
                 strcpy(map, map_.c_str());
-                //char map[12]= "Fortified_6";
                 uint32_t map_size[1];
                 map_size[0]=strlen(map);
                 map_size[0] = htole32(map_size[0]);
@@ -131,7 +128,6 @@ bool Event::send(const ConnectionId sender, const Socket& peer) {
             case CHANGE_WEAPON_EV: {
                 this->player_id = htole32(this->player_id);
                 peer.send((char *)&player_id, sizeof(player_id));
-                std::cout<<"vaule: "<<value<<std::endl;
                 this->value = htole32(this->value);
                 peer.send((char *)&value, sizeof(value));
                 break;
@@ -148,7 +144,6 @@ bool Event::send(const ConnectionId sender, const Socket& peer) {
             case SCORES_EV: {
                 this->num_players = htole32(this->num_players);
                 peer.send((char *)&num_players, sizeof(num_players));
-                
                 //PLAYER 1
                 int len_name_1 = name_1.length();
                 char char_name_1[len_name_1];
@@ -167,7 +162,7 @@ bool Event::send(const ConnectionId sender, const Socket& peer) {
                 //treasure
                 this->treasure_1 = htole32(this->treasure_1);
                 peer.send((char *)&treasure_1, sizeof(treasure_1));
-                //PLAYER 2 nickname_1, puntos_finales_1, cant_asesinatos_1, tesoros_1,
+                //PLAYER 2 
                 int len_name_2 = name_2.length();
                 char char_name_2[len_name_2];
                 strcpy(char_name_2, name_2.c_str());

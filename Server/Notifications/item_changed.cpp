@@ -43,8 +43,6 @@ bool ItemChanged::send(const ConnectionId sender, const Socket& peer) {
         uint8_t buffer[2];
         buffer[0] = ITEM_CHANGED_OPCODE;
         buffer[1] = item_type;
-        std::cout<<"opcode: "<<ITEM_CHANGED_OPCODE<<std::endl;
-        std::cout<<"item type: "<<item_type<<std::endl;
         peer.send((char *)buffer, 2);
         switch (item_type) {
             case CLOSE_DOOR_ITM:

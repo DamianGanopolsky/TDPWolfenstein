@@ -23,8 +23,7 @@ function helpMessage() {
     echo "  4: desinstalar el juego."
     echo ""
     echo "Otras opciones:"
-    echo "  5: manual de usuario."
-    echo "  h: muestra este mensaje."
+    echo "  h: ayuda (este mensaje)."
     echo "  q: cerrar."
     echo ""
 }
@@ -32,28 +31,6 @@ function helpMessage() {
 function unknownInput() {
     echo "Opción desconocida (ingrese 'h' para ayuda, 'q' para salir)." 
     echo ""
-}
-
-function userManual() {
-    echo "--- MANUAL DE USUARIO ---"
-    echo "Instalación"
-    echo "  * Para comenzar a jugar, es necesario instalar dependencias y el juego en sí. Seleccionando la opción '3' del menú, se realizará este proceso de forma automática."
-    echo ""
-    echo "Ejecución"
-    echo "  * Servidor: corriendo 'server <port> <map_name>' se abrirá un servidor en el puerto dado."
-    echo "  * Cliente: corriendo 'client <host> <port> <player_name>' se abrirá el juego."
-    echo ""
-    echo "Configuración"
-    echo "  * Para configurar el cliente, es necesario acceder a los archivos en la ruta 'Yaml_configs/client_setting.yaml' y modificar el archivo que querramos."
-    echo "  * Para configurar el servidor, es necesario acceder a los archivos en la ruta 'Yaml_configs/server_config.yaml' y modificar el archivo que querramos." 
-    echo ""
-}
-
-function build() {
-    sudo rm -rf build
-    mkdir build
-    cd build
-    cmake ..
 }
 
 function installDependencies() {
@@ -81,13 +58,23 @@ function installDependencies() {
     echo ""
 }
 
+function build() {
+    sudo rm -rf build
+    mkdir build
+    cd build
+    cmake ..
+}
+
 function installGame() {
     echo "--- INSTALACIÓN DEL JUEGO ---"
     build
-    sudo make
+    sudo make install
     echo ""
     echo "Instalación del juego finalizada."
     echo ""
+    echo "Para su ejecución:"
+    echo "  * Servidor: corriendo 'server <port> <map_name>' se abrirá un servidor en el puerto dado."
+    echo "  * Cliente: corriendo 'client <host> <port> <player_name>' se abrirá el juego."
 }
 
 function all() {
@@ -137,11 +124,6 @@ do
         4)
             echo ""
             uninstall
-            waitingInputMessage
-        ;;
-        5)
-            echo ""
-            userManual
             waitingInputMessage
         ;;
         h)  

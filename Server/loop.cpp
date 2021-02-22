@@ -1,5 +1,4 @@
 #include "loop.h"
-#include <chrono>
 
 Loop::Loop(NonBlockingQueue<ConnectionElement*>& new_connections,std::string mapYaml) : 
                 map(12), rate(1000/30), 
@@ -30,7 +29,6 @@ void Loop::_newConnections() {
 void Loop::_newCommands() {
     Command* command = nullptr;
     while((command = this->commands.pop())) {
-        std::cout <<"Loop: new_command"<< std::endl;
         try {
             command->run(pre_game.game);
         } catch (const std::exception& e) {
@@ -73,7 +71,6 @@ void Loop::run() {
         _newCommands();
         bool start_game = pre_game.update(it);
         if ((start_game) && (first_game_it == 0)) { //SOLO TIENE QUE ENRTAR UNA SOLA VEZ
-            std::cout <<"Loop: started game"<<std::endl;
             Notification* notification = new Event(START_EV);
             clients_connected.sendEventToAll(notification);
             ++first_game_it;
@@ -96,10 +93,8 @@ void Loop::run() {
         t1 += std::chrono::milliseconds(rate);
         it += 1;
     }
-    std::cout <<"Loop: termino el loop"<< std::endl;
     clients_connected.stop();
     _deleteQueues();
-    std::cout <<"Loop: termino "<< std::endl;
 }
 
 void Loop::stop() {
