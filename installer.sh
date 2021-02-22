@@ -38,15 +38,14 @@ function userManual() {
     echo "--- MANUAL DE USUARIO ---"
     echo "Instalación"
     echo "  * Para comenzar a jugar, es necesario instalar dependencias y el juego en sí. Seleccionando la opción '3' del menú, se realizará este proceso de forma automática."
-    echo "  * Las dependencias que se instalarán serán las necesarias para utilizar la librería gráfica SDL, y CMake para la compilación."
     echo ""
     echo "Ejecución"
-    echo "  * Servidor: corriendo 'server <port>' se abrirá un servidor en el puerto dado. Es necesario ejecutar con sudo ya que el servidor modifica los archivos de la base de datos."
-    echo "  * Cliente: corriendo 'client' se abrirá el juego."
+    echo "  * Servidor: corriendo 'server <port> <map_name>' se abrirá un servidor en el puerto dado."
+    echo "  * Cliente: corriendo 'client <host> <port> <player_name>' se abrirá el juego."
     echo ""
     echo "Configuración"
-    echo "  * Para configurar el cliente, es necesario acceder a los archivos en la ruta '/etc/TDPWolfenstein/Client/config' y modificar el archivo que querramos."
-    echo "  * Para configurar el servidor, es necesario acceder a los archivos en la ruta '/etc/TDPWolfenstein/Server/config' y modificar el archivo que querramos." 
+    echo "  * Para configurar el cliente, es necesario acceder a los archivos en la ruta 'Yaml_configs/client_setting.yaml' y modificar el archivo que querramos."
+    echo "  * Para configurar el servidor, es necesario acceder a los archivos en la ruta 'Yaml_configs/server_config.yaml' y modificar el archivo que querramos." 
     echo ""
 }
 
@@ -62,6 +61,9 @@ function installDependencies() {
     echo ""
     echo ">> Instalando 'cmake'..."
     sudo apt-get install cmake
+    echo ""
+    echo ">> Instalando 'YAML'..."
+    sudo apt-get install libyaml-cpp-dev
     echo ""
     echo ">> Instalando 'libsdl2-dev'..."
     sudo apt-get install libsdl2-dev
