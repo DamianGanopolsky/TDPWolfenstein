@@ -27,30 +27,7 @@ void Map::_loadMatrix(std::map <std::pair<int,int>,int> initial_map){
             map[i][j]=MAP_NONE;
         }
     }
-    /*
-    MAP_CHAIN_CANNON    = 256,
-    MAP_GUN             = 512,
-    MAP_MACHINE_GUN     = 1024,
-    MAP_KNIFE 
-    */
     for (auto const& x : initial_map){
-        //std::cout << "En x:" << x.first.first << "en y:" << x.first.second << "obj:" << x.second << std::endl;
-        if(x.second==MAP_KNIFE){
-            std::cout << "Hay chain cannon en x:" << x.first.first <<"y:" << x.first.second << std::endl;
-            std::cout << "Hay chain cannon en cuadricula x:" << x.first.first/CUADRICULA <<"y:" << x.first.second/CUADRICULA << std::endl;
-        }
-        if(x.second==MAP_GUN){
-            std::cout << "Hay chain cannon en x:" << x.first.first <<"y:" << x.first.second << std::endl;
-            std::cout << "Hay chain cannon en cuadricula x:" << x.first.first/CUADRICULA <<"y:" << x.first.second/CUADRICULA << std::endl;
-        }
-        if(x.second==MAP_MACHINE_GUN){
-            std::cout << "Hay chain cannon en x:" << x.first.first <<"y:" << x.first.second << std::endl;
-            std::cout << "Hay chain cannon en cuadricula x:" << x.first.first/CUADRICULA <<"y:" << x.first.second/CUADRICULA << std::endl;
-        }
-        if(x.second==MAP_CHAIN_CANNON){
-            std::cout << "Hay chain cannon en x:" << x.first.first <<"y:" << x.first.second << std::endl;
-            std::cout << "Hay chain cannon en cuadricula x:" << x.first.first/CUADRICULA <<"y:" << x.first.second/CUADRICULA << std::endl;
-        }
         if(x.second==MAP_PLAYER){
             continue;
         }

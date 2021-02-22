@@ -6,12 +6,10 @@
 #include "../Server/Model/constants/const_object_map.h"
 
 #define TILE_PIXELS 32
-//#define SCREEN_HEIGTH 19
 #define SCREEN_HEIGTH 50
-//#define SCREEN_WIDTH 32
 #define SCREEN_WIDTH 50
 #define TOTAL_IMAGES 17
-//#define CUADRICULA 64
+#define CUADRICULA 64
 
 void Map::LoadMatrix(std::map <std::pair<int,int>,int> initial_map){
     matrix= new int*[rows];
@@ -24,12 +22,12 @@ void Map::LoadMatrix(std::map <std::pair<int,int>,int> initial_map){
         }
     }
     for (auto const& x : initial_map){
-        matrix[x.first.first/cuadricula][x.first.second/cuadricula]=x.second;
+        matrix[x.first.first/CUADRICULA][x.first.second/CUADRICULA]=x.second;
         if(x.second==MAP_PLAYER){
             player_count++;
             std::pair<int,int> pair_key;
-            pair_key.first=x.first.first/cuadricula;
-            pair_key.second=x.first.second/cuadricula;
+            pair_key.first=x.first.first/CUADRICULA;
+            pair_key.second=x.first.second/CUADRICULA;
             player_map.insert({pair_key,player_count});
         }
     }
@@ -95,8 +93,8 @@ void Map::printMap(){
 
 Map::Map(SdlWindow& Window,std::string YamlPath):window(Window),player_count(0){
     YAML::Node config = YAML::LoadFile("../Yaml_configs/editor_config.yaml");
-    int total_images = config["total_images_to_load"].as<int>();
-    cuadricula=config["cuadricula_size"].as<int>();
+    //int total_images = config["total_images_to_load"].as<int>();
+    //cuadricula=config["cuadricula_size"].as<int>();
     camera.x=0;
     camera.y=0;
     surfaces.push_back(IMG_Load("../Editor/Editor_Assets/GreyTile.png"));
@@ -116,7 +114,7 @@ Map::Map(SdlWindow& Window,std::string YamlPath):window(Window),player_count(0){
     surfaces.push_back(IMG_Load("../Editor/Editor_Assets/Player_Number/Cuatro.png"));
     surfaces.push_back(IMG_Load("../Editor/Editor_Assets/Player_Number/Cinco.png"));
     surfaces.push_back(IMG_Load("../Editor/Editor_Assets/Player_Number/Seis.png"));
-    for(int i=0;i<total_images;i++){
+    for(int i=0;i<TOTAL_IMAGES;i++){
         textures.push_back(SDL_CreateTextureFromSurface(window.getRenderer(),surfaces.at(i)));
     }
 }

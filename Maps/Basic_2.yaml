@@ -53,6 +53,18 @@ Map:
         y: 384
       - x: 448
         y: 448
+      - x: 704
+        y: 768
+      - x: 704
+        y: 832
+      - x: 768
+        y: 768
+      - x: 768
+        y: 832
+      - x: 832
+        y: 768
+      - x: 832
+        y: 832
   Treasure:
     position:
       - x: 320
@@ -243,10 +255,6 @@ Map:
         y: 896
       - x: 960
         y: 960
-  Door:
-    position:
-      - x: 704
-        y: 640
   Players:
     position:
       - x: 192

@@ -1,8 +1,4 @@
 width: 960
 heigth: 640
 
-total_images_to_load: 17
-
-cuadricula_size: 64
-
 max_length_file: 12

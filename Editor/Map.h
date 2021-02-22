@@ -21,9 +21,6 @@ private:
     int** matrix;
     int rows;
     int columns;
-    int cuadricula;
-
-
 
 public:
     Map(SdlWindow& Window,std::string YamlPath);
