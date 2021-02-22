@@ -6,7 +6,6 @@
 #include "../Notifications/notification.h"
 #include "../Notifications/event.h"
 #include "../../Common/defs.h"
-#include "./constants/config_player.h"
 
 class PostGame {
     std::string map_name;

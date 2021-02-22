@@ -3,7 +3,6 @@
 
 #include "./player_info.h"
 #include "../../../Common/defs.h"
-#include "../constants/config_player.h"
 
 class State {
  protected:

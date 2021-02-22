@@ -25,8 +25,7 @@ enum ObjectsInMap {
     MAP_DOOR            = 524288,
     MAP_LOCKED_DOOR     = 1048576,
     MAP_PLAYER          = 2097152,
-    //MAP_CORPSE
 
 };
 
-#endif    // CONST_MAPECT_MAP_H_
+#endif 
