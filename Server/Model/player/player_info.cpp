@@ -45,22 +45,17 @@ Weapon* PlayerInfo::getWeaponEquiped() {
 }
 
 int PlayerInfo::getWeaponTypeEquiped() {
-    std::cout << "PlayerInfo: getWeaponTypeEquiped()"<<std::endl;
     switch (this->weapon_type.at(this->equiped)) {
         case KNIFE_TYPE: {
-            std::cout << "PlayerInfo: knife"<<std::endl;
             return KNIFE_TYPE;
         }
         case GUN_TYPE: {
-            std::cout << "PlayerInfo: gun"<<std::endl;
             return GUN_TYPE;
         }
         case MACHINE_GUN_TYPE: {
-            std::cout << "PlayerInfo: machine_gun"<<std::endl;
             return MACHINE_GUN_TYPE;
         }
         case CHAIN_CANNON_TYPE: {
-            std::cout << "PlayerInfo: chain_cannon"<<std::endl;
             return CHAIN_CANNON_TYPE;
         }
         default:
@@ -82,6 +77,5 @@ void PlayerInfo::changeWeaponEquiped(const int& type) {
 }
 
 bool PlayerInfo::hasWeapon(int weapon) {
-    std::cout << "PlayerInfo: has weapon" <<std::endl;
     return (std::find(this->inventory.begin(), this->inventory.end(), weapon) != this->inventory.end());
 }

@@ -4,80 +4,53 @@ PostGame::PostGame(std::string map_name) :
                     map_name(map_name), is_empty(true),
                     losers(), treasures(), kills(),
                     scores(), names() {
-                       std::cout<<"PostGame: start()"<<std::endl; 
                     }
 
 PostGame::~PostGame() {}
 
 void PostGame::_copyOfMap() {
     std::unordered_map<ConnectionId, std::pair<std::string, std::vector<int>>>::iterator it;
-    std::cout<<"PostGame: copy start"<<std::endl;
     for (it = losers.begin(); it != losers.end(); it++) {
-        std::cout<<"PostGame: get nickname"<<std::endl;
         std::string nickname = it->second.first;
-        std::cout<<"PostGame: get treasure"<<std::endl;
         int treasure = it->second.second[0];
-        std::cout<<"PostGame: get kills"<<std::endl;
         int kills = it->second.second[1];
-        std::cout<<"PostGame: emplace"<<std::endl;
         int values[] = {treasure, kills};
         std::vector<int> vector (values, values + sizeof(values) / sizeof(int));
         this->losers_copy.emplace(
         std::piecewise_construct, std::forward_as_tuple(it->first),
         std::forward_as_tuple(std::make_pair(nickname, vector)));
-        std::cout<<"PostGame: copy end"<<std::endl;
     }
 }
 
 void PostGame::_getBestScores() {
-    std::cout<<"PostGame: _getBestScores()"<<std::endl;
     _copyOfMap();
-    std::cout<<"PostGame: copied"<<std::endl;
     std::unordered_map<ConnectionId, std::pair<std::string, std::vector<int>>>::iterator it;
     std::string name;
     int kills;
     int treasure;
     ConnectionId id;
-    std::cout<<"PostGame: start"<<std::endl;
     for (int i = 0; i <= (num_players-1); i++) {
-        std::cout<<"PostGame: enter in for"<<std::endl;
         int score = -1;
         for (it = losers_copy.begin(); it != losers_copy.end(); it++) {
-            std::cout<<"PostGame: enter in for2"<<std::endl;
             int value = ((it->second.second[0]*GameConfig.treasure_weight_final_score)+
                 (it->second.second[1]*GameConfig.kills_weight_final_score));
             if (score < value) {
-                std::cout<<"PostGame:enters in if"<<std::endl;
                 name = it->second.first;
-                std::cout<<"PostGame: names_ "<<name<<std::endl;
                 treasure = it->second.second[0];
-                std::cout<<"PostGame: treasure_ "<<treasure<<std::endl;
                 kills = it->second.second[1];
-                std::cout<<"PostGame: kills_ "<<kills<<std::endl;
                 id = it->first;
-                std::cout<<"PostGame: id_ "<<id<<std::endl;
                 score = value;
-                std::cout<<"PostGame: score_ "<<score<<std::endl;
             }
         }
-        std::cout<<"PostGame: names "<<name<<std::endl;
-        std::cout<<"PostGame: score "<<score<<std::endl;
-        std::cout<<"PostGame: kills "<<kills<<std::endl;
-        std::cout<<"PostGame: id "<<id<<std::endl;
         this->names[i] = name;
         this->treasures[i] = treasure;
         this->kills[i] = kills;
         this->scores[i] = score;
         losers_copy.erase(id);
     }
-    std::cout<<"PostGame: end _getBestScores()"<<std::endl;
 }
 
 void PostGame::add(ConnectionId id, std::string nickname, int treasure, int kills) {
-    std::cout<<"PostGame: add"<< (unsigned)id <<std::endl;
-    std::cout<<"PostGame: nickname"<< nickname <<std::endl;
-    std::cout<<"PostGame: score"<< treasure <<std::endl;
-    std::cout<<"PostGame: kills"<< kills <<std::endl;
     int values[] = {treasure, kills};
     std::vector<int> vector (values, values + sizeof(values) / sizeof(int));
     if (losers.count(id) > 0) {
@@ -91,9 +64,6 @@ void PostGame::add(ConnectionId id, std::string nickname, int treasure, int kill
 }
 
 Notification* PostGame::showScores() {
-    std::cout<<"PostGame: showScores()"<<std::endl;
-    std::cout<<"PostGame: name 1"<<names[0]<<std::endl;
-    std::cout<<"PostGame: name 2"<<names[1]<<std::endl;
     Notification* notification;
     this->num_players = (int)losers.size();
     _getBestScores();

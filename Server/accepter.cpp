@@ -37,7 +37,6 @@ void Accepter::run() {
 			logins.emplace_back(peer, new_connections);
 			logins.back().start();
 			_joinReaper();
-			std::cout <<"Accepter: Se connecto un peer"<< std::endl;
 		}
 	} catch (const std::exception& e) {
 		std::cout <<"Accepter: Error en peer"<< std::endl;

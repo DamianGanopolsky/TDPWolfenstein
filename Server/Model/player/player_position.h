@@ -23,12 +23,6 @@ class PlayerPosition {
     void setPosition(int inicial_x, int inicial_y);
     void move(Direction direction);
     void rotate(Rotation rotation);
-    /*void moveUp();
-    void moveLeft();
-    void moveDown();
-    void moveRight();
-    void rotateLeft();
-    void rotateRight();*/
     std::pair<int, int> getNextPos(Direction direction);
     void changeDirection(Direction direction);
     void changeRotation(Rotation rotation);

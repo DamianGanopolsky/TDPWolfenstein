@@ -9,7 +9,6 @@ PreGame::PreGame(ClientsConnected& clients_connected, std::string map_Yaml, int&
                     game(clients_connected, map_Yaml, rate) {
                         YAML::Node config = YAML::LoadFile(PATH_TO_MAP+map_Yaml+YAML_EXT);
                         this->max_players = config["Map"]["Cant_players"].as<int>();
-                        std::cout << "CANT PLAYERS ES" << max_players << std::endl;
                     }
 
 PreGame::~PreGame() {}

@@ -7,10 +7,8 @@ PickUp::PickUp() {}
 PickUp::~PickUp () {}
 
 int PickUp::pickUp(Player& player, Item* item) {
-    std::cout<<"pickup Object"<<std::endl;
     switch (item->getItemType()) {
         case BULLETS: {
-            std::cout <<"BULLETS!"<<std::endl;
             if (player.getInfo().getNumBullets() < GameConfig.max_bullets) {
                 player.addBullets(item->getBullets());
                 std::cout <<player.getInfo().getNumBullets()<<std::endl;
@@ -19,7 +17,6 @@ int PickUp::pickUp(Player& player, Item* item) {
             return NO_ITEM_PICKED_UP;
         }
         case FOOD: {
-            std::cout <<"FOOD!"<<std::endl;
             if (player.getInfo().getLife() < GameConfig.max_life) {
                 player.addLife(item->heal());
                 return FOOD_TAKEN_ITM;
@@ -27,7 +24,6 @@ int PickUp::pickUp(Player& player, Item* item) {
             return NO_ITEM_PICKED_UP;
         }
         case KIT: {
-            std::cout <<"KIT!"<<std::endl;
             if (player.getInfo().getLife() < GameConfig.max_life) {
                 player.addLife(item->heal());
                 return MEDICAL_KIT_TAKEN_ITM;
@@ -35,7 +31,6 @@ int PickUp::pickUp(Player& player, Item* item) {
             return NO_ITEM_PICKED_UP;
         }
         case BLOOD: {
-            std::cout <<"BLOOD!"<<std::endl;
             if (player.getInfo().getLife() < BLOOD_MINIMUN_TO_HEAL) {
                 player.addLife(item->heal());
                 return BLOOD_TAKEN_ITM;
@@ -43,26 +38,18 @@ int PickUp::pickUp(Player& player, Item* item) {
             return NO_ITEM_PICKED_UP;
         }
         case KEY: {
-            std::cout <<"KEY!"<<std::endl;
             player.addNumKeys(1);
             return KEY_TAKEN_ITM;
         }
         case TREASURE: {
-            std::cout <<"TREASURE!"<<std::endl;
-            std::cout <<"Points: "<< item->getPoints() <<std::endl;
             player.addTreasure(item->getPoints());
             return TREASURE_TAKEN_ITM;
         }
         case WEAPON: {
-            std::cout <<"WEAPON!"<<std::endl;
-            std::cout <<"wepon type: "<< item->getType() <<std::endl;
-            if(player.getInfo().hasWeapon(item->getType())) {
-                std::cout <<"has weapon"<<std::endl;
+            if(player.getInfo().hasWeapon(item->getType())) {;
                 return NO_ITEM_PICKED_UP;
             }
-            std::cout <<"doesnt has weapon"<<std::endl;
             player.addInventory(item->getType());
-            std::cout <<"weapon added"<<std::endl;
             return WEAPON_TAKEN_ITM;
             break;
         }

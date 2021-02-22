@@ -1,6 +1,8 @@
 #ifndef LOOP_H
 #define LOOP_H
 
+#include <chrono>
+
 #include "../Common/thread.h"
 #include "./Model/pre_game.h"
 #include "./clients_connected.h"
