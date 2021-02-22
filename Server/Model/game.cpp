@@ -478,7 +478,6 @@ bool Game::updatePlayers(int& iteration) {
         }
 
         if (player.isShooting()) {
-            std::cout <<"Game: player shoot"<< std::endl;
             _attack(id, iteration);
         } else if (!player.gun_can_shoot) {
             player.gun_can_shoot = true;
@@ -497,14 +496,12 @@ bool Game::updatePlayers(int& iteration) {
             player.life_cooldown = std::max((int)(player.life_cooldown - iteration),0);
         }
         if ((player.getInfo().getNumBullets() == 0) && (!player.forced_weapon)) {
-            std::cout <<"Game: DOESNT HAS BULLETS"<< std::endl;
             int weapon = player.getInfo().getWeaponTypeEquiped();
             changeWeapon(id, KNIFE_TYPE);
             player.forced_weapon = true;
             player.weapon_equiped_before = weapon;
         }
         if ((player.getInfo().getNumBullets() != 0) && (player.forced_weapon)) {
-            std::cout <<"Game: HAS BULLETS"<< std::endl;
             changeWeapon(id, player.weapon_equiped_before);
             player.forced_weapon = false;
         }

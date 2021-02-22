@@ -104,10 +104,17 @@ Socket::Socket(Socket&& other) {
 	this->fd = other.fd;
 	other.fd = -1;
 }
-Socket& Socket::operator=(Socket&& other) {
-	this->fd = other.fd;
-	other.fd = -1;
-	return *this;
+
+Socket& Socket::operator=(Socket&& other){
+     if (this == &other) {
+          return *this;
+     }
+     if (fd != -1) {
+          ::close(fd);
+     }
+     this->fd = other.fd;
+     other.fd = -1;
+     return *this;
 }
 
 Socket::Socket(int fd) : fd(fd) {}

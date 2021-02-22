@@ -17,6 +17,7 @@ const struct YamlParamConfig GameConfig = {
     .max_bullets=data_config["max_bullets"].as<int>(), 
     .num_bullets_picked_up=data_config["num_bullets_picked_up"].as<int>(),
     .life_cooldown=data_config["life_cooldown"].as<int>(),
+    .time_to_start_life_cooldown=data_config["time_to_start_life_cooldown"].as<int>(),
     .life_lost_because_time=data_config["life_lost_because_time"].as<int>(),
     .knife_base_damage=data_config["knife_base_damage"].as<int>(),
     .gun_base_damage=data_config["gun_base_damage"].as<int>(),

@@ -19,6 +19,7 @@ struct YamlParamConfig{
     int max_bullets;
     int num_bullets_picked_up;
     int life_cooldown;
+    int time_to_start_life_cooldown;
     int life_lost_because_time;
     int knife_base_damage;
     int gun_base_damage;

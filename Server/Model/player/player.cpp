@@ -9,7 +9,7 @@ Player::Player(int width, int height,
                 moving(false), rotating(false), 
                 shooting(false), knife(), 
                 gun(), machine_gun(), chain_cannon(),
-                rate(rate), life_cooldown(GameConfig.life_cooldown), 
+                rate(rate), life_cooldown(GameConfig.time_to_start_life_cooldown), 
                 machine_gun_cooldown(0),
                 chain_cannon_cooldown(0), gun_can_shoot(true),
                 forced_weapon(false), 
@@ -23,7 +23,7 @@ Player::Player(int pos_x, int pos_y, int width, int height,
                 moving(false), rotating(false), 
                 shooting(false), knife(), 
                 gun(), machine_gun(), chain_cannon(),
-                rate(rate), life_cooldown(GameConfig.life_cooldown), 
+                rate(rate), life_cooldown(GameConfig.time_to_start_life_cooldown), 
                 machine_gun_cooldown(0),
                 chain_cannon_cooldown(0), gun_can_shoot(true),
                 forced_weapon(false), 
@@ -100,30 +100,21 @@ Response Player::updateLife(int& iteration) {
 }
 
 Response Player::updateShooting(double& distance, int& damage, int& iteration) {
-    std::cout <<"Player: updateShooting()"<< std::endl;
     bool attacked = false;
     if (this->shooting) {
-        std::cout <<"Player: is shooting"<< std::endl;
         this->machine_gun_cooldown -= iteration;
         this->chain_cannon_cooldown -= iteration;
         const int type = this->info.getWeaponTypeEquiped(); 
         Item* weapon = this->info.getWeaponEquiped();
-        if (weapon  == NULL ){std::cout <<"NULL WEAPON"<< std::endl;}
         switch(type) {
             case (KNIFE_TYPE): {
-                std::cout <<"KNFE ATTACK!"<< std::endl;
                 weapon->attack(distance, damage);
                 return Response(true, SUCCESS_MSG);
                 break;
             }
             case GUN_TYPE: {
-                std::cout <<"GUN ATTACK!"<< std::endl;
-                std::cout <<"gun_can_shoot value: "<< gun_can_shoot <<std::endl;
                 if (this->gun_can_shoot) {
-                    std::cout <<"gun can shoot"<< std::endl;
                     weapon->attack(distance, damage);
-                    //reduceBullets(1);
-                    std::cout <<"gun attack"<< std::endl;
                     this->gun_can_shoot = false;
                     return Response(true, SUCCESS_MSG);
                 }
@@ -133,7 +124,6 @@ Response Player::updateShooting(double& distance, int& damage, int& iteration) {
                 while (this->machine_gun_cooldown <= 0) {
                     this->machine_gun_cooldown += GameConfig.machine_gun_cooldown;
                     weapon->attack(distance, damage);
-                    //reduceBullets(5);
                     attacked= true;
                 }
                 return Response(attacked, SUCCESS_MSG);
@@ -143,7 +133,6 @@ Response Player::updateShooting(double& distance, int& damage, int& iteration) {
                 while (this->chain_cannon_cooldown <= 0) {
                     this->chain_cannon_cooldown += GameConfig.chain_cannon_cooldown;
                     weapon->attack(distance, damage);
-                    //reduceBullets(1);
                     attacked= true;
                 }
                 return Response(attacked, SUCCESS_MSG);
@@ -249,6 +238,7 @@ Response Player::resurrect() {
     deleteInventory(MACHINE_GUN_TYPE);
     deleteInventory(CHAIN_CANNON_TYPE);
     reduceBullets(GameConfig.max_bullets);
+    changeWeapon(KNIFE_TYPE);
     addBullets(8);
     return Response(true, SUCCESS_MSG);
 }
