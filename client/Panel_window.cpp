@@ -117,7 +117,7 @@ void Panel_window::render_player_lost_screen(){
 }
 
 void Panel_window::render_ending_screen(){
-	SDL_SetRenderDrawColor(this->renderer,105,105,40,40);
+	SDL_SetRenderDrawColor(this->renderer,105,105,105,255);
 	SDL_RenderClear(this->renderer);
 	SDL_Rect main_screen_rect={0,0,ClientConfig.screen_width,ClientConfig.screen_height};
     SDL_RenderCopy(this->renderer,Ending_screen_base,NULL,&main_screen_rect);
