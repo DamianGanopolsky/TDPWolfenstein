@@ -446,7 +446,6 @@ void ClientSocket::recv(char* recv_buff,int len){
                     pos_x[0]=le32toh(pos_x[0]);
                     pos_y[0]=le32toh(pos_y[0]);
                     value[0]=le32toh(value[0]);
-                    //std::cout << "Pos x es" << pos_x[0] << "Pos y es" << pos_y[0] << std::endl;
                     update_message->load_item_taken(player_id[0],pos_x[0],pos_y[0],value[0]);
                     recv_queue.push(std::move(update_message));
                     break;
@@ -454,7 +453,6 @@ void ClientSocket::recv(char* recv_buff,int len){
                 case MACHINE_GUN_DROPPED_ITM: // pos x, pos y
                 case CHAIN_CANNON_DROPPED_ITM: // pos x, pos y
                 case BULLETS_DROPPED_ITM:{
-                    std::cout << "DROP" << std::endl;
                     uint32_t pos_x[1];
                     uint32_t pos_y[1];
                     
@@ -464,7 +462,6 @@ void ClientSocket::recv(char* recv_buff,int len){
                     pos_y[0]=le32toh(pos_y[0]);
                     
                     update_message->load_drop(pos_x[0],pos_y[0]);
-                    std::cout << "Cuadricula en x:" << unsigned(pos_x[0]) << "en y:" << unsigned(pos_y[0]) << std::endl;
                     recv_queue.push(std::move(update_message));
 
                     break;

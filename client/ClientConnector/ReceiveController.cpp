@@ -191,24 +191,18 @@ bool ReceiveController::update(){
                     }
                     break;
                 }
-                case MACHINE_GUN_DROPPED_ITM:{
-                    
+                case MACHINE_GUN_DROPPED_ITM:{        
                     Item_dropped_event it_dropped=updatemessage->get_item_dropped();
-                    std::cout << "DROPEO AMCHINE GUN EN"<< it_dropped.pos_x << " " << it_dropped.pos_y << std::endl;
                     map.add_item(it_dropped.pos_x,it_dropped.pos_y,AUTOMATIC_GUN);
                     break;
                 }
                 case CHAIN_CANNON_DROPPED_ITM: {
-                    //std::cout << "DROPEO" << std::endl;
                     Item_dropped_event it_dropped=updatemessage->get_item_dropped();
-                    std::cout << "DROPEO CHAIN CANNON EN"<< it_dropped.pos_x << " " << it_dropped.pos_y << std::endl;
                     map.add_item(it_dropped.pos_x,it_dropped.pos_y,CHAIN_CANNON);
                     break;
                 }
                 case BULLETS_DROPPED_ITM:{
-                    //std::cout << "DROPEO" << std::endl;
                     Item_dropped_event it_dropped=updatemessage->get_item_dropped();
-                    std::cout << "DROPEO BULLET EN"<< it_dropped.pos_x << " " << it_dropped.pos_y << std::endl;
                     map.add_item(it_dropped.pos_x,it_dropped.pos_y,BULLETS);
                     break;
                 }
