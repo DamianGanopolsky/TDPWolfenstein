@@ -74,8 +74,8 @@ otros.
 ### Aplicacion Cliente-Servidor  
 
 Una vez compilado el programa, se puede inicializar el servidor, situandose en la carpeta build y ejecutando el comando ./servidor [Port] [Map]. Donde Port es el puerto, que puede ser 8082 por ejemplo y map es el nombre del mapa que se desea crear, todos los mapas estan en la carpeta Maps. Un ejemplo para ejecutar el servidor seria "./servidor 8082 Maze"
-Luego, para inicializar el cliente se debe ejecutar el comando "./Client [Host] [Port]" dentro de la carpeta build. Host es una 
-direccion IP(e.g: 127.0.0.1), Port el mismo puerto del servidor. Un ejemplo para ejecutar el cliente seria "./Client 127.0.0.1 8082"
+Luego, para inicializar el cliente se debe ejecutar el comando "./Client [Host] [Port] [Nickname]" dentro de la carpeta build. Host es una 
+direccion IP(e.g: 127.0.0.1), Port el mismo puerto del servidor. Un ejemplo para ejecutar el cliente seria "./Client 127.0.0.1 8082 Jorge"
 
 #### Configuracion del cliente
 Para cambiar el volumen de la musica que se escucha mientras se ejecuta el cliente, o cambiar la resolucion del mismo, se tienen que cambiar dichos parametros
