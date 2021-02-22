@@ -97,7 +97,7 @@ Map::Map(SdlWindow& Window,std::string YamlPath):window(Window),player_count(0){
     //cuadricula=config["cuadricula_size"].as<int>();
     camera.x=0;
     camera.y=0;
-    /*surfaces.push_back(IMG_Load("../Editor/Editor_Assets/GreyTile.png"));
+    surfaces.push_back(IMG_Load("../Editor/Editor_Assets/GreyTile.png"));
     surfaces.push_back(IMG_Load("../Editor/Editor_Assets/imagen1.png"));
     surfaces.push_back(IMG_Load("../Editor/Editor_Assets/Trophy.png"));
     surfaces.push_back(IMG_Load("../Editor/Editor_Assets/MedicalKit.png"));
@@ -107,18 +107,7 @@ Map::Map(SdlWindow& Window,std::string YamlPath):window(Window),player_count(0){
     surfaces.push_back(IMG_Load("../Editor/Editor_Assets//Food.png"));
     surfaces.push_back(IMG_Load("../Editor/Editor_Assets/BulletsOriginal.png"));
     surfaces.push_back(IMG_Load("../Editor/Editor_Assets/Wall.png"));
-    surfaces.push_back(IMG_Load("../Editor/Editor_Assets/Door.png"));*/
-    surfaces.push_back(IMG_Load("../Editor/Editor_Assets/GreyTile.png"));
-    surfaces.push_back(IMG_Load("../Editor/Editor_Assets/Player_Number/Uno.png"));
-    surfaces.push_back(IMG_Load("../Editor/Editor_Assets/Player_Number/Uno.png"));
-    surfaces.push_back(IMG_Load("../Editor/Editor_Assets/Player_Number/Uno.png"));
-    surfaces.push_back(IMG_Load("../Editor/Editor_Assets/Player_Number/Uno.png"));
-    surfaces.push_back(IMG_Load("../Editor/Editor_Assets/Player_Number/Uno.png"));
-    surfaces.push_back(IMG_Load("../Editor/Editor_Assets/Player_Number/Uno.png"));
-    surfaces.push_back(IMG_Load("../Editor/Editor_Assets/Player_Number/Uno.png"));
-    surfaces.push_back(IMG_Load("../Editor/Editor_Assets/Player_Number/Uno.png"));
-    surfaces.push_back(IMG_Load("../Editor/Editor_Assets/Player_Number/Uno.png"));
-    surfaces.push_back(IMG_Load("../Editor/Editor_Assets/Player_Number/Uno.png"));
+    surfaces.push_back(IMG_Load("../Editor/Editor_Assets/Door.png"));
 
     surfaces.push_back(IMG_Load("../Editor/Editor_Assets/Player_Number/Uno.png"));
     surfaces.push_back(IMG_Load("../Editor/Editor_Assets/Player_Number/Dos.png"));
@@ -251,7 +240,7 @@ void Map::render(){
                     player_number=player_map.at(key);
                     SDL_RenderCopy(window.getRenderer(),textures.at(1),NULL,&rect);
                     std::string lives_str=std::to_string(player_number);
-                    TTF_Font* Sans = TTF_OpenFont("../ray_casting/panel_status/OpenSans-Bold.ttf", 20); 
+                    TTF_Font* Sans = TTF_OpenFont("../client/panel_status/OpenSans-Bold.ttf", 20); 
                     SDL_Surface* surfaceMessage = TTF_RenderText_Solid(Sans, lives_str.c_str(), {152, 0, 2});
                     SDL_Texture* texture_of_text = SDL_CreateTextureFromSurface(window.getRenderer(),surfaceMessage); 
                     SDL_RenderCopy(window.getRenderer(), texture_of_text, NULL, &rect_text);
