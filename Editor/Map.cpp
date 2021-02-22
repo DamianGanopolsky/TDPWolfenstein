@@ -190,7 +190,6 @@ void Map::draw(position initial_position,position draw_position){
         matrix[matrix_x][matrix_y]=MAP_MACHINE_GUN;
     }
     else if((initial_position.x>=(0.3656*window.getWidth()))&&(initial_position.x<=0.4135*window.getWidth())){
-        std::cout << "Chain cannon!" << std::endl;
         matrix[matrix_x][matrix_y]=MAP_CHAIN_CANNON;
     }
     else if((initial_position.x>=(0.4198*window.getWidth()))&&(initial_position.x<=0.4677*window.getWidth())){
@@ -293,19 +292,8 @@ void Map::Export(std::string yamlName){
     for(int i=0;i<rows;i++){
 
         for(int j=0;j<columns;j++){
-            if((i==20)&&(j==20)){
-                std::cout << "20:20" << "Hay:" << std::endl;
-                if(matrix[i][j]==MAP_WALL){
-                    std::cout << "PARED"<< std::endl;
-                }
-                std::cout << matrix[i][j] << std::endl;
-            }
             if(matrix[i][j]==0) continue;
-            
-            //std::cout << "en x" << i << "en y" << j << "objeto:" << matrix[i][j]<< std::endl;
-            /*if(matrix[i][j]==MAP_WALL){
-                std::cout << "Pongo chain cannon en x:" << i << "en y:" << j << std::endl;
-            }*/
+
             position = std::make_pair (i,j);
             player_map[matrix[i][j]].push_back(position);
         }

@@ -1,9 +1,4 @@
 Music_volume: 30
 Screen_height: 400
 Screen_width: 640
-Wall_height: 64
 constant_rate_loop_render_ms: 100
-Floor_color: 20
-Ceiling_color: 500
-Enemy_height: 64
-Enemy_width: 64
