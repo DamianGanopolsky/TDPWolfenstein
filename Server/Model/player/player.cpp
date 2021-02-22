@@ -37,22 +37,6 @@ void Player::_die() {
     delete this->state;
     this->state = new Dead(this->player_id);
     this->alive = false;
-    //Drop droper;
-    /*if (droper.drop(this->info, this->info.getWeaponEquiped())) {
-        //map.addItem(posx, posy, target->info.getWeaponEquiped());
-    }
-    if (droper.drop(this->info, bullet)) {
-        //map.addItem(posx, posy, bullet);
-    }
-    if (droper.drop(this->info, key)) {
-        int num_keys = this->info.getKey();
-        for (int i = 0; i<= num_keys; i++) {
-            //map.addItem(posx, posy, key);
-        }
-    }
-    if (droper.drop(this->info, corpse)) {
-        //map.addItem(posx, posy, corpse);
-    }*/
 }
 
 PlayerPosition Player::getPos() {
@@ -92,16 +76,12 @@ bool Player::isShooting() {
 }
 
 void Player::updateMovement() {
-    std::cout <<"Player: updateMovement()"<< std::endl;
     if (this->moving) {
-        std::cout <<"Player: is moving"<< std::endl;
         this->pos.move(this->pos.getDirection());
-        std::cout <<"Player: updated"<< std::endl;
     }
 }
 
 void Player::updateRotation() {
-    std::cout <<"Player: updateRotation()"<< std::endl;
     if (this->rotating) {
         this->pos.rotate(this->pos.getRotation());
     }
@@ -111,7 +91,6 @@ Response Player::updateLife(int& iteration) {
     if (this->alive) {
         this->life_cooldown -= iteration;
         while (this->life_cooldown <= 0) {
-            std::cout <<"Player: updating life"<< std::endl;
             this->life_cooldown += GameConfig.life_cooldown;
             reduceLife(GameConfig.life_lost_because_time);
             return Response(true, SUCCESS_MSG);
@@ -122,6 +101,7 @@ Response Player::updateLife(int& iteration) {
 
 Response Player::updateShooting(double& distance, int& damage, int& iteration) {
     std::cout <<"Player: updateShooting()"<< std::endl;
+    bool attacked = false;
     if (this->shooting) {
         std::cout <<"Player: is shooting"<< std::endl;
         this->machine_gun_cooldown -= iteration;
@@ -141,8 +121,8 @@ Response Player::updateShooting(double& distance, int& damage, int& iteration) {
                 std::cout <<"gun_can_shoot value: "<< gun_can_shoot <<std::endl;
                 if (this->gun_can_shoot) {
                     std::cout <<"gun can shoot"<< std::endl;
-                    if (weapon  == NULL ){std::cout <<"NULL WEAPON"<< std::endl;}
                     weapon->attack(distance, damage);
+                    //reduceBullets(1);
                     std::cout <<"gun attack"<< std::endl;
                     this->gun_can_shoot = false;
                     return Response(true, SUCCESS_MSG);
@@ -150,21 +130,23 @@ Response Player::updateShooting(double& distance, int& damage, int& iteration) {
                 break;
             }
             case MACHINE_GUN_TYPE: {
-                std::cout <<"MACHINE GUN ATTACK!"<< std::endl;
                 while (this->machine_gun_cooldown <= 0) {
                     this->machine_gun_cooldown += GameConfig.machine_gun_cooldown;
                     weapon->attack(distance, damage);
-                    return Response(true, SUCCESS_MSG);
+                    //reduceBullets(5);
+                    attacked= true;
                 }
+                return Response(attacked, SUCCESS_MSG);
                 break;
             }
             case CHAIN_CANNON_TYPE: {
-                std::cout <<"CHAIN CANNON ATTACK!"<< std::endl;
                 while (this->chain_cannon_cooldown <= 0) {
                     this->chain_cannon_cooldown += GameConfig.chain_cannon_cooldown;
                     weapon->attack(distance, damage);
-                    return Response(true, SUCCESS_MSG);
+                    //reduceBullets(1);
+                    attacked= true;
                 }
+                return Response(attacked, SUCCESS_MSG);
                 break;
             }
         }
@@ -188,7 +170,6 @@ Response Player::startMovingDown() {
         return Response(false, CANT_MOVE_DOWN_ERROR_MSG);
     }
     this->pos.changeDirection(DOWN_DIR);
-    std::cout <<"Player: changed direction"<< std::endl;
     this->moving = true;
     return Response(true, SUCCESS_MSG);
 }
@@ -245,12 +226,6 @@ Response Player::stopShooting() {
     this->shooting = false;
     return Response(true, SUCCESS_MSG);
 }
-
-/*Response Player::useWeapon(double& distance, int& damage) {
-    //Weapon* weapon = this->getInfo().getWeaponEquiped();
-    //weapon->attack(distance, damage);
-    return Response(true, SUCCESS_MSG);
-}*/
 
 Response Player::receiveAttack(int& damage) {
     this->reduceLife(damage);
@@ -319,7 +294,6 @@ void Player::setPosition(int x, int y) {
 
 void Player::addLife(int life) {
     this->info.life += life;
-    //this->info.life = (this->info.life > MAX_LIFE) ? MAX_LIFE : this->info.life;
     this->info.life = (this->info.life > GameConfig.max_life) ? GameConfig.max_life : this->info.life;
 }
 
@@ -352,7 +326,6 @@ void Player::reduceLife(int life) {
 void Player::reduceBullets(int bullets) {
     this->info.bullets -= bullets;
     this->info.bullets = (this->info.bullets < 0) ? 0 : this->info.bullets;
-    std::cout<<"REDUZCO NUM BULLETS:"<<info.bullets<<std::endl;
 }
 
 void Player::reduceNumKeys(int key) {

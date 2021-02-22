@@ -39,7 +39,6 @@ ItemChanged& ItemChanged::operator=(const ItemChanged& other) {
 }
 
 bool ItemChanged::send(const ConnectionId sender, const Socket& peer) {
-    std::cout <<"ItemChanged: comienza el send()"<< std::endl;
     try{
         uint8_t buffer[2];
         buffer[0] = ITEM_CHANGED_OPCODE;
@@ -52,10 +51,7 @@ bool ItemChanged::send(const ConnectionId sender, const Socket& peer) {
             case OPEN_DOOR_ITM:
             case BULLETS_DROPPED_ITM:
             case MACHINE_GUN_DROPPED_ITM:
-            case CHAIN_CANNON_DROPPED_ITM: { //  pos x, pos y (posicion de la puerta)
-                std::cout<<"dropped: "<<std::endl;
-                std::cout<<"pos_x: "<<pos_x<<std::endl;
-                std::cout<<"pos_y: "<<pos_y<<std::endl;
+            case CHAIN_CANNON_DROPPED_ITM: { 
                 this->pos_x = htole32(this->pos_x);
                 this->pos_y = htole32(this->pos_y);
                 peer.send((char *)&pos_x, sizeof(pos_x));
@@ -67,11 +63,7 @@ bool ItemChanged::send(const ConnectionId sender, const Socket& peer) {
             case BLOOD_TAKEN_ITM:
             case KEY_TAKEN_ITM:
             case TREASURE_TAKEN_ITM:
-            case BULLETS_TAKEN_ITM: { //id del jugador que lo agarra, pos x, pos y, value segun corresponda
-                std::cout<<"player_id: "<<player_id<<std::endl;
-                std::cout<<"pos x: "<<pos_x<<std::endl;
-                std::cout<<"pos y: "<<pos_y<<std::endl;
-                std::cout<<"value: "<<value<<std::endl;
+            case BULLETS_TAKEN_ITM: { 
                 this->player_id = htole32(this->player_id);
                 peer.send((char *)&player_id, sizeof(player_id));
                 this->pos_x = htole32(this->pos_x);
@@ -82,10 +74,7 @@ bool ItemChanged::send(const ConnectionId sender, const Socket& peer) {
                 peer.send((char *)&value, sizeof(value));
                 break;
             }
-            case WEAPON_TAKEN_ITM: { // id del jugador que lo agarra, pos x, pos y
-                std::cout<<"player_id: "<<player_id<<std::endl;
-                std::cout<<"pos x: "<<pos_x<<std::endl;
-                std::cout<<"pos y: "<<pos_y<<std::endl;
+            case WEAPON_TAKEN_ITM: { 
                 this->player_id = htole32(this->player_id);
                 peer.send((char *)&player_id, sizeof(player_id));
                 this->pos_x = htole32(this->pos_x);

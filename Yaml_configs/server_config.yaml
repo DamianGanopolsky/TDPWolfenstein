@@ -17,7 +17,7 @@ knife_base_damage: 1
 knife_max_range: 60
 gun_base_damage: 5
 machine_gun_base_damage: 15
-machine_gun_cooldown: 3636
+machine_gun_cooldown: 36
 chain_cannon_base_damage: 10
 chain_cannon_cooldown: 18
 

@@ -33,7 +33,6 @@ std::string Login::_receive() {
         for (int i = 0; i<name_size_; i++) {
             nickname += name[i];
         }
-        std::cout << "Nickname es" << nickname << std::endl;
         connected = true;
     }
     return nickname;

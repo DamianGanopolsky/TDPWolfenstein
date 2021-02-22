@@ -16,12 +16,8 @@ Loop::~Loop() {}
 void Loop::_newConnections() {
     ConnectionElement* connection = nullptr;
     while ((connection = this->new_connections.pop())) {
-        std::cout <<"Loop: new_connection"<< std::endl;
-        //ConnectionId id = this->game.newPlayer();
         ConnectionId id = pre_game.addPlayer(connection->nickname);
-        std::cout <<"Loop: new player added"<< id <<std::endl;
         if (id) {
-            std::cout <<"Loop: notifico new players"<< id <<std::endl;
             clients_connected.add(id, connection->peer);
             pre_game.notifyNewPlayer(id);
         } else {
@@ -36,7 +32,6 @@ void Loop::_newCommands() {
     while((command = this->commands.pop())) {
         std::cout <<"Loop: new_command"<< std::endl;
         try {
-            //command->run(this->game);
             command->run(pre_game.game);
         } catch (const std::exception& e) {
             Notification* message = new Message(ERROR_MSSG, e.what());
@@ -49,8 +44,6 @@ void Loop::_newCommands() {
 void Loop::_finishedConnections() {
     ConnectionId* connection = nullptr;
     while ((connection = finished_connections.pop())){
-        std::cout <<"Loop: deleting finished connection"<< std::endl;
-        //game.deletePlayer(*connection);
         pre_game.deletePlayer(*connection);
         clients_connected.remove(*connection);
         delete connection;
@@ -64,14 +57,12 @@ void Loop::_deleteQueues() {
     }
     ConnectionId* connection = nullptr;
     while ((connection = finished_connections.pop())){
-        //game.deletePlayer(*connection);
          pre_game.deletePlayer(*connection);
         delete connection;
     }
 }
 
 void Loop::run() {
-    std::cout <<"Loop: comenzo el loop"<< std::endl;
     auto t1 = std::chrono::steady_clock::now();
     auto t2 = t1;
     std::chrono::duration<float, std::milli> diff;
@@ -80,8 +71,6 @@ void Loop::run() {
     while (is_running) {
         _newConnections();
         _newCommands();
-        //std::cout <<"Loop: update game"<< std::endl;
-        //this->has_players = game.updatePlayers(it);
         bool start_game = pre_game.update(it);
         if ((start_game) && (first_game_it == 0)) { //SOLO TIENE QUE ENRTAR UNA SOLA VEZ
             std::cout <<"Loop: started game"<<std::endl;

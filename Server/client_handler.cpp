@@ -9,10 +9,6 @@ ClientHandler::ClientHandler(Socket& socket, const ConnectionId id,
 
 ClientHandler::~ClientHandler() {
 	notifications.close(); 
-    /*Notification* notification = nullptr;
-    while ((notification = notifications.pop())) {
-        delete notification;
-    }*/
 }
 
 void ClientHandler::_deadThread() {
@@ -23,16 +19,11 @@ void ClientHandler::_deadThread() {
 }
 
 void ClientHandler::_send() {
-    std::cout <<"ClientHandler: Se lanza el hilo send"<< std::endl;
 	try {
         std::shared_ptr<Notification> notification = nullptr;
         bool is_sent = true;
         while ((notification = notifications.pop())) {
-            std::cout <<"ClientHandler: Se envian bytes..."<< std::endl;
             is_sent = notification->send(this->id, this->peer);
-            std::cout <<"ClientHandler: Se enviaron bytes"<< std::endl;
-            //delete notification;
-            //std::cout <<"ClientHandler: Se elimina la notificacion"<< std::endl;
             if (!is_sent) {
                 break;
             }
@@ -49,15 +40,12 @@ void ClientHandler::_send() {
 }
 
 void ClientHandler::_receive() {
-	std::cout <<"ClientHandler: se lanza el hilo recv"<< std::endl;
     try {
         int bytes_received = 0;
 		uint8_t buffer[2];
         while (peer.receive((char *)buffer, 2, bytes_received)) {
-	        std::cout <<"ClientHandler: Se recibieron bytes"<< std::endl;
             uint8_t opcode = buffer[0];
             uint8_t command_opcode = buffer[1];
-            std::cout <<"Bytess recieved:"<< unsigned(opcode) << " --- " << unsigned(command_opcode) << std::endl;
             if (opcode == COMMAND_OPCODE) {
 				try {
 					Command* cmd = Command::newCommand(id, command_opcode, peer);
@@ -84,7 +72,6 @@ void ClientHandler::_receive() {
 }
 
 void ClientHandler::run() {
-    std::cout <<"ClientsHandler: starting run()"<< std::endl;
     is_running =true;
     send = std::thread(&ClientHandler::_send, this);
     receive = std::thread(&ClientHandler::_receive, this);
@@ -94,12 +81,10 @@ bool ClientHandler::isRunning() const{
     return this->is_running;
 }
 void ClientHandler::push(std::shared_ptr<Notification>& notification_ptr) {
-    std::cout <<"ClientsHandler: push notification"<< std::endl;
     notifications.push(notification_ptr);
 }
 
 void ClientHandler::joinThreads() {
-    std::cout <<"ClientsHandler: joinThreads"<< std::endl;
 	if (send.joinable()) {
         send.join();
     }
@@ -108,7 +93,6 @@ void ClientHandler::joinThreads() {
     }
 	try {
         peer.shutdown();
-		//peer.close();
     } catch (const Exception& e) {
         std::cerr << "Error while shutingdown peer: "<< e.what() 
 														<< std::endl;
@@ -116,7 +100,6 @@ void ClientHandler::joinThreads() {
 }
 
 void ClientHandler::stop() {
-    std::cout <<"ClientsHandler: stop()"<< std::endl;
     is_running = false;
 	notifications.close();
 	try{

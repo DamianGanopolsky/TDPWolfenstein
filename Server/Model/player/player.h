@@ -88,4 +88,4 @@ public:
       void setPosition(int x, int y);
 };
 
-#endif   // PLAYER_H
+#endif  
