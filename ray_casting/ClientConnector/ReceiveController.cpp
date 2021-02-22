@@ -14,7 +14,6 @@ ReceiveController::ReceiveController(Player& Player,Map_2d& MAP,NonBlockingQueue
      Client& CLIENT):player(Player),map(MAP),recv_queue(RECV_QUEUE),client(CLIENT){
     YAML::Node data_config=YAML::LoadFile("../Yaml_configs/server_config.yaml");
     lives=data_config["max_resurrections"].as<int>();;
-    std::cout << "Max resurrections es" << lives << std::endl;
 }
 
 

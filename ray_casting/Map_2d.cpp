@@ -83,28 +83,16 @@ void Map_2d::update_player_pos(int id,int pos_x,int pos_y,int angle,int status){
 	//players_state[id].is_moving=1;
 	std::chrono::time_point<std::chrono::steady_clock> t2=std::chrono::steady_clock::now();
 	std::chrono::duration<double> diff=t2-time_last_update;
-	std::cout << "Diff es" << diff.count() << std::endl;
 	if(diff.count()>0.05){
 		
 		if(players_state[id].is_moving==0){
 			players_state[id].is_moving=1;
 		}
 		else{
-			std::cout << "Cambio a 0" << std::endl;
 			players_state[id].is_moving=0;
 		}
-		std::cout << "ID es" << players_state[id].is_moving << std::endl;
 		time_last_update=std::chrono::steady_clock::now();
 	}
-		/*if(players_state[id].is_moving==0){
-			players_state[id].is_moving=1;
-		}
-		else{
-			std::cout << "Cambio a 0" << std::endl;
-			players_state[id].is_moving=0;
-		}
-*/
-	//players_state[id].is_moving=rand()%2;
 }
 
 void Map_2d::add_item(int pos_x,int pos_y,int item){
@@ -117,9 +105,7 @@ void Map_2d::add_dead_body(int id,int pos_x,int pos_y){
 	body.pos_x=pos_x;
 	body.pos_y=pos_y;
 	body.state=0;
-	std::cout << "Players state id es" << int(players_state[id].weapon) << std::endl;
 	players_state[id].is_shooting=PLAYER_DEAD;
-	std::cout << "Para el id" << id << "El type id es" << players_state[id].type_id << std::endl;
 	switch(int(players_state[id].weapon)){
 		case 0:
 		case 1:{
