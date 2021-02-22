@@ -97,7 +97,7 @@ function uninstall() {
     echo "--- DESINSTALADOR ---"
     sudo rm -rf build
     sudo rm -rf /usr/bin/editor
-    sudo rm -rf /usr/bin/Client
+    sudo rm -rf /usr/bin/client
     sudo rm -rf /usr/bin/server
     sudo rm -rf /usr/lib/libcommon-lib.so
     echo ""
