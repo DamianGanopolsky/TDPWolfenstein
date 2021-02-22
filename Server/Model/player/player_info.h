@@ -3,11 +3,14 @@
 
 #include <list>
 #include <unordered_map>
+#include <algorithm>
+#include <iostream>
 #include "../objects/items/weapons/weapon.h"
 #include "../objects/items/weapons/gun.h"
 #include "../objects/items/weapons/knife.h"
 #include "../objects/items/weapons/machine_gun.h"
 #include "../objects/items/weapons/chain_cannon.h"
+#include "../constants/YamlConfig.h"
 
 class PlayerInfo {
    friend class Player;

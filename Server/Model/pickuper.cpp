@@ -1,5 +1,7 @@
 #include "pickuper.h"
 
+#define BLOOD_MINIMUN_TO_HEAL 11
+
 PickUp::PickUp() {}
 
 PickUp::~PickUp () {}
@@ -9,7 +11,6 @@ int PickUp::pickUp(Player& player, Item* item) {
     switch (item->getItemType()) {
         case BULLETS: {
             std::cout <<"BULLETS!"<<std::endl;
-            //if (player.getInfo().getNumBullets() < MAX_BULLETS) {
             if (player.getInfo().getNumBullets() < GameConfig.max_bullets) {
                 player.addBullets(item->getBullets());
                 std::cout <<player.getInfo().getNumBullets()<<std::endl;
@@ -19,7 +20,6 @@ int PickUp::pickUp(Player& player, Item* item) {
         }
         case FOOD: {
             std::cout <<"FOOD!"<<std::endl;
-            //if (player.getInfo().getLife() < MAX_LIFE) {
             if (player.getInfo().getLife() < GameConfig.max_life) {
                 player.addLife(item->heal());
                 return FOOD_TAKEN_ITM;
@@ -28,7 +28,6 @@ int PickUp::pickUp(Player& player, Item* item) {
         }
         case KIT: {
             std::cout <<"KIT!"<<std::endl;
-            //if (player.getInfo().getLife() < MAX_LIFE) {
             if (player.getInfo().getLife() < GameConfig.max_life) {
                 player.addLife(item->heal());
                 return MEDICAL_KIT_TAKEN_ITM;
@@ -70,53 +69,3 @@ int PickUp::pickUp(Player& player, Item* item) {
     }
     return NO_ITEM_PICKED_UP;
 }
-
-/*int PickUp::pickUp(PlayerInfo &info, Bullet &item) {
-    if (info.getNumBullets() < MAX_BULLETS) {
-        info.addBullets(item.getBullets());
-        return BULLETS_TAKEN_ITM;
-    }
-    return NO_ITEM_PICKED_UP;
-}
-
-int PickUp::pickUp(PlayerInfo &info, Food &item) {
-    if (info.getLife() < MAX_LIFE) {
-        info.addLife(item.heal());
-        return FOOD_TAKEN_ITM;
-    }
-    return NO_ITEM_PICKED_UP;
-}
-
-int PickUp::pickUp(PlayerInfo &info, Kit &item) {
-    if (info.getLife() < MAX_LIFE) {
-        info.addLife(item.heal());
-        return MEDICAL_KIT_TAKEN_ITM;
-    }
-    return NO_ITEM_PICKED_UP;
-}
-
-int PickUp::pickUp(PlayerInfo &info, Blood &item) {
-    if (info.getLife() < BLOOD_MINIMUN_TO_HEAL) {
-        info.addLife(item.heal());
-        return BLOOD_TAKEN_ITM;
-    }
-    return NO_ITEM_PICKED_UP;
-}
-
-int PickUp::pickUp(PlayerInfo &info, Key &item) {
-    info.addNumKeys(1);
-    return KEY_TAKEN_ITM;
-}
-
-int PickUp::pickUp(PlayerInfo &info, Treasure &item) {
-    info.addTreasure(item.getPoints());
-    return TREASURE_TAKEN_ITM;
-}
-
-int PickUp::pickUp(PlayerInfo &info, Weapon* item) {
-    if(info.hasWeapon(item)){
-        return NO_ITEM_PICKED_UP;
-    }
-    info.addInventory(item);
-    return WEAPON_TAKEN_ITM;
-}*/

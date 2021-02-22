@@ -4,6 +4,7 @@
 #include <utility>
 #include <cmath>
 #include "../constants/config_player.h"
+#include "../constants/YamlConfig.h"
 #include "../../../Common/exception.h"
 
 class PlayerPosition {

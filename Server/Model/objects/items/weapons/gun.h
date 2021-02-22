@@ -2,10 +2,8 @@
 #define GUN_H_
 
 #include "weapon.h"
-#include "../../../constants/YamlConfig.h"
+
 class Gun: public Weapon {
-    int bullets_blast;
-    float period_blast;
  public:
     Gun();
     ~Gun();

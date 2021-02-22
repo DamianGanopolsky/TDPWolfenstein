@@ -1,9 +1,6 @@
 #include "./player_info.h"
 #include "../constants/config.h"
 
-#include <algorithm>
-#include <iostream>
-
 PlayerInfo::PlayerInfo() : life(100), bullets(8),
                             keys(0), treasure(0), 
                             resurrected(0),

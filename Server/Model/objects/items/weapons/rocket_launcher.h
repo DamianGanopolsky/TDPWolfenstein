@@ -4,8 +4,6 @@
 #include "weapon.h"
 
 class RocketLauncher: public Weapon {
-    int bullets_blast;
-    float period_blast;
  public:
     RocketLauncher();
     ~RocketLauncher();

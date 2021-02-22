@@ -2,7 +2,6 @@
 #define BULLET_H_
 
 #include "./../item.h"
-#include "../../../constants/YamlConfig.h"
 
 class Bullet: public Item {
    public:

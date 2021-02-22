@@ -1,9 +1,6 @@
 #include "chain_cannon.h"
 
-ChainCannon::ChainCannon(){
-    this->bullets_blast = CHAIN_CANNON_BULLETS_BLAST;
-    this->period_blast = CHAIN_CANNON_PERIOD_BLAST;
-}
+ChainCannon::ChainCannon(){}
 
 ChainCannon::~ChainCannon() {}
 

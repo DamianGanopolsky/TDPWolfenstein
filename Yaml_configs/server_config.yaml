@@ -1,15 +1,23 @@
+rotation_size: 3.0
+displacement: 5
+pi: 3.14159265
+points_per_cell: 64
+kills_weight_final_score: 200
+treasure_weight_final_score: 1
 kit_points: 20
 food_points: 10
 max_life: 100
+max_resurrections: 3
 cup_points: 50
 num_bullets_picked_up: 5
 max_bullets: 100
+life_cooldown: 3636
+life_lost_because_time: 5
 knife_base_damage: 1
 knife_max_range: 60
 gun_base_damage: 5
 machine_gun_base_damage: 15
-machine_gun_cooldown: 3636
+machine_gun_cooldown: 909
 chain_cannon_base_damage: 10
-chain_cannon_cooldown: 24
-max_resurrections: 2
+chain_cannon_cooldown: 18
 

@@ -2,7 +2,6 @@
 #define PLAYER_STATE_H
 
 #include "./player_info.h"
-#include "../constants/config.h"
 #include "../../../Common/defs.h"
 #include "../constants/config_player.h"
 

@@ -39,23 +39,23 @@ void PlayerPosition::setPosition(int inicial_x, int inicial_y) {
 std::pair<int, int> PlayerPosition::getNextPos(Direction direction) {
     switch (direction) {
         case UP_DIR: {
-            int new_x = (this->x + (int) (DISPLACEMENT * cos(this->vision_angle * PI / 180.0)));
-            int new_y = (this->y - (int) (DISPLACEMENT * sin(this->vision_angle * PI / 180.0)));
+            int new_x = (this->x + (int) (GameConfig.displacement * cos(this->vision_angle * GameConfig.pi / 180.0)));
+            int new_y = (this->y - (int) (GameConfig.displacement * sin(this->vision_angle * GameConfig.pi / 180.0)));
             return std::pair<int, int> (new_x, new_y);
         }
         case DOWN_DIR: {
-            int new_x = (this->x - (int) (DISPLACEMENT * cos(this->vision_angle * PI / 180.0)));
-            int new_y = (this->y + (int) (DISPLACEMENT * sin(this->vision_angle * PI / 180.0)));
+            int new_x = (this->x - (int) (GameConfig.displacement * cos(this->vision_angle * GameConfig.pi / 180.0)));
+            int new_y = (this->y + (int) (GameConfig.displacement * sin(this->vision_angle * GameConfig.pi / 180.0)));
             return std::pair<int, int> (new_x, new_y);
         }
         case LEFT_DIR: {
-            int new_x = (this->x - (int) (DISPLACEMENT * sin(this->vision_angle * PI / 180.0)));
-            int new_y = (this->y - (int) (DISPLACEMENT * cos(this->vision_angle * PI / 180.0)));
+            int new_x = (this->x - (int) (GameConfig.displacement * sin(this->vision_angle * GameConfig.pi / 180.0)));
+            int new_y = (this->y - (int) (GameConfig.displacement * cos(this->vision_angle * GameConfig.pi / 180.0)));
             return std::pair<int, int> (new_x, new_y);
         }
         case RIGHT_DIR: {
-            int new_x = (this->x + (int) (DISPLACEMENT * sin(this->vision_angle * PI / 180.0)));
-            int new_y = (this->y + (int) (DISPLACEMENT * cos(this->vision_angle * PI / 180.0)));
+            int new_x = (this->x + (int) (GameConfig.displacement * sin(this->vision_angle * GameConfig.pi / 180.0)));
+            int new_y = (this->y + (int) (GameConfig.displacement * cos(this->vision_angle * GameConfig.pi / 180.0)));
             return std::pair<int, int> (new_x, new_y);
         }
         default: {
@@ -69,23 +69,23 @@ std::pair<int, int> PlayerPosition::getNextPos(Direction direction) {
 void PlayerPosition::move(Direction direction) {
     switch (direction) {
         case UP_DIR: {
-            this->x += (int) (DISPLACEMENT * cos(this->vision_angle * PI / 180.0));
-	        this->y -= (int) (DISPLACEMENT * sin(this->vision_angle * PI / 180.0));
+            this->x += (int) (GameConfig.displacement * cos(this->vision_angle * GameConfig.pi / 180.0));
+	        this->y -= (int) (GameConfig.displacement * sin(this->vision_angle * GameConfig.pi / 180.0));
             break;
         }
         case DOWN_DIR: {
-            this->x -= (int) (DISPLACEMENT * cos(this->vision_angle * PI / 180.0));
-	        this->y += (int) (DISPLACEMENT * sin(this->vision_angle * PI / 180.0));
+            this->x -= (int) (GameConfig.displacement * cos(this->vision_angle * GameConfig.pi / 180.0));
+	        this->y += (int) (GameConfig.displacement * sin(this->vision_angle * GameConfig.pi / 180.0));
             break;
         }
         case LEFT_DIR: {
-            this->x -= (int) (DISPLACEMENT * sin(this->vision_angle * PI / 180.0));
-	        this->y -= (int) (DISPLACEMENT * cos(this->vision_angle * PI / 180.0));
+            this->x -= (int) (GameConfig.displacement * sin(this->vision_angle * GameConfig.pi / 180.0));
+	        this->y -= (int) (GameConfig.displacement * cos(this->vision_angle * GameConfig.pi / 180.0));
             break;	
         }
         case RIGHT_DIR: {
-            this->x += (int) (DISPLACEMENT * sin(this->vision_angle * PI / 180.0));
-	        this->y += (int) (DISPLACEMENT * cos(this->vision_angle * PI / 180.0));
+            this->x += (int) (GameConfig.displacement * sin(this->vision_angle * GameConfig.pi / 180.0));
+	        this->y += (int) (GameConfig.displacement * cos(this->vision_angle * GameConfig.pi / 180.0));
             break;
         }
         default: {
@@ -98,12 +98,12 @@ void PlayerPosition::move(Direction direction) {
 void PlayerPosition::rotate(Rotation rotation) {
     switch (rotation) {
         case LEFT_ROTATION_DIR: {
-            float new_vision_angle = this->vision_angle + ROTATION_SIZE;
+            float new_vision_angle = this->vision_angle + GameConfig.rotation_size;
 	        this->vision_angle = new_vision_angle >= 360.0 ? new_vision_angle - 360.0 : new_vision_angle;
             break;
         }
         case RIGHT_ROTATION_DIR: {
-            float new_vision_angle = this->vision_angle - ROTATION_SIZE;
+            float new_vision_angle = this->vision_angle - GameConfig.rotation_size;
 	        this->vision_angle = new_vision_angle < 0.0 ? 360.0 + new_vision_angle : new_vision_angle;
             break;
         }

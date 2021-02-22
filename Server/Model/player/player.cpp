@@ -7,9 +7,9 @@ Player::Player(int width, int height,
                 info(), state(new Alive(id_player)),
                 nickname(nickname), alive(true), 
                 moving(false), rotating(false), 
-                shooting(false), knife(),
+                shooting(false), knife(), 
                 gun(), machine_gun(), chain_cannon(),
-                rate(rate), life_cooldown(LIFE_TIME), 
+                rate(rate), life_cooldown(GameConfig.life_cooldown), 
                 machine_gun_cooldown(0),
                 chain_cannon_cooldown(0), gun_can_shoot(true),
                 forced_weapon(false), 
@@ -21,9 +21,9 @@ Player::Player(int pos_x, int pos_y, int width, int height,
                 info(), state(new Alive(id_player)),
                 nickname(nickname), alive(true), 
                 moving(false), rotating(false), 
-                shooting(false), knife(),
+                shooting(false), knife(), 
                 gun(), machine_gun(), chain_cannon(),
-                rate(rate), life_cooldown(LIFE_TIME), 
+                rate(rate), life_cooldown(GameConfig.life_cooldown), 
                 machine_gun_cooldown(0),
                 chain_cannon_cooldown(0), gun_can_shoot(true),
                 forced_weapon(false), 
@@ -112,8 +112,8 @@ Response Player::updateLife(int& iteration) {
         this->life_cooldown -= iteration;
         while (this->life_cooldown <= 0) {
             std::cout <<"Player: updating life"<< std::endl;
-            this->life_cooldown += LIFE_TIME;
-            reduceLife(LIFE_LOST_BECAUSE_TIME);
+            this->life_cooldown += GameConfig.life_cooldown;
+            reduceLife(GameConfig.life_lost_because_time);
             return Response(true, SUCCESS_MSG);
         }
     }
@@ -126,11 +126,11 @@ Response Player::updateShooting(double& distance, int& damage, int& iteration) {
         std::cout <<"Player: is shooting"<< std::endl;
         this->machine_gun_cooldown -= iteration;
         this->chain_cannon_cooldown -= iteration;
-        int type = this->info.getWeaponTypeEquiped(); 
+        const int type = this->info.getWeaponTypeEquiped(); 
         Item* weapon = this->info.getWeaponEquiped();
         if (weapon  == NULL ){std::cout <<"NULL WEAPON"<< std::endl;}
         switch(type) {
-            case KNIFE_TYPE: {
+            case (KNIFE_TYPE): {
                 std::cout <<"KNFE ATTACK!"<< std::endl;
                 weapon->attack(distance, damage);
                 return Response(true, SUCCESS_MSG);
@@ -152,8 +152,7 @@ Response Player::updateShooting(double& distance, int& damage, int& iteration) {
             case MACHINE_GUN_TYPE: {
                 std::cout <<"MACHINE GUN ATTACK!"<< std::endl;
                 while (this->machine_gun_cooldown <= 0) {
-                    this->machine_gun_cooldown += MACHINE_GUN_TIME;
-                    //this->machine_gun_cooldown += GameConfig.machine_gun_cooldown;
+                    this->machine_gun_cooldown += GameConfig.machine_gun_cooldown;
                     weapon->attack(distance, damage);
                     return Response(true, SUCCESS_MSG);
                 }
@@ -162,8 +161,7 @@ Response Player::updateShooting(double& distance, int& damage, int& iteration) {
             case CHAIN_CANNON_TYPE: {
                 std::cout <<"CHAIN CANNON ATTACK!"<< std::endl;
                 while (this->chain_cannon_cooldown <= 0) {
-                    this->chain_cannon_cooldown += CHAIN_CANNON_TIME;
-                    //this->chain_cannon_cooldown += GameConfig.chain_cannon_cooldown;
+                    this->chain_cannon_cooldown += GameConfig.chain_cannon_cooldown;
                     weapon->attack(distance, damage);
                     return Response(true, SUCCESS_MSG);
                 }
@@ -266,18 +264,16 @@ Response Player::receiveAttack(int& damage) {
 Response Player::resurrect() {
     if(!this->state->resurrect()) {
         return Response(false, STATE_CANT_RESURRECT_ERROR_MSG);
-    //} else if (this->info.getNumResurrection() == MAX_RESURRECTIONS) {
     } else if (this->info.getNumResurrection() == GameConfig.max_resurrections) {
        return Response(false, MAX_RESURRECTIONS_REACHED_ERROR_MSG); 
     }
     delete this->state;
     this->state = new Alive(this->player_id);
     addNumResurrection();
-    addLife(MAX_LIFE);
-    //deleteInventory(KNIFE_TYPE);
+    addLife(GameConfig.max_life);
     deleteInventory(MACHINE_GUN_TYPE);
     deleteInventory(CHAIN_CANNON_TYPE);
-    reduceBullets(MAX_BULLETS);
+    reduceBullets(GameConfig.max_bullets);
     addBullets(8);
     return Response(true, SUCCESS_MSG);
 }
@@ -329,8 +325,7 @@ void Player::addLife(int life) {
 
 void Player::addBullets(int bullets) {
     this->info.bullets += bullets;
-    this->info.bullets = (this->info.bullets > MAX_BULLETS) ? MAX_BULLETS : this->info.bullets;
-    //this->info.bullets = (this->info.bullets > GameConfig.max_bullets) ? GameConfig.max_bullets : this->info.bullets;
+    this->info.bullets = (this->info.bullets > GameConfig.max_bullets) ? GameConfig.max_bullets : this->info.bullets;
 }
 
 void Player::addNumKeys(int key) {

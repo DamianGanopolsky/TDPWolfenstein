@@ -2,7 +2,6 @@
 #define CUP_H_
 
 #include "treasure.h"
-#include "../../../constants/YamlConfig.h"
 
 class Cup: public Treasure  {
  public:

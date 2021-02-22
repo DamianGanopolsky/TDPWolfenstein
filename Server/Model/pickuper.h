@@ -19,18 +19,6 @@ class PickUp {
     PickUp();
     ~PickUp();
     int pickUp(Player& player, Item* item);
-    // bullets:
-    /*int pickUp(PlayerInfo &info, Bullet &item);
-    // healers:
-    int pickUp(PlayerInfo &info, Food &item);
-    int pickUp(PlayerInfo &info, Kit &item);
-    int pickUp(PlayerInfo &info, Blood &item);
-    // key:
-    int pickUp(PlayerInfo &info, Key &item);
-    // treasures:
-    int pickUp(PlayerInfo &info, Treasure &item);
-    // weapons:
-    int pickUp(PlayerInfo &info, Weapon* item);*/
 
 };
 

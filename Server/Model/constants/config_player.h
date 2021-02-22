@@ -1,17 +1,5 @@
-// ATENCION: config temporal (después pasar a formato YAML)
-
 #ifndef CONFIG_PLAYER_H
 #define CONFIG_PLAYER_H
-
-// Player
-#define MAX_RESURRECTIONS 2
-#define ROTATION_SIZE 3.0
-#define DISPLACEMENT 5
-#define PI 3.14159265
-
-#define KILLS_WEIGHT_FINAL_SCORE 200
-#define TREASURE_WEIGHT_FINAL_SCORE 1
-
 
 //player position direction
 enum Direction {
@@ -20,6 +8,7 @@ enum Direction {
     LEFT_DIR,
     RIGHT_DIR,
 };
+
 //player position rotation
 enum Rotation {
     LEFT_ROTATION_DIR = 0,
@@ -41,17 +30,9 @@ enum ItemPickedUp {
 //picked up items success
 #define ITEM_PICKED_UP_MSG "Success: Item picked up."
 #define NO_ITEM_PICKED_UP_MSG "Success: No item picked up."
-/*
-#define BULLETS_PICKED_UP_MSG "Success: Bullets picked up."
-#define FOOD_PICKED_UP_MSG "Success: Food picked up."
-#define KIT_PICKED_UP_MSG "Success: Kit picked up."
-#define BLOOD_PICKED_UP_MSG "Success: Blood picked up."
-#define KEY_PICKED_UP_MSG "Success: Key picked up."
-#define TREASURE_PICKED_UP_MSG "Success: Treasure picked up."
-#define WEAPON_PICKED_UP_MSG "Success: Weapon picked up."
-*/
 //player death succes
 #define PLAYER_DIED_MSG "Success: Player died."
+//player errors
 #define CANT_ATTACK_ITSELF_ERROR_MSG "ERROR: Player can't attack itself."
 #define CANT_ATTACK_UNKNOWN_ID_ERROR_MSG "ERROR: Player can't attack an unknown player id."
 #define CANT_ATTACK_WITHOUT_BULLETS_ERROR_MSG "ERROR: Player can't attack without bullets."

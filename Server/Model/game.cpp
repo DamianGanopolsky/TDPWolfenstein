@@ -18,8 +18,8 @@ Game::Game(ClientsConnected& clients_connected, std::string map_Yaml, int& rate)
                             game_ended(false), objMap(), rate(rate) 
                             {
                                 YAML::Node config = YAML::LoadFile(PATH_TO_MAP+map_Yaml+YAML_EXT);
-                                this->height = (config["Map"]["map_dimentions"]["height"].as<int>())*POINTS_PER_CELL;
-                                this->width = (config["Map"]["map_dimentions"]["width"].as<int>())*POINTS_PER_CELL;
+                                this->height = (config["Map"]["map_dimentions"]["height"].as<int>())*GameConfig.points_per_cell;
+                                this->width = (config["Map"]["map_dimentions"]["width"].as<int>())*GameConfig.points_per_cell;
                             }
 
 Game::~Game() {}
@@ -119,38 +119,38 @@ void Game::_notifyItemChanged(const ConnectionId id, ItemOpcode item_type) {
         case OPEN_DOOR_ITM:
         case WEAPON_TAKEN_ITM: { 
             notification = new ItemChanged(map_id, item_type, id,
-                                (player.getPos().getX())/POINTS_PER_CELL, 
-                                (player.getPos().getY())/POINTS_PER_CELL);
+                                (player.getPos().getX())/GameConfig.points_per_cell, 
+                                (player.getPos().getY())/GameConfig.points_per_cell);
             break;
         }
         case MEDICAL_KIT_TAKEN_ITM:
         case FOOD_TAKEN_ITM:
         case BLOOD_TAKEN_ITM: { 
             notification = new ItemChanged(map_id, item_type, id,
-                            (player.getPos().getX())/POINTS_PER_CELL, 
-                            (player.getPos().getY())/POINTS_PER_CELL,
+                            (player.getPos().getX())/GameConfig.points_per_cell, 
+                            (player.getPos().getY())/GameConfig.points_per_cell,
                             player.getInfo().getLife());
             break;
         }
         case KEY_TAKEN_ITM: { 
             notification = new ItemChanged(map_id, item_type, id,
-                            (player.getPos().getX())/POINTS_PER_CELL, 
-                            (player.getPos().getY())/POINTS_PER_CELL,
+                            (player.getPos().getX())/GameConfig.points_per_cell, 
+                            (player.getPos().getY())/GameConfig.points_per_cell,
                             player.getInfo().getKey());
             break;
         }
         case TREASURE_TAKEN_ITM: { 
             std::cout<<"TREASURE_TAKEN_ITM: treasure "<< player.getInfo().getTreasure() <<std::endl;
             notification = new ItemChanged(map_id, item_type, id,
-                            (player.getPos().getX())/POINTS_PER_CELL, 
-                            (player.getPos().getY())/POINTS_PER_CELL,
+                            (player.getPos().getX())/GameConfig.points_per_cell, 
+                            (player.getPos().getY())/GameConfig.points_per_cell,
                             player.getInfo().getTreasure());
             break;
         }
         case BULLETS_TAKEN_ITM: { 
             notification = new ItemChanged(map_id, item_type, id,
-                            (player.getPos().getX())/POINTS_PER_CELL, 
-                            (player.getPos().getY())/POINTS_PER_CELL,
+                            (player.getPos().getX())/GameConfig.points_per_cell, 
+                            (player.getPos().getY())/GameConfig.points_per_cell,
                             player.getInfo().getNumBullets());
             break;
         }
@@ -185,8 +185,8 @@ void Game::_notifyItemDropped(const ConnectionId id, ItemOpcode item_type, int x
         case MACHINE_GUN_DROPPED_ITM:
         case CHAIN_CANNON_DROPPED_ITM: {
             notification = new ItemChanged(map_id, item_type, id,
-                                            x/POINTS_PER_CELL, 
-                                            y/POINTS_PER_CELL);
+                                            x/GameConfig.points_per_cell, 
+                                            y/GameConfig.points_per_cell);
             break;
         }
         default:
@@ -236,28 +236,28 @@ std::pair<int, int> Game::_getNearestCellEmpty(int pos_x, int pos_y) {
     std::pair<int, int> pos;
     for (int i = 1; i != 35; i++) {
         pos = map.getNextPos(UP_DIR, pos_x, pos_y, i);
-        if(map.getObjectPos((pos.first*POINTS_PER_CELL),
-        (pos.second*POINTS_PER_CELL)) == MAP_NONE) {
-            return std::make_pair((pos.first*POINTS_PER_CELL),
-            (pos.second*POINTS_PER_CELL));
+        if(map.getObjectPos((pos.first*GameConfig.points_per_cell),
+        (pos.second*GameConfig.points_per_cell)) == MAP_NONE) {
+            return std::make_pair((pos.first*GameConfig.points_per_cell),
+            (pos.second*GameConfig.points_per_cell));
         }
         pos = map.getNextPos(DOWN_DIR, pos_x, pos_y, i);
-        if(map.getObjectPos((pos.first*POINTS_PER_CELL),
-        (pos.second*POINTS_PER_CELL)) == MAP_NONE) {
-            return std::make_pair((pos.first*POINTS_PER_CELL),
-            (pos.second*POINTS_PER_CELL));
+        if(map.getObjectPos((pos.first*GameConfig.points_per_cell),
+        (pos.second*GameConfig.points_per_cell)) == MAP_NONE) {
+            return std::make_pair((pos.first*GameConfig.points_per_cell),
+            (pos.second*GameConfig.points_per_cell));
         }
         pos = map.getNextPos(LEFT_DIR, pos_x, pos_y, i);
-        if(map.getObjectPos((pos.first*POINTS_PER_CELL),
-        (pos.second*POINTS_PER_CELL)) == MAP_NONE) {
-            return std::make_pair((pos.first*POINTS_PER_CELL),
-            (pos.second*POINTS_PER_CELL));
+        if(map.getObjectPos((pos.first*GameConfig.points_per_cell),
+        (pos.second*GameConfig.points_per_cell)) == MAP_NONE) {
+            return std::make_pair((pos.first*GameConfig.points_per_cell),
+            (pos.second*GameConfig.points_per_cell));
         }
         pos = map.getNextPos(RIGHT_DIR, pos_x, pos_y, i);
-        if(map.getObjectPos((pos.first*POINTS_PER_CELL),
-        (pos.second*POINTS_PER_CELL)) == MAP_NONE) {
-            return std::make_pair((pos.first*POINTS_PER_CELL),
-            (pos.second*POINTS_PER_CELL));
+        if(map.getObjectPos((pos.first*GameConfig.points_per_cell),
+        (pos.second*GameConfig.points_per_cell)) == MAP_NONE) {
+            return std::make_pair((pos.first*GameConfig.points_per_cell),
+            (pos.second*GameConfig.points_per_cell));
         }
     }
     std::cout<<"Game: _getNearestCellEmpty() END "<<std::endl;
@@ -314,10 +314,10 @@ Response Game::_canMove(Map& map, Player& player, std::pair<int, int> next_pos) 
 }
 
 bool Game::_changeCell(PlayerPosition &pos, std::pair<int, int> &next_pos) {
-    int current_x = (pos.getX())/POINTS_PER_CELL;
-    int current_y = (pos.getY())/POINTS_PER_CELL;
-    int next_x = (next_pos.first)/POINTS_PER_CELL;
-    int next_y = (next_pos.second)/POINTS_PER_CELL;
+    int current_x = (pos.getX())/GameConfig.points_per_cell;
+    int current_y = (pos.getY())/GameConfig.points_per_cell;
+    int next_x = (next_pos.first)/GameConfig.points_per_cell;
+    int next_y = (next_pos.second)/GameConfig.points_per_cell;
     if ((current_x != next_x) || (current_y != next_y)) {
         return true;
     }
@@ -451,7 +451,7 @@ int pos_x_other_player,int pos_y_other_player){
 	float x = pos_x_attacker - pos_x_other_player;
 	float y = pos_y_attacker - pos_y_other_player;
     float angle=atan2(y,x);
-    angle=angle * 180/PI;
+    angle=angle * 180/GameConfig.pi;
     std::cout << "Angulo es" << angle << std::endl;
     angle=180-angle;
     std::cout << "Angulo es" << angle << std::endl;
@@ -574,7 +574,7 @@ bool Game::updatePlayers(int& iteration) {
             changeWeapon(id, player.weapon_equiped_before);
             player.forced_weapon = false;
         }
-        if (player.getInfo().getNumResurrection() == MAX_RESURRECTIONS) {
+        if (player.getInfo().getNumResurrection() == GameConfig.max_resurrections) {
             std::cout <<"Game: player got MAX_RESURRECTIONS "<< std::endl;
             std::string name = players_by_name.at(id);
             std::cout <<"Game: player get name "<< std::endl;

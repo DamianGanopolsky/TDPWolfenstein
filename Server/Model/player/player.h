@@ -15,7 +15,7 @@
 #include "./../objects/items/weapons/gun.h"
 #include "./../objects/items/weapons/machine_gun.h"
 #include "./../objects/items/weapons/chain_cannon.h"
-#include "../constants/YamlConfig.h"
+//#include "../constants/YamlConfig.h"
 
 class Player : public BlockingObject {
   Id player_id;
