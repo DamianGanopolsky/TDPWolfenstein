@@ -22,17 +22,7 @@ bool ReceiveController::update(){
      //POP
      UpdateMessage* updatemessage=recv_queue.pop();
      if(!updatemessage){
-         //Aca dibujo lo actualizado
-         //std::cout << "RENDERIZO" << std::endl;
-         //auto t1=std::chrono::steady_clock::now();
-         //client.render();
-         /*auto t2= std::chrono::steady_clock::now();
-        std::chrono::duration<float, std::milli> diff;
-			//std::chrono::duration<double> diff=t2-t1;
-        diff = t2 - t1;
-        std::cout << "DELTA DE RENDERIZADO ES" << diff.count() << std::endl;*/
          return false;
-         //usleep(33000);
      }
 
      //UPDATe

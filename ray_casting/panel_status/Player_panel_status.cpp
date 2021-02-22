@@ -33,7 +33,8 @@ Player_panel_status::Player_panel_status(SDL_Renderer*& renderer) :
 										eguard_dead_status(renderer,IMAGE_EGUARDS_DEAD_PATH,TOTAL_EGUARDS_DEAD),
 										guard_dead_status(renderer,IMAGE_DEATH_GUARDIAS_PATH,TOTAL_GUARDIAS_DEATH),
 										officer_moving_status(renderer,IMAGE_OFFICER_GUARDIAS_MOVING_PATH,TOTAL_OFFICER_GUARDIAS_MOVING),
-										eguard_moving_status(renderer,IMAGE_ELITE_GUARDIAS_MOVING_PATH,TOTAL_ELITE_GUARDIAS_MOVING){
+										eguard_moving_status(renderer,IMAGE_ELITE_GUARDIAS_MOVING_PATH,TOTAL_ELITE_GUARDIAS_MOVING),
+										guard_moving_status(renderer,IMAGE_GUARDIAS_MOVING_PATH,TOTAL_GUARDIAS_MOVING){
 										//numero(renderer,255,255,255) 
 										
 	SDL_Surface *status_img = IMG_Load("../ray_casting/sprites/hud.png");
@@ -68,7 +69,9 @@ Player_panel_status::Player_panel_status(Player_panel_status&& other) :
 										officer_dead_status(std::move(other.officer_dead_status)),
 										eguard_dead_status(std::move(other.eguard_dead_status)),
 										guard_dead_status(std::move(other.guard_dead_status)),
-										officer_moving_status(std::move(other.officer_moving_status)){	
+										officer_moving_status(std::move(other.officer_moving_status)),
+										eguard_moving_status(std::move(other.eguard_moving_status)),
+										guard_moving_status(std::move(other.guard_moving_status)){	
 										//numero(std::move(other.numero)) 
 										
 	this->status_tex = other.status_tex;
@@ -112,6 +115,8 @@ Player_panel_status& Player_panel_status::operator=(Player_panel_status&& other)
 	this->eguard_dead_status=std::move(other.eguard_dead_status);
 	this->guard_dead_status=std::move(other.guard_dead_status);
 	this->officer_moving_status=std::move(other.officer_moving_status);
+	this->eguard_moving_status=std::move(other.eguard_moving_status);
+	this->guard_moving_status=std::move(other.guard_moving_status);
 	other.status_tex = nullptr;
 	return *this;	
 }
@@ -343,9 +348,13 @@ SDL_Texture* Player_panel_status::get_texture(int tex_section, int id) {
 			texture=this->eguard_dead_status.get_texture(tex_section);
 			break;
 		case 21:
+			texture=this->guard_moving_status.get_texture(tex_section);
+			break;
 		case 22:
-		case 23:
 			texture=this->officer_moving_status.get_texture(tex_section);
+			break;
+		case 23:
+			texture=this->eguard_moving_status.get_texture(tex_section);
 			break;
 		default:
 			texture=this->bullets.get_texture(tex_section);

@@ -96,7 +96,14 @@ void Map_2d::update_player_pos(int id,int pos_x,int pos_y,int angle,int status){
 		std::cout << "ID es" << players_state[id].is_moving << std::endl;
 		time_last_update=std::chrono::steady_clock::now();
 	}
-
+		/*if(players_state[id].is_moving==0){
+			players_state[id].is_moving=1;
+		}
+		else{
+			std::cout << "Cambio a 0" << std::endl;
+			players_state[id].is_moving=0;
+		}
+*/
 	//players_state[id].is_moving=rand()%2;
 }
 

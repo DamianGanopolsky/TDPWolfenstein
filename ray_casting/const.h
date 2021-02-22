@@ -74,10 +74,9 @@ struct Player_stats{
 
 #define TOTAL_ELITE_GUARDIAS 8
 #define IMAGE_ELITE_GUARDIAS_PATH "../ray_casting/panel_status/images/Elite_guard/EGuard"
-/*
+
 #define TOTAL_GUARDIAS_MOVING 8
-#define IMAGE_GUARDIAS_MOVING_PATH 
-*/
+#define IMAGE_GUARDIAS_MOVING_PATH "../ray_casting/panel_status/images/GuardMoving"
 
 #define TOTAL_ELITE_GUARDIAS_MOVING 8
 #define IMAGE_ELITE_GUARDIAS_MOVING_PATH "../ray_casting/panel_status/images/Elite_guard/EGuardMoving"

@@ -55,9 +55,10 @@ void ClientManager::start(){
 		while(end==false){
 			end=!(receivecontroller.update());
 		}
-		if((it%2)==0){
-			client.render();
-		}
+		client.render();
+		//if((it%2)==0){
+		//	client.render();
+		//}
 		auto t2=std::chrono::steady_clock::now();
 		std::chrono::duration<float, std::milli> diff;
 		diff = t2 - t1;
@@ -65,6 +66,7 @@ void ClientManager::start(){
 			int sleeping_time=(ClientConfig.constant_rate_loop_ms-diff.count())*1000;
 			usleep(sleeping_time);
 		}
+		it++;
 	}
 
 	sender.stop();
