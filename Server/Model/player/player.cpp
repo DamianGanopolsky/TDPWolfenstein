@@ -357,6 +357,7 @@ void Player::reduceLife(int life) {
 void Player::reduceBullets(int bullets) {
     this->info.bullets -= bullets;
     this->info.bullets = (this->info.bullets < 0) ? 0 : this->info.bullets;
+    std::cout<<"REDUZCO NUM BULLETS:"<<info.bullets<<std::endl;
 }
 
 void Player::reduceNumKeys(int key) {
