@@ -4,15 +4,15 @@ project(Wolfenstein)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Werror")
 
-file(GLOB ray_casting_dep_3 "ray_casting/SdlClasses/*.cpp")
+file(GLOB ray_casting_dep_3 "client/SdlClasses/*.cpp")
 
-file(GLOB ray_casting_dep "ray_casting/*.cpp")
+file(GLOB ray_casting_dep "client/*.cpp")
 
-file(GLOB ray_casting_dep_2 "ray_casting/panel_status/*.cpp")
+file(GLOB ray_casting_dep_2 "client/panel_status/*.cpp")
 
-file(GLOB ray_casting_dep_4 "ray_casting/Yaml/*.cpp")
+file(GLOB ray_casting_dep_4 "client/Yaml/*.cpp")
 
-file(GLOB ray_casting_dep_5 "ray_casting/ClientConnector/*.cpp")
+file(GLOB ray_casting_dep_5 "client/ClientConnector/*.cpp")
 
 file(GLOB_RECURSE common "Common/*.cpp")
 

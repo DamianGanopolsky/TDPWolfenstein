@@ -37,7 +37,7 @@ Player_panel_status::Player_panel_status(SDL_Renderer*& renderer) :
 										guard_moving_status(renderer,IMAGE_GUARDIAS_MOVING_PATH,TOTAL_GUARDIAS_MOVING){
 										//numero(renderer,255,255,255) 
 										
-	SDL_Surface *status_img = IMG_Load("../ray_casting/sprites/hud.png");
+	SDL_Surface *status_img = IMG_Load("../client/sprites/hud.png");
 	this->status_tex = SDL_CreateTextureFromSurface(this->renderer, status_img);
 	SDL_FreeSurface(status_img);
 	//TTF_Init();
@@ -198,7 +198,7 @@ void Player_panel_status::copy_to_rederer_lives(int lives) {
 	SrcR.y = ClientConfig.screen_height - SrcR.h * 1.25;
 
 	/*std::string lives_str=std::to_string(lives);
-	TTF_Font* Sans = TTF_OpenFont("../ray_casting/panel_status/OpenSans-Bold.ttf", 35); 
+	TTF_Font* Sans = TTF_OpenFont("../client/panel_status/OpenSans-Bold.ttf", 35); 
     SDL_Surface* surfaceMessage = TTF_RenderText_Solid(Sans, lives_str.c_str(), {255, 255, 255});
 	
 	SDL_Texture* texture_of_text = SDL_CreateTextureFromSurface(this->renderer,surfaceMessage); 
@@ -264,7 +264,7 @@ void Player_panel_status::copy_to_rederer_number_(int number,SDL_Rect& rect){
 		return;
 	}
 	std::string lives_str=std::to_string(number);
-	TTF_Font* Sans = TTF_OpenFont("../ray_casting/panel_status/OpenSans-Bold.ttf", 35); 
+	TTF_Font* Sans = TTF_OpenFont("../client/panel_status/OpenSans-Bold.ttf", 35); 
     SDL_Surface* surfaceMessage = TTF_RenderText_Solid(Sans, lives_str.c_str(), {255, 255, 255});
 	SDL_Texture* texture_of_text = SDL_CreateTextureFromSurface(this->renderer,surfaceMessage); 
 	SDL_RenderCopy(this->renderer, texture_of_text, NULL, &rect);

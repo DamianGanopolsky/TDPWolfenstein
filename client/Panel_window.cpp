@@ -15,9 +15,9 @@ Panel_window::Panel_window():  running(true) {
 	this->player_panel_status = Player_panel_status(this->renderer);
 	//map_width=map.get_width();
 	//map_height=map.get_height();
-	SDL_Surface* ending_screen_surf=IMG_Load("../ray_casting/sprites/EndingScreenBase.png");
+	SDL_Surface* ending_screen_surf=IMG_Load("../client/sprites/EndingScreenBase.png");
     Ending_screen_base=SDL_CreateTextureFromSurface(this->renderer,ending_screen_surf);
-	SDL_Surface* waiting_screen_surf=IMG_Load("../ray_casting/sprites/waiting_screen_final.jpg");
+	SDL_Surface* waiting_screen_surf=IMG_Load("../client/sprites/waiting_screen_final.jpg");
 	waiting_screen=SDL_CreateTextureFromSurface(this->renderer,waiting_screen_surf);
 	SDL_FreeSurface(waiting_screen_surf);
     SDL_FreeSurface(ending_screen_surf);
@@ -101,7 +101,7 @@ void Panel_window::render_player_lost_screen(){
 	SDL_RenderClear(this->renderer);
 	SDL_Rect main_screen_rect={0,0,ClientConfig.screen_width,ClientConfig.screen_height};
     SDL_RenderCopy(this->renderer,Ending_screen_base,NULL,&main_screen_rect);
-	TTF_Font* Sans = TTF_OpenFont("../ray_casting/panel_status/OpenSans-Bold.ttf", 35); 
+	TTF_Font* Sans = TTF_OpenFont("../client/panel_status/OpenSans-Bold.ttf", 35); 
 	if(!Sans){
 		printf("TTF OPENFONT: %s \n",TTF_GetError());
 	}
@@ -121,7 +121,7 @@ void Panel_window::render_ending_screen(){
 	SDL_RenderClear(this->renderer);
 	SDL_Rect main_screen_rect={0,0,ClientConfig.screen_width,ClientConfig.screen_height};
     SDL_RenderCopy(this->renderer,Ending_screen_base,NULL,&main_screen_rect);
-	TTF_Font* Sans = TTF_OpenFont("../ray_casting/panel_status/OpenSans-Bold.ttf", 35); 
+	TTF_Font* Sans = TTF_OpenFont("../client/panel_status/OpenSans-Bold.ttf", 35); 
 	if(!Sans){
 		printf("TTF OPENFONT: %s \n",TTF_GetError());
 	}
@@ -166,7 +166,7 @@ void Panel_window::render_waiting_screen(){
 	SDL_RenderClear(this->renderer);
 	SDL_Rect main_screen_rect={0,0,ClientConfig.screen_width,ClientConfig.screen_height};
     SDL_RenderCopy(this->renderer,waiting_screen,NULL,&main_screen_rect);
-	TTF_Font* Sans = TTF_OpenFont("../ray_casting/panel_status/OpenSans-Bold.ttf", 35); 
+	TTF_Font* Sans = TTF_OpenFont("../client/panel_status/OpenSans-Bold.ttf", 35); 
 	SDL_Rect text_1_Rect={int(0.2344*ClientConfig.screen_width),int(0.5875*ClientConfig.screen_height),int(0.5469*ClientConfig.screen_width),int(0.075*ClientConfig.screen_height)};
 	std::string text="Mapa elegido: "+map_name+" ("+std::to_string(map_cant_players)+" jugadores"+")";
     SDL_Surface* surfaceMessage = TTF_RenderText_Solid(Sans, text.c_str(), {108, 0, 0});

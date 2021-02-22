@@ -9,7 +9,7 @@ TextButton::TextButton(SDL_Renderer*& Renderer):renderer(Renderer){
    // }
     textbox.box_content="";
     textbox.active=false;
-    SDL_Surface* button_base_surface=IMG_Load("../ray_casting/sprites/Unpressed_bar.png");
+    SDL_Surface* button_base_surface=IMG_Load("../client/sprites/Unpressed_bar.png");
     button_base=SDL_CreateTextureFromSurface(Renderer,button_base_surface);
 }
 
