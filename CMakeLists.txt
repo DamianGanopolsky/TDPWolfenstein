@@ -1,35 +1,42 @@
-cmake_minimum_required(VERSION 3.19.0)
+cmake_minimum_required(VERSION 3.16.0)
 
 project(Wolfenstein)
 
+
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Werror")
 
-file(GLOB ray_casting_dep_3 "ray_casting/SdlClasses/*.cpp")
+file(GLOB_RECURSE ray_casting_src "ray_casting/*.cpp")
 
-file(GLOB ray_casting_dep "ray_casting/*.cpp")
+file(GLOB_RECURSE editor_src "Editor/*.cpp")
 
-file(GLOB ray_casting_dep_2 "ray_casting/panel_status/*.cpp")
+file(GLOB_RECURSE common_src "Common/*.cpp")
 
-file(GLOB ray_casting_dep_4 "ray_casting/Yaml/*.cpp")
+file(GLOB_RECURSE server_src "Server/*.cpp")
 
-file(GLOB ray_casting_dep_5 "ray_casting/ClientConnector/*.cpp")
-
-file(GLOB_RECURSE common "Common/*.cpp")
-
-file(GLOB_RECURSE server "Server/*.cpp")
-
-add_library(common-lib SHARED ${common})
+add_library(common-lib SHARED ${common_src})
 
 
-add_executable(editor Editor/editor_main.cpp Editor/SdlClasses/SdlWindow.cpp Editor/SdlClasses/SdlText.cpp Editor/Event_Handler.cpp Editor/Editor.cpp Editor/Scene.cpp Editor/Main_Window.cpp Editor/Map.cpp Editor/YamlParser.cpp Editor/InputTextView.cpp Editor/MapOptionsView.cpp Editor/MapButton.cpp Editor/EditorManager.cpp Common/exception.cpp)
-
-add_executable(Client ${ray_casting_dep_3} ${ray_casting_dep} ${ray_casting_dep_2} ${ray_casting_dep_4} ${ray_casting_dep_5} ${common}  ) 
-
-add_executable(servidor ${server} Editor/YamlParser.cpp)
-
-target_link_libraries(servidor common-lib pthread yaml-cpp)
+add_executable(editor ${editor_src} Common/exception.cpp)
 
 target_link_libraries(editor SDL2 SDL2_ttf SDL2_image yaml-cpp)
 
-target_link_libraries(Client SDL2 SDL2_image pthread SDL2_mixer yaml-cpp SDL2_ttf)
+add_executable(client ${ray_casting_src} ${common_src}) 
 
+target_link_libraries(client SDL2 SDL2_ttf SDL2_image SDL2_mixer pthread yaml-cpp)
+
+add_executable(server ${server_src} Editor/YamlParser.cpp)
+
+target_link_libraries(server common-lib pthread yaml-cpp)
+
+
+set(BINARIES_DIRPATH "usr/bin")
+set(SHAREDLIBS_DIRPATH "usr/lib")
+
+
+install(TARGETS common-lib DESTINATION ${SHAREDLIBS_DIRPATH} PERMISSIONS WORLD_READ WORLD_WRITE WORLD_EXECUTE)
+
+install(TARGETS editor DESTINATION ${BINARIES_DIRPATH} PERMISSIONS WORLD_READ WORLD_WRITE WORLD_EXECUTE)
+
+install(TARGETS client DESTINATION ${BINARIES_DIRPATH} PERMISSIONS WORLD_READ WORLD_WRITE WORLD_EXECUTE)
+
+install(TARGETS server DESTINATION ${BINARIES_DIRPATH} PERMISSIONS WORLD_READ WORLD_WRITE WORLD_EXECUTE)
