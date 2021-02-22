@@ -1,4 +1,4 @@
-rotation_size: 3.0
+rotation_size: 3
 displacement: 5
 pi: 3.14159265
 points_per_cell: 64
@@ -17,7 +17,7 @@ knife_base_damage: 1
 knife_max_range: 60
 gun_base_damage: 5
 machine_gun_base_damage: 15
-machine_gun_cooldown: 909
+machine_gun_cooldown: 3636
 chain_cannon_base_damage: 10
 chain_cannon_cooldown: 18
 
