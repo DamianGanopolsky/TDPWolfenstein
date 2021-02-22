@@ -32,7 +32,8 @@ Player_panel_status::Player_panel_status(SDL_Renderer*& renderer) :
 										officer_dead_status(renderer,IMAGE_OFFICER_GUARDIAS_DEAD_PATH,TOTAL_OFFICER_GUARDIAS_DEAD),
 										eguard_dead_status(renderer,IMAGE_EGUARDS_DEAD_PATH,TOTAL_EGUARDS_DEAD),
 										guard_dead_status(renderer,IMAGE_DEATH_GUARDIAS_PATH,TOTAL_GUARDIAS_DEATH),
-										officer_moving_status(renderer,IMAGE_OFFICER_GUARDIAS_MOVING_PATH,TOTAL_OFFICER_GUARDIAS_MOVING){
+										officer_moving_status(renderer,IMAGE_OFFICER_GUARDIAS_MOVING_PATH,TOTAL_OFFICER_GUARDIAS_MOVING),
+										eguard_moving_status(renderer,IMAGE_ELITE_GUARDIAS_MOVING_PATH,TOTAL_ELITE_GUARDIAS_MOVING){
 										//numero(renderer,255,255,255) 
 										
 	SDL_Surface *status_img = IMG_Load("../ray_casting/sprites/hud.png");

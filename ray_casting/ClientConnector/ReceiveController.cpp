@@ -25,7 +25,7 @@ bool ReceiveController::update(){
          //Aca dibujo lo actualizado
          //std::cout << "RENDERIZO" << std::endl;
          //auto t1=std::chrono::steady_clock::now();
-         client.render();
+         //client.render();
          /*auto t2= std::chrono::steady_clock::now();
         std::chrono::duration<float, std::milli> diff;
 			//std::chrono::duration<double> diff=t2-t1;
