@@ -2,8 +2,8 @@
 ## Taller de Programación I
 ### 2do cuatrimestre de 2020
 
-## Correcciones hechas para la entrega final  
-Se encuentran en la carpeta Docs del repositorio
+### Correcciones hechas para la entrega final  
+Se encuentran en la carpeta Docs del repositorio  
 \
 **Tutor:** Martín Di Paola \
 \
