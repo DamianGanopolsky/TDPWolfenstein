@@ -72,9 +72,10 @@ function installGame() {
     echo ""
     echo "Instalación del juego finalizada."
     echo ""
-    echo "Para su ejecución:"
-    echo "  * Servidor: corriendo 'server <port> <map_name>' se abrirá un servidor en el puerto dado."
-    echo "  * Cliente: corriendo 'client <host> <port> <player_name>' se abrirá el juego."
+    echo "Para su ejecución estar en la carpeta build:"
+    echo "  * Servidor: corriendo './server <port> <map_name>' se abrirá un servidor en el puerto dado."
+    echo "  * Cliente: corriendo './client <host> <port> <player_name>' se abrirá el juego."
+    echo "  * Editor: corriendo './editor' se abrirá el editor."
 }
 
 function all() {

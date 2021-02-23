@@ -38,7 +38,7 @@ void Accepter::run() {
 			_joinReaper();
 		}
 	} catch (const std::exception& e) {
-		std::cerr << e.what() << std::endl;
+		//std::cerr << e.what() << std::endl;
 	} catch (...) {
 		std::cout <<"Accepter: Unknown error"<< std::endl;
 	}
