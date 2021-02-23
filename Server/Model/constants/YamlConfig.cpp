@@ -7,6 +7,7 @@ const struct YamlParamConfig GameConfig = {
     .displacement=data_config["displacement"].as<int>(),
     .pi=data_config["pi"].as<float>(),
     .points_per_cell=data_config["points_per_cell"].as<int>(),
+    .tps=data_config["tps"].as<int>(),
     .kills_weight_final_score=data_config["kills_weight_final_score"].as<int>(),
     .treasure_weight_final_score=data_config["treasure_weight_final_score"].as<int>(),
     .kit_points=data_config["kit_points"].as<int>(),

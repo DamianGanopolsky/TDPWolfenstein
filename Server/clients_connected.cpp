@@ -26,28 +26,20 @@ void ClientsConnected::remove(const ConnectionId id) {
     clients.erase(id);
 } 
 
-void ClientsConnected::sendMessageToAll(Notification* message) {
+void ClientsConnected::sendNotificationToAll(Notification* notification) {
     std::unordered_map<ConnectionId, ClientHandler>::iterator it;
-    std::shared_ptr<Notification> message_ptr(message);
+    std::shared_ptr<Notification> notification_ptr(notification);
     for (it = clients.begin(); it != clients.end(); it++) {
-        it->second.push(message_ptr);
+        it->second.push(notification_ptr);
     }
 }
 
-void ClientsConnected::sendEventToAll(Notification* event) {
-    std::unordered_map<ConnectionId, ClientHandler>::iterator it;
-    std::shared_ptr<Notification> event_ptr(event);
-    for (it = clients.begin(); it != clients.end(); it++) {
-        it->second.push(event_ptr);
-    }
-}
-
-void ClientsConnected::sendEventToOne(ConnectionId id, Notification* event) {
+void ClientsConnected::sendNotificationToOne(ConnectionId id, Notification* notification) {
     if (clients.count(id) == 0) {
         throw Exception("Invalid client_id.");
     }
-    std::shared_ptr<Notification> event_ptr(event);
-    clients.at(id).push(event_ptr);
+    std::shared_ptr<Notification> notification_ptr(notification);
+    clients.at(id).push(notification_ptr);
 }
 
 void ClientsConnected::stop() { 

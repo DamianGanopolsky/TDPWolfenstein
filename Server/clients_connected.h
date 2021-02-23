@@ -25,9 +25,8 @@ class ClientsConnected {
 
         void add(const ConnectionId id, Socket& peer);
         void remove(const ConnectionId id);
-        void sendMessageToAll(Notification* message);
-        void sendEventToAll(Notification* event);
-        void sendEventToOne(ConnectionId id, Notification* event);
+        void sendNotificationToAll(Notification* notification);
+        void sendNotificationToOne(ConnectionId id, Notification* notification);
         void stop();
 };
 

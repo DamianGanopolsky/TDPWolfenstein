@@ -9,6 +9,7 @@ struct YamlParamConfig{
     int displacement;
     float pi;
     int points_per_cell;
+    int tps;
     int kills_weight_final_score;
     int treasure_weight_final_score;
     int kit_points;

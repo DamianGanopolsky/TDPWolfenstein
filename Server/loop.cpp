@@ -1,7 +1,7 @@
 #include "loop.h"
 
 Loop::Loop(NonBlockingQueue<ConnectionElement*>& new_connections,std::string mapYaml) : 
-                map(12), rate(1000/30), 
+                map(12), rate(1000/GameConfig.tps), 
                 pre_game(clients_connected, mapYaml, rate), 
                 clients_connected(commands, finished_connections),
                 commands(), 
@@ -32,8 +32,7 @@ void Loop::_newCommands() {
         try {
             command->run(pre_game.game);
         } catch (const std::exception& e) {
-            Notification* message = new Message(ERROR_MSSG, e.what());
-            clients_connected.sendMessageToAll(message);
+            std::cout<<"Unkown command."<<std::endl;
         }
         delete command;
     }
@@ -72,7 +71,7 @@ void Loop::run() {
         bool start_game = pre_game.update(it);
         if ((start_game) && (first_game_it == 0)) { //SOLO TIENE QUE ENRTAR UNA SOLA VEZ
             Notification* notification = new Event(START_EV);
-            clients_connected.sendEventToAll(notification);
+            clients_connected.sendNotificationToAll(notification);
             ++first_game_it;
         }
         _finishedConnections();

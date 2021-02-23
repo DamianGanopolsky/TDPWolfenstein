@@ -18,25 +18,6 @@ ItemChanged::ItemChanged(const Id map, ItemOpcode item_type, Id player_id,
                         value((uint32_t)value) {}
 
 ItemChanged::~ItemChanged() {}
-        
-ItemChanged::ItemChanged(const ItemChanged& other) {
-    this->item_type = other.item_type;
-    this->map = other.map;
-    this->player_id = other.player_id;
-    this->pos_x = other.pos_x;
-    this->pos_y = other.pos_y;
-    this->value = other.value;
-}
-
-ItemChanged& ItemChanged::operator=(const ItemChanged& other) {
-    this->item_type = other.item_type;
-    this->map = other.map;
-    this->player_id = other.player_id;
-    this->pos_x = other.pos_x;
-    this->pos_y = other.pos_y;
-    this->value = other.value;
-    return *this;
-}
 
 bool ItemChanged::send(const ConnectionId sender, const Socket& peer) {
     try{

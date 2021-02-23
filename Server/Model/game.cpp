@@ -31,31 +31,18 @@ void Game::_notifyMovementEvent(const ConnectionId id, const Response& response)
         notification = new Event(map_Yaml, MOVEMENT_EV, id, player.getPos().getX(),
                                  player.getPos().getY(), player.getPos().getAngle(),
                                  player.isMoving(), player.isShooting());
-        this->clients_connected.sendEventToAll(notification);
-    } else {
-        notification = new Message(ERROR_MSSG, response.message);
-        this->clients_connected.sendMessageToAll(notification);
-    } 
+        this->clients_connected.sendNotificationToAll(notification);
+    }
 }
 
 void Game::_notifyChangeWeaponEvent(const ConnectionId id, const Response& response, int weapon) {
     Notification* notification;
     if (response.success) {
         notification = new Event(map_Yaml, CHANGE_WEAPON_EV, id, weapon);
-        this->clients_connected.sendEventToAll(notification);
-    } else {
-        notification = new Message(ERROR_MSSG, response.message);
-        this->clients_connected.sendMessageToAll(notification);
+        this->clients_connected.sendNotificationToAll(notification);
     } 
 }
 
-void Game::_notifyResponse(const ConnectionId id, const Response& response) {
-    if(response.success){
-        this->clients_connected.sendMessageToAll(new Message(SUCCESS_MSSG, response.message));
-    } else {
-        this->clients_connected.sendMessageToAll(new Message(ERROR_MSSG, response.message));
-    }
-}
 void Game::_notifyEvent(const ConnectionId id, const Response& response, EventOpcode event_type) {
     Notification* notification;
     Player& player = this->players.at(id);
@@ -81,7 +68,6 @@ void Game::_notifyEvent(const ConnectionId id, const Response& response, EventOp
                 notification = new Event(map_Yaml, event_type, id, player.getPos().getX(), player.getPos().getY());
                 break;
             }
-            //case DELETE_PLAYER_EV:
             case CHANGE_WEAPON_EV:
             case MOVEMENT_EV:
             case SCORES_EV:
@@ -90,7 +76,7 @@ void Game::_notifyEvent(const ConnectionId id, const Response& response, EventOp
             }
 
         }
-        this->clients_connected.sendEventToAll(notification);
+        this->clients_connected.sendNotificationToAll(notification);
     }
 }
 
@@ -145,7 +131,7 @@ void Game::_notifyItemChanged(const ConnectionId id, ItemOpcode item_type) {
             throw Exception("Unknown item type.");
             break;
         }
-        this->clients_connected.sendEventToAll(notification);
+        this->clients_connected.sendNotificationToAll(notification);
 }
 
 void Game::_notifyItemDropped(const ConnectionId id, ItemOpcode item_type, int x, int y) {
@@ -174,7 +160,7 @@ void Game::_notifyItemDropped(const ConnectionId id, ItemOpcode item_type, int x
             throw Exception("Unknown item type.");
             break;
         }
-        this->clients_connected.sendEventToAll(notification);
+        this->clients_connected.sendNotificationToAll(notification);
 }
 
 void Game::_dropItems(ConnectionId id, int x, int y) {
@@ -430,7 +416,7 @@ void Game::notifyNewPlayer(const ConnectionId id) {
         Notification*notification = new Event(map_Yaml, NEW_PLAYER_EV, it->first, other.getPos().getX(), other.getPos().getY(),
                                                 other.getPos().getAngle(), other.getInfo().getLife(), other.getInfo().getNumResurrection(),
                                                 other.getInfo().getTreasure(), other.getInfo().getNumBullets());
-        this->clients_connected.sendEventToOne(id, notification);
+        this->clients_connected.sendNotificationToOne(id, notification);
     }
 }
 
@@ -512,7 +498,7 @@ bool Game::updatePlayers(int& iteration) {
             post_game.add(it->first, name, treasure, it->second.getInfo().getKills());
             _deletePlayer(it->first);
             Notification* notification = post_game.showScores();
-            this->clients_connected.sendEventToAll(notification);
+            this->clients_connected.sendNotificationToAll(notification);
             return false;
         }
 

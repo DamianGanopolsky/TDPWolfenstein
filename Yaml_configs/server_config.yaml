@@ -2,6 +2,7 @@ rotation_size: 3
 displacement: 5
 pi: 3.14159265
 points_per_cell: 64
+tps: 30
 kills_weight_final_score: 200
 treasure_weight_final_score: 1
 kit_points: 20

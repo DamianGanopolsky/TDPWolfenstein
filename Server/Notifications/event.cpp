@@ -42,39 +42,6 @@ Event::Event(std::string map, EventOpcode event_type, int num_player,
             name_5(name_5), treasure_5((uint32_t)treasure_5), kills_5((uint32_t)kills_5), score_5((uint32_t)score_5) {}
 
 Event::~Event() {}
-        
-Event::Event(const Event& other) {
-    this->map_ = other.map_;
-    this->event_type = other.event_type;
-    this->player_id = other.player_id;
-    this->pos_x = other.pos_x;
-    this->pos_y = other.pos_y;
-    this->angle = other.angle;
-    this->is_moving = other.is_moving;
-    this->is_shoting = other.is_shoting;
-    this->life = other.life;
-    this->resurrected = other.resurrected;
-    this->treasure = other.treasure;
-    this->bullets = other.bullets;
-    this->value = other.value;
-}
-
-Event& Event::operator=(const Event& other) {
-    this->map_ = other.map_;
-    this->event_type = other.event_type;
-    this->player_id = other.player_id;
-    this->pos_x = other.pos_x;
-    this->pos_y = other.pos_y;
-    this->angle = other.angle;
-    this->is_moving = other.is_moving;
-    this->is_shoting = other.is_shoting;
-    this->life = other.life;
-    this->resurrected = other.resurrected;
-    this->treasure = other.treasure;
-    this->bullets = other.bullets;
-    this->value = other.value;
-    return *this;
-}
 
 bool Event::send(const ConnectionId sender, const Socket& peer) {
     try{

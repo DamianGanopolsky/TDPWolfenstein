@@ -20,8 +20,10 @@ class ItemChanged : public Notification {
                     uint32_t pos_x, uint32_t pos_y, int value);
         virtual ~ItemChanged();
         
-        ItemChanged(const ItemChanged& other);
-        ItemChanged& operator=(const ItemChanged& other);
+        ItemChanged(const ItemChanged&) = delete;
+        ItemChanged& operator=(const ItemChanged&) = delete;
+        ItemChanged(ItemChanged&& other) = delete;
+        ItemChanged& operator=(ItemChanged&&) = delete;
 
         virtual bool send(const ConnectionId sender, const Socket& peer);
 };

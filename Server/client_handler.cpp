@@ -51,7 +51,7 @@ void ClientHandler::_receive() {
 					Command* cmd = Command::newCommand(id, command_opcode, peer);
 					commands.push(cmd);
 				} catch (const std::exception& e) {
-                    this->notifications.push(std::shared_ptr<Notification>(new Message(ERROR_MSSG, e.what())));
+                    std::cout<<"Unkown command."<<std::endl;
 				}
 			} else {
 				throw Exception("Unknown opcode received.");

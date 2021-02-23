@@ -63,8 +63,10 @@ class Event : public Notification {
 
         virtual ~Event();
         
-        Event(const Event& other);
-        Event& operator=(const Event& other);
+        Event(const Event&) = delete;
+        Event& operator=(const Event&) = delete;
+        Event(Event&& other) = delete;
+        Event& operator=(Event&&) = delete;
 
         virtual bool send(const ConnectionId sender, const Socket& peer);
 };

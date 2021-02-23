@@ -8,7 +8,6 @@
 class ClientsConnected;
 #include "./../Notifications/event.h"
 #include "./../Notifications/item_changed.h"
-#include "./../Notifications/message.h"
 #include "../../Common/defs.h"
 #include "./map/map.h"
 #include "./map/object_map.h"
@@ -35,7 +34,7 @@ class Game {
     int width;
 
     void _notifyEvent(const ConnectionId id, const Response& response, EventOpcode event_type);
-    void _notifyResponse(const ConnectionId id, const Response& response);
+    //void _notifyResponse(const ConnectionId id, const Response& response);
     void _notifyItemChanged(const ConnectionId id, ItemOpcode item_type);
     void _notifyItemDropped(const ConnectionId id, ItemOpcode item_type, int x, int y);
     void _notifyMovementEvent(const ConnectionId id, const Response& response);
