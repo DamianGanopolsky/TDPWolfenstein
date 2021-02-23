@@ -13,8 +13,6 @@ file(GLOB_RECURSE common_src "Common/*.cpp")
 
 file(GLOB_RECURSE server_src "Server/*.cpp")
 
-add_library(common-lib SHARED ${common_src})
-
 
 add_executable(editor ${editor_src} Common/exception.cpp)
 
@@ -24,16 +22,14 @@ add_executable(client ${ray_casting_src} ${common_src})
 
 target_link_libraries(client SDL2 SDL2_ttf SDL2_image SDL2_mixer pthread yaml-cpp)
 
-add_executable(server ${server_src} Editor/YamlParser.cpp)
+add_executable(server ${server_src} ${common_src} Editor/YamlParser.cpp)
 
-target_link_libraries(server common-lib pthread yaml-cpp)
+target_link_libraries(server pthread yaml-cpp)
 
 
 set(BINARIES_DIRPATH "usr/bin")
 set(SHAREDLIBS_DIRPATH "usr/lib")
 
-
-install(TARGETS common-lib DESTINATION ${SHAREDLIBS_DIRPATH} PERMISSIONS WORLD_READ WORLD_WRITE WORLD_EXECUTE)
 
 install(TARGETS editor DESTINATION ${BINARIES_DIRPATH} PERMISSIONS WORLD_READ WORLD_WRITE WORLD_EXECUTE)
 
