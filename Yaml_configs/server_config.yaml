@@ -12,7 +12,7 @@ max_resurrections: 3
 cup_points: 50
 num_bullets_picked_up: 15
 max_bullets: 100
-time_to_start_life_cooldown: 5000
+time_to_start_life_cooldown: 18180
 life_cooldown: 500
 life_lost_because_time: 20
 knife_base_damage: 1
