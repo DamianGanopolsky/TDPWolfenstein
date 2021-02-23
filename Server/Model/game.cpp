@@ -82,7 +82,7 @@ void Game::_notifyEvent(const ConnectionId id, const Response& response, EventOp
                 notification = new Event(map_Yaml, event_type, id, player.getPos().getX(), player.getPos().getY());
                 break;
             }
-            case DELETE_PLAYER_EV:
+            //case DELETE_PLAYER_EV:
             case CHANGE_WEAPON_EV:
             case MOVEMENT_EV:
             case SCORES_EV:

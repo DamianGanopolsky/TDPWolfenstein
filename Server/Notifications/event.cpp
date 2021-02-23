@@ -236,7 +236,7 @@ bool Event::send(const ConnectionId sender, const Socket& peer) {
                 peer.send((char *)&treasure_5, sizeof(treasure_5));
                 break;
             }
-            case DELETE_PLAYER_EV:
+           // case DELETE_PLAYER_EV:
             case START_EV: {
                 break;
             }
