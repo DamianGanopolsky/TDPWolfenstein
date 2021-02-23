@@ -17,7 +17,6 @@ void Scene::click(position final_pos){
         YamlPathToOpen=map_options_view.Handle_Click(final_pos.x,final_pos.y);
         if(YamlPathToOpen!=PATH_TO_MAP){
             map.LoadMap(YamlPathToOpen);
-            map.printMap();
         }
         map_options_view.load_textures();
     }

@@ -13,8 +13,6 @@ private:
     
     YAML::Node map;
 
-    //const YAML::Node& initial_map;
-
 
 public:
 

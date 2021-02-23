@@ -3,8 +3,7 @@
 
 
 bool Event_Handler::handleEvents(Editor& editor){
-    quit=false; //Agregado en los ultimos cambios
-
+    quit=false; 
 
     while(SDL_PollEvent(&event)!=0){
         switch (event.type){    
@@ -23,20 +22,15 @@ bool Event_Handler::handleEvents(Editor& editor){
                     case SDLK_BACKSPACE:
                         editor.HandleTextInput(&event);
                         break;
-                    case SDLK_ESCAPE:  //Salir de la pantalla
+                    case SDLK_ESCAPE:  
                         quit=true;
                         break;
                 }
                 break;
             case SDL_TEXTINPUT:
                 editor.HandleTextInput(&event);
-                //username.box_content += event.text.text;
-                //texto.Load_Text("../OpenSans-Bold.ttf",username.box_content,12);
-                //Message = SDL_CreateTextureFromSurface(window.getRenderer(), texto.getSurface()); 
-                //std::cout << username.box_content << std::endl;
                 break;
-            case SDL_MOUSEBUTTONDOWN:  //Clickear(no necesariamente soltar)
-            // editor.HandleLeftClickPress(&event);
+            case SDL_MOUSEBUTTONDOWN:  
                 if(event.button.button==SDL_BUTTON_LEFT){
                     editor.HandleLeftClickPress(&event);
                 }
@@ -44,7 +38,7 @@ bool Event_Handler::handleEvents(Editor& editor){
                     editor.HandleRightClickPress(&event);
                 }
                 break;
-            case SDL_MOUSEBUTTONUP: //Evento soltar despues de clickear
+            case SDL_MOUSEBUTTONUP: 
                 if(event.button.button==SDL_BUTTON_LEFT){
                     editor.HandleLeftClickRelease(&event);
                 }
@@ -54,7 +48,6 @@ bool Event_Handler::handleEvents(Editor& editor){
                 break;
             case SDL_MOUSEMOTION:
                 editor.HandleMotion(&event);
-                //std::cout << "En x:" << event.button.x << "En y:" << event.button.y << std::endl;
                 break;
         }
     }

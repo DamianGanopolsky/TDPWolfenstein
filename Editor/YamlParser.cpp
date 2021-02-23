@@ -143,16 +143,11 @@ std::vector<std::pair<int,int>>> map,int height,int width){
             players_=x.second.size();
         }
     }
-    //out << YAML::BeginDoc;
-    
     out << YAML::BeginMap;
     out << YAML::Key<< "Map";
     out << YAML::Value << YAML::BeginMap;
-    //out << YAML::BeginMap;
     out << YAML::Key << "Cant_players";
     out << YAML::Value << players_;
-   // out << YAML::EndMap;
-    //out << YAML::BeginMap;
     out << YAML::Key << "map_dimentions";
     out << YAML::Value << YAML::BeginMap;
     out << YAML::Key << "height";
@@ -160,12 +155,9 @@ std::vector<std::pair<int,int>>> map,int height,int width){
     out << YAML::Key << "width";
     out << YAML::Value << width;
     out << YAML::EndMap;
-    //out << YAML::EndMap;
     int players_count=0;
 
     for (auto const& x : map){
-        //out << YAML::BeginMap;
-       // out << YAML::Key << x.first;
 
         switch(x.first){
             case MAP_PLAYER:

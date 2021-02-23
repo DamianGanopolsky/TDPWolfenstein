@@ -3,55 +3,7 @@
 #include <stdint.h>
 #include <string>
 
-struct Movement_event {
-    uint8_t player_id;
-    uint32_t pos_x;
-    uint32_t pos_y;
-    float angle;
-    uint8_t is_moving;
-    uint8_t is_shooting;
-};
 
-struct New_Player_Event{
-    uint32_t player_id;
-    uint32_t map_len;
-    std::string map;
-    uint32_t pos_x;
-    uint32_t pos_y;
-    float angle;
-    uint32_t life;
-    uint8_t resurrected;
-    uint32_t score;
-    uint32_t bullets;
-};
-
-struct Change_Weapon_Event{
-    uint32_t player_id;
-    uint32_t weapon;
-};
-
-struct Change_door_event{
-    uint32_t pos_x;
-    uint32_t pos_y;
-};
-
-struct Item_taken_event{
-    uint32_t pos_x;
-    uint32_t pos_y;
-    uint32_t value;
-    uint32_t player_id;
-};
-
-struct Death_event{
-    uint32_t id_player;
-    uint32_t pos_x;
-    uint32_t pos_y;
-};
-
-struct Item_dropped_event{
-    uint32_t pos_x;
-    uint32_t pos_y;
-};
 
 
 
@@ -119,6 +71,59 @@ enum ItemOpcode {
 enum MessageOpcode {
     SUCCESS_MSSG = 0,
     ERROR_MSSG
+};
+
+
+
+/* Estos structs le corresponden al cliente, no deberian estar en protocol.h */
+struct Movement_event {
+    uint8_t player_id;
+    uint32_t pos_x;
+    uint32_t pos_y;
+    float angle;
+    uint8_t is_moving;
+    uint8_t is_shooting;
+};
+
+struct New_Player_Event{
+    uint32_t player_id;
+    uint32_t map_len;
+    std::string map;
+    uint32_t pos_x;
+    uint32_t pos_y;
+    float angle;
+    uint32_t life;
+    uint8_t resurrected;
+    uint32_t score;
+    uint32_t bullets;
+};
+
+struct Change_Weapon_Event{
+    uint32_t player_id;
+    uint32_t weapon;
+};
+
+struct Change_door_event{
+    uint32_t pos_x;
+    uint32_t pos_y;
+};
+
+struct Item_taken_event{
+    uint32_t pos_x;
+    uint32_t pos_y;
+    uint32_t value;
+    uint32_t player_id;
+};
+
+struct Death_event{
+    uint32_t id_player;
+    uint32_t pos_x;
+    uint32_t pos_y;
+};
+
+struct Item_dropped_event{
+    uint32_t pos_x;
+    uint32_t pos_y;
 };
 
 #endif

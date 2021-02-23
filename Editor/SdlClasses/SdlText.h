@@ -22,8 +22,6 @@ public:
     SDL_Surface* getSurface();
 
     void close_font();
-
-	~SdlText();
 };
 
 #endif

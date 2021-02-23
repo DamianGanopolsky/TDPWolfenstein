@@ -44,6 +44,4 @@ public:
     void render();
 
     void Export(std::string yamlName);
-
-	~Map();
 };

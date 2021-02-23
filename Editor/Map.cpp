@@ -82,19 +82,9 @@ void Map::ShrinkMap(){
     columns=columns-1;
 }
 
-void Map::printMap(){
-    /*for(int i=0;i<rows;i++){
-        for(int j=0;j<columns;j++){
-            std::cout << "En x:" << i << "En y:" << j <<  "  Objeto:" << matrix[i][j] << std::endl;
-        }
-    }*/
-}
-
 
 Map::Map(SdlWindow& Window,std::string YamlPath):window(Window),player_count(0){
     YAML::Node config = YAML::LoadFile("../Yaml_configs/editor_config.yaml");
-    //int total_images = config["total_images_to_load"].as<int>();
-    //cuadricula=config["cuadricula_size"].as<int>();
     camera.x=0;
     camera.y=0;
     surfaces.push_back(IMG_Load("../Editor/Editor_Assets/GreyTile.png"));
@@ -225,7 +215,6 @@ void Map::render(){
                 continue;
             }
             SDL_Rect rect={pos_x*TILE_PIXELS,pos_y*TILE_PIXELS,TILE_PIXELS,TILE_PIXELS};
-            //SDL_Rect rect_text={pos_x*TILE_PIXELS+3,(pos_y*TILE_PIXELS)-10,TILE_PIXELS,TILE_PIXELS};
             SDL_Rect rect_text={pos_x*TILE_PIXELS+10,(pos_y*TILE_PIXELS)-5,TILE_PIXELS/2,TILE_PIXELS/2};
             pos_y++;
             SDL_RenderCopy(window.getRenderer(),textures.at(0),NULL,&rect);
@@ -299,11 +288,4 @@ void Map::Export(std::string yamlName){
     }
     YamlParser yamlparser(yamlName);
     yamlparser.Write_Map(yamlName,player_map,rows,columns);
-}
-
-Map::~Map(){
-    /*for(int i=0;i<rows;i++){
-        delete matrix[i];
-    }
-    delete matrix;*/
 }
