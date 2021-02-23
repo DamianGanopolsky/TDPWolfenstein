@@ -92,8 +92,8 @@ Response Player::updateLife(int& iteration) {
         this->life_cooldown -= iteration;
         while (this->life_cooldown <= 0) {
             this->life_cooldown += GameConfig.life_cooldown;
-            reduceLife(GameConfig.life_lost_because_time);
-            return Response(true, SUCCESS_MSG);
+            Response response = receiveAttack(GameConfig.life_lost_because_time);
+            return response;
         }
     }
     return Response(false, CANT_BE_ATTACKED_ERROR_MSG);
@@ -216,7 +216,7 @@ Response Player::stopShooting() {
     return Response(true, SUCCESS_MSG);
 }
 
-Response Player::receiveAttack(int& damage) {
+Response Player::receiveAttack(int damage) {
     this->reduceLife(damage);
     if (this->info.getLife() == 0) {
         this->_die();
@@ -233,6 +233,7 @@ Response Player::resurrect() {
     }
     delete this->state;
     this->state = new Alive(this->player_id);
+    this->alive = true;
     addNumResurrection();
     addLife(GameConfig.max_life);
     deleteInventory(MACHINE_GUN_TYPE);

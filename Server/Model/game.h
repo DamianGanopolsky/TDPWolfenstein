@@ -54,6 +54,7 @@ class Game {
         int pos_x_other_player,int pos_y_other_player);
     void _dropItems(ConnectionId id, int pos_x, int pos_y);
     std::pair<int, int> _getNearestCellEmpty(int pos_x, int pos_y);
+    void _playerDied(const ConnectionId id, Response& response);
 
     public:
         Game(ClientsConnected& clients_connected, std::string map_Yaml, int& rate);

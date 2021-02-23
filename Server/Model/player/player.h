@@ -60,7 +60,7 @@ public:
       void updateRotation();
       Response updateLife(int& iteration);
       Response updateShooting(double& distance, int& damage, int& iteration);
-      Response receiveAttack(int& damage);
+      Response receiveAttack(int damage);
       Response resurrect();
       Response changeWeapon(const int& weapon);
       Response startMovingUp();

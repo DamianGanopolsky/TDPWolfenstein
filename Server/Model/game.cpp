@@ -477,7 +477,11 @@ bool Game::updatePlayers(int& iteration) {
         }
         if (player.isAlive()) {
             Response response = player.updateLife(iteration);
-            _notifyEvent(id, response, BE_ATTACKED_EV);
+            if (response.message == PLAYER_DIED_MSG) {
+                _playerDied(id, response);
+            } else {
+                _notifyEvent(id, response, BE_ATTACKED_EV);
+            }
         }
         if (player.life_cooldown > 0) {
             player.life_cooldown = std::max((int)(player.life_cooldown - iteration),0);
@@ -597,19 +601,24 @@ bool Game::receiveAttack(const ConnectionId id, int& damage) {
     Player& player = this->players.at(id);
     Response response = player.receiveAttack(damage);
     if (response.message == PLAYER_DIED_MSG) {
-        _dropItems(id, player.getPos().getX(), player.getPos().getY());
-        map.setObjectPos(player.getPos().getX(), player.getPos().getY(), MAP_NONE);
-        _notifyEvent(id, response, DEATH_EV);
-        player.setPosition(respawn_positions.at(id).first,
-                            respawn_positions.at(id).second);
-        players_in_map[id] = std::make_pair(player.getPos().getX(), player.getPos().getY());
-        Response response_resurrect = player.resurrect();
-        _notifyEvent(id, response_resurrect, RESURRECT_EV);
-        if (response_resurrect.success) {
-            _notifyChangeWeaponEvent(id, response_resurrect, KNIFE_TYPE);
-        }
+        _playerDied(id, response);
         return true;
     }
     _notifyEvent(id, response, BE_ATTACKED_EV);
     return false;
+}
+
+void Game::_playerDied(const ConnectionId id, Response& response) {
+    Player& player = this->players.at(id);
+    _dropItems(id, player.getPos().getX(), player.getPos().getY());
+    map.setObjectPos(player.getPos().getX(), player.getPos().getY(), MAP_NONE);
+    _notifyEvent(id, response, DEATH_EV);
+    player.setPosition(respawn_positions.at(id).first,
+                            respawn_positions.at(id).second);
+    players_in_map[id] = std::make_pair(player.getPos().getX(), player.getPos().getY());
+    Response response_resurrect = player.resurrect();
+    _notifyEvent(id, response_resurrect, RESURRECT_EV);
+    if (response_resurrect.success) {
+        _notifyChangeWeaponEvent(id, response_resurrect, KNIFE_TYPE);
+    }
 }
