@@ -71,13 +71,6 @@ private:
 
     std::vector<Player_stats> final_stats;
 
-    /*uint8_t Player_Id;
-    uint8_t Pos_X;
-    uint8_t Pos_Y;
-    float Angle;
-    uint8_t Is_Moving;
-    uint8_t Is_Shooting;*/
-
 };
 
 #endif

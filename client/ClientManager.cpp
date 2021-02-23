@@ -37,10 +37,10 @@ void ClientManager::start(){
 	BlockingQueue<Command*> send_queue;
 	panel.load_map_dimentions(map.get_height(),map.get_width(),map.map_get_players(),player_info.map);
 	Client client(panel,player,map);
-	Player_handler handler(player,map,send_queue,client);
+	Player_handler handler(player,send_queue,client);
 	
 	ReceiveController receivecontroller(player,map,recv_queue,client);
-	Receiver receiver(&clientsock,recv_queue,receivecontroller);
+	Receiver receiver(&clientsock,recv_queue);
 	Sender sender(&clientsock,send_queue);
 	receiver.start();
 	sender.start();

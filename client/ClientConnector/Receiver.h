@@ -14,8 +14,8 @@
 class Receiver: public Thread {
 public:
     Receiver(ClientSocket* ClientSocket,\
-    NonBlockingQueue<UpdateMessage*>& RECV_QUEUE,ReceiveController& Recv_Controller):receiving(true),\
-    clientsocket(ClientSocket),recv_queue(RECV_QUEUE),recv_controller(Recv_Controller){
+    NonBlockingQueue<UpdateMessage*>& RECV_QUEUE):receiving(true),\
+    clientsocket(ClientSocket),recv_queue(RECV_QUEUE){
 
     }
 
@@ -27,7 +27,6 @@ private:
     bool receiving;
     ClientSocket* clientsocket;
     NonBlockingQueue<UpdateMessage*>& recv_queue;
-    ReceiveController& recv_controller;
 };
 
 #endif

@@ -5,12 +5,10 @@
 #include "../Common/protocol.h"
 
 
-Player_handler::Player_handler(Player& player,Map_2d& MAP,BlockingQueue<Command*>& send_queue,\
+Player_handler::Player_handler(Player& Player,BlockingQueue<Command*>& send_queue,\
 Client& Client): 
-								player(player),map(MAP),moving(false),rotating(false),shooting(false),\
+								player(Player),moving(false),rotating(false),shooting(false),\
 								SendQueue(send_queue),client(Client) {
-	//sender.start();
-	//time_last_shoot=std::chrono::steady_clock::now();
 	
 }
 

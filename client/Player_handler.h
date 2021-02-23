@@ -12,14 +12,13 @@
 
 class Player_handler {
 public:
-	Player_handler(Player& player,Map_2d& MAP,BlockingQueue<Command*>& send_queue,Client& Client);
+	Player_handler(Player& player,BlockingQueue<Command*>& send_queue,Client& Client);
 	~Player_handler();
 
 	bool handle();
 
 private:
 	Player& player;
-	Map_2d& map;
 	bool quit;
 	bool moving;
 	bool rotating;
