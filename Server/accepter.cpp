@@ -33,13 +33,11 @@ void Accepter::run() {
 	try {
 		while(keep_accepting){
 			Socket peer = std::move(socket.accept());
-			//new_connections.push(new ConnectionElement(peer));
 			logins.emplace_back(peer, new_connections);
 			logins.back().start();
 			_joinReaper();
 		}
 	} catch (const std::exception& e) {
-		std::cout <<"Accepter: Error en peer"<< std::endl;
 		std::cerr << e.what() << std::endl;
 	} catch (...) {
 		std::cout <<"Accepter: Unknown error"<< std::endl;
