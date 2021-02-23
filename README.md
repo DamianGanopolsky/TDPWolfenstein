@@ -32,11 +32,13 @@ Para ejecutar el editor utilice el siguiente comando:
 ```
 Para ejecutar el servidor utilice el siguiente comando: 
 ```
-./server <port> <map_name> 
+./server <port> <map_name>  
+e.g: ./server 8082 Maze_2
 ```
 Para ejecutar el servidor utilice el siguiente comando: 
 ```
-./client <host> <port> <player_name> 
+./client <host> <port> <player_name>  
+e.g: ./client 127.0.0.1 8082 Jorge
 ```
 
 ## Correcciones hechas para la entrega final
