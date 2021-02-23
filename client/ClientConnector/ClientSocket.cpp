@@ -413,7 +413,9 @@ void ClientSocket::recv(char* recv_buff,int len){
             }
         }
     }
-    catch(...){}
+    catch(...){
+        std::cerr << "Socket closed" << std::endl;
+    }
 }
 
 void ClientSocket::send(uint8_t msg){

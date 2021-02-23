@@ -15,6 +15,8 @@ void Sender::run(){
                 clientsocket->send(command->get_opcode());
             }
         }
-        catch(...){}
+        catch(...){
+            std::cerr << "Send queue closed" << std::endl;
+        }
     }
 }

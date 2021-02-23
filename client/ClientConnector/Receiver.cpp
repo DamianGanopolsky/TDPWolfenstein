@@ -14,5 +14,7 @@ void Receiver::run(){
             clientsocket->recv((char*)buffer,2);  
         }
     }
-    catch(...){}
+    catch(...){
+        std::cerr << "Recv queue closed" << std::endl;
+    }
 }
