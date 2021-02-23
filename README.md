@@ -1,6 +1,9 @@
 # Wolfenstein 3D - TP final
 ## Taller de Programación I
 ### 2do cuatrimestre de 2020
+
+## Correcciones hechas para la entrega final  
+Se encuentran en la carpeta Docs del repositorio
 \
 **Tutor:** Martín Di Paola \
 \
@@ -39,6 +42,6 @@ Para ejecutar el servidor utilice el siguiente comando:
 e.g: ./client 127.0.0.1 8082 Jorge
 ```
 
-## Correcciones hechas para la entrega final
+
 
 
