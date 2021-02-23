@@ -8,8 +8,6 @@
 Bauni Chiara - 102981 - cbauni@fi.uba.ar\
 Damián Ganopolsky - 101168 - dganopolsky@fi.uba.ar\
 \
-**Trailer:** ??
-**ScreenShots:** ??
 
 ## Documentación
 - [Manual de usuario](link)
