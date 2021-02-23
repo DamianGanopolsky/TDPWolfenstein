@@ -28,9 +28,6 @@ private:
     ClientSocket* clientsocket;
     NonBlockingQueue<UpdateMessage*>& recv_queue;
     ReceiveController& recv_controller;
-    //Player& player;
-    //Map_2d& map;
-
 };
 
 #endif

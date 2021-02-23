@@ -38,9 +38,6 @@ bool LogInController::handle_events(){
                 break;
             case SDL_MOUSEBUTTONUP: //Evento soltar despues de clickear
                 break;
-            case SDL_MOUSEMOTION:
-                //std::cout << "En x:" << event.button.x << "En y:" << event.button.y << std::endl;
-                break;
         }
     }
     return quit;

@@ -32,7 +32,6 @@ private:
     Panel_window& panel;
     Player& player;
     Map_2d& map;
-    //Constant_rate_loop crl;
     std::set<Ray> rays;
     std::list<Game_element> elements;
     bool player_lost_;

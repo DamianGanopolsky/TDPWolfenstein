@@ -25,7 +25,6 @@ host(Host),port(Port),nickname(Nickname){
 
 
 void ClientManager::start(){
-	/* TENGO QUE RECIBIR EL PLAYER Y EL MAP ANTES QUE NADA, */
 	NonBlockingQueue<UpdateMessage*> recv_queue;
 	ClientSocket clientsock(recv_queue,host.c_str(),port.c_str());
 	MusicSoundtrack music;
@@ -46,8 +45,6 @@ void ClientManager::start(){
 	receiver.start();
 	sender.start();
 	bool is_running=true;
-
-	int it=0;
     while (is_running) {
 		auto t1 = std::chrono::steady_clock::now();
 		is_running=handler.handle();
@@ -56,9 +53,6 @@ void ClientManager::start(){
 			end=!(receivecontroller.update());
 		}
 		client.render();
-		//if((it%2)==0){
-		//	client.render();
-		//}
 		auto t2=std::chrono::steady_clock::now();
 		std::chrono::duration<float, std::milli> diff;
 		diff = t2 - t1;
@@ -66,7 +60,6 @@ void ClientManager::start(){
 			int sleeping_time=(ClientConfig.constant_rate_loop_ms-diff.count())*1000;
 			usleep(sleeping_time);
 		}
-		it++;
 	}
 
 	sender.stop();

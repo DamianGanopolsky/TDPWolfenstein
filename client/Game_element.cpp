@@ -8,8 +8,6 @@
 #define PI 3.1415
 #define TOTAL_SECTIONS 8
 
-//Type id -> No se esta usando ahora, podria servir para discriminar entre distintos 
-
 Game_element::Game_element(int pos_x, int pos_y, int type_id, int vision_angle, Player& player) :
 							type_id(type_id) {
 
@@ -106,7 +104,6 @@ void Game_element::set_texture(SDL_Texture* tex) {
 }
 
 int Game_element::get_texture_section() {
-	//DETERMINA CUAL DE TODAS LAS TEXTURAS DE ANGULO USAR, LO HARDCODEO A 0
 	if((get_type_id()>13)&&(get_type_id()<17)){
 		return angle_;
 	}

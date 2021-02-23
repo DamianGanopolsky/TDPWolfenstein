@@ -16,8 +16,6 @@ public:
 	Game_element(Game_element&& other);
 	~Game_element();
 
-	//Game_element& operator=(const Game_element& other);
-
 	bool is_visible();
 	void set_texture(SDL_Texture* tex);  
 	int get_texture_section();

@@ -10,9 +10,9 @@ player_lost_(false),game_finished(false),waiting_screen(true){
 }
 
 void Client::update(){
-    rays = std::move(map.get_player_rays());   //No tienen que ver con lo grafico
+    rays = std::move(map.get_player_rays()); 
     //Todos los elementos que no son paredes. Tienen que tener una distancia
-    elements = std::move(map.get_game_elements());   //No tienen que ver con lo grafico
+    elements = std::move(map.get_game_elements());  
     panel.update(std::move(rays), std::move(elements),  player.get_info()); 
 }
 

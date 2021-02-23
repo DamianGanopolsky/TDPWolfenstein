@@ -25,16 +25,9 @@ private:
 	int lives ;
 	int scores;
 	int ammo;
-	//int scores = 0;
-	//int health = 100;
-	//int ammo = 100;
-	
-	
-	
 	int weapon;
 	int weapon_status = 0;  
 	int level=1;
-	// int id_jugador= ?;
 	
 };
 #endif

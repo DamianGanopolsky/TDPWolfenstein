@@ -16,12 +16,9 @@ Map_2d::Map_2d(Player& player,std::string YamlPathToMap) : player(player),YamlMa
 	map_height=mapyamlparser.Map_Height();
 	map_players=mapyamlparser.get_map_players();
 	total_boxes=mapyamlparser.Map_Height()*mapyamlparser.Map_Width();
-	/*std::cout << "total boxes es" << total_boxes << "height:" << mapyamlparser.Map_Height() << "width;\
-	" << mapyamlparser.Map_Width() << std::endl;*/
 	walls=mapyamlparser.get_boxes();
 	elements_map=mapyamlparser.load_objects();
 	time_last_update=std::chrono::steady_clock::now();
-	
 	for (auto const& x : walls){
 		if(x.second==2){
 			boxes[x.first]=true;
@@ -75,12 +72,10 @@ void Map_2d::new_player(int id,int pos_x,int pos_y,int angle,int status){
 }
 
 void Map_2d::update_player_pos(int id,int pos_x,int pos_y,int angle,int status){
-	//2 va a hacer que muestre a un officer
 	players_state[id].pos_x=pos_x;
 	players_state[id].pos_y=pos_y;
 	players_state[id].vision_angle=angle;
 	players_state[id].type_id=2;
-	//players_state[id].is_moving=1;
 	std::chrono::time_point<std::chrono::steady_clock> t2=std::chrono::steady_clock::now();
 	std::chrono::duration<double> diff=t2-time_last_update;
 	if(diff.count()>0.05){
@@ -100,7 +95,6 @@ void Map_2d::add_item(int pos_x,int pos_y,int item){
 }
 
 void Map_2d::add_dead_body(int id,int pos_x,int pos_y){
-	//bodies_in_map[std::pair<pos_x,pos_y>]=players_state.
 	body_state body;
 	body.pos_x=pos_x;
 	body.pos_y=pos_y;
@@ -109,7 +103,6 @@ void Map_2d::add_dead_body(int id,int pos_x,int pos_y){
 	switch(int(players_state[id].weapon)){
 		case 0:
 		case 1:{
-			//bodies_in_map[std::make_pair(pos_x,pos_y)]=13;
 			body.type_id=14;
 			break;
 		}
@@ -136,7 +129,6 @@ int Map_2d::map_get_players(){
 
 int Map_2d::get_type_id(int weapon,int is_shooting,int is_moving){
 	if(is_shooting==0){
-		//return weapon;
 		if(is_moving==0){
 			return weapon;
 		}
@@ -208,7 +200,6 @@ std::list<Game_element> Map_2d::get_game_elements() {
 		if(diff.count()>0.1){
 			object.second.is_moving=0;
 		}
-		//object.second.is_moving=0;
 	}
 
 	for(auto& object: bodies){

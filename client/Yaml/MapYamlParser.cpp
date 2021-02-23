@@ -68,8 +68,6 @@ std::map<std::pair<int,int>,int> MapYamlParser::load_objects(){
 
     // Treasure 
 
-    //const YAML::Node& treasure=initial_map["Treasures"]["Treasure"];
-    //const YAML::Node& treasure=initial_map["Treasure"];
     const YAML::Node& treasure=map["Map"]["Treasure"];
     for (YAML::const_iterator it = treasure["position"].begin(); it != treasure["position"].end(); ++it) {
         const YAML::Node& pos = *it;
@@ -121,11 +119,7 @@ std::map<int,int> MapYamlParser::get_boxes(){
         int y=pos['y'].as<int>();;
         x=x/64;
         y=y/64;
-        //std::cout << "Wall";
-        //std::cout << "en x" << x << "en y" << y << std::endl;
         int num_transformed=Map_Width()*y+x;
-        //std::cout << "Num transformed" << num_transformed << std::endl;
-        //std::cout << "En " << num_transformed << "cargo una pared" << std::endl;
         walls_map[num_transformed]=0;
     }
 
@@ -137,9 +131,7 @@ std::map<int,int> MapYamlParser::get_boxes(){
         int y=pos['y'].as<int>();;
         x=x/64;
         y=y/64;
-        //std::cout << "en x" << x << "en y" << y << std::endl;
         int num_transformed=Map_Width()*y+x;
-        //std::cout << "Num transformed" << num_transformed << std::endl;
         walls_map[num_transformed]=1;
     }
     

@@ -35,13 +35,10 @@ Player_panel_status::Player_panel_status(SDL_Renderer*& renderer) :
 										officer_moving_status(renderer,IMAGE_OFFICER_GUARDIAS_MOVING_PATH,TOTAL_OFFICER_GUARDIAS_MOVING),
 										eguard_moving_status(renderer,IMAGE_ELITE_GUARDIAS_MOVING_PATH,TOTAL_ELITE_GUARDIAS_MOVING),
 										guard_moving_status(renderer,IMAGE_GUARDIAS_MOVING_PATH,TOTAL_GUARDIAS_MOVING){
-										//numero(renderer,255,255,255) 
 										
 	SDL_Surface *status_img = IMG_Load("../client/sprites/hud.png");
 	this->status_tex = SDL_CreateTextureFromSurface(this->renderer, status_img);
 	SDL_FreeSurface(status_img);
-	//TTF_Init();
-	
 }
 
 Player_panel_status::Player_panel_status(Player_panel_status&& other) :
@@ -72,7 +69,6 @@ Player_panel_status::Player_panel_status(Player_panel_status&& other) :
 										officer_moving_status(std::move(other.officer_moving_status)),
 										eguard_moving_status(std::move(other.eguard_moving_status)),
 										guard_moving_status(std::move(other.guard_moving_status)){	
-										//numero(std::move(other.numero)) 
 										
 	this->status_tex = other.status_tex;
 	other.status_tex = nullptr;
@@ -134,8 +130,6 @@ void Player_panel_status::copy_to_rederer(Player_info& player_info) {
 	SrcR.x = 0;
 	SrcR.y = ClientConfig.screen_height - SrcR.h;
     SDL_RenderCopy(this->renderer, this->status_tex, NULL, &SrcR);
-
-	//std::cout << "Health aca es" << player_info.get_health() <<std::endl;
     
 	this->copy_to_rederer_weapon(player_info);
 	this->copy_to_rederer_face(player_info.get_health());
@@ -168,7 +162,6 @@ void Player_panel_status::copy_to_rederer_weapon(Player_info& info) {
 			this->pistola_status.copy_to_rederer(info.get_weapon_status(), &SrcR);
 			break;
 		case 2:
-			//std::cout << "Weapon status es" << info.get_weapon_status() << std::endl;
 			this->automaticgun_status.copy_to_rederer(info.get_weapon_status(),&SrcR);
 			break;
 		case 3:
@@ -196,44 +189,27 @@ void Player_panel_status::copy_to_rederer_lives(int lives) {
 	SrcR.h = ClientConfig.screen_height * 0.10;
 	SrcR.x = ClientConfig.screen_width * 0.340;
 	SrcR.y = ClientConfig.screen_height - SrcR.h * 1.25;
-
-	/*std::string lives_str=std::to_string(lives);
-	TTF_Font* Sans = TTF_OpenFont("../client/panel_status/OpenSans-Bold.ttf", 35); 
-    SDL_Surface* surfaceMessage = TTF_RenderText_Solid(Sans, lives_str.c_str(), {255, 255, 255});
-	
-	SDL_Texture* texture_of_text = SDL_CreateTextureFromSurface(this->renderer,surfaceMessage); 
-	SDL_RenderCopy(this->renderer, texture_of_text, NULL, &SrcR);*/
 	this->copy_to_rederer_number_(lives,SrcR);
-
-	//this->number_status.copy_to_rederer(lives, &SrcR);
 }
 
 
 
 void Player_panel_status::copy_to_rederer_health(int health) {
 	SDL_Rect SrcR;
-	//SrcR.w = ClientConfig.screen_width * 0.025;
 	SrcR.w = ClientConfig.screen_width * 0.086;
 	SrcR.h = ClientConfig.screen_height * 0.10;
 	SrcR.x = ClientConfig.screen_width * 0.525;
 	SrcR.y = ClientConfig.screen_height - SrcR.h * 1.25;
-
 	this->copy_to_rederer_number_(health,SrcR);
-
-	//this->copy_to_rederer_number(health, 3, SrcR, false);
 }
 
 void Player_panel_status::copy_to_rederer_score(int score) {
 	SDL_Rect SrcR;
-	//SrcR.w = ClientConfig.screen_width * 0.025;
 	SrcR.w = ClientConfig.screen_width * 0.1;
 	SrcR.h = ClientConfig.screen_height * 0.10;
 	SrcR.x = ClientConfig.screen_width * 0.1719;
 	SrcR.y = ClientConfig.screen_height* 0.87;
-
 	this->copy_to_rederer_number_(score,SrcR);
-
-	//this->copy_to_rederer_number(score, 1, SrcR, true);
 }
 
 void Player_panel_status::copy_to_rederer_level(int level) {
@@ -243,8 +219,6 @@ void Player_panel_status::copy_to_rederer_level(int level) {
 	SrcR.x = ClientConfig.screen_width * 0.05;
 	SrcR.y = ClientConfig.screen_height* 0.87;
 	this->copy_to_rederer_number_(level,SrcR);
-
-	//this->copy_to_rederer_number(level, 1, SrcR, false);
 }
 
 void Player_panel_status::copy_to_rederer_ammo(int ammo) {
@@ -253,10 +227,7 @@ void Player_panel_status::copy_to_rederer_ammo(int ammo) {
 	SrcR.h = ClientConfig.screen_height * 0.10;
 	SrcR.x = ClientConfig.screen_width * 0.660;
 	SrcR.y = ClientConfig.screen_height - SrcR.h * 1.25;
-
 	this->copy_to_rederer_number_(ammo,SrcR);
-
-	//this->copy_to_rederer_number(ammo, 3, SrcR, false);
 }
 
 void Player_panel_status::copy_to_rederer_number_(int number,SDL_Rect& rect){
@@ -295,7 +266,6 @@ void Player_panel_status::copy_to_rederer_number(int number, int digits, SDL_Rec
 }
 
 SDL_Texture* Player_panel_status::get_texture(int tex_section, int id) {
-//Si el id es 2, se deberia llamar a oficial status. Hacer un switch posiblemente
 	SDL_Texture* texture;
 	switch(id){
 		case 0:

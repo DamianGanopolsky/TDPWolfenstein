@@ -53,14 +53,10 @@ bool ReceiveController::update(){
                 case RESURRECT_EV:{
                    New_Player_Event resurrect_ev=updatemessage->get_new_player_info();
                    if(int(resurrect_ev.player_id)!=player.get_id()){
-                       //std::cout << "La id del jugador muerto es" << resurrect_ev.player_id << std::endl;
                         map.new_player(resurrect_ev.player_id,\
                         resurrect_ev.pos_x,resurrect_ev.pos_y,resurrect_ev.angle,0);
                     }
                    else{
-                        //std::cout << "Resurreccione y mi nueva pos es x:" << resurrect_ev.pos_x << "y:" << resurrect_ev.pos_y << std::endl;
-                        /*player.update_position_and_angle(resurrect_ev.pos_x,resurrect_ev.pos_y,\
-                        resurrect_ev.angle);*/
                         player.resurrect_player(resurrect_ev);
                     }
                    break;
@@ -77,7 +73,6 @@ bool ReceiveController::update(){
                 }
                 case ATTACK_EV:{
                     Change_Weapon_Event attack_ev=updatemessage->get_changed_stat();
-                    //std::cout << "Player id:" << attack_ev.player_id <<"Bullets:" << attack_ev.weapon << std::endl;
                     if(int(attack_ev.player_id)==player.get_id()){
                         player.shoot(attack_ev.weapon);
                     }
@@ -93,17 +88,14 @@ bool ReceiveController::update(){
                     Death_event death_ev=updatemessage->get_death_event();
                     if(int(death_ev.id_player)==player.get_id()){
                         lives=lives-1;
-                        //std::cout << "LIVES ES" << lives << std::endl;
                         player.update_lives(lives);
                         if(lives==0){
                             client.player_lost();
-                          //  std::cout << "Me quede sin vidas" << std::endl;
                         }
                     }
                     else{
                         soundmanager.play_sound(DEATH);
                     }
-                    //std::cout << "AGrego muerto en el mapa " << std::endl;
                      map.add_dead_body(death_ev.id_player,death_ev.pos_x,death_ev.pos_y);
                     break;
                 }
@@ -115,10 +107,7 @@ bool ReceiveController::update(){
                     break;
                 }
                 case SCORES_EV:{
-                    //std::cout << "RECEIVE CONTROLLER SCORES EV" << std::endl;
                     std::vector<Player_stats> final_stats=updatemessage->get_final_stats();
-                    //std::cout << "Cadena 1 es" << final_stats[0].Nickname << std::endl;
-                    //std::cout << "Score 2 es" << final_stats[1].score << std::endl;
                     client.stop_game(final_stats);
                     break;
                 }
@@ -131,7 +120,6 @@ bool ReceiveController::update(){
              }
          }
          if(updatemessage->get_opcode()==ITEM_CHANGED_OPCODE){
-             //std::cout << "CHANGE ITEM EVENT" << std::endl;
              switch(updatemessage->get_event_type()){
                 case CLOSE_DOOR_ITM:{
                     Change_door_event change_door=updatemessage->get_changed_door();
@@ -144,9 +132,7 @@ bool ReceiveController::update(){
                     break;
                 }
                 case BULLETS_TAKEN_ITM:{
-                    //std::cout << "AGARRE BULLETS" << std::endl;
                     Item_taken_event it_taken=updatemessage->get_item_taken();
-                    //std::cout << "Pos x es :" << it_taken.pos_x << "Pos y es: " << it_taken.pos_y << std::endl;
                     map.delete_item(it_taken.pos_x,it_taken.pos_y);
                     if(int(it_taken.player_id)==player.get_id()){
                         player.add_bullets(it_taken.value);
@@ -179,12 +165,7 @@ bool ReceiveController::update(){
                     break;
                 }
                 case TREASURE_TAKEN_ITM:{
-                    //std::cout << "Recibi tesoro" << std::endl;
-                    //client.player_lost();
-                    
                     Item_taken_event it_taken=updatemessage->get_item_taken();
-                    
-                    //std::cout << "Cuadricula x es" << it_taken.pos_x << "Cuadricula y es" << it_taken.pos_y << std::endl;
                     map.delete_item(it_taken.pos_x,it_taken.pos_y);
                     if(int(it_taken.player_id)==player.get_id()){
                         player.change_score(it_taken.value);
@@ -208,12 +189,6 @@ bool ReceiveController::update(){
                 }
              }
          }
-        /*auto t2= std::chrono::steady_clock::now();
-        std::chrono::duration<float, std::milli> diff;
-			//std::chrono::duration<double> diff=t2-t1;
-        diff = t2 - t1;
-        std::cout << "DELTA DE UPDATE ES" << diff.count() << std::endl;*/
          return true;
-         
      }  
  }

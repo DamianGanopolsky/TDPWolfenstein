@@ -24,8 +24,6 @@ private:
     bool sending;
     ClientSocket* clientsocket;
     BlockingQueue<Command*>& SendQueue;
-    //Player& player;
-    //Map_2d& map;
 
 };
 

@@ -22,8 +22,6 @@ bool Player_handler::handle() {
 	SDL_Event event;
 	quit=true;
 	const Uint8 *state;
-
-	//bool moving=false;
 	while(SDL_PollEvent(&event)!=0){
 		state = SDL_GetKeyboardState(NULL);
 		if(state[SDL_SCANCODE_ESCAPE]){
@@ -35,23 +33,18 @@ bool Player_handler::handle() {
 			break;
 		}
 		if((state[SDL_SCANCODE_RETURN])&&(shooting==false)){
-			//TENGO QUE USAR EL TIEMPO
 			auto t1 = std::chrono::steady_clock::now();
 			std::chrono::duration<double> diff=t1-time_last_shoot;
-			//std::cout << "Diff es" << diff.count() << std::endl;
 			switch(player.get_weapon()){
 				case 0:
 				case 1:{
-					//std::cout << "DISPARO!" << std::endl;
 					Command* command=new Command(START_SHOOTING_CMD);
 					SendQueue.push(std::move(command));
 					shooting=true;
 					break;
 				}
 				case 2:{
-					//Cooldown en segundos
 					if(diff.count()>0.6){
-						//std::cout << "DISPARO!" << std::endl;
 						Command* command=new Command(START_SHOOTING_CMD);
 						SendQueue.push(std::move(command));
 						shooting=true;
@@ -60,9 +53,7 @@ bool Player_handler::handle() {
 					break;
 				}
 				case 3:{
-					//Cooldown en segundos
 					if(diff.count()>0.25){
-						//std::cout << "DISPARO!" << std::endl;
 						Command* command=new Command(START_SHOOTING_CMD);
 						SendQueue.push(std::move(command));
 						shooting=true;

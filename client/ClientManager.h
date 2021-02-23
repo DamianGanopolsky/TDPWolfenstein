@@ -27,10 +27,6 @@ private:
     std::string host;
     std::string port;
     std::string nickname;
-
-    //ClientSocket clientsocket;
-    
-    //Receiver receiver;
 };
 
 

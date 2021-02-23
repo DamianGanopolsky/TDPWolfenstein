@@ -54,10 +54,8 @@ public:
 	void new_player(int id,int pos_x,int pos_y,int angle,int status);
 	int get_player_weapon(int player_id);
 private:
-//PARED O NO
-	std::map<int, bool> boxes;
-	//std::map<int, int> walls;
-	//std::unordered_map<int, bool> boxes;
+
+	std::map<int, bool> boxes; //pared o no
 	std::chrono::time_point<std::chrono::steady_clock> time_last_update;
 	std::map<int, int> walls;
 	int total_boxes;
@@ -69,14 +67,11 @@ private:
 	std::map <std::pair<int,int>,int> elements_map;
 
 	std::unordered_map<int,Game_element> players_in_map;
-	//std::unordered_map<int,int> elements_map;
 	std::unordered_map<int,state> players_state;
 
 	std::map <std::pair<int,int>,int> bodies_in_map;
 
 	std::list<body_state> bodies;
-	//POSICION DEL PLAYER
-	//Cada cuadricula tiene 64x64 posiciones
 	Player& player; 
 	std::string YamlMap;
 
