@@ -114,7 +114,6 @@ enum ItemOpcode {
     MACHINE_GUN_DROPPED_ITM, // pos x, pos y
     CHAIN_CANNON_DROPPED_ITM, // pos x, pos y
     BULLETS_DROPPED_ITM // pos x, pos y
-
 };
 
 enum MessageOpcode {
