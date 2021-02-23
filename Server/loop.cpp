@@ -26,13 +26,14 @@ void Loop::_newConnections() {
     } 
 }
 
-void Loop::_newCommands() {
+void Loop::_newCommands() { 
     Command* command = nullptr;
     while((command = this->commands.pop())) {
         try {
             command->run(pre_game.game);
         } catch (const std::exception& e) {
-            std::cout<<"Unkown command."<<std::endl;
+            //std::cout<<"Unkown command."<<std::endl;
+            //No se conoce el command pedido por el client
         }
         delete command;
     }

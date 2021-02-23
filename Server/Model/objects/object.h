@@ -9,7 +9,6 @@ class Object {
     virtual ~Object();
     virtual bool isItem() = 0;
     virtual bool isBlocking() = 0;
-    //virtual int getObjectType() = 0;
     virtual Item* getItem() = 0;
 };
 

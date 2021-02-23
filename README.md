@@ -1,14 +1,46 @@
-# TDPWolfenstein
+# Wolfenstein 3D - TP final
+## Taller de Programación I
+### 2do cuatrimestre de 2020
+\
+**Tutor:** Martín Di Paola \
+\
+**Integrantes:** \
+Bauni Chiara - 102981 - cbauni@fi.uba.ar\
+Damián Ganopolsky - 101168 - dganopolsky@fi.uba.ar\
+\
+**Trailer:** ??
+**ScreenShots:** ??
 
-## Integrantes
+## Documentación
+- [Manual de usuario](link)
+- [Documentación Técnica](link)
+- [Manual de proyecto](link)
 
-Damian Ganopolsky - 101168 - dganopolsky@fi.uba.ar
+## Instalación
+1- Abrir una terminal en la raíz del juego\
+2- Ejecutar el siguiente archivo: 
+```
+./install.sh
+```
+3- Si no se poseen las dependencias y desea instalarlas junto al juego presione la opcion 3. \
+Si ya posee las dependencias y unicamante desea instalar el juego presione la opcion 2. \
 
-Chiara Bauni - 102981 - cbauni@fi.uba.ar
+4- Una vez instalado el juego entre a la carpeta build. \
+Para ejecutar el editor utilice el siguiente comando: 
+```
+./editor
+```
+Para ejecutar el servidor utilice el siguiente comando: 
+```
+./server <port> <map_name>  
+e.g: ./server 8082 Maze_2
+```
+Para ejecutar el servidor utilice el siguiente comando: 
+```
+./client <host> <port> <player_name>  
+e.g: ./client 127.0.0.1 8082 Jorge
+```
 
-## Informe
+## Correcciones hechas para la entrega final
 
-https://www.overleaf.com/5531924829vbszvvrfqcmn
 
-## Manual de usuario 
-https://es.overleaf.com/9633167111hhztdtbftxkd

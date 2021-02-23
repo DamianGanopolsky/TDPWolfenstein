@@ -1,4 +1,10 @@
 Music_volume: 30
+<<<<<<< HEAD
 Screen_width: 640
 Screen_height: 400
 constant_rate_loop_render_ms: 125
+=======
+Screen_height: 300
+Screen_width: 520
+constant_rate_loop_render_ms: 250
+>>>>>>> a9d2926c8e3ed643ec90dd0922c75b7c2c8f4e1e
