@@ -59,7 +59,6 @@ void PostGame::add(ConnectionId id, std::string nickname, int treasure, int kill
     losers.emplace(
         std::piecewise_construct, std::forward_as_tuple(id),
         std::forward_as_tuple(std::make_pair(nickname, vector)));
-    //this->losers[id] = std::make_pair(nickname, score);
     this->is_empty = false;
 }
 

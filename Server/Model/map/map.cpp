@@ -39,7 +39,6 @@ void Map::_loadMatrix(std::map <std::pair<int,int>,int> initial_map){
 int Map::getObjectPos(int x, int y) {
     int cell_x = (x/GameConfig.points_per_cell);
     int cell_y = (y/GameConfig.points_per_cell);
-    std::cout << "cell: " << cell_x << ", " << cell_y << std::endl;
     return map[cell_x][cell_y];
 }
 
@@ -51,9 +50,6 @@ void Map::setObjectPos(int x, int y, ObjectsInMap object) {
 
 std::pair<int, int> Map::getNextPos(Direction direction, int x ,int y, int value) {
     switch (direction) {
-        /*
-    int new_y = (this->y + 1 > this->height) ? this->height : (this->y + 1);
-        */
         case UP_DIR: {
             int new_x = (x/GameConfig.points_per_cell);
             int new_y = ((y/GameConfig.points_per_cell)+value > this->rows) ? this->rows : (y/GameConfig.points_per_cell)+value;

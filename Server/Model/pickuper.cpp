@@ -11,7 +11,6 @@ int PickUp::pickUp(Player& player, Item* item) {
         case BULLETS: {
             if (player.getInfo().getNumBullets() < GameConfig.max_bullets) {
                 player.addBullets(item->getBullets());
-                std::cout <<player.getInfo().getNumBullets()<<std::endl;
                 return BULLETS_TAKEN_ITM;
             }
             return NO_ITEM_PICKED_UP;

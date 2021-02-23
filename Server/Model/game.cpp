@@ -69,7 +69,6 @@ void Game::_notifyEvent(const ConnectionId id, const Response& response, EventOp
                 break;
             }
             case ATTACK_EV: {
-                std::cout<<"Game: _notifyEvent, attack_ev"<<std::endl;
                 notification = new Event(map_Yaml, event_type, id,
                                         player.getInfo().getNumBullets());
                 break;
@@ -151,7 +150,6 @@ void Game::_notifyItemChanged(const ConnectionId id, ItemOpcode item_type) {
 
 void Game::_notifyItemDropped(const ConnectionId id, ItemOpcode item_type, int x, int y) {
     Notification* notification;
-    //Player& player = this->players.at(id);
     switch (item_type) {
         case CLOSE_DOOR_ITM:
         case OPEN_DOOR_ITM:
@@ -304,28 +302,18 @@ void Game::_getPlayerPosition(ConnectionId new_player_id) {
 }
 
 void Game::_attack(const ConnectionId id, int iteration) {
-    std::cout <<"Game: _attack()"<< std::endl;
     int damage = 0;
     Player& player = this->players.at(id);
     ConnectionId target_id = 0;
-    std::cout <<"Game: start _getTargetAttacked"<< std::endl;
     std::pair<ConnectionId, double> result = _getTargetAttacked(id);
-    std::cout <<"Game: end _getTargetAttacked"<< std::endl;
     target_id = result.first;
-    std::cout <<"Game: target_id"<< target_id <<std::endl;
-    std::cout <<"Game: player_id"<< id <<std::endl;
     double distance = result.second;
-    std::cout <<"Game: start useWeapon"<< std::endl;
     Response response = player.updateShooting(distance, damage, iteration);
-    std::cout <<"Game: num of bullets"<< player.getInfo().getNumBullets()<< std::endl;
     if (id == target_id) {
-        std::cout <<"Game: CANT_ATTACK_ITSELF"<< std::endl;
         _notifyEvent(id, Response(false, CANT_ATTACK_ITSELF_ERROR_MSG), ATTACK_EV);
     } else if ((player.getInfo().getNumBullets() == 0) && (player.getInfo().getWeaponTypeEquiped() != KNIFE_TYPE)) {
-        std::cout <<"Game: DOESNT HAVE BULLETS"<< std::endl;
         _notifyEvent(id, Response(false, CANT_ATTACK_WITHOUT_BULLETS_ERROR_MSG), ATTACK_EV);
     } else if (target_id == (uint32_t)0) {
-        std::cout <<"Game: JUST SHOOTS"<< std::endl;
         //se bajan las balas pero no golpea a nadie
         if (response.success) {
             _reduceBullets(id);
@@ -334,7 +322,6 @@ void Game::_attack(const ConnectionId id, int iteration) {
             _notifyEvent(id, Response(false, CANT_SHOOT_COOLDOWN_ERROR_MSG), ATTACK_EV);
         }
     } else {
-        std::cout <<"Game: ATTACKS"<< std::endl;
         Player& target = this->players.at(target_id);
         if((response.success) && (target.getState()->canBeAttacked())) {
             _reduceBullets(id);
@@ -523,7 +510,6 @@ bool Game::updatePlayers(int& iteration) {
             Notification* notification = post_game.showScores();
             this->clients_connected.sendEventToAll(notification);
             return false;
-            //break;
         }
 
         ++player_it;
