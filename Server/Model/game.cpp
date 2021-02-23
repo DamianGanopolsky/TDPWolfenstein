@@ -357,7 +357,7 @@ std::pair<ConnectionId, double> Game::_getTargetAttacked(ConnectionId attacker_i
             int y_delta = (players_in_map.at(attacker_id).second - it->second.second);
             double distance = sqrt( pow(x_delta, 2) + pow(y_delta, 2) ); 
             if((is_player_target(attacker_x, attacker_y, attacker_angle, \
-            other_player_x,other_player_y))&&(distance<900)){
+            other_player_x,other_player_y))&&(distance<650)){
                 closer_player.first=it->first;
                 closer_player.second=distance;
             }
