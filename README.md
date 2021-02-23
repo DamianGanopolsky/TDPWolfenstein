@@ -2,8 +2,6 @@
 ## Taller de Programación I
 ### 2do cuatrimestre de 2020
 
-### Correcciones hechas para la entrega final  
-Se encuentran en la carpeta Docs del repositorio  
 \
 **Tutor:** Martín Di Paola \
 \
@@ -16,6 +14,7 @@ Damián Ganopolsky - 101168 - dganopolsky@fi.uba.ar\
 - [Manual de usuario](https://github.com/DamianGanopolsky/TDPWolfenstein/blob/main/Docs/Manual_de_Usuario.pdf)
 - [Documentación Técnica](https://github.com/DamianGanopolsky/TDPWolfenstein/blob/main/Docs/Documentacion_tecnica.pdf)
 - [Manual de proyecto](https://github.com/DamianGanopolsky/TDPWolfenstein/blob/main/Docs/Manual_de_Proyecto.pdf)
+- [Correcciones hechas para la entrega final](https://github.com/DamianGanopolsky/TDPWolfenstein/blob/main/Docs/Listado%20de%20correcciones%20hechas%20para%20la%20entrega%20final.pdf)
 
 ## El juego
 
