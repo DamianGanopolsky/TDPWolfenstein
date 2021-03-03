@@ -7,7 +7,7 @@
 \
 **Integrantes:** \
 Bauni Chiara - 102981 - cbauni@fi.uba.ar\
-Damián Ganopolsky - 101168 - dganopolsky@fi.uba.ar\
+Damián Ganopolsky - 101168 - dganopolsky@fi.uba.ar
 
 
 ## Documentación
@@ -55,7 +55,7 @@ Para ejecutar el servidor utilice el siguiente comando:
 ./server <port> <map_name>  
 e.g: ./server 8082 Maze_2
 ```
-Para ejecutar el servidor utilice el siguiente comando: 
+Para conectarse al servidor desde un cliente utilice el siguiente comando: 
 ```
 ./client <host> <port> <player_name>  
 e.g: ./client 127.0.0.1 8082 Jorge
