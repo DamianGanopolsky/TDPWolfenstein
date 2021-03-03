@@ -22,19 +22,25 @@ Damián Ganopolsky - 101168 - dganopolsky@fi.uba.ar
 
 ![alt text](https://github.com/DamianGanopolsky/TDPWolfenstein/blob/main/Docs/Screenshots/Captura%20de%20pantalla%20de%202021-02-23%2019-36-29.png "Vista al iniciar el juego")
 
-![alt text](https://github.com/DamianGanopolsky/TDPWolfenstein/blob/main/Docs/Screenshots/Captura%20de%20pantalla%20de%202021-02-23%2019-36-41.png "Barra inferior con informacion del jugador")
+![alt text](https://github.com/DamianGanopolsky/TDPWolfenstein/blob/main/Docs/Screenshots/shooting_me.png "Vista enemigo disparandome")
 
-![alt text](https://github.com/DamianGanopolsky/TDPWolfenstein/blob/main/Docs/Screenshots/Captura%20de%20pantalla%20de%202021-02-23%2019-37-58.png "Vista enemigo portando cañon de cadena")
+![alt text](https://github.com/DamianGanopolsky/TDPWolfenstein/blob/main/Docs/Screenshots/shooting.png "Vista disparando chain cannon")
 
-![alt text](https://github.com/DamianGanopolsky/TDPWolfenstein/blob/main/Docs/Screenshots/Captura%20de%20pantalla%20de%202021-02-23%2019-39-38.png "Vista enemigo muerto")
+![alt text](https://github.com/DamianGanopolsky/TDPWolfenstein/blob/main/Docs/Screenshots/shooting.png "Vista disparando chain cannon")
 
-![alt text](https://github.com/DamianGanopolsky/TDPWolfenstein/blob/main/Docs/Screenshots/Captura%20de%20pantalla%20de%202021-02-23%2019-41-51.png "Pantalla final")
+![alt text](https://github.com/DamianGanopolsky/TDPWolfenstein/blob/main/Docs/Screenshots/dead_bodies_.png "Vista cadaveres")
+
+![alt text](https://github.com/DamianGanopolsky/TDPWolfenstein/blob/main/Docs/Screenshots/knifeOfficer.png "Vista cuchillo")
+
+![alt text](https://github.com/DamianGanopolsky/TDPWolfenstein/blob/main/Docs/Screenshots/Scores.png "Vista estadisticas finales")
 
 ## El editor
 
 ![alt text](https://github.com/DamianGanopolsky/TDPWolfenstein/blob/main/Docs/Screenshots/Captura%20de%20pantalla%20de%202021-02-23%2019-49-37.png "Pantalla de comienzo")
 
 ![alt text](https://github.com/DamianGanopolsky/TDPWolfenstein/blob/main/Docs/Screenshots/Captura%20de%20pantalla%20de%202021-02-23%2019-49-58.png "VIsta para editar")
+
+![alt text](https://github.com/DamianGanopolsky/TDPWolfenstein/blob/main/Docs/Screenshots/editor.png "VIsta para guardar mapa")
 
 ## Instalación
 1- Abrir una terminal en la raíz del juego\
