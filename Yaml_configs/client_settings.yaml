@@ -1,5 +1,5 @@
-Music_volume: 30
+Music_volume: 5
 Screen_width: 640
 Screen_height: 400
-constant_rate_loop_render_ms: 110
+constant_rate_loop_render_ms: 50
 

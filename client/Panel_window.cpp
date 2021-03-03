@@ -77,21 +77,13 @@ void Panel_window::update(std::set<Ray>&& rays, std::list<Game_element>&& elemen
 		
 		Element_panel* element = q.top();
 		auto t1 = std::chrono::steady_clock::now();
-
 		element->copy_to_rederer(*this->renderer);
 		auto t2= std::chrono::steady_clock::now();
 		std::chrono::duration<float, std::milli> diff;
-		//std::chrono::duration<double> diff=t2-t1;
 		diff = t2 - t1;
-		/*if(diff.count()>0.3){
-			std::cout << "El elemento que tarda es" << count << std::endl;
-		}*/
-		//std::cout << "Diff es" << diff.count() << std::endl;
 		q.pop();
 		count++;
 	}
-	//std::cout << "La cuenta total es" << count << std::endl;
-
 	this->player_panel_status.copy_to_rederer(player_info);
     SDL_RenderPresent(this->renderer);
 }
@@ -126,7 +118,7 @@ void Panel_window::render_ending_screen(){
 		printf("TTF OPENFONT: %s \n",TTF_GetError());
 	}
 	float x_initial=0.0078;
-	float y_initial=0.23;
+	float y_initial=0.25;
 	float x_treasure=0.5156;
 	float x_final_score=0.359;
 	float x_kills=0.6875;
@@ -134,9 +126,9 @@ void Panel_window::render_ending_screen(){
 	for (auto & element : final_stats) {
 
 		SDL_Rect text_1_Rect={int(x_initial*ClientConfig.screen_width),int(y_initial*ClientConfig.screen_height),int(0.2344*ClientConfig.screen_width),int(0.1*ClientConfig.screen_height)};
-		SDL_Rect text_2_Rect={int(x_treasure*ClientConfig.screen_width),int(y_initial*ClientConfig.screen_height),int(0.039*ClientConfig.screen_width),int(0.0625*ClientConfig.screen_height)};
-		SDL_Rect kills_Rect={int(x_final_score*ClientConfig.screen_width),int(y_initial*ClientConfig.screen_height),int(0.039*ClientConfig.screen_width),int(0.0625*ClientConfig.screen_height)};
-		SDL_Rect final_score_Rect={int(x_kills*ClientConfig.screen_width),int(y_initial*ClientConfig.screen_height),int(0.039*ClientConfig.screen_width),int(0.0625*ClientConfig.screen_height)};
+		SDL_Rect text_2_Rect={int(x_treasure*ClientConfig.screen_width),int(y_initial*ClientConfig.screen_height)+7,int(0.039*ClientConfig.screen_width),int(0.0625*ClientConfig.screen_height)};
+		SDL_Rect kills_Rect={int(x_final_score*ClientConfig.screen_width),int(y_initial*ClientConfig.screen_height)+7,int(0.039*ClientConfig.screen_width),int(0.0625*ClientConfig.screen_height)};
+		SDL_Rect final_score_Rect={int(x_kills*ClientConfig.screen_width),int(y_initial*ClientConfig.screen_height)+7,int(0.039*ClientConfig.screen_width),int(0.0625*ClientConfig.screen_height)};
 		std::string treasure = std::to_string(element.score);
 		std::string final_score= std::to_string(element.final_score);
 		std::string kills= std::to_string(element.kills);
